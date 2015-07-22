@@ -201,23 +201,21 @@ Faculty/Instructors/GTAs
 =========================
 Please send comments and questions regarding the Engineering Vibration Toolbox by email to `Joseph C. Slater`_. Please use the `vtbud.m <vtbud.m>`__ function to check for updates.  
 
-..
-   Donate/Payment
-   ===============
-   The Engineering Vibration Toolbox for MATLAB is free only
-   to owners of Engineering Vibration, Daniel J. Inman. Users are asked
-   to donate to the Wright State University College of Engineering and
-   Computer Science College fund (this is a pass-through personal
-   account). Others should contact `me`_ regarding usage.
+Donate/Payment
+===============
+The Engineering Vibration Toolbox for MATLAB (not the Octave version,
+or any version that runs on a non-proprietary platform) is free only
+to owners of Engineering Vibration, Daniel J. Inman. Please contact
+`me`_ regarding usage for commercial purposes.
 
-   .. raw:: html
+.. raw:: html
 
-            <object width="480" height="385"><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="L78296EBNGJQ2">
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-            </form></object>
+         <object width="480" height="385"><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+         <input type="hidden" name="cmd" value="_s-xclick">
+         <input type="hidden" name="hosted_button_id" value="L78296EBNGJQ2">
+         <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+         <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+         </form></object>
 
 
 
