@@ -1,0 +1,45 @@
+function [P,w,S]=vtb4_1(M,K)
+
+%VTB4_1 Natural frequencies and eigenvectors for an undamped
+%system.
+% [P,w,U]=VTB4_1(M,K) will return the natural frequencies (w),
+% eigenvectors (P), and mode shapes (U) for an undamped system.  
+% The inputs are the mass matrix M and the stiffness matrix K.  
+% [P,w,U]=VTB4_1(M,K,1) will also print the output of the function
+% to the screen.
+
+
+%Calculates evectors and evalues
+[P,lam]=eig(M^(.5)\K/M^(.5));
+[w,k]=sort(sqrt(diag(lam)));
+P=P(:,k);
+
+%Makes sure the first entry of every column is positive
+for i=1:length(M)
+  if P(1,i)<0
+     P(:,i)=-P(:,i);
+  end
+end
+
+U=M^(.5)\P;
+S=U;
+if nargout==0
+  
+  disp('The natural frequencies are')
+  disp(' ')
+  for i=1:length(M)
+    disp(['omega',num2str(i),' = ',num2str(w(i)),' rad/s'])
+  end
+  disp(' ')
+  disp('The eigenvectors of the system are')
+  P
+  disp(' ')
+  disp('The mode shapes of the system are')
+  U
+  disp(' ')
+  disp('The modal transformation matrix S is')
+  S
+end
+
+
+

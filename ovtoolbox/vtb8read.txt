@@ -1,0 +1,174 @@
+Chapter 8 Vibration Toolbox Notes
+
+The three main files of the chapter 8 toolbox are named 
+VTB_?.m.  Together they form a simple finite element 
+code which includes a graphical preprocessor for 
+entering the model (VTB8_1),  the main body of the 
+finite element code for solving the problem (VTB8_2), 
+and a graphical post processor for viewing the problem 
+solution (VTB8_3).  Other files exist as examples and 
+are described in the 'EXAMPLES' section.
+
+
+THE GRAPHIC PREPROCESSOR (VTB8_1):
+   The graphic preprocessor is a very simple 
+preprocessor which allows simple problems to be defined 
+graphically.  Note that editing of previously entered 
+data is not possible with the graphic preprocessor.  For 
+more complicated models, it is suggested that the user 
+create a script file which defines the model and use the 
+main body of the finite element code directly.  In 
+machines without a graphic user interface (GUI) 
+the view will move between the graphic screen and the 
+command screen.  Pressing return in the graphics screen 
+will bring the view back to the command screen unless 
+you are picking a node with a pointing device such as a 
+mouse or trackball.  Make sure that you know the node 
+number(s) you want to select before returning to the 
+command window.  On GUI systems, it should be possible 
+to position the command and graphics windows next to 
+each other such that both can be seen at the same time.  
+When selecting nodes, it is possible to enter either the 
+node number or use a mouse (or other pointing device).  
+When a node is selected it is represented by an 'x' 
+instead of an 'o'.  When is is deselected by the 
+computer its representation will return to an 'o'.
+
+
+THE MAIN BODY (VTB8_2):
+   The main body of the program solves the problem 
+defined by a '.con' file created by VTB8_1 or a script 
+file, or uses the data as defined directly in the 
+workspace.
+Four methods exist for creating this data.
+1) Use the program vtb8_1.
+2) Type clear.  Enter the data interactively.
+    Save a file with the file extension .con.
+    i.e. type: save beam1.con or use the menu command
+	"Save Workspace" if it exists on your platform.
+	Make sure to save the file in the directory you want
+	it and use the extension ".con".
+    Type: vtb8_2
+	Load vtb8_2 when prompted.
+3) Type clear.  Enter the data interactively.
+    Type: [x,f]=vtb8_2(node,ncon,zero,force)
+	This method does not allow you to save the 
+	equations and is not recommended.
+4) Create a script 'm' file including the definitions.
+    Add the line:
+    save filename.con
+    to the end of the file.
+    Execute the script file.  
+    Type: vtb8_2
+The variable definitions and configurations are given 
+below.  All variables must be defined, 
+even if they are not used.
+    node=[x1 y1;x2 y2;...]
+    ncon=[node1 node2 E A I G Rho;...]
+        Where 'node1' and 'node2' are connected by an 
+        element, 'E' is Young's modulus, 'A' is the 
+        cross sectional area, 'I' is the moment of area, 
+        'G' is the shear modulus and 'Rho' is the
+        density per unit length (set 'G' equal to zero 
+        to ignore shear deformation).
+    zero=[node# dof#;...]
+        'dof#' is the degree of freedom at node 'node#'
+            to constrain or load.
+        'dof#' numbers [1 2 3] correspond to [x y theta]
+            force is the magnitude of the load.
+    force=[node# dof# force]
+    conm=[node# mass]
+        Where 'node#' is the node at which the mass of 
+        magnitude 'mass' is located.
+    All rotations are positive counter clockwise.
+
+
+THE GRAPHICS POST-PROCESSOR (VTB8_3):
+   The graphics postprocessor can be used view results 
+of both static and dynamic analysis.  It can be run 
+without arguments and will prompt you for the name of 
+the project.  All date created by VTB8_2 must be saved 
+in order to use the graphics postprocessor.  The 
+undeformed object is drawn in blue using '*' at the 
+nodal points.  The deformed shape is drawn in red using 
+'o' at the nodal points.
+
+
+EXAMPLE FILES:
+   VTB8_e1.m is an example script file of a five element 
+aluminum beam clamped at the left end with five 
+elements.  The cross section is 5 cm square. No shear 
+deformation is modeled. Extensional degrees of freedom 
+are included (not zeroed). The force vector is zero 
+since this is a dynamic analysis.
+   p8_3_10.con is a ten element model of problem 8.3 
+      produced using the graphics preprocessor.  It can 
+      be loaded and run by typing VTB8_2('p8_3_10').
+   e8_2_1.con is example 8.2.1.  It can be loaded and 
+      run by typing VTB8_2('e8_2_1').
+   e8_2_1.EXA is a diary file containing the session for 
+      creating e8_2_1.con with VTB8_1
+
+
+FILE TYPES:
+   All files related to the same problem have the same 
+name but different extensions.  This helps to keep 
+problem sets together.
+   Files ending in the extension '.con' are connectivity 
+files which describe the problem geometry, element 
+parameters, and loads.  They are the output of VTB8_1 
+and the input to VTB8_2.  The variables are defined in 
+the description of the file 'VTB8_2'.
+   Files ending in the extension '.out' are output files 
+containing either the displacements and forces for the 
+static solution or the natural frequencies and mode 
+shapes for the dynamic case.  
+  Files ending in the extension '.eqn' contain the 
+equations of motion.
+
+
+VARIABLE DESCRIPTIONS:
+   In all vectors and matrices containing information 
+about displacements/forces, the coordinates are 
+[x1;y1;theta1;x2;y2;theta2...].  Each column of a matrix 
+describes the  mode shape corresponding to its index 
+number.  The variables f and x can be found in '.out' 
+files while the remaining variables are stored in the 
+'.eqn' files.
+f    Static problem:  Force vector acting on each 
+        degree of freedom externally.
+     Dynamic problem:  Natural frequencies of the 
+        problem in rad/s.
+x    Static problem:  Displacement vector.
+     Dynamic problem:  Mode shape matrix.
+f1   Static problem:  Applied loads on unconstrained 
+        degrees of freedom.
+     Dynamic problem:  Diagonal matrix of natural 
+        frequencies.
+x1   Static problem:  Displacement vector of 
+        unconstrained degrees of freedom.
+     Dynamic problem:  Mode shape matrix, 
+        unconstrained degrees of freedom only.
+k1   Stiffness matrix corresponding to unconstrained
+        degrees of freedom only.
+m1   Mass matrix corresponding to unconstrained 
+        degrees of freedom only.
+p    Vector listing unconstrained degrees of freedom 
+        in f1, x1, m1, and k1.  p=[1;3;6] would mean 
+        that x1, theta2 and theta3 were the only 
+        unconstrained degrees of freedom.
+
+
+ACKNOWLEDGEMENTS
+
+Thanks is given to Dr. Maurice Petyt for his patience  
+testing numerous 1.2 beta versions of this software.
+
+REVISION HISTORY
+
+1.2 Updated to work with version 4.0 of Matlab.  Open and Save
+dialog boxes added.
+1.1 Fixed bug causing vtb8_2 to crash when concentrated 
+masses were used but concentrated inertias were not.  
+Minor documentation changes.
+1.0 First release
