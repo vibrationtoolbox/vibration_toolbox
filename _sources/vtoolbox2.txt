@@ -16,7 +16,7 @@ paste this into your MATLAB command console:
 
 .. code-block:: matlab
 
-   » urlwrite('http://www.cs.wright.edu/people/faculty/jslater/vtoolbox/vtbud.m','vtbud.m');vtbud
+   » urlwrite('http://www.vibrationtoolbox.com/vtbud.m','vtbud.m');vtbud
 
 and press RETURN. 
 
@@ -263,7 +263,7 @@ Microsoft Corp. Unix is a registered trademark of AT&T.
 
 .. _GPLv3: http://www.gnu.org/copyleft/gpl.html
 
-.. _me: mailto:joseph.slater@wright.edu?subject=Vibration%20Toolbox
+.. _me: mailto:joseph.c.slater@gmail.com?subject=Vibration%20Toolbox
 
 .. _Ubuntu: http://www.ubuntu.com
 
