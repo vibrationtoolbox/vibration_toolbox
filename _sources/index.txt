@@ -23,18 +23,18 @@ included are help files, examples, and files containing raw
 experimental data. The codes include single degree of freedom
 response, response spectrum, finite elements, numerical integration,
 modal analysis and phase plane analysis. It is included free with
-the text "Engineering Vibration" by `Dr. Daniel J. Inman <http://www.cimss.vt.edu/people.html#Inman>`__ (`Prentice
+the text "Engineering Vibration" by `Dr. Daniel J. Inman <http://www.engin.umich.edu/college/about/people/profiles/f-to-j/daniel-inman>`__ (`Prentice
 Hall <http://www.prenhall.com>`__). 
     
 I highly recommend use of 
 `Octave <http://www.octave.org>`__. If you know MATLAB, you already
-know most of Octave. Most students will hardly know the difference,
-except that it's free! The Octavized 
+know most of `Octave <http://www.octave.org>`__. Most students will hardly know the difference,
+except that it's free! The *Octavized* 
 toolbox can be found `here <ovtoolbox>`__. Further, the licensing is
 less restrictive (no charge for professional use!). The entire archive
 can be `downloaded as a zip file <ovtoolbox.zip>`__. Please
 refer to the `Octave web site <http://www.octave.org>`__ for details on obtaining and installing
-Octave. 
+`Octave <http://www.octave.org>`__. 
     
 
 Contents:
