@@ -194,8 +194,8 @@ particular code. Note  that the ``filename`` is ``codename.m``.
 
 Engineering Vibration Toolbox commands can be run by typing them with
 the necessary arguments just as any other Octave/MATLAB
-commands/functions. For instance, ``vtb1\_1`` can be run by typing
-``vtb1\_1(1,.1,1,1,0,10)``. Many functions have multiple forms of input.
+commands/functions. For instance, :code:`vtb1_1` can be run by typing
+:code:`vtb1_1(1,.1,1,1,0,10)`. Many functions have multiple forms of input.
 The help for each function shows this flexibility.
 
 
