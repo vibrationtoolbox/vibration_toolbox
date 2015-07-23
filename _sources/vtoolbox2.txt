@@ -154,7 +154,7 @@ current plot to your current Windows printer.
 The ``print`` command can also be used to generate graphics files for
 embedding into your favorite word processing program. Type ``help print``
 for details. By default the file will end up in the directory
-``C:\\Program Files\\GNU Octave #\\octave\_files`` on Windows.
+``C:\Program Files\GNU Octave #\octave_files`` on Windows.
 
 
 
