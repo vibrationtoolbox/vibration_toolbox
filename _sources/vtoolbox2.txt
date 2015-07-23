@@ -57,7 +57,9 @@ Type ``vtbud`` from the MATLAB prompt.
 The Engineering Vibration Toolbox for Octave
 -------------------------------------------------------
 
-Download the zip archive for `Octave <ovtoolbox.zip>`__.
+Download the zip archive for the `Octave Engineering Vibration
+Toolbox`_. Please read the :code:`Readme.rst` file inside the archive
+or refer to it on the `Octave Engineering Vibration Toolbox distribution site`_.
 
 Installation on a Windows machine
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -249,7 +251,11 @@ Microsoft Corp. Unix is a registered trademark of AT&T.
 
 .. _Octave: http://www.octave.org/
 
-.. _Joseph C. Slater: mailto:joseph.slater@wright.edu?subject=Vibration%20Toolbox
+.. _`Octave Engineering Vibration Toolbox`: https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip
+
+.. _`Octave Engineering Vibration Toolbox distribution site`: https://github.com/vibrationtoolbox/ovtoolbox
+
+.. _Joseph C. Slater: mailto:joseph.c.slater@gmail.com?subject=Vibration%20Toolbox
 
 .. _Cygwin: https://www.cygwin.com/
 
