@@ -23,8 +23,8 @@ and press RETURN.
 The current revision status of the *Engineering Vibration Toolbox* for
 Matlab can
 be viewed in the `github
-repository<https://github.com/vibrationtoolbox/vtoolbox>`_ or more
-easily in the `vtbud.txt<http://www.vibrationtoolbox.com/vtbud.txt>`_ file on this website.
+repository <https://github.com/vibrationtoolbox/vtoolbox>`_ or more
+easily in the `vtbud.txt <http://www.vibrationtoolbox.com/vtbud.txt>`_ file on this website.
 
 Troubleshooting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
