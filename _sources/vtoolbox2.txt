@@ -82,7 +82,7 @@ above.
 
    #. Also select and
       install ``xinit``, ``xlaunch``, ``nedit`` and ``gnuplot``. I am taking
-      this from `wiki.octave.org <wiki.octave.org>`_ (and other sources), so if it doesn't
+      this from `wiki.octave.org <http://wiki.octave.org>`_ (and other sources), so if it doesn't
       work, please look there. 
 
    #. Open the Cygwin terminal.
