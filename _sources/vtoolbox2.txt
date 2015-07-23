@@ -20,15 +20,18 @@ paste this into your MATLAB command console:
 
 and press RETURN. 
 
-The current revision status of the *Engineering Vibration Toolbox* can be viewed in
-the `vtbud.html <vtoolbox/vtbud.html>`__ log file.
+The current revision status of the *Engineering Vibration Toolbox* for
+Matlab can
+be viewed in the `github
+repository<https://github.com/vibrationtoolbox/vtoolbox>`_ or more
+easily in the `vtbud.txt<http://www.vibrationtoolbox.com/vtbud.txt>`_ file on this website.
 
 Troubleshooting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A list of updates since 1/1/98
 can be obtained for your current version by typing ``help vtbud`` in
-MATLAB. That can be compared to the `most up-to-date release <vtoolbox/vtbud.html>`__.
+MATLAB. That can be compared to the `most up-to-date release <http://www.vibrationtoolbox.com/vtbud.txt>`__.
 
 They will load/run on all platforms supported by MATLAB. The binary files are all ``.mat`` files, and the different extensions represent different parts of a project group. To load
 them type:
