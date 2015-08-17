@@ -2,11 +2,11 @@
 Download
 ========
 
-The Engineering Vibration Toolbox for MATLAB
+The Engineering Vibration Toolbox for `MATLAB`_
 -----------------------------------------------------------
 
 The Engineering Vibration Toolbox can be installed by downloading 
-`vtbud <https://raw.githubusercontent.com/vibrationtoolbox/vtoolbox/master/vtbud.m>`__ and executing it from within MATLAB. Executing it
+`vtbudm`_ and executing it from within MATLAB. Executing it
 later also installs or removes the toolbox. You will get an error if ``vtbud.m`` is not in your
 path. If that happens, open ``vtbud.m`` in the MATLAB editor and press the F5 key. This will download
 ``vtoolbox.zip``, expand it in the desired location, and add the path to it to
@@ -204,7 +204,9 @@ The help for each function shows this flexibility.
 
 Faculty/Instructors/GTAs
 =========================
-Please send comments and questions regarding the Engineering Vibration Toolbox by email to `Joseph C. Slater`_. Please use the `vtbud.m <https://raw.githubusercontent.com/vibrationtoolbox/vtoolbox/master/vtbud.m>`__ function to check for updates.  
+Please send comments and questions regarding the Engineering Vibration
+Toolbox by email to `Joseph C. Slater`_. Please use the `vtbud.m`_
+function to check for updates (Type :code:`vtbud` at the matlab prompt).  
 
 Donate/Payment
 ===============
@@ -262,7 +264,9 @@ Microsoft Corp. Unix is a registered trademark of AT&T.
 
 .. _Cygwin: https://www.cygwin.com/
 
-.. _vtbud: https://raw.githubusercontent.com/vibrationtoolbox/vtoolbox/master/vtbud.m
+.. _MATLAB: http://www.mathworks.com
+
+.. _`vtbud.m`: https://github.com/vibrationtoolbox/vtoolbox/blob/master/vtbud.m
 
 .. _Octave Windows: http://wiki.octave.org/Octave_for_Microsoft_Windows
 
