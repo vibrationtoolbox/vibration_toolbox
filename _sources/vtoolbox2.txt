@@ -6,7 +6,7 @@ The Engineering Vibration Toolbox for `MATLAB`_
 -----------------------------------------------------------
 
 The Engineering Vibration Toolbox can be installed by downloading 
-`vtbudm`_ and executing it from within MATLAB. Executing it
+`vtbud.m`_ and executing it from within MATLAB. Executing it
 later also installs or removes the toolbox. You will get an error if ``vtbud.m`` is not in your
 path. If that happens, open ``vtbud.m`` in the MATLAB editor and press the F5 key. This will download
 ``vtoolbox.zip``, expand it in the desired location, and add the path to it to
