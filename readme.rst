@@ -16,7 +16,9 @@ Type
 
    ipython notebook
 
-to open running session in web browser
+at your command prompt. If you have updated to it, you need to use
+:code:`jupyter`.
+   
 Load and execute the Lorenze example. It's copied from elsewhere, so
 I don't deserve any credit there. However, it gives an idea of where I
 want the project to go. 
