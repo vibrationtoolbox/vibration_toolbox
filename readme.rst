@@ -10,7 +10,8 @@ isn't the intent.
 
 Currently:
 
-Type::
+Type
+.. code-block:: shell
     ipython notebook
 
 to open running session in web browser
