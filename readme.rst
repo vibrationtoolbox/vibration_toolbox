@@ -11,6 +11,7 @@ isn't the intent.
 Currently:
 
 Type
+
 .. code-block:: shell
     ipython notebook
 
