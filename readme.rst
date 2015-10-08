@@ -13,7 +13,8 @@ Currently:
 Type
 
 .. code-block:: shell
-    ipython notebook
+
+   ipython notebook
 
 to open running session in web browser
 Load and execute the Lorenze example. It's copied from elsewhere, so
