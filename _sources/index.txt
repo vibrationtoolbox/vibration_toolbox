@@ -27,7 +27,7 @@ the text "Engineering Vibration" by `Dr. Daniel J. Inman <http://www.engin.umich
 Hall <http://www.prenhall.com>`__). 
     
 I highly recommend use of 
-`Octave <http://www.octave.org>`__. If you know MATLAB, you already
+`Octave <http://www.octave.org>`__. If you know `MATLAB <http://www.mathworks.com/>`__, you already
 know most of `Octave <http://www.octave.org>`__. Most students will hardly know the difference,
 except that it's free! The *Octavized* 
 toolbox can be found `here <ovtoolbox>`__. Further, the licensing is

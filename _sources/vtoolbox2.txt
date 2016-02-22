@@ -59,91 +59,58 @@ Type ``vtbud`` from the MATLAB prompt.
 
 The Engineering Vibration Toolbox for Octave
 -------------------------------------------------------
+Please read the `Readme.rst
+<https://github.com/vibrationtoolbox/ovtoolbox/blob/master/Readme.rst>`__
+file for information not covered elsewhere. 
 
-Download the zip archive for the `Octave Engineering Vibration
-Toolbox`_. Please read the :code:`Readme.rst` file inside the archive
-or refer to it on the `Octave Engineering Vibration Toolbox distribution site`_.
+Installing, Updating, and Removing The Toolbox
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Installation on a Windows machine
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+To install:
+********************
 
-Unfortunately I haven't had success recently. This should work, but
-doesn't, and I haven't the time to track the problem down. If you get
-it all working, please provide me feedback on how to get it to
-work. In the mean time, my recommendation is to install VirtualBox_
-and install Ubuntu_ (Linux_), then follow the `Linux Installation`_ instructions
-above. 
+1. Run `Octave`_.
 
-#. Install Cygwin_ to start. Now don't go to fast. Part of the way
-   through you will have the option of installing some packages. 
-      
-   #. Look in the math section. Select the main *Octave* distribution
-      and anything else (all is perhaps easiest).
+2. Copy and paste this into `Octave`_.
 
-   #. Also select and
-      install ``xinit``, ``xlaunch``, ``nedit`` and ``gnuplot``. I am taking
-      this from `wiki.octave.org <http://wiki.octave.org>`_ (and other sources), so if it doesn't
-      work, please look there. 
+.. code-block:: octave
 
-   #. Open the Cygwin terminal.
+   [s, success, message]=urlwrite('https://github.com/josephcslater/ovtoolbox/archive/master.zip','vtoolbox.zip')
+   pkg install vtoolbox.zip
+   delete('vtoolbox.zip')
+   vtb
+   ;
 
-   #. Type ``xlaunch.exe`` and hit return. Answer the questions, open
-      a single window, start a program, don't use Native OpenGL, launch the application
-      ``nedit`` in place of the default ``xterm``.
+**Note**: If you use the Github Download button, you **must** rename
+the downloaded file to :code:`vtoolbox.zip` and manually use :code:`pkg`.
 
-   #. A window should come up. Open the file `.bash_profile` and
-      append the following::
-        
-        PATH=/usr/bin:/usr/local/bin:/usr/X11R6/bin:/opt/gnome/bin:/opt/kde2/bin
-        MANPATH=/usr/man:/usr/local/man:/usr/X11R6/man:/opt/gnome/man:/opt/kde2/share/man
-        INFOPATH='/usr/info;/usr/local/info;/opt/gnome/info'
-        KDEDIR=/opt/kde2
-        export PATH MANPATH INFOPATH KDEDIR
+To update:
+****************
+To update, copy and paste this into `Octave`_
 
-   #. Use ``nedit`` again to create a file ``.xinitrc`` in your home
-      directory in Cygwin. The contents should be::
+.. code-block:: octave
 
-        exec /opt/gnome/bin/gnome-session
-
-   #. Close Cygwin, relaunch it, and type ``startx``. This should
-      start a desktop environment from which you shoul be able to run
-      Octave_. 
-
-#. Put the unzipped ovtoolbox folder in
-   ``C:\Program Files\GNU Octave #\usr\share\octave\site\m`` where \#
-   is the version number of your Octave installation.
-#. Replace the file
-   ``C:\Program Files\GNU Octave\#\usr\share\octave\site\m\startup``
-   with the file ``startup`` in the ``ovtoolbox`` directory. This will make
-   Octave behave more Matlab like and help assure greater
-   compatibility. [#]_
-#. Type ``help vtb1`` after running Octave to see if the installation of
-   the Engineering Vibration Toolbox worked.
-#. Create a directory
-   ``C:\Program Files\GNU Octave #\usr\share\octave\site\m\myfiles``
-   where you can put your script and program files.
-
-.. _Linux Installation:
+   pkg uninstall ovtoolbox
+   [s, success, message]=urlwrite('https://github.com/josephcslater/ovtoolbox/archive/master.zip','vtoolbox.zip')
+   pkg install vtoolbox.zip
+   delete('vtoolbox.zip')
+   ;
    
-Installation on a Unix/Linux machine
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Before the Engineering Vibration Toolbox for Octave can be installed,
-Octave_ must be
-installed. Please consult the Octave_ website for installation
-instructions. Alternatively, most Linux_ distributions have it as an
-easy installation via their package managers. Most pupular, if you are
-installing Linux for the first time, is probably Ubuntu_. 
+To remove:
+*****************
+In `Octave`_
 
-The toolbox can go in any directory as long as the Octave_ path is
-set properly in the ``.octaverc`` file in the user's home directory. Like
-any of the other toolboxes, you should not save personal files inside
-the ``ovtoolbox`` directory since you may inadvertently lose them when you
-update (i.e. you may decide to delete the directory and replace
-everything).
+.. code-block:: octave
 
-Example: On my Mac (which is BSD unix), my ``.octaverc`` file contains the
-command: ``path(path,"/User/jslater/MyMath/ovtoolbox");``
+   pkg uninstall ovtoolbox
+   [s, success, message]=urlwrite('https://github.com/josephcslater/ovtoolbox/archive/master.zip','vtoolbox.zip')
+   pkg install vtoolbox.zip
+   delete('vtoolbox.zip')
+   ;
+
+*Why the semi-colons?* It's my way of maing sure you don't leave the
+last command unexecuted.
 
 
 

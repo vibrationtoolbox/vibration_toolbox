@@ -32,19 +32,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="index.html" title="The Engineering Vibration Toolbox"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">The Engineering Vibration Toolbox</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -62,7 +50,7 @@ path. If that happens, open <code class="docutils literal"><span class="pre">vtb
 <code class="docutils literal"><span class="pre">vtoolbox.zip</span></code>, expand it in the desired location, and add the path to it to
 your default MATLAB path. Alternatively, copy and
 paste this into your MATLAB command console:</p>
-<div class="highlight-matlab"><div class="highlight"><pre>» <span class="n">urlwrite</span><span class="p">(</span><span class="s">&#39;https://raw.githubusercontent.com/vibrationtoolbox/vtoolbox/master/vtbud.m&#39;</span><span class="p">,</span><span class="s">&#39;vtbud.m&#39;</span><span class="p">);</span><span class="n">vtbud</span>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span>» <span class="n">urlwrite</span><span class="p">(</span><span class="s">&#39;https://raw.githubusercontent.com/vibrationtoolbox/vtoolbox/master/vtbud.m&#39;</span><span class="p">,</span><span class="s">&#39;vtbud.m&#39;</span><span class="p">);</span><span class="n">vtbud</span>
 </pre></div>
 </div>
 <p>and press RETURN.</p>
@@ -78,10 +66,10 @@ can be obtained for your current version by typing <code class="docutils literal
 MATLAB. That can be compared to the <a class="reference external" href="https://github.com/vibrationtoolbox/vtoolbox/blob/master/vtbud.txt">most up-to-date release</a>.</p>
 <p>They will load/run on all platforms supported by MATLAB. The binary files are all <code class="docutils literal"><span class="pre">.mat</span></code> files, and the different extensions represent different parts of a project group. To load
 them type:</p>
-<div class="highlight-matlab"><div class="highlight"><pre>» <span class="n">load</span> <span class="n">filename</span> <span class="o">-</span><span class="n">mat</span>
+<div class="highlight-matlab"><div class="highlight"><pre><span></span>» <span class="n">load</span> <span class="n">filename</span> <span class="o">-</span><span class="n">mat</span>
 </pre></div>
 </div>
-<p>where » is the MATLAB prompt. <a class="footnote-reference" href="#id3" id="id1">[1]</a> The
+<p>where » is the MATLAB prompt. <a class="footnote-reference" href="#id2" id="id1">[1]</a> The
 filename must include the extension unless it is <code class="docutils literal"><span class="pre">.mat</span></code>.</p>
 <p>If you can&#8217;t execute any of the <code class="docutils literal"><span class="pre">.m</span></code> files (try for
 example typing &#8220;vtbud&#8221; from the MATLAB prompt), they
@@ -99,92 +87,50 @@ ASCII (text) format.</p>
 </div>
 <div class="section" id="the-engineering-vibration-toolbox-for-octave">
 <h2>The Engineering Vibration Toolbox for Octave<a class="headerlink" href="#the-engineering-vibration-toolbox-for-octave" title="Permalink to this headline">¶</a></h2>
-<p>Download the zip archive for the <a class="reference external" href="https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip">Octave Engineering Vibration
-Toolbox</a>. Please read the <code class="code docutils literal"><span class="pre">Readme.rst</span></code> file inside the archive
-or refer to it on the <a class="reference external" href="https://github.com/vibrationtoolbox/ovtoolbox">Octave Engineering Vibration Toolbox distribution site</a>.</p>
-<div class="section" id="installation-on-a-windows-machine">
-<h3>Installation on a Windows machine<a class="headerlink" href="#installation-on-a-windows-machine" title="Permalink to this headline">¶</a></h3>
-<p>Unfortunately I haven&#8217;t had success recently. This should work, but
-doesn&#8217;t, and I haven&#8217;t the time to track the problem down. If you get
-it all working, please provide me feedback on how to get it to
-work. In the mean time, my recommendation is to install <a class="reference external" href="http://www.virtualbox.org">VirtualBox</a>
-and install <a class="reference external" href="http://www.ubuntu.com">Ubuntu</a> (<a class="reference external" href="http://www.linux.com">Linux</a>), then follow the <a class="reference internal" href="#linux-installation">Linux Installation</a> instructions
-above.</p>
-<ol class="arabic">
-<li><p class="first">Install <a class="reference external" href="https://www.cygwin.com/">Cygwin</a> to start. Now don&#8217;t go to fast. Part of the way
-through you will have the option of installing some packages.</p>
-<ol class="arabic">
-<li><p class="first">Look in the math section. Select the main <em>Octave</em> distribution
-and anything else (all is perhaps easiest).</p>
-</li>
-<li><p class="first">Also select and
-install <code class="docutils literal"><span class="pre">xinit</span></code>, <code class="docutils literal"><span class="pre">xlaunch</span></code>, <code class="docutils literal"><span class="pre">nedit</span></code> and <code class="docutils literal"><span class="pre">gnuplot</span></code>. I am taking
-this from <a class="reference external" href="http://wiki.octave.org">wiki.octave.org</a> (and other sources), so if it doesn&#8217;t
-work, please look there.</p>
-</li>
-<li><p class="first">Open the Cygwin terminal.</p>
-</li>
-<li><p class="first">Type <code class="docutils literal"><span class="pre">xlaunch.exe</span></code> and hit return. Answer the questions, open
-a single window, start a program, don&#8217;t use Native OpenGL, launch the application
-<code class="docutils literal"><span class="pre">nedit</span></code> in place of the default <code class="docutils literal"><span class="pre">xterm</span></code>.</p>
-</li>
-<li><p class="first">A window should come up. Open the file <cite>.bash_profile</cite> and
-append the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>PATH=/usr/bin:/usr/local/bin:/usr/X11R6/bin:/opt/gnome/bin:/opt/kde2/bin
-MANPATH=/usr/man:/usr/local/man:/usr/X11R6/man:/opt/gnome/man:/opt/kde2/share/man
-INFOPATH=&#39;/usr/info;/usr/local/info;/opt/gnome/info&#39;
-KDEDIR=/opt/kde2
-export PATH MANPATH INFOPATH KDEDIR
+<p>Please read the <a class="reference external" href="https://github.com/vibrationtoolbox/ovtoolbox/blob/master/Readme.rst">Readme.rst</a>
+file for information not covered elsewhere.</p>
+<div class="section" id="installing-updating-and-removing-the-toolbox">
+<h3>Installing, Updating, and Removing The Toolbox<a class="headerlink" href="#installing-updating-and-removing-the-toolbox" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="to-install">
+<h4>To install:<a class="headerlink" href="#to-install" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li>Run <a class="reference external" href="http://www.octave.org/">Octave</a>.</li>
+<li>Copy and paste this into <a class="reference external" href="http://www.octave.org/">Octave</a>.</li>
+</ol>
+<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">]=</span><span class="nb">urlwrite</span><span class="p">(</span><span class="s">&#39;https://github.com/josephcslater/ovtoolbox/archive/master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
+<span class="n">pkg</span> <span class="n">install</span> <span class="n">vtoolbox</span><span class="p">.</span><span class="nb">zip</span>
+<span class="nb">delete</span><span class="p">(</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
+<span class="n">vtb</span>
+<span class="p">;</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">Use <code class="docutils literal"><span class="pre">nedit</span></code> again to create a file <code class="docutils literal"><span class="pre">.xinitrc</span></code> in your home
-directory in Cygwin. The contents should be:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">exec</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">gnome</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">gnome</span><span class="o">-</span><span class="n">session</span>
+<p><strong>Note</strong>: If you use the Github Download button, you <strong>must</strong> rename
+the downloaded file to <code class="code docutils literal"><span class="pre">vtoolbox.zip</span></code> and manually use <code class="code docutils literal"><span class="pre">pkg</span></code>.</p>
+</div>
+<div class="section" id="to-update">
+<h4>To update:<a class="headerlink" href="#to-update" title="Permalink to this headline">¶</a></h4>
+<p>To update, copy and paste this into <a class="reference external" href="http://www.octave.org/">Octave</a></p>
+<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">pkg</span> <span class="n">uninstall</span> <span class="n">ovtoolbox</span>
+<span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">]=</span><span class="nb">urlwrite</span><span class="p">(</span><span class="s">&#39;https://github.com/josephcslater/ovtoolbox/archive/master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
+<span class="n">pkg</span> <span class="n">install</span> <span class="n">vtoolbox</span><span class="p">.</span><span class="nb">zip</span>
+<span class="nb">delete</span><span class="p">(</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
+<span class="p">;</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">Close Cygwin, relaunch it, and type <code class="docutils literal"><span class="pre">startx</span></code>. This should
-start a desktop environment from which you shoul be able to run
-<a class="reference external" href="http://www.octave.org/">Octave</a>.</p>
-</li>
-</ol>
-</li>
-<li><p class="first">Put the unzipped ovtoolbox folder in
-<code class="docutils literal"><span class="pre">C:\Program&nbsp;Files\GNU&nbsp;Octave&nbsp;#\usr\share\octave\site\m</span></code> where #
-is the version number of your Octave installation.</p>
-</li>
-<li><p class="first">Replace the file
-<code class="docutils literal"><span class="pre">C:\Program&nbsp;Files\GNU&nbsp;Octave\#\usr\share\octave\site\m\startup</span></code>
-with the file <code class="docutils literal"><span class="pre">startup</span></code> in the <code class="docutils literal"><span class="pre">ovtoolbox</span></code> directory. This will make
-Octave behave more Matlab like and help assure greater
-compatibility. <a class="footnote-reference" href="#id4" id="id2">[2]</a></p>
-</li>
-<li><p class="first">Type <code class="docutils literal"><span class="pre">help</span> <span class="pre">vtb1</span></code> after running Octave to see if the installation of
-the Engineering Vibration Toolbox worked.</p>
-</li>
-<li><p class="first">Create a directory
-<code class="docutils literal"><span class="pre">C:\Program&nbsp;Files\GNU&nbsp;Octave&nbsp;#\usr\share\octave\site\m\myfiles</span></code>
-where you can put your script and program files.</p>
-</li>
-</ol>
 </div>
-<div class="section" id="installation-on-a-unix-linux-machine">
-<span id="linux-installation"></span><h3>Installation on a Unix/Linux machine<a class="headerlink" href="#installation-on-a-unix-linux-machine" title="Permalink to this headline">¶</a></h3>
-<p>Before the Engineering Vibration Toolbox for Octave can be installed,
-<a class="reference external" href="http://www.octave.org/">Octave</a> must be
-installed. Please consult the <a class="reference external" href="http://www.octave.org/">Octave</a> website for installation
-instructions. Alternatively, most <a class="reference external" href="http://www.linux.com">Linux</a> distributions have it as an
-easy installation via their package managers. Most pupular, if you are
-installing Linux for the first time, is probably <a class="reference external" href="http://www.ubuntu.com">Ubuntu</a>.</p>
-<p>The toolbox can go in any directory as long as the <a class="reference external" href="http://www.octave.org/">Octave</a> path is
-set properly in the <code class="docutils literal"><span class="pre">.octaverc</span></code> file in the user&#8217;s home directory. Like
-any of the other toolboxes, you should not save personal files inside
-the <code class="docutils literal"><span class="pre">ovtoolbox</span></code> directory since you may inadvertently lose them when you
-update (i.e. you may decide to delete the directory and replace
-everything).</p>
-<p>Example: On my Mac (which is BSD unix), my <code class="docutils literal"><span class="pre">.octaverc</span></code> file contains the
-command: <code class="docutils literal"><span class="pre">path(path,&quot;/User/jslater/MyMath/ovtoolbox&quot;);</span></code></p>
+<div class="section" id="to-remove">
+<h4>To remove:<a class="headerlink" href="#to-remove" title="Permalink to this headline">¶</a></h4>
+<p>In <a class="reference external" href="http://www.octave.org/">Octave</a></p>
+<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">pkg</span> <span class="n">uninstall</span> <span class="n">ovtoolbox</span>
+<span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">]=</span><span class="nb">urlwrite</span><span class="p">(</span><span class="s">&#39;https://github.com/josephcslater/ovtoolbox/archive/master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
+<span class="n">pkg</span> <span class="n">install</span> <span class="n">vtoolbox</span><span class="p">.</span><span class="nb">zip</span>
+<span class="nb">delete</span><span class="p">(</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+<p><em>Why the semi-colons?</em> It&#8217;s my way of maing sure you don&#8217;t leave the
+last command unexecuted.</p>
+</div>
 </div>
 <div class="section" id="printing-plots">
 <h3>Printing plots<a class="headerlink" href="#printing-plots" title="Permalink to this headline">¶</a></h3>
@@ -271,17 +217,17 @@ use where the software is installed.</p>
 registered trademark of Apple Computer, Inc. PostScript is a registered
 trademark of Adobe Systems, Inc. Windows is a registered trademark of
 Microsoft Corp. Unix is a registered trademark of AT&amp;T.</p>
-<table class="docutils footnote" frame="void" id="id3" rules="none">
+<table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>If the prompt looks funny on this web page, set the <em>Character Encoding</em>
 (Firefox), <em>Font Encoding</em> (Safari), or <em>Encoding</em> to Unicode: UTF-8.</td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
+<table class="docutils footnote" frame="void" id="id3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>This may not be necessary as compatibility with Matlab has been
+<tr><td class="label">[2]</td><td>This may not be necessary as compatibility with Matlab has been
 improving over the years.</td></tr>
 </tbody>
 </table>
@@ -349,12 +295,12 @@ improving over the years.</td></tr>
       &copy;2015, Joseph C. Slater.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
       <a href="_sources/vtoolbox2.txt"
-          rel="nofollow">Page source</a></li>
+          rel="nofollow">Page source</a>
     </div>
 
     
