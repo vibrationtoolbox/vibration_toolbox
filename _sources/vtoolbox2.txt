@@ -86,7 +86,9 @@ the downloaded file to :code:`vtoolbox.zip` and manually use :code:`pkg`.
 
 To update:
 ****************
-To update, copy and paste this into `Octave`_
+To update, run :code:`vtbud` in `Octave`_ if you have updated since Feb 23, 2016. 
+
+Otherwise, run `Octave`_ and paste the following to the prompt:
 
 .. code-block:: octave
 

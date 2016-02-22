@@ -109,7 +109,8 @@ the downloaded file to <code class="code docutils literal"><span class="pre">vto
 </div>
 <div class="section" id="to-update">
 <h4>To update:<a class="headerlink" href="#to-update" title="Permalink to this headline">¶</a></h4>
-<p>To update, copy and paste this into <a class="reference external" href="http://www.octave.org/">Octave</a></p>
+<p>To update, run <code class="code docutils literal"><span class="pre">vtbud</span></code> in <a class="reference external" href="http://www.octave.org/">Octave</a> if you have updated since Feb 23, 2016.</p>
+<p>Otherwise, run <a class="reference external" href="http://www.octave.org/">Octave</a> and paste the following to the prompt:</p>
 <div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">pkg</span> <span class="n">uninstall</span> <span class="n">ovtoolbox</span>
 <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">]=</span><span class="nb">urlwrite</span><span class="p">(</span><span class="s">&#39;https://github.com/josephcslater/ovtoolbox/archive/master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
 <span class="n">pkg</span> <span class="n">install</span> <span class="n">vtoolbox</span><span class="p">.</span><span class="nb">zip</span>
