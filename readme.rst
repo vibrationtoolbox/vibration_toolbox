@@ -21,4 +21,7 @@ at your command prompt. If you have updated to it, you need to use
    
 Load and execute the Lorenze example. It's copied from elsewhere, so
 I don't deserve any credit there. However, it gives an idea of where I
-want the project to go. 
+want the project to go.
+
+Sorry for beign pithy... this project is a long ways off. You're
+welcome to help!
