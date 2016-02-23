@@ -213,8 +213,8 @@ def euler_beam_modes(n = 10, bctype = 2, beamparams=sp.array((7.31e10, 1/12*0.03
     return w,x,U
 
 
-def euler_beam_frf(xin=0.22,xout=0.22,fmin=0.0,fmax=1000.0,beamparams=sp.array((7.31e10, 1/12*0.03*.015**3, 2747, .015*0.03, 0.4)), bctype = 2, zeta = 0.02):
-
+def euler_beam_frf(xin=0.22,xout=0.22,fmin=0.0,fmax=1000.0, zeta = 0.02,beamparams=sp.array((7.31e10, 1/12*0.03*.015**3, 2747, .015*0.03, 0.4)), bctype = 2):
+    print(fmin)
     E=beamparams[0];
     I=beamparams[1];
     rho=beamparams[2];
@@ -277,3 +277,12 @@ def euler_beam_frf(xin=0.22,xout=0.22,fmin=0.0,fmax=1000.0,beamparams=sp.array((
     H = a
     return fout,H
 
+def ebf(xin, xout, fmin , fmax, zeta):
+    _,_ = euler_beam_frf(xin, xout, fmin , fmax, zeta)
+    return
+
+def ebf1(xin, xout):
+    _,_ = euler_beam_frf(xin, xout)
+    return
+
+#def euler_beam_frf(xin=0.22,xout=0.22,fmin=0.0,fmax=1000.0,beamparams=sp.array((7.31e10, 1/12*0.03*.015**3, 2747, .015*0.03, 0.4)),
