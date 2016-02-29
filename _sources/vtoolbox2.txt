@@ -66,11 +66,12 @@ file for information not covered elsewhere.
 Installing, Updating, and Removing The Toolbox
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To install:
-********************
 
-*Windows Users*
-_______________
+
+
+Windows Installation
+**********************************
+
 
 Note that you will have to install `cygwin <cygwin.com>`__ first before installing Octave.  
 
@@ -124,8 +125,9 @@ complete the process.
 		;   
 
       
-*Linux and Mac*
-_______________
+Linux and Mac Installation
+*****************************
+
 
 1. Run `Octave`_.
 
@@ -155,6 +157,9 @@ Otherwise, run `Octave`_ and paste the following to the prompt:
    pkg install vtoolbox.zip
    delete('vtoolbox.zip')
    ;
+
+On Windows you may, unfortunately, have to uninstall and reinstall
+because the ``urlwrite`` command isn't working on remote sites from what I can tell. 
    
 
 To remove:
