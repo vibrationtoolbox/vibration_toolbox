@@ -88,12 +88,12 @@ Note that you will have to install `cygwin <cygwin.com>`__ first before installi
    
 3. Go to the Windows Menu. In Cygwin-X run XWin Server
 
-4. A Green X should appear on the doc. You should be able to bring up
+4. A Green X should appear on the dock. You should be able to bring up
    a menu to launch Octave
 
 5. `Click on this
-   <https://github.com/josephcslater/ovtoolbox/archive/master.zip>`__
-   to download the vibration toolbox to your downloads folder.
+   <https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip>`__
+   to download the vibration toolbox to your Downloads folder.
 
 Copy and paste this into your Octave window
    
@@ -135,7 +135,7 @@ Linux and Mac Installation
 
 .. code-block:: octave
 
-   [s, success, message]=urlwrite('https://github.com/josephcslater/ovtoolbox/archive/master.zip','vtoolbox.zip')
+   [s, success, message]=urlwrite('https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip','vtoolbox.zip')
    pkg install vtoolbox.zip
    delete('vtoolbox.zip')
    vtb
@@ -153,7 +153,7 @@ Otherwise, run `Octave`_ and paste the following to the prompt:
 .. code-block:: octave
 
    pkg uninstall ovtoolbox
-   [s, success, message]=urlwrite('https://github.com/josephcslater/ovtoolbox/archive/master.zip','vtoolbox.zip')
+   [s, success, message]=urlwrite('https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip','vtoolbox.zip')
    pkg install vtoolbox.zip
    delete('vtoolbox.zip')
    ;
@@ -169,7 +169,7 @@ In `Octave`_
 .. code-block:: octave
 
    pkg uninstall ovtoolbox
-   [s, success, message]=urlwrite('https://github.com/josephcslater/ovtoolbox/archive/master.zip','vtoolbox.zip')
+   [s, success, message]=urlwrite('https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip','vtoolbox.zip')
    pkg install vtoolbox.zip
    delete('vtoolbox.zip')
    ;

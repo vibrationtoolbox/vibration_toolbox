@@ -104,10 +104,10 @@ need. Install, at minimum:<ol class="loweralpha">
 </ol>
 </li>
 <li>Go to the Windows Menu. In Cygwin-X run XWin Server</li>
-<li>A Green X should appear on the doc. You should be able to bring up
+<li>A Green X should appear on the dock. You should be able to bring up
 a menu to launch Octave</li>
-<li><a class="reference external" href="https://github.com/josephcslater/ovtoolbox/archive/master.zip">Click on this</a>
-to download the vibration toolbox to your downloads folder.</li>
+<li><a class="reference external" href="https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip">Click on this</a>
+to download the vibration toolbox to your Downloads folder.</li>
 </ol>
 <p>Copy and paste this into your Octave window</p>
 <div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="p">.</span><span class="o">./</span><span class="p">.</span><span class="o">./</span><span class="n">cygdrive</span>
@@ -139,7 +139,7 @@ complete the process.</p>
 <li>Run <a class="reference external" href="http://www.octave.org/">Octave</a>.</li>
 <li>Copy and paste this into <a class="reference external" href="http://www.octave.org/">Octave</a>.</li>
 </ol>
-<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">]=</span><span class="nb">urlwrite</span><span class="p">(</span><span class="s">&#39;https://github.com/josephcslater/ovtoolbox/archive/master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
+<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">]=</span><span class="nb">urlwrite</span><span class="p">(</span><span class="s">&#39;https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
 <span class="n">pkg</span> <span class="n">install</span> <span class="n">vtoolbox</span><span class="p">.</span><span class="nb">zip</span>
 <span class="nb">delete</span><span class="p">(</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
 <span class="n">vtb</span>
@@ -154,7 +154,7 @@ the downloaded file to <code class="code docutils literal"><span class="pre">vto
 <p>To update, run <code class="code docutils literal"><span class="pre">vtbud</span></code> in <a class="reference external" href="http://www.octave.org/">Octave</a> if you have updated since Feb 23, 2016.</p>
 <p>Otherwise, run <a class="reference external" href="http://www.octave.org/">Octave</a> and paste the following to the prompt:</p>
 <div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">pkg</span> <span class="n">uninstall</span> <span class="n">ovtoolbox</span>
-<span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">]=</span><span class="nb">urlwrite</span><span class="p">(</span><span class="s">&#39;https://github.com/josephcslater/ovtoolbox/archive/master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">]=</span><span class="nb">urlwrite</span><span class="p">(</span><span class="s">&#39;https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
 <span class="n">pkg</span> <span class="n">install</span> <span class="n">vtoolbox</span><span class="p">.</span><span class="nb">zip</span>
 <span class="nb">delete</span><span class="p">(</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
 <span class="p">;</span>
@@ -167,7 +167,7 @@ because the <code class="docutils literal"><span class="pre">urlwrite</span></co
 <h4>To remove:<a class="headerlink" href="#to-remove" title="Permalink to this headline">¶</a></h4>
 <p>In <a class="reference external" href="http://www.octave.org/">Octave</a></p>
 <div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">pkg</span> <span class="n">uninstall</span> <span class="n">ovtoolbox</span>
-<span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">]=</span><span class="nb">urlwrite</span><span class="p">(</span><span class="s">&#39;https://github.com/josephcslater/ovtoolbox/archive/master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">]=</span><span class="nb">urlwrite</span><span class="p">(</span><span class="s">&#39;https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
 <span class="n">pkg</span> <span class="n">install</span> <span class="n">vtoolbox</span><span class="p">.</span><span class="nb">zip</span>
 <span class="nb">delete</span><span class="p">(</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
 <span class="p">;</span>
