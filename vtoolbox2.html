@@ -93,6 +93,50 @@ file for information not covered elsewhere.</p>
 <h3>Installing, Updating, and Removing The Toolbox<a class="headerlink" href="#installing-updating-and-removing-the-toolbox" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="to-install">
 <h4>To install:<a class="headerlink" href="#to-install" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="windows-users">
+<h5>Windows Users<a class="headerlink" href="#windows-users" title="Permalink to this headline">¶</a></h5>
+<p>Note that you will have to install <a class="reference external" href="cygwin.com">cygwin</a> first before installing Octave.</p>
+<ol class="arabic simple">
+<li>Download and install <a class="reference external" href="cygwin.com">Cygwin</a>.</li>
+<li>You may have to run setup multiple times to install everything you
+need. Install, at minimum:<ol class="loweralpha">
+<li><code class="docutils literal"><span class="pre">Octave</span></code> (Math section- octave: GNU Octave language...)</li>
+<li><code class="docutils literal"><span class="pre">xinit</span></code> (X11 section)</li>
+<li><code class="docutils literal"><span class="pre">unzip</span></code></li>
+</ol>
+</li>
+<li>Go to the Windows Menu. In Cygwin-X run XWin Server</li>
+<li>A Green X should appear on the doc. You should be able to bring up
+a menu to launch Octave</li>
+<li><a class="reference external" href="https://github.com/josephcslater/ovtoolbox/archive/master.zip">Click on this</a>
+to download the vibration toolbox to your downloads folder.</li>
+</ol>
+<p>Copy and paste this into your Octave window</p>
+<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="p">.</span><span class="o">./</span><span class="p">.</span><span class="o">./</span><span class="n">cygdrive</span>
+<span class="n">cd</span> <span class="n">c</span>
+<span class="n">cd</span> <span class="n">Users</span>
+<span class="n">ls</span>
+</pre></div>
+</div>
+<p>Here you will see a list of users on your computer. You need to figure
+out which one is you. For me, it&#8217;s <cite>Joseph C. Slater</cite>. So for my
+installation  I continue
+with (note the single quotes)</p>
+<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="s">&#39;Joseph C. Slater&#39;</span>
+</pre></div>
+</div>
+<p>You should be able to copy and paste the rest of this into Octave to
+complete the process.</p>
+<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">Downloads</span>
+<span class="nb">rename</span><span class="p">(</span><span class="s">&#39;ovtoolbox-master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
+<span class="n">pkg</span> <span class="n">install</span> <span class="n">vtoolbox</span><span class="p">.</span><span class="nb">zip</span>
+<span class="nb">delete</span><span class="p">(</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="linux-and-mac">
+<h5>Linux and Mac<a class="headerlink" href="#linux-and-mac" title="Permalink to this headline">¶</a></h5>
 <ol class="arabic simple">
 <li>Run <a class="reference external" href="http://www.octave.org/">Octave</a>.</li>
 <li>Copy and paste this into <a class="reference external" href="http://www.octave.org/">Octave</a>.</li>
@@ -104,8 +148,9 @@ file for information not covered elsewhere.</p>
 <span class="p">;</span>
 </pre></div>
 </div>
-<p><strong>Note</strong>: If you use the Github Download button, you <strong>must</strong> rename
+<p><strong>Note</strong>: If you use the Download button on <a class="reference external" href="github.com">github</a>, you <strong>must</strong> rename
 the downloaded file to <code class="code docutils literal"><span class="pre">vtoolbox.zip</span></code> and manually use <code class="code docutils literal"><span class="pre">pkg</span></code>.</p>
+</div>
 </div>
 <div class="section" id="to-update">
 <h4>To update:<a class="headerlink" href="#to-update" title="Permalink to this headline">¶</a></h4>

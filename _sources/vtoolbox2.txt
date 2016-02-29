@@ -69,6 +69,64 @@ Installing, Updating, and Removing The Toolbox
 To install:
 ********************
 
+Windows Users
+_______________
+
+Note that you will have to install `cygwin <cygwin.com>`__ first before installing Octave.  
+
+1. Download and install `Cygwin <cygwin.com>`__.
+
+2. You may have to run setup multiple times to install everything you
+   need. Install, at minimum:
+
+   a. ``Octave`` (Math section- octave: GNU Octave language...)
+
+   b. ``xinit`` (X11 section)
+
+   c. ``unzip``
+   
+3. Go to the Windows Menu. In Cygwin-X run XWin Server
+
+4. A Green X should appear on the doc. You should be able to bring up
+   a menu to launch Octave
+
+5. `Click on this
+   <https://github.com/josephcslater/ovtoolbox/archive/master.zip>`__
+   to download the vibration toolbox to your downloads folder.
+
+Copy and paste this into your Octave window
+   
+.. code-block:: octave
+
+		cd ~/../../cygdrive
+		cd c
+		cd Users
+		ls
+
+Here you will see a list of users on your computer. You need to figure
+out which one is you. For me, it's `Joseph C. Slater`. So for my
+installation  I continue
+with (note the single quotes)
+
+.. code-block:: octave
+
+		cd 'Joseph C. Slater' 
+
+You should be able to copy and paste the rest of this into Octave to
+complete the process.
+
+.. code-block:: octave
+		
+		cd Downloads
+		rename('ovtoolbox-master.zip','vtoolbox.zip')
+		pkg install vtoolbox.zip
+		delete('vtoolbox.zip')
+		;   
+
+      
+Linux and Mac
+_______________
+
 1. Run `Octave`_.
 
 2. Copy and paste this into `Octave`_.
@@ -81,7 +139,7 @@ To install:
    vtb
    ;
 
-**Note**: If you use the Github Download button, you **must** rename
+**Note**: If you use the Download button on `github <github.com>`__, you **must** rename
 the downloaded file to :code:`vtoolbox.zip` and manually use :code:`pkg`.
 
 To update:
