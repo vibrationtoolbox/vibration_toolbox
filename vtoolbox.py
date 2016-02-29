@@ -286,3 +286,20 @@ def ebf1(xin, xout):
     return
 
 #def euler_beam_frf(xin=0.22,xout=0.22,fmin=0.0,fmax=1000.0,beamparams=sp.array((7.31e10, 1/12*0.03*.015**3, 2747, .015*0.03, 0.4)),
+
+def frfplot(f, H):
+    plt.subplot(211)
+    plt.plot(f,20 * sp.log10(sp.absolute(sp.sum(H,axis = 1))),'-')
+    plt.grid('on')
+    plt.xlabel('Frequency (Hz)')
+    plt.ylabel('FRF (dB)')
+    axlim = plt.axis()
+    plt.axis(axlim + sp.array([0, 0, -0.1*(axlim[3]-axlim[2]), 0.1*(axlim[3]-axlim[2])]))
+    
+    plt.subplot(212)
+    plt.plot(f,sp.unwrap(sp.angle(sp.sum(H,axis = 1))) / sp.pi * 180,'-')
+    plt.grid('on')
+    plt.xlabel('Frequency (Hz)')
+    plt.ylabel('Phase (deg)')
+    axlim = plt.axis()
+    plt.axis(axlim + sp.array([0, 0, -0.1*(axlim[3]-axlim[2]), 0.1*(axlim[3]-axlim[2])]))
