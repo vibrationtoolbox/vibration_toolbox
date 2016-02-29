@@ -69,7 +69,7 @@ Installing, Updating, and Removing The Toolbox
 To install:
 ********************
 
-Windows Users
+*Windows Users*
 _______________
 
 Note that you will have to install `cygwin <cygwin.com>`__ first before installing Octave.  
@@ -124,7 +124,7 @@ complete the process.
 		;   
 
       
-Linux and Mac
+*Linux and Mac*
 _______________
 
 1. Run `Octave`_.
