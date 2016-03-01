@@ -184,14 +184,16 @@ of <code class="docutils literal"><span class="pre">vtbud.m</span></code>. The s
 </div>
 <div class="section" id="printing-plots">
 <h3>Printing plots<a class="headerlink" href="#printing-plots" title="Permalink to this headline">¶</a></h3>
-<p>To print a plot, the easiest way may be to type <code class="code docutils literal"><span class="pre">print</span></code> from the Octave
-console. This should bring up dialog boxes that enable you to send the
-current plot to your current Windows printer.</p>
-<p>The <code class="code docutils literal"><span class="pre">print</span></code> command can also be used to generate graphics files for
+<p>The <code class="code docutils literal"><span class="pre">print</span></code> command can be used to generate graphics files for
 embedding into your favorite word processing program. Type <code class="code docutils literal"><span class="pre">help</span> <span class="pre">print</span></code>
-for details. By default the file used end up in the directory
-<code class="docutils literal"><span class="pre">C:\Program&nbsp;Files\GNU&nbsp;Octave&nbsp;#\octave_files</span></code> on Windows. I can&#8217;t be
-confident for your installation, though.</p>
+for details. By default the file used end up in the current directory
+which is likely your home directory. The command <code class="code docutils literal"><span class="pre">pwd</span></code> can be
+used to determine your current directory. On Windows using Cygwin,
+this might be a bit complex. The file is likely located in
+<code class="docutils literal"><span class="pre">C:\cygwin64\home\</span></code> <em>username</em> where <em>username</em> is your account
+name. Alternatively, <code class="docutils literal"><span class="pre">cygwin64</span></code> may be something else similar. I
+suggest finding this directory  with the Windows File Browser and
+pinning it to the Quick Access area (Windows 10) by dragging it there.</p>
 </div>
 <div class="section" id="acknowledgments">
 <h3>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">¶</a></h3>

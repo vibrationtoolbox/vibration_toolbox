@@ -217,15 +217,24 @@ of ``vtbud.m``. The second is to make sure it is updated in the future.
 Printing plots
 ~~~~~~~~~~~~~~~~
 
-To print a plot, the easiest way may be to type :code:`print` from the Octave
-console. This should bring up dialog boxes that enable you to send the
-current plot to your current Windows printer.
+..
+    To print a plot, the easiest way may be to type :code:`print` from the Octave
+    console.
 
-The :code:`print` command can also be used to generate graphics files for
+..
+    This *may* bring up dialog boxes that enable you to send the
+    current plot to your current Windows printer. SO
+
+The :code:`print` command can be used to generate graphics files for
 embedding into your favorite word processing program. Type :code:`help print`
-for details. By default the file used end up in the directory
-``C:\Program Files\GNU Octave #\octave_files`` on Windows. I can't be
-confident for your installation, though. 
+for details. By default the file used end up in the current directory
+which is likely your home directory. The command :code:`pwd` can be
+used to determine your current directory. On Windows using Cygwin,
+this might be a bit complex. The file is likely located in
+``C:\cygwin64\home\`` *username* where *username* is your account
+name. Alternatively, ``cygwin64`` may be something else similar. I
+suggest finding this directory  with the Windows File Browser and
+pinning it to the Quick Access area (Windows 10) by dragging it there.  
 
 
 
