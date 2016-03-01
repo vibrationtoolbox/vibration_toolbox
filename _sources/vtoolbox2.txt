@@ -67,17 +67,14 @@ Installing, Updating, and Removing The Toolbox
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-
-
 Windows Installation
 **********************************
 
-
-Note that you will have to install `cygwin <cygwin.com>`__ first before installing Octave.  
+Note that you will have to install `Cygwin <cygwin.com>`__ first before installing Octave.  
 
 1. Download and install `Cygwin <cygwin.com>`__.
 
-2. You may have to run setup multiple times to install everything you
+2. You may have to run setup multiple times to install the parts you
    need. Install, at minimum:
 
    a. ``Octave`` (Math section- octave: GNU Octave language...)
@@ -86,10 +83,10 @@ Note that you will have to install `cygwin <cygwin.com>`__ first before installi
 
    c. ``unzip``
    
-3. Go to the Windows Menu. In Cygwin-X run XWin Server
+3. Go to the Windows Menu. In ``Cygwin-X`` run ``XWin Server``
 
-4. A Green X should appear on the dock. You should be able to bring up
-   a menu to launch Octave
+4. A green X should appear on the dock. You should be able to bring up
+   a menu to launch ``Octave``
 
 5. `Click on this
    <https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip>`__
@@ -99,30 +96,30 @@ Copy and paste this into your Octave window
    
 .. code-block:: octave
 
-		cd ~/../../cygdrive
-		cd c
-		cd Users
-		ls
+		system('curl -4 -L https://raw.githubusercontent.com/vibrationtoolbox/ovtoolbox/master/inst/vtbud.m>vtbud.m')
+		vtbud
+		delete('vtbud.m')
 
-Here you will see a list of users on your computer. You need to figure
-out which one is you. For me, it's `Joseph C. Slater`. So for my
-installation  I continue
-with (note the single quotes)
+..
+   Here you will see a list of users on your computer. You need to figure
+   out which one is you. For me, it's `Joseph C. Slater`. So for my
+   installation  I continue
+   with (note the single quotes)
 
-.. code-block:: octave
+   .. code-block:: octave
 
-		cd 'Joseph C. Slater' 
+		   cd 'Joseph C. Slater' 
 
-You should be able to copy and paste the rest of this into Octave to
-complete the process.
+   You should be able to copy and paste the rest of this into Octave to
+   complete the process.
 
-.. code-block:: octave
-		
-		cd Downloads
-		rename('ovtoolbox-master.zip','vtoolbox.zip')
-		pkg install vtoolbox.zip
-		delete('vtoolbox.zip')
-		;   
+   .. code-block:: octave
+
+		   cd Downloads
+		   rename('ovtoolbox-master.zip','vtoolbox.zip')
+		   pkg install vtoolbox.zip
+		   delete('vtoolbox.zip')
+		   ;   
 
       
 Linux and Mac Installation
@@ -141,8 +138,18 @@ Linux and Mac Installation
    vtb
    ;
 
+Alternatively, you can also download ``vtbud.m`` and run it to perform
+the install for you
+
+.. code-block:: octave
+
+		system('curl -4 -L https://raw.githubusercontent.com/vibrationtoolbox/ovtoolbox/master/inst/vtbud.m>vtbud.m')
+		vtbud
+		delete('vtbud.m')
+
 **Note**: If you use the Download button on `github <github.com>`__, you **must** rename
-the downloaded file to :code:`vtoolbox.zip` and manually use :code:`pkg`.
+the downloaded file to :code:`vtoolbox.zip` and manually use
+:code:`pkg install vtoolbox.zip`.
 
 To update:
 ****************
@@ -152,29 +159,41 @@ Otherwise, run `Octave`_ and paste the following to the prompt:
 
 .. code-block:: octave
 
-   pkg uninstall ovtoolbox
+   pkg uninstall vtoolbox
    [s, success, message]=urlwrite('https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip','vtoolbox.zip')
    pkg install vtoolbox.zip
    delete('vtoolbox.zip')
    ;
 
-On Windows you may, unfortunately, have to uninstall and reinstall
-because the ``urlwrite`` command isn't working on remote sites from what I can tell. 
    
 
 To remove:
 *****************
+
+Because it takes so little space (trivial compared to a small Word
+document), I would suggest simply deactivating it
+
+
 In `Octave`_
 
 .. code-block:: octave
 
-   pkg uninstall ovtoolbox
+   pkg unload vtoolbox
+   
+To remove it completely, in `Octave`_
+
+.. code-block:: octave
+
+   pkg uninstall vtoolbox
    [s, success, message]=urlwrite('https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip','vtoolbox.zip')
    pkg install vtoolbox.zip
    delete('vtoolbox.zip')
    ;
 
-*Why the semi-colons?* It's my way of maing sure you don't leave the
+You may have to look around and make sure no files ``vtoolbox.zip`` or
+similar exist. 
+
+*Why the semi-colons?* It's my way of making sure you don't leave the
 last command unexecuted.
 
 
@@ -206,7 +225,7 @@ University for providing the computer resources for developing the
 MATLAB 4 version of the software. Perhaps the people who have given the
 most are my students who painfully experienced every piece of beta code,
 often at the least opportune times. Thanks is also given to Dr. Maurice
-Petyt and Robert C. Chiroux for their patience in testing numerous 4.0
+Petyt and Robert C. Chiroux For their patience in testing numerous 4.0
 beta versions of this software. Finally, John W. Eaton and others for
 writing/coordinating/developing/supporting Octave. Please see the
 Octave_ website for more information on Octave and how you can
@@ -223,7 +242,7 @@ licensing.
 Using the Engineering Vibration Toolbox
 =====================================================
 
-Typing ``help vtb?``, where ``?`` is a number, will provide a table of contents for the files
+Typing ``help vtb#``, where ``#`` is a number, will provide a table of contents for the files
 related to chapter '?'. Typing ``help codename`` will provide help on the
 particular code. Note  that the ``filename`` is ``codename.m``.
 

@@ -93,43 +93,26 @@ file for information not covered elsewhere.</p>
 <h3>Installing, Updating, and Removing The Toolbox<a class="headerlink" href="#installing-updating-and-removing-the-toolbox" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="windows-installation">
 <h4>Windows Installation<a class="headerlink" href="#windows-installation" title="Permalink to this headline">¶</a></h4>
-<p>Note that you will have to install <a class="reference external" href="cygwin.com">cygwin</a> first before installing Octave.</p>
+<p>Note that you will have to install <a class="reference external" href="cygwin.com">Cygwin</a> first before installing Octave.</p>
 <ol class="arabic simple">
 <li>Download and install <a class="reference external" href="cygwin.com">Cygwin</a>.</li>
-<li>You may have to run setup multiple times to install everything you
+<li>You may have to run setup multiple times to install the parts you
 need. Install, at minimum:<ol class="loweralpha">
 <li><code class="docutils literal"><span class="pre">Octave</span></code> (Math section- octave: GNU Octave language...)</li>
 <li><code class="docutils literal"><span class="pre">xinit</span></code> (X11 section)</li>
 <li><code class="docutils literal"><span class="pre">unzip</span></code></li>
 </ol>
 </li>
-<li>Go to the Windows Menu. In Cygwin-X run XWin Server</li>
-<li>A Green X should appear on the dock. You should be able to bring up
-a menu to launch Octave</li>
+<li>Go to the Windows Menu. In <code class="docutils literal"><span class="pre">Cygwin-X</span></code> run <code class="docutils literal"><span class="pre">XWin</span> <span class="pre">Server</span></code></li>
+<li>A green X should appear on the dock. You should be able to bring up
+a menu to launch <code class="docutils literal"><span class="pre">Octave</span></code></li>
 <li><a class="reference external" href="https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip">Click on this</a>
 to download the vibration toolbox to your Downloads folder.</li>
 </ol>
 <p>Copy and paste this into your Octave window</p>
-<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="p">.</span><span class="o">./</span><span class="p">.</span><span class="o">./</span><span class="n">cygdrive</span>
-<span class="n">cd</span> <span class="n">c</span>
-<span class="n">cd</span> <span class="n">Users</span>
-<span class="n">ls</span>
-</pre></div>
-</div>
-<p>Here you will see a list of users on your computer. You need to figure
-out which one is you. For me, it&#8217;s <cite>Joseph C. Slater</cite>. So for my
-installation  I continue
-with (note the single quotes)</p>
-<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="s">&#39;Joseph C. Slater&#39;</span>
-</pre></div>
-</div>
-<p>You should be able to copy and paste the rest of this into Octave to
-complete the process.</p>
-<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">Downloads</span>
-<span class="nb">rename</span><span class="p">(</span><span class="s">&#39;ovtoolbox-master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
-<span class="n">pkg</span> <span class="n">install</span> <span class="n">vtoolbox</span><span class="p">.</span><span class="nb">zip</span>
-<span class="nb">delete</span><span class="p">(</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
-<span class="p">;</span>
+<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="nb">system</span><span class="p">(</span><span class="s">&#39;curl -4 -L https://raw.githubusercontent.com/vibrationtoolbox/ovtoolbox/master/inst/vtbud.m&gt;vtbud.m&#39;</span><span class="p">)</span>
+<span class="n">vtbud</span>
+<span class="nb">delete</span><span class="p">(</span><span class="s">&#39;vtbud.m&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -146,34 +129,48 @@ complete the process.</p>
 <span class="p">;</span>
 </pre></div>
 </div>
+<p>Alternatively, you can also download <code class="docutils literal"><span class="pre">vtbud.m</span></code> and run it to perform
+the install for you</p>
+<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="nb">system</span><span class="p">(</span><span class="s">&#39;curl -4 -L https://raw.githubusercontent.com/vibrationtoolbox/ovtoolbox/master/inst/vtbud.m&gt;vtbud.m&#39;</span><span class="p">)</span>
+<span class="n">vtbud</span>
+<span class="nb">delete</span><span class="p">(</span><span class="s">&#39;vtbud.m&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 <p><strong>Note</strong>: If you use the Download button on <a class="reference external" href="github.com">github</a>, you <strong>must</strong> rename
-the downloaded file to <code class="code docutils literal"><span class="pre">vtoolbox.zip</span></code> and manually use <code class="code docutils literal"><span class="pre">pkg</span></code>.</p>
+the downloaded file to <code class="code docutils literal"><span class="pre">vtoolbox.zip</span></code> and manually use
+<code class="code docutils literal"><span class="pre">pkg</span> <span class="pre">install</span> <span class="pre">vtoolbox.zip</span></code>.</p>
 </div>
 <div class="section" id="to-update">
 <h4>To update:<a class="headerlink" href="#to-update" title="Permalink to this headline">¶</a></h4>
 <p>To update, run <code class="code docutils literal"><span class="pre">vtbud</span></code> in <a class="reference external" href="http://www.octave.org/">Octave</a> if you have updated since Feb 23, 2016.</p>
 <p>Otherwise, run <a class="reference external" href="http://www.octave.org/">Octave</a> and paste the following to the prompt:</p>
-<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">pkg</span> <span class="n">uninstall</span> <span class="n">ovtoolbox</span>
+<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">pkg</span> <span class="n">uninstall</span> <span class="n">vtoolbox</span>
 <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">]=</span><span class="nb">urlwrite</span><span class="p">(</span><span class="s">&#39;https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
 <span class="n">pkg</span> <span class="n">install</span> <span class="n">vtoolbox</span><span class="p">.</span><span class="nb">zip</span>
 <span class="nb">delete</span><span class="p">(</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
 <span class="p">;</span>
 </pre></div>
 </div>
-<p>On Windows you may, unfortunately, have to uninstall and reinstall
-because the <code class="docutils literal"><span class="pre">urlwrite</span></code> command isn&#8217;t working on remote sites from what I can tell.</p>
 </div>
 <div class="section" id="to-remove">
 <h4>To remove:<a class="headerlink" href="#to-remove" title="Permalink to this headline">¶</a></h4>
+<p>Because it takes so little space (trivial compared to a small Word
+document), I would suggest simply deactivating it</p>
 <p>In <a class="reference external" href="http://www.octave.org/">Octave</a></p>
-<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">pkg</span> <span class="n">uninstall</span> <span class="n">ovtoolbox</span>
+<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">pkg</span> <span class="n">unload</span> <span class="n">vtoolbox</span>
+</pre></div>
+</div>
+<p>To remove it completely, in <a class="reference external" href="http://www.octave.org/">Octave</a></p>
+<div class="highlight-octave"><div class="highlight"><pre><span></span><span class="n">pkg</span> <span class="n">uninstall</span> <span class="n">vtoolbox</span>
 <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">]=</span><span class="nb">urlwrite</span><span class="p">(</span><span class="s">&#39;https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip&#39;</span><span class="p">,</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
 <span class="n">pkg</span> <span class="n">install</span> <span class="n">vtoolbox</span><span class="p">.</span><span class="nb">zip</span>
 <span class="nb">delete</span><span class="p">(</span><span class="s">&#39;vtoolbox.zip&#39;</span><span class="p">)</span>
 <span class="p">;</span>
 </pre></div>
 </div>
-<p><em>Why the semi-colons?</em> It&#8217;s my way of maing sure you don&#8217;t leave the
+<p>You may have to look around and make sure no files <code class="docutils literal"><span class="pre">vtoolbox.zip</span></code> or
+similar exist.</p>
+<p><em>Why the semi-colons?</em> It&#8217;s my way of making sure you don&#8217;t leave the
 last command unexecuted.</p>
 </div>
 </div>
@@ -199,7 +196,7 @@ University for providing the computer resources for developing the
 MATLAB 4 version of the software. Perhaps the people who have given the
 most are my students who painfully experienced every piece of beta code,
 often at the least opportune times. Thanks is also given to Dr. Maurice
-Petyt and Robert C. Chiroux for their patience in testing numerous 4.0
+Petyt and Robert C. Chiroux For their patience in testing numerous 4.0
 beta versions of this software. Finally, John W. Eaton and others for
 writing/coordinating/developing/supporting Octave. Please see the
 <a class="reference external" href="http://www.octave.org/">Octave</a> website for more information on Octave and how you can
@@ -216,7 +213,7 @@ licensing.</p>
 </div>
 <div class="section" id="using-the-engineering-vibration-toolbox">
 <h1>Using the Engineering Vibration Toolbox<a class="headerlink" href="#using-the-engineering-vibration-toolbox" title="Permalink to this headline">¶</a></h1>
-<p>Typing <code class="docutils literal"><span class="pre">help</span> <span class="pre">vtb?</span></code>, where <code class="docutils literal"><span class="pre">?</span></code> is a number, will provide a table of contents for the files
+<p>Typing <code class="docutils literal"><span class="pre">help</span> <span class="pre">vtb#</span></code>, where <code class="docutils literal"><span class="pre">#</span></code> is a number, will provide a table of contents for the files
 related to chapter &#8216;?&#8217;. Typing <code class="docutils literal"><span class="pre">help</span> <span class="pre">codename</span></code> will provide help on the
 particular code. Note  that the <code class="docutils literal"><span class="pre">filename</span></code> is <code class="docutils literal"><span class="pre">codename.m</span></code>.</p>
 <p>Engineering Vibration Toolbox commands can be run by typing them with
