@@ -2,16 +2,16 @@
 Download and Installation
 ==============================
 
-The Engineering Vibration Toolbox for `MATLAB`_
+The Engineering Vibration Toolbox for `Matlab`_
 -----------------------------------------------------------
 
 The Engineering Vibration Toolbox can be installed by downloading 
-`vtbud.m`_ and executing it from within MATLAB. Executing it
+`vtbud.m`_ and executing it from within Matlab. Executing it
 later also installs or removes the toolbox. You will get an error if ``vtbud.m`` is not in your
-path. If that happens, open ``vtbud.m`` in the MATLAB editor and press the F5 key. This will download
+path. If that happens, open ``vtbud.m`` in the Matlab editor and press the F5 key. This will download
 ``vtoolbox.zip``, expand it in the desired location, and add the path to it to
-your default MATLAB path. Alternatively, copy and
-paste this into your MATLAB command console:
+your default Matlab path. Alternatively, copy and
+paste this into your Matlab command console:
 
 
 .. code-block:: matlab
@@ -20,7 +20,7 @@ paste this into your MATLAB command console:
 
 and press RETURN. 
 
-The current revision status of the *Engineering Vibration Toolbox* for
+The current revision status of the `Engineering Vibration Toolbox`_ for
 Matlab can
 be viewed in the `github
 repository <https://github.com/vibrationtoolbox/vtoolbox>`_ or more
@@ -30,31 +30,31 @@ Troubleshooting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A list of updates since 1/1/98
-can be obtained for your current version by typing ``help vtbud`` in
-MATLAB. That can be compared to the `most up-to-date release <https://github.com/vibrationtoolbox/vtoolbox/blob/master/vtbud.txt>`__.
+can be obtained for your current version by typing :code:`help vtbud` in
+Matlab. That can be compared to the `most up-to-date release <https://github.com/vibrationtoolbox/vtoolbox/blob/master/vtbud.txt>`__.
 
-They will load/run on all platforms supported by MATLAB. The binary files are all ``.mat`` files, and the different extensions represent different parts of a project group. To load
+They will load/run on all platforms supported by Matlab. The binary files are all ``.mat`` files, and the different extensions represent different parts of a project group. To load
 them type:
 
 .. code-block:: matlab
           
    » load filename -mat
 
-where » is the MATLAB prompt. [#]_ The
+where » is the Matlab prompt. [#]_ The
 filename must include the extension unless it is ``.mat``.
 
 If you can't execute any of the ``.m`` files (try for
-example typing "vtbud" from the MATLAB prompt), they
-are either not in the MATLAB path, or did not get
-transferred in the correct format (unlikely these days). Use the ``cd`` command (like DOS) from
-within MATLAB to move to the ``vtoolbox`` directory. If
-you can see the files using ``dir``, and still cannot execute them, then try
+example typing :code:`vtbud` from the Matlab prompt), they
+are either not in the Matlab path, or did not get
+transferred in the correct format (unlikely these days). Use the :code:`cd` command (like DOS) from
+within Matlab to move to the ``vtoolbox`` directory. If
+you can see the files using :code:`dir`, and still cannot execute them, then try
 transferring the text files again, being sure that they are transferred in
 ASCII (text) format.
 
 Removing the Engineering Vibration Toolbox:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Type ``vtbud`` from the MATLAB prompt. 
+Type :code:`vtbud` from the Matlab prompt. 
 
 
 The Engineering Vibration Toolbox for Octave
@@ -139,7 +139,7 @@ Linux and Mac Installation
    ;
 
 Alternatively, you can also download ``vtbud.m`` and run it to perform
-the install for you
+the install for you (copy and paste this at the Octave prompt)
 
 .. code-block:: octave
 
@@ -149,7 +149,8 @@ the install for you
 
 **Note**: If you use the Download button on `github <github.com>`__, you **must** rename
 the downloaded file to :code:`vtoolbox.zip` and manually use
-:code:`pkg install vtoolbox.zip`.
+:code:`pkg install vtoolbox.zip` after renaming the downloaded ``zip``
+file to ``vtoolbox.zip``.
 
 To update:
 ****************
@@ -190,7 +191,7 @@ To remove it completely, in `Octave`_
    delete('vtoolbox.zip')
    ;
 
-You may have to look around and make sure no files ``vtoolbox.zip`` or
+You may have to look around and make sure no files ``vtoolbox.zip``, ``master.zip``, or
 similar exist. 
 
 *Why the semi-colons?* It's my way of making sure you don't leave the
@@ -199,7 +200,7 @@ last command unexecuted.
 Troubleshooting installation:
 ***********************************
 
-``vtbud`` was initially buggy and is still quite new. If ``vtbud``
+:code:`vtbud` was initially buggy and is still quite new. If :code:`vtbud`
 isn't working, please perform a clean install with the following
 
 .. code-block::octave
@@ -211,19 +212,20 @@ isn't working, please perform a clean install with the following
    delete('vtbud.m')
    
 The first delete is to make sure you aren't able to run an old version
-of ``vtbud``. The second to make sure it is updated in the future. 
+of ``vtbud.m``. The second is to make sure it is updated in the future. 
 
 Printing plots
 ~~~~~~~~~~~~~~~~
 
-To print a plot, the easiest way may be to type ``print`` from the Octave
+To print a plot, the easiest way may be to type :code:`print` from the Octave
 console. This should bring up dialog boxes that enable you to send the
 current plot to your current Windows printer.
 
-The ``print`` command can also be used to generate graphics files for
-embedding into your favorite word processing program. Type ``help print``
-for details. By default the file will end up in the directory
-``C:\Program Files\GNU Octave #\octave_files`` on Windows.
+The :code:`print` command can also be used to generate graphics files for
+embedding into your favorite word processing program. Type :code:`help print`
+for details. By default the file used end up in the directory
+``C:\Program Files\GNU Octave #\octave_files`` on Windows. I can't be
+confident for your installation, though. 
 
 
 
@@ -233,11 +235,11 @@ Acknowledgments
 Support for the Engineering Vibration Toolbox for Octave has come from a number of
 sources. First and foremost, Daniel J. Inman, who initially tasked
 me and Donald J. Leo to write version 3.0 of the software for his text
-"Engineering Vibration" by Dr. Daniel J. Inman (Prentice Hall, 1994). I
+*Engineering Vibration* by Dr. Daniel J. Inman (Prentice Hall, 1994). I
 also thank the Department of Mechanical and Materials Engineering and
 the College of Engineering and Computer Science at Wright State
 University for providing the computer resources for developing the
-MATLAB 4 version of the software. Perhaps the people who have given the
+Matlab 4 version of the software. Perhaps the people who have given the
 most are my students who painfully experienced every piece of beta code,
 often at the least opportune times. Thanks is also given to Dr. Maurice
 Petyt and Robert C. Chiroux For their patience in testing numerous 4.0
@@ -257,12 +259,12 @@ licensing.
 Using the Engineering Vibration Toolbox
 =====================================================
 
-Typing ``help vtb#``, where ``#`` is a number, will provide a table of contents for the files
-related to chapter '?'. Typing ``help codename`` will provide help on the
+Typing :code:`help vtb#`, where ``#`` is a number, will provide a table of contents for the files
+related to chapter '?'. Typing :code:`help codename` will provide help on the
 particular code. Note  that the ``filename`` is ``codename.m``.
 
 Engineering Vibration Toolbox commands can be run by typing them with
-the necessary arguments just as any other Octave/MATLAB
+the necessary arguments just as any other Octave/Matlab
 commands/functions. For instance, :code:`vtb1_1` can be run by typing
 :code:`vtb1_1(1,.1,1,1,0,10)`. Many functions have multiple forms of input.
 The help for each function shows this flexibility.
@@ -272,11 +274,11 @@ Faculty/Instructors/GTAs
 =========================
 Please send comments and questions regarding the Engineering Vibration
 Toolbox by email to `Joseph C. Slater`_. Please use the `vtbud.m`_
-function to check for updates (Type :code:`vtbud` at the matlab prompt).  
+function to check for updates (Type :code:`vtbud` at the Matlab prompt).  
 
 Donate/Payment
 ===============
-The Engineering Vibration Toolbox for MATLAB (not the Octave version,
+The Engineering Vibration Toolbox for Matlab (not the Octave version,
 or any version that runs on a non-proprietary platform) is free only
 to owners of Engineering Vibration, Daniel J. Inman. Please contact
 `me`_ regarding usage for commercial purposes.
@@ -309,7 +311,7 @@ use where the software is installed.
 
 Please send questions or comments about this page to `Joseph C. Slater`_.
 
-MATLAB is a registered trademark of the MathWorks, Inc. Mac(intosh) is a
+Matlab is a registered trademark of the MathWorks, Inc. Mac(intosh) is a
 registered trademark of Apple Computer, Inc. PostScript is a registered
 trademark of Adobe Systems, Inc. Windows is a registered trademark of
 Microsoft Corp. Unix is a registered trademark of AT&T.
@@ -328,11 +330,15 @@ Microsoft Corp. Unix is a registered trademark of AT&T.
 
 .. _Joseph C. Slater: mailto:joseph.c.slater@gmail.com?subject=Vibration%20Toolbox
 
+.. _`Engineering Vibration Toolbox`: https://vibrationtoolbox.github.io
+
 .. _Cygwin: https://www.cygwin.com/
 
 .. _MATLAB: http://www.mathworks.com
 
-.. _`vtbud.m`: https://github.com/vibrationtoolbox/vtoolbox/blob/master/vtbud.m
+.. _Matlab: http://www.mathworks.com
+
+.. _`vtbud.m`: https://raw.githubusercontent.com/vibrationtoolbox/vtoolbox/master/vtbud.m
 
 .. _Octave Windows: http://wiki.octave.org/Octave_for_Microsoft_Windows
 

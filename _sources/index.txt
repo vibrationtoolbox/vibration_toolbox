@@ -17,17 +17,17 @@ The Engineering Vibration Toolbox is a set of over 35 educational
 programs and associated files by `Joseph C.
 Slater <http://josephcslater.github.io>`__.
 It can be run on any platform supported by
-`MATLAB <http://www.mathworks.com/>`__ or
-`Octave <http://www.octave.org>`__  (Mac, Windows, VMS, Unix). Also
+`Matlab <http://www.mathworks.com/>`__ or
+`Octave <http://www.octave.org>`__  (Mac, Windows, VMS, Unix, Cygwin). Also
 included are help files, examples, and files containing raw
 experimental data. The codes include single degree of freedom
 response, response spectrum, finite elements, numerical integration,
 modal analysis and phase plane analysis. It is included free with
-the text "Engineering Vibration" by `Dr. Daniel J. Inman <http://www.engin.umich.edu/college/about/people/profiles/f-to-j/daniel-inman>`__ (`Prentice
+the text "Engineering Vibration" by `Prof. Daniel J. Inman <http://www.engin.umich.edu/college/about/people/profiles/f-to-j/daniel-inman>`__ (`Prentice
 Hall <http://www.prenhall.com>`__). 
     
 I highly recommend use of 
-`Octave <http://www.octave.org>`__. If you know `MATLAB <http://www.mathworks.com/>`__, you already
+`Octave <http://www.octave.org>`__. If you know `Matlab <http://www.mathworks.com/>`__, you already
 know most of `Octave <http://www.octave.org>`__. Most students will hardly know the difference,
 except that it's free! The *Octavized* 
 toolbox can be found `here <ovtoolbox>`__. Further, the licensing is
