@@ -14,14 +14,13 @@ Type
 
 .. code-block:: shell
 
-   ipython notebook
+   jupyter notebook
 
-at your command prompt. If you have updated to it, you need to use
-:code:`jupyter`.
+at your command prompt.
    
 Load and execute the Lorenze example. It's copied from elsewhere, so
-I don't deserve any credit there. However, it gives an idea of where I
+I don't deserve any credit. However, it gives an idea of where I
 want the project to go.
 
-Sorry for beign pithy... this project is a long ways off. You're
+Sorry for being pithy... this project is a long way off. You're
 welcome to help!
