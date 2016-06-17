@@ -3,9 +3,41 @@ import numpy as np
 import scipy as sp
 import matplotlib as mpl
 from scipy.interpolate import UnivariateSpline
+from ipywidgets import interact, interactive
+from IPython.display import clear_output, display, HTML
+from scipy import integrate
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.colors import cnames
+from matplotlib import animation
 
 mpl.rcParams['lines.linewidth'] = 2
+mpl.rcParams['lines.linestyle'] = '-'
 mpl.rcParams['figure.figsize'] = (10, 6)
+
+
+def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
+
+    def sdofs_deriv(x_xd,t0,m=m, c=c, k=k):
+        x, xd = x_xd
+        return [xd,-c/m*xd-k/m*x]
+
+    z0=np.array([[x0,v0]])
+    # Solve for the trajectories
+    t = np.linspace(0, max_time, int(250*max_time))
+    z_t = np.asarray([integrate.odeint(sdofs_deriv, z0i, t)
+                      for z0i in z0])
+    
+    x, y = z_t[:,:].T
+    return t, x, y
+
+def sdof_phase_plot(m=10, c=1, k=100, x0=1,v0=-1, max_time=10):
+    t, x, y = solve_sdofs(m, c, k, x0 , v0, max_time)
+    plt.plot(x,y)
+ 
+
+def sdof_time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
+    t, x, y = solve_sdofs(m, c, k, x0, v0, max_time)
+    plt.plot(t,x)
 
 
 def euler_beam_modes(n = 10, bctype = 2, beamparams=sp.array((7.31e10, 1/12*0.03*.015**3, 2747, .015*0.03, 0.4)), npoints = 2001):
