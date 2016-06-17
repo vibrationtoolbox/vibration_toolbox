@@ -34,12 +34,22 @@ def sdof_phase_plot(m=10, c=1, k=100, x0=1,v0=-1, max_time=10):
     t, x, y = solve_sdofs(m, c, k, x0 , v0, max_time)
     plt.plot(x,y)
  
-
+def sdof_phase_plot_i(max_time=(1.0,200.0), v0=(-100,100),m=(1.0,100.0),
+                c=(0.0,1.0), x0=(-100,100),k=(1.0,100.0)):
+    w = interactive(sdof_phase_plot, max_time=max_time, v0=v0,m=m,
+                c=c, x0=x0,k=k)
+    display(w)
+    
 def sdof_time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     t, x, y = solve_sdofs(m, c, k, x0, v0, max_time)
     plt.plot(t,x)
 
-
+def sdof_time_plot_i(max_time=(1.0,200.0), v0=(-100,100),m=(1.0,100.0),
+                c=(0.0,1.0), x0=(-100,100),k=(1.0,100.0)):
+    w = interactive(sdof_phase_plot, max_time=max_time, v0=v0,m=m,
+                c=c, x0=x0,k=k)
+    display(w)
+    
 def euler_beam_modes(n = 10, bctype = 2, beamparams=sp.array((7.31e10, 1/12*0.03*.015**3, 2747, .015*0.03, 0.4)), npoints = 2001):
 
 
