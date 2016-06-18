@@ -8,5 +8,12 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+.ipynb_check*
+.ipynb*check*/*
+.#.*
+\.ipynb_checkpoints/**
+.ipynb_checkpoints
+.ipynb*
+
 *.*~
 __pycache__
