@@ -15,7 +15,7 @@ mpl.rcParams['figure.figsize'] = (10, 6)
 
 
 def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
-    '''returns t, x, v
+    '''returns t, x, v, zeta, omega, omega_d, A
     $\alpha$
     Returns free response of a second order linear ordinary differential equation
     defined by 
@@ -52,6 +52,14 @@ def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
            [-0.97869947]]))
     '''
 
+    omega = sp.sqrt(k/m)
+    zeta = c/2/omega/m
+    omega_d = omega*sp.sqrt(1-zeta**2)
+    A = sp.sqrt(x0**2+v0**2/omega**2)
+#    print('The natural frequency is ', omega, 'rad/s.');
+#    print('The damping ratio is ', zeta);
+#    print('The damped natural frequency is ', omega_d);
+
     def sdofs_deriv(x_xd,t0,m=m, c=c, k=k):
         x, xd = x_xd
         return [xd,-c/m*xd-k/m*x]
@@ -63,13 +71,20 @@ def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
                       for z0i in z0])
     
     x, y = z_t[:,:].T
-    return t, x, y
+    return t, x, y, zeta, omega, omega_d, A
 
 def sdof_phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     '''Phase plot of free response of single degree of freedom system.
     For information on variables see `solve_sdofs`'''
-    t, x, y = solve_sdofs(m, c, k, x0 , v0, max_time)
-    plt.plot(x,y)
+    t, x, v, zeta, omega, omega_d, A = solve_sdofs(m, c, k, x0 , v0, max_time)
+    fig = plt.figure()
+    fig.suptitle('Velocity vs Displacement')
+    ax = fig.add_subplot(111)
+    ax.set_xlabel('Displacement')
+    ax.set_ylabel('Velocity')
+    ax.grid('on')
+    ax.plot(x, v)
+        
  
 def sdof_phase_plot_i(max_time=(1.0,200.0), v0=(-100,100, 1.0), m=(1.0,100.0, 1.0),
                 c=(0.0,1.0, 0.1), x0=(-100,100, 1), k=(1.0,100.0, 1.0)):
@@ -80,12 +95,25 @@ def sdof_phase_plot_i(max_time=(1.0,200.0), v0=(-100,100, 1.0), m=(1.0,100.0, 1.
     display(w)
     
 def sdof_time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
-    t, x, y = solve_sdofs(m, c, k, x0, v0, max_time)
-    plt.plot(t,x)
+    t, x, v, zeta, omega, omega_d, A = solve_sdofs(m, c, k, x0, v0, max_time)
+    fig = plt.figure()
+    fig.suptitle('Displacement vs Time')
+    ax = fig.add_subplot(111)
+    ax.set_xlabel('Time')
+    ax.set_ylabel('Displacement')
+    ax.grid('on')
+    ax.plot(t, x)
+    ax.plot(t, A*sp.exp(-zeta*omega*t),'--',t,-A*sp.exp(-zeta*omega*t),'--g', linewidth = 1)
+    _, tmax, _, xmax = ax.axis()
+    ax.text(.85*tmax,.93*xmax,'$\omega$ = %0.2f rad/sec'%(omega) )
+    ax.text(.85*tmax,.85*xmax,'$\omega_d$ = %0.2f rad/sec'%(omega_d))
+    ax.text(.85*tmax,.78*xmax,'$\zeta$ = %0.2f rad/sec'%(zeta))
+
+        
 
 def sdof_time_plot_i(max_time=(1.0,200.0), v0=(-100,100),m=(1.0,100.0),
                 c=(0.0,1.0), x0=(-100,100),k=(1.0,100.0)):
-    w = interactive(sdof_phase_plot, max_time=max_time, v0=v0,m=m,
+    w = interactive(sdof_time_plot, max_time=max_time, v0=v0,m=m,
                 c=c, x0=x0,k=k)
     display(w)
     
