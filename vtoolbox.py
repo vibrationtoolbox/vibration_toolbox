@@ -74,7 +74,7 @@ def sdof_phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 def sdof_phase_plot_i(max_time=(1.0,200.0), v0=(-100,100, 1.0), m=(1.0,100.0, 1.0),
                 c=(0.0,1.0, 0.1), x0=(-100,100, 1), k=(1.0,100.0, 1.0)):
     '''Interactive phase plot of free response of single degree of freedom system.
-    For information on variables see `solve_sdofs`'''
+    For information on variables see ``solve_sdofs``'''
     w = interactive(sdof_phase_plot, max_time=max_time, v0=v0,m=m,
                 c=c, x0=x0,k=k)
     display(w)
