@@ -65,12 +65,16 @@ def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     x, y = z_t[:,:].T
     return t, x, y
 
-def sdof_phase_plot(m=10, c=1, k=100, x0=1,v0=-1, max_time=10):
+def sdof_phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
+    '''Phase plot of free response of single degree of freedom system.
+    For information on variables see `solve_sdofs`'''
     t, x, y = solve_sdofs(m, c, k, x0 , v0, max_time)
     plt.plot(x,y)
  
-def sdof_phase_plot_i(max_time=(1.0,200.0), v0=(-100,100),m=(1.0,100.0),
-                c=(0.0,1.0), x0=(-100,100),k=(1.0,100.0)):
+def sdof_phase_plot_i(max_time=(1.0,200.0), v0=(-100,100, 1.0), m=(1.0,100.0, 1.0),
+                c=(0.0,1.0, 0.1), x0=(-100,100, 1), k=(1.0,100.0, 1.0)):
+    '''Interactive phase plot of free response of single degree of freedom system.
+    For information on variables see `solve_sdofs`'''
     w = interactive(sdof_phase_plot, max_time=max_time, v0=v0,m=m,
                 c=c, x0=x0,k=k)
     display(w)
