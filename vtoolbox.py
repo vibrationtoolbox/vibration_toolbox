@@ -11,11 +11,46 @@ from matplotlib.colors import cnames
 from matplotlib import animation
 
 mpl.rcParams['lines.linewidth'] = 2
-mpl.rcParams['lines.linestyle'] = '-'
 mpl.rcParams['figure.figsize'] = (10, 6)
 
 
 def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
+    '''returns t, x, v
+    $\alpha$
+    Returns free response of a second order linear ordinary differential equation
+    defined by 
+    :math:`m\ddot{x} + c \dot{x} + k x = 0`
+    given initial conditions :math:`x_0` and :math:`\dot{x}_0 = v_0` for
+    :math:`0 < t < t_{max}` 
+    
+    Parameters
+ 
+    m, c, k:           1) Floats. Mass, damping and stiffness.
+    x0, v0:            2) Floats. Initial conditions
+    max_time:          3) Float. end time or response to be returned
+
+    Returns
+ 
+    t, x, v: 1) Arrays. Time, displacement, and velocity
+
+    :Example:
+    >>> import vtoolbox as vtb
+    >>> vtb.solve_sdofs()
+    (array([  0.00000000e+00,   4.00160064e-03,   8.00320128e-03, ...,
+             9.99199680e+00,   9.99599840e+00,   1.00000000e+01]), array([[ 1.        ],
+           [ 0.99591926],
+           [ 0.9916807 ],
+           ..., 
+           [ 0.56502396],
+           [ 0.56123989],
+           [ 0.55736747]]), array([[-1.        ],
+           [-1.03952678],
+           [-1.07887136],
+           ..., 
+           [-0.93454914],
+           [-0.95670532],
+           [-0.97869947]]))
+    '''
 
     def sdofs_deriv(x_xd,t0,m=m, c=c, k=k):
         x, xd = x_xd
@@ -345,3 +380,21 @@ def frfplot(f, H):
     plt.ylabel('Phase (deg)')
     axlim = plt.axis()
     plt.axis(axlim + sp.array([0, 0, -0.1*(axlim[3]-axlim[2]), 0.1*(axlim[3]-axlim[2])]))
+
+
+    
+if __name__ == "__main__":
+    import doctest
+    import vtoolbox as vtb
+    doctest.testmod(optionflags=doctest.ELLIPSIS)
+    #doctest.run_docstring_examples(frfest,globals(),optionflags=doctest.ELLIPSIS)
+    #doctest.run_docstring_examples(asd,globals(),optionflags=doctest.ELLIPSIS)
+    """ What this does. 
+    python (name of this file)  -v
+    will test all of the examples in the help.
+
+    Leaving off -v will run the tests without any output. Success will return nothing.
+
+    See the doctest section of the python manual.
+    https://docs.python.org/3.5/library/doctest.html
+    """
