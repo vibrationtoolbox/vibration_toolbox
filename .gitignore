@@ -14,6 +14,8 @@ Thumbs.db
 \.ipynb_checkpoints/**
 .ipynb_checkpoints
 .ipynb*
+.#vtoolbox.py
+*.pdf
 
 *.*~
 __pycache__
