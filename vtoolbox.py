@@ -3,7 +3,7 @@ import numpy as np
 import scipy as sp
 import matplotlib as mpl
 from scipy.interpolate import UnivariateSpline
-from ipywidgets import interact, interactive
+from ipywidgets import interact, interactive, widgets
 from IPython.display import clear_output, display, HTML
 from scipy import integrate
 from mpl_toolkits.mplot3d import Axes3D
@@ -13,7 +13,7 @@ from matplotlib import animation
 mpl.rcParams['lines.linewidth'] = 2
 mpl.rcParams['figure.figsize'] = (10, 6)
 import IPython.core.display as ipcd
-from ipywidgets.widgets.interaction import interact, interactive
+#from ipywidgets.widgets.interaction import interact, interactive
 
 def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     '''returns t, x, v, zeta, omega, omega_d, A
@@ -130,6 +130,9 @@ def sdof_time_plot_i(max_time=(1.0, 100.0), v0=(-100, 100), m=(1.0, 100.0),
                      c=(0.0, 100.0), x0=(-100, 100), k=(1.0, 100.0)):
     w = interactive(sdof_time_plot, max_time=max_time, v0=v0, m=m,
                     c=c, x0=x0, k=k)
+    # I'd like to get the sliders to be side by side to take less vertical space
+    #cont = widgets.HBox(children = w)
+    #print(help(w))
     display(w)
 
 
