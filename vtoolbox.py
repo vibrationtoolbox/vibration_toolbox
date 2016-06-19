@@ -12,7 +12,8 @@ from matplotlib import animation
 
 mpl.rcParams['lines.linewidth'] = 2
 mpl.rcParams['figure.figsize'] = (10, 6)
-
+import IPython.core.display as ipcd
+from ipywidgets.widgets.interaction import interact, interactive
 
 def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     '''returns t, x, v, zeta, omega, omega_d, A
