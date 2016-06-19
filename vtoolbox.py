@@ -55,7 +55,7 @@ def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     omega = sp.sqrt(k/m)
     zeta = c/2/omega/m
     omega_d = omega*sp.sqrt(1-zeta**2)
-    A = sp.sqrt(x0**2+v0**2/omega**2)
+    A = sp.sqrt(x0**2+(v0+omega*zeta*x0)**2/omega_d**2)
 #    print('The natural frequency is ', omega, 'rad/s.');
 #    print('The damping ratio is ', zeta);
 #    print('The damped natural frequency is ', omega_d);
@@ -94,7 +94,7 @@ def sdof_phase_plot_i(max_time=(1.0,200.0), v0=(-100,100, 1.0), m=(1.0,100.0, 1.
                 c=c, x0=x0,k=k)
     display(w)
     
-def sdof_time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
+def sdof_time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
     t, x, v, zeta, omega, omega_d, A = solve_sdofs(m, c, k, x0, v0, max_time)
     fig = plt.figure()
     fig.suptitle('Displacement vs Time')
@@ -103,17 +103,21 @@ def sdof_time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     ax.set_ylabel('Displacement')
     ax.grid('on')
     ax.plot(t, x)
-    ax.plot(t, A*sp.exp(-zeta*omega*t),'--',t,-A*sp.exp(-zeta*omega*t),'--g', linewidth = 1)
-    _, tmax, _, xmax = ax.axis()
-    ax.text(.85*tmax,.93*xmax,'$\omega$ = %0.2f rad/sec'%(omega) )
-    ax.text(.85*tmax,.85*xmax,'$\omega_d$ = %0.2f rad/sec'%(omega_d))
-    ax.text(.85*tmax,.78*xmax,'$\zeta$ = %0.2f rad/sec'%(zeta))
+    if zeta < 1:
+        ax.plot(t, A*sp.exp(-zeta*omega*t),'--',t,-A*sp.exp(-zeta*omega*t),'--g', linewidth = 1)
+        tmin, tmax, xmin, xmax = ax.axis()
+        ax.text(.75*tmax,.95*(xmax-xmin)+xmin,'$\omega$ = %0.2f rad/sec'%(omega) )
+        ax.text(.75*tmax,.90*(xmax-xmin)+xmin,'$\zeta$ = %0.2f'%(zeta))
+        ax.text(.75*tmax,.85*(xmax-xmin)+xmin,'$\omega_d$ = %0.2f rad/sec'%(omega_d))
+    else:
+        tmin, tmax, xmin, xmax = ax.axis()
+        ax.text(.75*tmax,.95*(xmax-xmin)+xmin,'$\zeta$ = %0.2f'%(zeta))
+        ax.text(.75*tmax,.90*(xmax-xmin)+xmin,'$\lambda_1$ = %0.2f'%(zeta*omega-omega*(zeta**2-1)))
+        ax.text(.75*tmax,.85*(xmax-xmin)+xmin,'$\lambda_2$ = %0.2f'%(zeta*omega+omega*(zeta**2-1)))
 
-        
-
-def sdof_time_plot_i(max_time=(1.0,200.0), v0=(-100,100),m=(1.0,100.0),
-                c=(0.0,1.0), x0=(-100,100),k=(1.0,100.0)):
-    w = interactive(sdof_time_plot, max_time=max_time, v0=v0,m=m,
+def sdof_time_plot_i(max_time=(1.0,100.0), v0=(-100,100), m=(1.0,100.0),
+                c=(0.0,100.0), x0=(-100,100), k=(1.0,100.0)):
+    w = interactive(sdof_time_plot, max_time=max_time, v0=v0, m=m,
                 c=c, x0=x0,k=k)
     display(w)
     
