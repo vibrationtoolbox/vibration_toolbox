@@ -13,16 +13,19 @@ from matplotlib import animation
 mpl.rcParams['lines.linewidth'] = 2
 mpl.rcParams['figure.figsize'] = (10, 6)
 import IPython.core.display as ipcd
-#from ipywidgets.widgets.interaction import interact, interactive
+
+
+# from ipywidgets.widgets.interaction import interact, interactive
 
 def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
-    '''returns t, x, v, zeta, omega, omega_d, A
+    """
+    returns t, x, v, zeta, omega, omega_d, A
     $\alpha$
     Returns free response of a second order linear ordinary differential equation
-    defined by 
+    defined by
     :math:`m\ddot{x} + c \dot{x} + k x = 0`
     given initial conditions :math:`x_0` and :math:`\dot{x}_0 = v_0` for
-    :math:`0 < t < t_{max}` 
+    :math:`0 < t < t_{max}`
 
     Parameters
 
@@ -35,31 +38,31 @@ def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     t, x, v: 1) Arrays. Time, displacement, and velocity
 
     :Example:
-    >>> import vtoolbox as vtb
-    >>> vtb.solve_sdofs()
+    solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10)
     (array([  0.00000000e+00,   4.00160064e-03,   8.00320128e-03, ...,
              9.99199680e+00,   9.99599840e+00,   1.00000000e+01]), array([[ 1.        ],
            [ 0.99591926],
            [ 0.9916807 ],
-           ..., 
+           ...,
            [ 0.56502396],
            [ 0.56123989],
            [ 0.55736747]]), array([[-1.        ],
            [-1.03952678],
            [-1.07887136],
-           ..., 
+           ...,
            [-0.93454914],
            [-0.95670532],
            [-0.97869947]]), 0.015811388300841896, 3.1622776601683795, 3.1618823507524758, 1.0488088481701516)
-    '''
+    """
 
     omega = sp.sqrt(k / m)
     zeta = c / 2 / omega / m
-    omega_d = omega * sp.sqrt(1 - zeta**2)
-    A = sp.sqrt(x0**2 + (v0 + omega * zeta * x0)**2 / omega_d**2)
-#    print('The natural frequency is ', omega, 'rad/s.');
-#    print('The damping ratio is ', zeta);
-#    print('The damped natural frequency is ', omega_d);
+    omega_d = omega * sp.sqrt(1 - zeta ** 2)
+    A = sp.sqrt(x0 ** 2 + (v0 + omega * zeta * x0) ** 2 / omega_d ** 2)
+
+    #    print('The natural frequency is ', omega, 'rad/s.');
+    #    print('The damping ratio is ', zeta);
+    #    print('The damped natural frequency is ', omega_d);
 
     def sdofs_deriv(x_xd, t0, m=m, c=c, k=k):
         x, xd = x_xd
@@ -121,9 +124,9 @@ def sdof_time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
         ax.text(.75 * tmax, .95 * (xmax - xmin) +
                 xmin, '$\zeta$ = %0.2f' % (zeta))
         ax.text(.75 * tmax, .90 * (xmax - xmin) + xmin,
-                '$\lambda_1$ = %0.2f' % (zeta * omega - omega * (zeta**2 - 1)))
+                '$\lambda_1$ = %0.2f' % (zeta * omega - omega * (zeta ** 2 - 1)))
         ax.text(.75 * tmax, .85 * (xmax - xmin) + xmin,
-                '$\lambda_2$ = %0.2f' % (zeta * omega + omega * (zeta**2 - 1)))
+                '$\lambda_2$ = %0.2f' % (zeta * omega + omega * (zeta ** 2 - 1)))
 
 
 def sdof_time_plot_i(max_time=(1.0, 100.0), v0=(-100, 100), m=(1.0, 100.0),
@@ -131,12 +134,64 @@ def sdof_time_plot_i(max_time=(1.0, 100.0), v0=(-100, 100), m=(1.0, 100.0),
     w = interactive(sdof_time_plot, max_time=max_time, v0=v0, m=m,
                     c=c, x0=x0, k=k)
     # I'd like to get the sliders to be side by side to take less vertical space
-    #cont = widgets.HBox(children = w)
-    #print(help(w))
+    # cont = widgets.HBox(children = w)
+    # print(help(w))
     display(w)
 
 
-def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03 * .015**3, 2747, .015 * 0.03, 0.4)), npoints=2001):
+def sdof_euler(m=1, c=.1, k=1, x0=1, v0=0, n=800, dt=0.05):
+    """
+    Returns free response of a second order linear ordinary differential equation
+    using the Euler method for integration.
+
+    Parameters
+    ----------
+    m, c, k: float
+        Mass, damping and stiffness.
+    x0, v0: float
+        Initial conditions
+    n: int
+        The number of steps
+    dt: float
+        The step size.
+
+    Returns
+    ----------
+    t, x, v: array
+        Time, displacement, and velocity
+
+    Examples:
+    ----------
+    >>> sdof_euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
+        ((array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]),
+         array([[ 1.        ,  0.        ],
+        [ 1.        , -0.05      ],
+        [ 0.9975    , -0.09975   ],
+        [ 0.9925125 , -0.14912625],
+        [ 0.98505619, -0.19800624],
+        [ 0.97515588, -0.24626902],
+        [ 0.96284242, -0.29379547],
+        [ 0.94815265, -0.34046861],
+        [ 0.93112922, -0.3861739 ]]))
+    """
+
+    # creates the state matrix
+    A = sp.array([[0, 1],
+                  [-k / m, -c / m]])
+    # creates the x array and set the first line according to the initial conditions
+    x = sp.zeros((n + 1, 2))
+    x[0, :] = x0, v0
+
+    for i in range(0, n):
+        x[i + 1, :] = x[i, :] + dt * A @ x[i, :]
+
+    t = sp.linspace(0, n * dt, n + 1)
+
+    return t, x
+
+
+def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3, 2747, .015 * 0.03, 0.4)),
+                     npoints=2001):
     """
     %VTB6_3 Natural frequencies and mass normalized mode shape for an Euler-
     % Bernoulli beam with a chosen boundary condition.
@@ -214,11 +269,11 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
                 U[:, i] = len - 0.5
             else:
                 sig = (sp.cosh(Bnl[i]) - sp.cos(Bnl[i])) / \
-                    (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
+                      (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
                 w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
                 b = Bnl[i] * len
                 U[:, i] = sp.cosh(b) + sp.cos(b) - sig * \
-                    (sp.sinh(b) + sp.sin(b))
+                                                   (sp.sinh(b) + sp.sin(b))
     elif bctype == 2:
         desc = 'Clamped-Free '
         Bnllow = sp.array((1.88, 4.69, 7.85, 10.99, 14.14))
@@ -230,10 +285,10 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
 
         for i in mode_num_range:
             sig = (sp.sinh(Bnl[i]) - sp.sin(Bnl[i])) / \
-                (sp.cosh(Bnl[i]) - sp.cos(Bnl[i]))
+                  (sp.cosh(Bnl[i]) - sp.cos(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
-            #plt.plot(x,(sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))))
+            # plt.plot(x,(sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))))
             U[:, i] = sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))
 
     elif bctype == 3:
@@ -246,7 +301,7 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
                 Bnl[i] = Bnllow[i]
         for i in mode_num_range:
             sig = (sp.cosh(Bnl[i]) - sp.cos(Bnl[i])) / \
-                (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
+                  (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
             U[:, i] = sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))
@@ -260,7 +315,7 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
                 Bnl[i] = Bnllow[i]
         for i in mode_num_range:
             sig = (sp.sinh(Bnl[i]) + sp.sin(Bnl[i])) / \
-                (sp.cosh(Bnl[i]) - sp.cos(Bnl[i]))
+                  (sp.cosh(Bnl[i]) - sp.cos(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
             U[:, i] = sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))
@@ -274,7 +329,7 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
                 Bnl[i] = Bnllow[i]
         for i in mode_num_range:
             sig = (sp.cosh(Bnl[i]) - sp.cos(Bnl[i])) / \
-                (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
+                  (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
             U[:, i] = sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))
@@ -345,7 +400,8 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
     return w, x, U
 
 
-def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02, beamparams=sp.array((7.31e10, 1 / 12 * 0.03 * .015**3, 2747, .015 * 0.03, 0.4)), bctype=2):
+def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
+                   beamparams=sp.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3, 2747, .015 * 0.03, 0.4)), bctype=2):
     print(fmin)
     E = beamparams[0]
     I = beamparams[1]
@@ -364,9 +420,8 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02, beampa
     f = sp.empty(100)
 
     while wn[-1] < 1.3 * (fmax * 2 * sp.pi):
-
         i = i + 1
-        #legtext[i + 1]=[char('Contribution of mode '),num2str_(i)]
+        # legtext[i + 1]=[char('Contribution of mode '),num2str_(i)]
         wn, xx, U = euler_beam_modes(i, bctype, beamparams, 5000)
         spl = UnivariateSpline(xx, U[:, i - 1])
         Uin = spl(xin)
@@ -377,10 +432,10 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02, beampa
         # print(wn[-1])
         # print(w)
         a[:, i - 1] = rho * A * Uin * Uout / \
-            (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * sp.sqrt(-1))
+                      (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * sp.sqrt(-1))
         # print(a[0:10,i])
         # plt.plot(sp.log10(sp.absolute(a[:,i])))
-        #input("Press Enter to continue...")
+        # input("Press Enter to continue...")
         f[i] = wn[-1] / 2 / sp.pi
     a = a[:, 0:i]
     plt.subplot(211)
@@ -421,6 +476,7 @@ def ebf1(xin, xout):
     _, _ = euler_beam_frf(xin, xout)
     return
 
+
 # def
 # euler_beam_frf(xin=0.22,xout=0.22,fmin=0.0,fmax=1000.0,beamparams=sp.array((7.31e10,
 # 1/12*0.03*.015**3, 2747, .015*0.03, 0.4)),
@@ -449,6 +505,7 @@ def frfplot(f, H):
 if __name__ == "__main__":
     import doctest
     import vtoolbox as vtb
+
     doctest.testmod(optionflags=doctest.ELLIPSIS)
     # doctest.run_docstring_examples(frfest,globals(),optionflags=doctest.ELLIPSIS)
     # doctest.run_docstring_examples(asd,globals(),optionflags=doctest.ELLIPSIS)
