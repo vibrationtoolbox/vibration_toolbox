@@ -38,21 +38,32 @@ def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     t, x, v: 1) Arrays. Time, displacement, and velocity
 
     :Example:
-    solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10)
-    (array([  0.00000000e+00,   4.00160064e-03,   8.00320128e-03, ...,
-             9.99199680e+00,   9.99599840e+00,   1.00000000e+01]), array([[ 1.        ],
-           [ 0.99591926],
-           [ 0.9916807 ],
-           ...,
-           [ 0.56502396],
-           [ 0.56123989],
-           [ 0.55736747]]), array([[-1.        ],
-           [-1.03952678],
-           [-1.07887136],
-           ...,
-           [-0.93454914],
-           [-0.95670532],
-           [-0.97869947]]), 0.015811388300841896, 3.1622776601683795, 3.1618823507524758, 1.0488088481701516)
+    >>> solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=0.05)
+    (array([ 0.        ,  0.00454545,  0.00909091,  0.01363636,  0.01818182,
+            0.02272727,  0.02727273,  0.03181818,  0.03636364,  0.04090909,
+            0.04545455,  0.05      ]), array([[ 1.        ],
+           [ 0.99535245],
+           [ 0.99050141],
+           [ 0.98544797],
+           [ 0.98019328],
+           [ 0.9747385 ],
+           [ 0.96908486],
+           [ 0.96323361],
+           [ 0.95718605],
+           [ 0.95094353],
+           [ 0.94450741],
+           [ 0.93787913]]), array([[-1.        ],
+           [-1.04488491],
+           [-1.08953361],
+           [-1.13393698],
+           [-1.17808593],
+           [-1.22197148],
+           [-1.26558467],
+           [-1.30891662],
+           [-1.35195851],
+           [-1.39470157],
+           [-1.43713712],
+           [-1.47925653]]), 0.015811388300841896, 3.1622776601683795, 3.1618823507524758, 1.0441611791969838)
     """
 
     omega = sp.sqrt(k / m)
@@ -139,7 +150,43 @@ def sdof_time_plot_i(max_time=(1.0, 100.0), v0=(-100, 100), m=(1.0, 100.0),
     display(w)
 
 
-def sdof_euler(m=1, c=.1, k=1, x0=1, v0=0, n=800, dt=0.05):
+def sdof_analytical(m=1, c=0.1, k=1, x0=1, v0=0, tf=40):
+
+    w = np.sqrt(k/m)
+    zeta = c/(2*w*m)  # (1.30)
+
+    wd = w*np.sqrt(1-zeta**2)  # (1.37)
+    t = np.linspace(0, tf, 100000/tf)
+
+    print('The natural frequency is ', w, 'rad/s.')
+    print('The damping ratio is ', zeta)
+    print('The damped natural frequency is ', wd)
+
+    if zeta < 1:
+        A = np.sqrt(((v0 + zeta*w*x0)**2 + (x0*wd)**2)/wd**2)  # (1.38)
+        phi = np.arctan2(x0*wd, v0+zeta*w*x0)  # (1.38)
+        x = A*np.exp(-zeta*w*t)*np.sin(wd*t+phi)  # (1.36)
+        print('A =', A)
+        print('phi =', phi)
+
+    elif zeta == 1:
+        a1 = x0  # (1.46)
+        a2 = v0 + w*x0  # (1.46)
+        print('a1= ', a1)
+        print('a2= ', a2)
+        x = (a1+a2*t)*np.exp(-w*t)  # (1.45)
+
+    else:
+        a1 = (-v0 + (-zeta + np.sqrt(zeta**2-1))*w*x0)/(2*w*np.sqrt(zeta**2-1))  # (1.42)
+        a2 = (v0 + (zeta + np.sqrt(zeta**2-1))*w*x0)/(2*w*np.sqrt(zeta**2-1))  # (1.43)
+        print('a1= ', a1)
+        print('a2= ', a2)
+        x = np.exp(-zeta*w*t)*(a1*np.exp(-w*np.sqrt(zeta**2-1)*t)+a2*np.exp(w*np.sqrt(zeta**2-1)*t))  # (1.41)
+
+    return x
+
+
+def sdof_euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     """
     Returns free response of a second order linear ordinary differential equation
     using the Euler method for integration.
@@ -163,16 +210,16 @@ def sdof_euler(m=1, c=.1, k=1, x0=1, v0=0, n=800, dt=0.05):
     Examples:
     ----------
     >>> sdof_euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
-        ((array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]),
-         array([[ 1.        ,  0.        ],
-        [ 1.        , -0.05      ],
-        [ 0.9975    , -0.09975   ],
-        [ 0.9925125 , -0.14912625],
-        [ 0.98505619, -0.19800624],
-        [ 0.97515588, -0.24626902],
-        [ 0.96284242, -0.29379547],
-        [ 0.94815265, -0.34046861],
-        [ 0.93112922, -0.3861739 ]]))
+    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.        ,  0.        ],
+           [ 1.        , -0.05      ],
+           [ 0.9975    , -0.09975   ],
+           [ 0.9925125 , -0.14912625],
+           [ 0.98505619, -0.19800624],
+           [ 0.97515588, -0.24626902],
+           [ 0.96284242, -0.29379547],
+           [ 0.94815265, -0.34046861],
+           [ 0.93112922, -0.3861739 ]]))
+
     """
 
     # creates the state matrix
@@ -180,12 +227,65 @@ def sdof_euler(m=1, c=.1, k=1, x0=1, v0=0, n=800, dt=0.05):
                   [-k / m, -c / m]])
     # creates the x array and set the first line according to the initial conditions
     x = sp.zeros((n + 1, 2))
-    x[0, :] = x0, v0
+    x[0] = x0, v0
 
     for i in range(0, n):
-        x[i + 1, :] = x[i, :] + dt * A @ x[i, :]
+        x[i+1] = x[i] + dt*A@x[i]
 
     t = sp.linspace(0, n * dt, n + 1)
+
+    return t, x
+
+
+def sdof_rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
+    """
+    Returns free response of a second order linear ordinary differential equation
+    using the Runge-Kutta method for integration.
+
+    Parameters
+    ----------
+    m, c, k: float
+        Mass, damping and stiffness.
+    x0, v0: float
+        Initial conditions
+    n: int
+        The number of steps
+    dt: float
+        The step size.
+
+    Returns
+    ----------
+    t, x, v: array
+        Time, displacement, and velocity
+
+    Examples:
+    ----------
+    >>> sdof_rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
+    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.        ,  0.        ],
+           [ 0.99875234, -0.04985443],
+           [ 0.99502078, -0.0993359 ],
+           [ 0.98882699, -0.14832292],
+           [ 0.98019872, -0.19669582],
+           [ 0.96916961, -0.24433704],
+           [ 0.95577913, -0.29113145],
+           [ 0.94007246, -0.33696662],
+           [ 0.92210029, -0.38173305]]))
+    """
+
+    t = sp.linspace(0, n*dt, n+1)
+    x = sp.zeros((n+1, 2))
+    x[0, :] = x0, v0
+    A = sp.array([[0, 1],
+                  [-k/m, -c/m]])
+
+    def f(x_): return A@x_
+
+    for i in range(n):
+        k1 = dt*f(x[i])
+        k2 = dt*f(x[i] + k1/2)
+        k3 = dt*f(x[i] + k2/2)
+        k4 = dt*f(x[i] + k3)
+        x[i+1] = x[i] + (k1 + 2.0*(k2+k3) + k4)/6.0
 
     return t, x
 
