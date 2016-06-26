@@ -81,7 +81,8 @@ def sdof_free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 def sdof_phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     '''Phase plot of free response of single degree of freedom system.
     For information on variables see `sdof_free_response`'''
-    t, x, v, zeta, omega, omega_d, A = sdof_free_response(m, c, k, x0, v0, max_time)
+    t, x, v, zeta, omega, omega_d, A = sdof_free_response(
+        m, c, k, x0, v0, max_time)
     fig = plt.figure()
     fig.suptitle('Velocity vs Displacement')
     ax = fig.add_subplot(111)
@@ -101,7 +102,8 @@ def sdof_phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0), m=(1.0, 100.0,
 
 
 def sdof_time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
-    t, x, v, zeta, omega, omega_d, A = sdof_free_response(m, c, k, x0, v0, max_time)
+    t, x, v, zeta, omega, omega_d, A = sdof_free_response(
+        m, c, k, x0, v0, max_time)
     fig = plt.figure()
     fig.suptitle('Displacement vs Time')
     ax = fig.add_subplot(111)
@@ -141,36 +143,39 @@ def sdof_time_plot_i(max_time=(1.0, 100.0), v0=(-100, 100), m=(1.0, 100.0),
 
 def sdof_analytical(m=1, c=0.1, k=1, x0=1, v0=0, tf=40):
 
-    w = np.sqrt(k/m)
-    zeta = c/(2*w*m)  # (1.30)
+    w = np.sqrt(k / m)
+    zeta = c / (2 * w * m)  # (1.30)
 
-    wd = w*np.sqrt(1-zeta**2)  # (1.37)
-    t = np.linspace(0, tf, 100000/tf)
+    wd = w * np.sqrt(1 - zeta**2)  # (1.37)
+    t = np.linspace(0, tf, 100000 / tf)
 
     print('The natural frequency is ', w, 'rad/s.')
     print('The damping ratio is ', zeta)
     print('The damped natural frequency is ', wd)
 
     if zeta < 1:
-        A = np.sqrt(((v0 + zeta*w*x0)**2 + (x0*wd)**2)/wd**2)  # (1.38)
-        phi = np.arctan2(x0*wd, v0+zeta*w*x0)  # (1.38)
-        x = A*np.exp(-zeta*w*t)*np.sin(wd*t+phi)  # (1.36)
+        A = np.sqrt(((v0 + zeta * w * x0)**2 + (x0 * wd)**2) / wd**2)  # (1.38)
+        phi = np.arctan2(x0 * wd, v0 + zeta * w * x0)  # (1.38)
+        x = A * np.exp(-zeta * w * t) * np.sin(wd * t + phi)  # (1.36)
         print('A =', A)
         print('phi =', phi)
 
     elif zeta == 1:
         a1 = x0  # (1.46)
-        a2 = v0 + w*x0  # (1.46)
+        a2 = v0 + w * x0  # (1.46)
         print('a1= ', a1)
         print('a2= ', a2)
-        x = (a1+a2*t)*np.exp(-w*t)  # (1.45)
+        x = (a1 + a2 * t) * np.exp(-w * t)  # (1.45)
 
     else:
-        a1 = (-v0 + (-zeta + np.sqrt(zeta**2-1))*w*x0)/(2*w*np.sqrt(zeta**2-1))  # (1.42)
-        a2 = (v0 + (zeta + np.sqrt(zeta**2-1))*w*x0)/(2*w*np.sqrt(zeta**2-1))  # (1.43)
+        a1 = (-v0 + (-zeta + np.sqrt(zeta**2 - 1)) * w * x0) / \
+            (2 * w * np.sqrt(zeta**2 - 1))  # (1.42)
+        a2 = (v0 + (zeta + np.sqrt(zeta**2 - 1)) * w * x0) / \
+            (2 * w * np.sqrt(zeta**2 - 1))  # (1.43)
         print('a1= ', a1)
         print('a2= ', a2)
-        x = np.exp(-zeta*w*t)*(a1*np.exp(-w*np.sqrt(zeta**2-1)*t)+a2*np.exp(w*np.sqrt(zeta**2-1)*t))  # (1.41)
+        x = np.exp(-zeta * w * t) * (a1 * np.exp(-w * np.sqrt(zeta**2 - 1)
+                                                 * t) + a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t))  # (1.41)
 
     return x
 
@@ -214,12 +219,13 @@ def sdof_euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     # creates the state matrix
     A = sp.array([[0, 1],
                   [-k / m, -c / m]])
-    # creates the x array and set the first line according to the initial conditions
+    # creates the x array and set the first line according to the initial
+    # conditions
     x = sp.zeros((n + 1, 2))
     x[0] = x0, v0
 
     for i in range(0, n):
-        x[i+1] = x[i] + dt*A@x[i]
+        x[i + 1] = x[i] + dt * A@x[i]
 
     t = sp.linspace(0, n * dt, n + 1)
 
@@ -261,20 +267,20 @@ def sdof_rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
            [ 0.92210029, -0.38173305]]))
     """
 
-    t = sp.linspace(0, n*dt, n+1)
-    x = sp.zeros((n+1, 2))
+    t = sp.linspace(0, n * dt, n + 1)
+    x = sp.zeros((n + 1, 2))
     x[0, :] = x0, v0
     A = sp.array([[0, 1],
-                  [-k/m, -c/m]])
+                  [-k / m, -c / m]])
 
     def f(x_): return A@x_
 
     for i in range(n):
-        k1 = dt*f(x[i])
-        k2 = dt*f(x[i] + k1/2)
-        k3 = dt*f(x[i] + k2/2)
-        k4 = dt*f(x[i] + k3)
-        x[i+1] = x[i] + (k1 + 2.0*(k2+k3) + k4)/6.0
+        k1 = dt * f(x[i])
+        k2 = dt * f(x[i] + k1 / 2)
+        k3 = dt * f(x[i] + k2 / 2)
+        k4 = dt * f(x[i] + k3)
+        x[i + 1] = x[i] + (k1 + 2.0 * (k2 + k3) + k4) / 6.0
 
     return t, x
 
@@ -362,7 +368,7 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
                 w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
                 b = Bnl[i] * len
                 U[:, i] = sp.cosh(b) + sp.cos(b) - sig * \
-                                                   (sp.sinh(b) + sp.sin(b))
+                    (sp.sinh(b) + sp.sin(b))
     elif bctype == 2:
         desc = 'Clamped-Free '
         Bnllow = sp.array((1.88, 4.69, 7.85, 10.99, 14.14))
@@ -521,7 +527,7 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
         # print(wn[-1])
         # print(w)
         a[:, i - 1] = rho * A * Uin * Uout / \
-                      (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * sp.sqrt(-1))
+            (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * sp.sqrt(-1))
         # print(a[0:10,i])
         # plt.plot(sp.log10(sp.absolute(a[:,i])))
         # input("Press Enter to continue...")
@@ -590,7 +596,8 @@ def frfplot(f, H):
     plt.axis(
         axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
 
-def sdof_response(xdd,f,t,x0,v0):
+
+def sdof_response(xdd, f, t, x0, v0):
     '''returns t, x, v
     :math:`\ddot{x} = g(x,v) + f(t)`
     given initial conditions :math:`x_0` and :math:`\dot{x}_0 = v_0` for the time `t`
@@ -647,7 +654,6 @@ def sdof_response(xdd,f,t,x0,v0):
     return t, x, y, zeta, omega, omega_d, A
 
 
-    
 if __name__ == "__main__":
     import doctest
     import vtoolbox as vtb
