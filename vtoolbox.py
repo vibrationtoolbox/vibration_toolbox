@@ -15,7 +15,7 @@ mpl.rcParams['figure.figsize'] = (10, 6)
 import IPython.core.display as ipcd
 #from ipywidgets.widgets.interaction import interact, interactive
 
-def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
+def sdof_free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     '''returns t, x, v, zeta, omega, omega_d, A
     $\alpha$
     Returns free response of a second order linear ordinary differential equation
@@ -36,7 +36,7 @@ def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 
     :Example:
     >>> import vtoolbox as vtb
-    >>> vtb.solve_sdofs()
+    >>> vtb.sdof_free_response()
     (array([  0.00000000e+00,   4.00160064e-03,   8.00320128e-03, ...,
              9.99199680e+00,   9.99599840e+00,   1.00000000e+01]), array([[ 1.        ],
            [ 0.99591926],
@@ -77,8 +77,8 @@ def solve_sdofs(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 
 def sdof_phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     '''Phase plot of free response of single degree of freedom system.
-    For information on variables see `solve_sdofs`'''
-    t, x, v, zeta, omega, omega_d, A = solve_sdofs(m, c, k, x0, v0, max_time)
+    For information on variables see `sdof_free_response`'''
+    t, x, v, zeta, omega, omega_d, A = sdof_free_response(m, c, k, x0, v0, max_time)
     fig = plt.figure()
     fig.suptitle('Velocity vs Displacement')
     ax = fig.add_subplot(111)
@@ -91,14 +91,14 @@ def sdof_phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 def sdof_phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0), m=(1.0, 100.0, 1.0),
                       c=(0.0, 1.0, 0.1), x0=(-100, 100, 1), k=(1.0, 100.0, 1.0)):
     '''Interactive phase plot of free response of single degree of freedom system.
-    For information on variables see ``solve_sdofs``'''
+    For information on variables see ``sdof_free_response``'''
     w = interactive(sdof_phase_plot, max_time=max_time, v0=v0, m=m,
                     c=c, x0=x0, k=k)
     display(w)
 
 
 def sdof_time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
-    t, x, v, zeta, omega, omega_d, A = solve_sdofs(m, c, k, x0, v0, max_time)
+    t, x, v, zeta, omega, omega_d, A = sdof_free_response(m, c, k, x0, v0, max_time)
     fig = plt.figure()
     fig.suptitle('Displacement vs Time')
     ax = fig.add_subplot(111)
@@ -445,7 +445,64 @@ def frfplot(f, H):
     plt.axis(
         axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
 
+def sdof_response(xdd,f,t,x0,v0):
+    '''returns t, x, v
+    :math:`\ddot{x} = g(x,v) + f(t)`
+    given initial conditions :math:`x_0` and :math:`\dot{x}_0 = v_0` for the time `t`
 
+*** Function hasn't been written yet... work in progress. Mimics vtb1_3
+    Parameters
+
+    m, c, k:           1) Floats. Mass, damping and stiffness.
+    x0, v0:            2) Floats. Initial conditions
+    max_time:          3) Float. end time or response to be returned
+
+    Returns
+
+    t, x, v: 1) Arrays. Time, displacement, and velocity
+
+    :Example:
+    >>> import vtoolbox as vtb
+    >>> vtb.sdof_free_response()
+    (array([  0.00000000e+00,   4.00160064e-03,   8.00320128e-03, ...,
+             9.99199680e+00,   9.99599840e+00,   1.00000000e+01]), array([[ 1.        ],
+           [ 0.99591926],
+           [ 0.9916807 ],
+           ..., 
+           [ 0.56502396],
+           [ 0.56123989],
+           [ 0.55736747]]), array([[-1.        ],
+           [-1.03952678],
+           [-1.07887136],
+           ..., 
+           [-0.93454914],
+           [-0.95670532],
+           [-0.97869947]]), 0.015811388300841896, 3.1622776601683795, 3.1618823507524758, 1.0488088481701516)
+    '''
+
+    omega = sp.sqrt(k / m)
+    zeta = c / 2 / omega / m
+    omega_d = omega * sp.sqrt(1 - zeta**2)
+    A = sp.sqrt(x0**2 + (v0 + omega * zeta * x0)**2 / omega_d**2)
+#    print('The natural frequency is ', omega, 'rad/s.');
+#    print('The damping ratio is ', zeta);
+#    print('The damped natural frequency is ', omega_d);
+
+    def sdofs_deriv(x_xd, t0, m=m, c=c, k=k):
+        x, xd = x_xd
+        return [xd, -c / m * xd - k / m * x]
+
+    z0 = np.array([[x0, v0]])
+    # Solve for the trajectories
+    t = np.linspace(0, max_time, int(250 * max_time))
+    z_t = np.asarray([integrate.odeint(sdofs_deriv, z0i, t)
+                      for z0i in z0])
+
+    x, y = z_t[:, :].T
+    return t, x, y, zeta, omega, omega_d, A
+
+
+    
 if __name__ == "__main__":
     import doctest
     import vtoolbox as vtb
