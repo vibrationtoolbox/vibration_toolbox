@@ -13,16 +13,18 @@ from matplotlib import animation
 mpl.rcParams['lines.linewidth'] = 2
 mpl.rcParams['figure.figsize'] = (10, 6)
 import IPython.core.display as ipcd
-#from ipywidgets.widgets.interaction import interact, interactive
+
+
+# from ipywidgets.widgets.interaction import interact, interactive
 
 def sdof_free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     '''returns t, x, v, zeta, omega, omega_d, A
     $\alpha$
     Returns free response of a second order linear ordinary differential equation
-    defined by 
+    defined by
     :math:`m\ddot{x} + c \dot{x} + k x = 0`
     given initial conditions :math:`x_0` and :math:`\dot{x}_0 = v_0` for
-    :math:`0 < t < t_{max}` 
+    :math:`0 < t < t_{max}`
 
     Parameters
 
@@ -55,11 +57,12 @@ def sdof_free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 
     omega = sp.sqrt(k / m)
     zeta = c / 2 / omega / m
-    omega_d = omega * sp.sqrt(1 - zeta**2)
-    A = sp.sqrt(x0**2 + (v0 + omega * zeta * x0)**2 / omega_d**2)
-#    print('The natural frequency is ', omega, 'rad/s.');
-#    print('The damping ratio is ', zeta);
-#    print('The damped natural frequency is ', omega_d);
+    omega_d = omega * sp.sqrt(1 - zeta ** 2)
+    A = sp.sqrt(x0 ** 2 + (v0 + omega * zeta * x0) ** 2 / omega_d ** 2)
+
+    #    print('The natural frequency is ', omega, 'rad/s.');
+    #    print('The damping ratio is ', zeta);
+    #    print('The damped natural frequency is ', omega_d);
 
     def sdofs_deriv(x_xd, t0, m=m, c=c, k=k):
         x, xd = x_xd
@@ -121,9 +124,9 @@ def sdof_time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
         ax.text(.75 * tmax, .95 * (xmax - xmin) +
                 xmin, '$\zeta$ = %0.2f' % (zeta))
         ax.text(.75 * tmax, .90 * (xmax - xmin) + xmin,
-                '$\lambda_1$ = %0.2f' % (zeta * omega - omega * (zeta**2 - 1)))
+                '$\lambda_1$ = %0.2f' % (zeta * omega - omega * (zeta ** 2 - 1)))
         ax.text(.75 * tmax, .85 * (xmax - xmin) + xmin,
-                '$\lambda_2$ = %0.2f' % (zeta * omega + omega * (zeta**2 - 1)))
+                '$\lambda_2$ = %0.2f' % (zeta * omega + omega * (zeta ** 2 - 1)))
 
 
 def sdof_time_plot_i(max_time=(1.0, 100.0), v0=(-100, 100), m=(1.0, 100.0),
@@ -131,12 +134,153 @@ def sdof_time_plot_i(max_time=(1.0, 100.0), v0=(-100, 100), m=(1.0, 100.0),
     w = interactive(sdof_time_plot, max_time=max_time, v0=v0, m=m,
                     c=c, x0=x0, k=k)
     # I'd like to get the sliders to be side by side to take less vertical space
-    #cont = widgets.HBox(children = w)
-    #print(help(w))
+    # cont = widgets.HBox(children = w)
+    # print(help(w))
     display(w)
 
 
-def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03 * .015**3, 2747, .015 * 0.03, 0.4)), npoints=2001):
+def sdof_analytical(m=1, c=0.1, k=1, x0=1, v0=0, tf=40):
+
+    w = np.sqrt(k/m)
+    zeta = c/(2*w*m)  # (1.30)
+
+    wd = w*np.sqrt(1-zeta**2)  # (1.37)
+    t = np.linspace(0, tf, 100000/tf)
+
+    print('The natural frequency is ', w, 'rad/s.')
+    print('The damping ratio is ', zeta)
+    print('The damped natural frequency is ', wd)
+
+    if zeta < 1:
+        A = np.sqrt(((v0 + zeta*w*x0)**2 + (x0*wd)**2)/wd**2)  # (1.38)
+        phi = np.arctan2(x0*wd, v0+zeta*w*x0)  # (1.38)
+        x = A*np.exp(-zeta*w*t)*np.sin(wd*t+phi)  # (1.36)
+        print('A =', A)
+        print('phi =', phi)
+
+    elif zeta == 1:
+        a1 = x0  # (1.46)
+        a2 = v0 + w*x0  # (1.46)
+        print('a1= ', a1)
+        print('a2= ', a2)
+        x = (a1+a2*t)*np.exp(-w*t)  # (1.45)
+
+    else:
+        a1 = (-v0 + (-zeta + np.sqrt(zeta**2-1))*w*x0)/(2*w*np.sqrt(zeta**2-1))  # (1.42)
+        a2 = (v0 + (zeta + np.sqrt(zeta**2-1))*w*x0)/(2*w*np.sqrt(zeta**2-1))  # (1.43)
+        print('a1= ', a1)
+        print('a2= ', a2)
+        x = np.exp(-zeta*w*t)*(a1*np.exp(-w*np.sqrt(zeta**2-1)*t)+a2*np.exp(w*np.sqrt(zeta**2-1)*t))  # (1.41)
+
+    return x
+
+
+def sdof_euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
+    """
+    Returns free response of a second order linear ordinary differential equation
+    using the Euler method for integration.
+
+    Parameters
+    ----------
+    m, c, k: float
+        Mass, damping and stiffness.
+    x0, v0: float
+        Initial conditions
+    n: int
+        The number of steps
+    dt: float
+        The step size.
+
+    Returns
+    ----------
+    t, x, v: array
+        Time, displacement, and velocity
+
+    Examples:
+    ----------
+    >>> sdof_euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
+    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.        ,  0.        ],
+           [ 1.        , -0.05      ],
+           [ 0.9975    , -0.09975   ],
+           [ 0.9925125 , -0.14912625],
+           [ 0.98505619, -0.19800624],
+           [ 0.97515588, -0.24626902],
+           [ 0.96284242, -0.29379547],
+           [ 0.94815265, -0.34046861],
+           [ 0.93112922, -0.3861739 ]]))
+
+    """
+
+    # creates the state matrix
+    A = sp.array([[0, 1],
+                  [-k / m, -c / m]])
+    # creates the x array and set the first line according to the initial conditions
+    x = sp.zeros((n + 1, 2))
+    x[0] = x0, v0
+
+    for i in range(0, n):
+        x[i+1] = x[i] + dt*A@x[i]
+
+    t = sp.linspace(0, n * dt, n + 1)
+
+    return t, x
+
+
+def sdof_rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
+    """
+    Returns free response of a second order linear ordinary differential equation
+    using the Runge-Kutta method for integration.
+
+    Parameters
+    ----------
+    m, c, k: float
+        Mass, damping and stiffness.
+    x0, v0: float
+        Initial conditions
+    n: int
+        The number of steps
+    dt: float
+        The step size.
+
+    Returns
+    ----------
+    t, x, v: array
+        Time, displacement, and velocity
+
+    Examples:
+    ----------
+    >>> sdof_rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
+    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.        ,  0.        ],
+           [ 0.99875234, -0.04985443],
+           [ 0.99502078, -0.0993359 ],
+           [ 0.98882699, -0.14832292],
+           [ 0.98019872, -0.19669582],
+           [ 0.96916961, -0.24433704],
+           [ 0.95577913, -0.29113145],
+           [ 0.94007246, -0.33696662],
+           [ 0.92210029, -0.38173305]]))
+    """
+
+    t = sp.linspace(0, n*dt, n+1)
+    x = sp.zeros((n+1, 2))
+    x[0, :] = x0, v0
+    A = sp.array([[0, 1],
+                  [-k/m, -c/m]])
+
+    def f(x_): return A@x_
+
+    for i in range(n):
+        k1 = dt*f(x[i])
+        k2 = dt*f(x[i] + k1/2)
+        k3 = dt*f(x[i] + k2/2)
+        k4 = dt*f(x[i] + k3)
+        x[i+1] = x[i] + (k1 + 2.0*(k2+k3) + k4)/6.0
+
+    return t, x
+
+
+def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3, 2747, .015 * 0.03, 0.4)),
+                     npoints=2001):
     """
     %VTB6_3 Natural frequencies and mass normalized mode shape for an Euler-
     % Bernoulli beam with a chosen boundary condition.
@@ -214,11 +358,11 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
                 U[:, i] = len - 0.5
             else:
                 sig = (sp.cosh(Bnl[i]) - sp.cos(Bnl[i])) / \
-                    (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
+                      (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
                 w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
                 b = Bnl[i] * len
                 U[:, i] = sp.cosh(b) + sp.cos(b) - sig * \
-                    (sp.sinh(b) + sp.sin(b))
+                                                   (sp.sinh(b) + sp.sin(b))
     elif bctype == 2:
         desc = 'Clamped-Free '
         Bnllow = sp.array((1.88, 4.69, 7.85, 10.99, 14.14))
@@ -230,10 +374,10 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
 
         for i in mode_num_range:
             sig = (sp.sinh(Bnl[i]) - sp.sin(Bnl[i])) / \
-                (sp.cosh(Bnl[i]) - sp.cos(Bnl[i]))
+                  (sp.cosh(Bnl[i]) - sp.cos(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
-            #plt.plot(x,(sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))))
+            # plt.plot(x,(sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))))
             U[:, i] = sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))
 
     elif bctype == 3:
@@ -246,7 +390,7 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
                 Bnl[i] = Bnllow[i]
         for i in mode_num_range:
             sig = (sp.cosh(Bnl[i]) - sp.cos(Bnl[i])) / \
-                (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
+                  (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
             U[:, i] = sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))
@@ -260,7 +404,7 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
                 Bnl[i] = Bnllow[i]
         for i in mode_num_range:
             sig = (sp.sinh(Bnl[i]) + sp.sin(Bnl[i])) / \
-                (sp.cosh(Bnl[i]) - sp.cos(Bnl[i]))
+                  (sp.cosh(Bnl[i]) - sp.cos(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
             U[:, i] = sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))
@@ -274,7 +418,7 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
                 Bnl[i] = Bnllow[i]
         for i in mode_num_range:
             sig = (sp.cosh(Bnl[i]) - sp.cos(Bnl[i])) / \
-                (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
+                  (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
             U[:, i] = sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))
@@ -345,7 +489,8 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
     return w, x, U
 
 
-def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02, beamparams=sp.array((7.31e10, 1 / 12 * 0.03 * .015**3, 2747, .015 * 0.03, 0.4)), bctype=2):
+def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
+                   beamparams=sp.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3, 2747, .015 * 0.03, 0.4)), bctype=2):
     print(fmin)
     E = beamparams[0]
     I = beamparams[1]
@@ -364,9 +509,8 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02, beampa
     f = sp.empty(100)
 
     while wn[-1] < 1.3 * (fmax * 2 * sp.pi):
-
         i = i + 1
-        #legtext[i + 1]=[char('Contribution of mode '),num2str_(i)]
+        # legtext[i + 1]=[char('Contribution of mode '),num2str_(i)]
         wn, xx, U = euler_beam_modes(i, bctype, beamparams, 5000)
         spl = UnivariateSpline(xx, U[:, i - 1])
         Uin = spl(xin)
@@ -377,10 +521,10 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02, beampa
         # print(wn[-1])
         # print(w)
         a[:, i - 1] = rho * A * Uin * Uout / \
-            (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * sp.sqrt(-1))
+                      (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * sp.sqrt(-1))
         # print(a[0:10,i])
         # plt.plot(sp.log10(sp.absolute(a[:,i])))
-        #input("Press Enter to continue...")
+        # input("Press Enter to continue...")
         f[i] = wn[-1] / 2 / sp.pi
     a = a[:, 0:i]
     plt.subplot(211)
@@ -420,6 +564,7 @@ def ebf(xin, xout, fmin, fmax, zeta):
 def ebf1(xin, xout):
     _, _ = euler_beam_frf(xin, xout)
     return
+
 
 # def
 # euler_beam_frf(xin=0.22,xout=0.22,fmin=0.0,fmax=1000.0,beamparams=sp.array((7.31e10,
@@ -506,6 +651,7 @@ def sdof_response(xdd,f,t,x0,v0):
 if __name__ == "__main__":
     import doctest
     import vtoolbox as vtb
+
     doctest.testmod(optionflags=doctest.ELLIPSIS)
     # doctest.run_docstring_examples(frfest,globals(),optionflags=doctest.ELLIPSIS)
     # doctest.run_docstring_examples(asd,globals(),optionflags=doctest.ELLIPSIS)
