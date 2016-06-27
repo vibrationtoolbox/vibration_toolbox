@@ -18,7 +18,8 @@ import IPython.core.display as ipcd
 # from ipywidgets.widgets.interaction import interact, interactive
 
 def sdof_free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
-    '''returns t, x, v, zeta, omega, omega_d, A
+    """
+    returns t, x, v, zeta, omega, omega_d, A
     $\alpha$
     Returns free response of a second order linear ordinary differential equation
     defined by
@@ -52,8 +53,8 @@ def sdof_free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
            ..., 
            [-0.93454914],
            [-0.95670532],
-           [-0.97869947]]), 0.015811388300841896, 3.1622776601683795, 3.1618823507524758, 1.0488088481701516)
-    '''
+           [-0.97869947]]), 0.015811388300841896, 3.1622776601683795, 3.1618823507524758, 1.0441611791969838)
+    """
 
     omega = sp.sqrt(k / m)
     zeta = c / 2 / omega / m
@@ -141,13 +142,13 @@ def sdof_time_plot_i(max_time=(1.0, 100.0), v0=(-100, 100), m=(1.0, 100.0),
     display(w)
 
 
-def sdof_analytical(m=1, c=0.1, k=1, x0=1, v0=0, tf=40):
+def sdof_analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
     w = np.sqrt(k / m)
     zeta = c / (2 * w * m)  # (1.30)
 
     wd = w * np.sqrt(1 - zeta**2)  # (1.37)
-    t = np.linspace(0, tf, 100000 / tf)
+    t = sp.linspace(0, n * dt, n + 1)
 
     print('The natural frequency is ', w, 'rad/s.')
     print('The damping ratio is ', zeta)
@@ -598,7 +599,8 @@ def frfplot(f, H):
 
 
 def sdof_response(xdd, f, t, x0, v0):
-    '''returns t, x, v
+    """
+    returns t, x, v
     :math:`\ddot{x} = g(x,v) + f(t)`
     given initial conditions :math:`x_0` and :math:`\dot{x}_0 = v_0` for the time `t`
 
@@ -629,8 +631,8 @@ def sdof_response(xdd, f, t, x0, v0):
            ..., 
            [-0.93454914],
            [-0.95670532],
-           [-0.97869947]]), 0.015811388300841896, 3.1622776601683795, 3.1618823507524758, 1.0488088481701516)
-    '''
+           [-0.97869947]]), 0.015811388300841896, 3.1622776601683795, 3.1618823507524758, 1.0441611791969838)
+    """
 
     omega = sp.sqrt(k / m)
     zeta = c / 2 / omega / m
