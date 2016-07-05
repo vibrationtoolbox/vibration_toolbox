@@ -656,6 +656,86 @@ def sdof_response(xdd, f, t, x0, v0):
     return t, x, y, zeta, omega, omega_d, A
 
 
+def forced_sdof_analytical(m=10, k=100, x0=1, v0=0,
+                           wdr=0.5, F0=10, tf=100):
+
+    """
+    Returns the response of an undamped single degree of freedom system
+    to a sinusoidal input with amplitude F0 and frequency wdr.
+
+    Parameters
+    ----------
+    m, k: float
+        Mass and stiffness
+    x0, v0: float
+        Initial conditions
+    wdr:
+        Force frequency
+    F0: float
+        Force magnitude
+    tf: float
+        End time
+
+    Returns
+    ----------
+    t, x: array
+        Time and displacement
+
+    Examples:
+    ----------"""
+
+    t = sp.linspace(0, tf, tf/0.000125)
+
+    f0 = F0 / m
+    w = sp.sqrt(k / m)
+    x = (v0 / w * sp.sin(w * t) +
+         (x0 - f0 / (w**2 - wdr**2)) * sp.cos(w * t) +
+         f0 / (w**2 - wdr**2) * sp.cos(wdr * t))   # (2.11)
+
+    return t, x
+
+
+def forced_sdof_response(m=10, c=0, k=100, x0=1, v0=0,
+                        wdr=0.5, F0=10, max_time=100):
+    """
+    Returns the the response of an underdamped single degree of
+    freedom system to a sinusoidal input with amplitude F0 and
+    frequency wdr.
+
+    Parameters
+    ----------
+    m, c, k: float
+        Mass and stiffness
+    x0, v0: float
+        Initial conditions
+    wdr:
+        Force frequency
+    F0: float
+        Force magnitude
+    tf: float
+        End time
+
+    Returns
+    ----------
+    t, x, y: array
+        Time, displacement and velocity
+
+    Examples:
+    ----------"""
+
+    def sdofs_deriv(x_xd, t, m=m, c=c, k=k):
+        x, xd = x_xd
+        return [xd, (F0*sp.cos(wdr*t) / m) - (c / m) * xd - (k / m) * x]
+
+    z0 = sp.array([x0, v0])
+    # Solve for the trajectories
+    t = sp.linspace(0, max_time, int(250 * max_time))
+    z_t = integrate.odeint(sdofs_deriv, z0, t)
+
+    x, y = z_t.T
+    return t, x, y
+
+
 if __name__ == "__main__":
     import doctest
     import vtoolbox as vtb
