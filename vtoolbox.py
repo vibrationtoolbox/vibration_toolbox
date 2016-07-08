@@ -736,6 +736,51 @@ def forced_sdof_response(m=10, c=0, k=100, x0=1, v0=0,
     return t, x, y
 
 
+def steady_state_response(zs, rmin, rmax):
+    """
+    Returns a plot with the steady state response of a
+    single degree of freedom damped system.
+
+    Parameters
+    ----------
+    zs: array
+        Array with the damping values
+    rmin, rmax: float
+        Minimum and maximum frequency ratio
+
+    Returns
+    ----------
+    fig: Matplotlib figure
+        Plot with steady state magnitude and phase
+
+    Examples:
+    ----------"""
+    r = sp.linspace(rmin, rmax, 100*(rmax-rmin))
+    A0 = sp.zeros((len(zs), len(r)), complex)
+    for z in enumerate(zs):
+        A0[z[0]] = (1/(1 - r**2 + 2*1j*r*z[1]))
+
+    fig = plt.figure(figsize=(8,6))
+    ax1 = plt.subplot(211)
+    ax2 = plt.subplot(212, sharex=ax1)
+    plt.tight_layout()
+
+    ax1.set_ylabel('Normalized Amplitude (dB)')
+    ax1.set_title('Normalized Amplitude vs Frequency Ratio')
+
+    ax2.set_xlabel('Frequency Ratio')
+    ax2.set_ylabel('Phase Lag (deg)')
+    ax2.set_title('Phase vs Frequency Ratio')
+
+    for A in A0:
+        ax1.plot(r, (sp.absolute(A)))
+        ax2.plot(r, -sp.angle(A)/sp.pi*180)
+
+    ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
+
+    return fig, plt.show()
+
+
 if __name__ == "__main__":
     import doctest
     import vtoolbox as vtb
