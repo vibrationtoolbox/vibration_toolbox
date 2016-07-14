@@ -781,6 +781,61 @@ def steady_state_response(zs, rmin, rmax):
     return fig, plt.show()
 
 
+def transmissibility(zs, rmin, rmax):
+    """
+    Returns a plot Displacement transmissibility ratio
+    and force transmissibility ratio of a single degree
+    of freedom damped system.
+
+    Parameters
+    ----------
+    zs: array
+        Array with the damping values
+    rmin, rmax: float
+        Minimum and maximum frequency ratio
+
+    Returns
+    ----------
+    fig: Matplotlib figure
+        Plot with Displacement transmissibility ratio
+        and force transmissibility ratio
+
+    Examples:
+    ----------"""
+    r = sp.linspace(rmin, rmax, 100*(rmax-rmin))
+    DT = sp.zeros((len(zs), len(r)))
+    for z in enumerate(zs):
+        # 2.71
+        DT[z[0]] = ((1 + (2 * z[1] * r)**2) /
+                    ((1 - r**2)**2 + (2 * z[1] * r)**2))**0.5
+
+    FT = (r**2)*DT
+
+    fig = plt.figure(figsize=(8,6))
+    ax1 = plt.subplot(211)
+    ax2 = plt.subplot(212, sharex=ax1)
+    plt.tight_layout()
+
+    ax1.set_ylabel('Displacement Transmissibility Ratio (dB)')
+    ax1.set_title('Displacement Transmissibility Ratio vs Frequency Ratio (X/Y)')
+    ax1.set_ylim(0, 6)
+
+    ax2.set_xlabel('Frequency Ratio')
+    ax2.set_ylabel('Force Transmissibility Ratio (dB)')
+    ax2.set_title('Force Transmissibility Ratio versus Frequency Ratio (F_T/kY)')
+    ax2.set_yscale("log")
+    ax2.set_ylim(0.01, 50)
+
+    for D in DT:
+        ax1.plot(r, D)
+    for F in FT:
+        ax2.plot(r, F)
+
+    ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
+
+    return fig, plt.show()
+
+
 if __name__ == "__main__":
     import doctest
     import vtoolbox as vtb
