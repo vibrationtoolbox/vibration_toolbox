@@ -682,7 +682,10 @@ def forced_sdof_analytical(m=10, k=100, x0=1, v0=0,
         Time and displacement
 
     Examples:
-    ----------"""
+    >>> forced_sdof_analytical(m=10, k=100, x0=1, v0=0, wdr=0.5, F0=10, tf=100)
+    (array([  0.00000000e+00,   1.25000156e-04,   2.50000313e-04, ...,
+             9.99997500e+01,   9.99998750e+01,   1.00000000e+02]), array([ 1.        ,  0.99999993,  0.99999972, ..., -0.32885349,
+           -0.32916361, -0.32947367]))"""
 
     t = sp.linspace(0, tf, tf/0.000125)
 
@@ -721,7 +724,11 @@ def forced_sdof_response(m=10, c=0, k=100, x0=1, v0=0,
         Time, displacement and velocity
 
     Examples:
-    ----------"""
+    >>> forced_sdof_response(m=10, c=0, k=100, x0=1, v0=0, wdr=0.5, F0=10, max_time=100)
+    (array([  0.00000000e+00,   4.00016001e-03,   8.00032001e-03, ...,
+             9.99919997e+01,   9.99959998e+01,   1.00000000e+02]), array([ 1.        ,  0.999928  ,  0.99971199, ..., -0.30949427,
+           -0.31951584, -0.32947086]), array([ 0.        , -0.03600047, -0.07199521, ..., -2.51347853,
+           -2.49704075, -2.48020131]))"""
 
     def sdofs_deriv(x_xd, t, m=m, c=c, k=k):
         x, xd = x_xd
@@ -754,7 +761,9 @@ def steady_state_response(zs, rmin, rmax):
         Plot with steady state magnitude and phase
 
     Examples:
-    ----------"""
+    >>> steady_state_response([0.1, 0.3, 0.8], 0, 2)
+    (<matplotlib.figure.Figure object at 0x00...>, None)"""
+
     r = sp.linspace(rmin, rmax, 100*(rmax-rmin))
     A0 = sp.zeros((len(zs), len(r)), complex)
     for z in enumerate(zs):
@@ -801,7 +810,9 @@ def transmissibility(zs, rmin, rmax):
         and force transmissibility ratio
 
     Examples:
-    ----------"""
+    >>> transmissibility([0.01, 0.05, 0.1, 0.25, 0.5, 0.7], 0, 2)
+    (<matplotlib.figure.Figure object at 0x0000...>, None)"""
+
     r = sp.linspace(rmin, rmax, 100*(rmax-rmin))
     DT = sp.zeros((len(zs), len(r)))
     for z in enumerate(zs):
@@ -830,6 +841,65 @@ def transmissibility(zs, rmin, rmax):
         ax1.plot(r, D)
     for F in FT:
         ax2.plot(r, F)
+
+    ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
+
+    return fig, plt.show()
+
+
+def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
+    """
+    Returns a plot Displacement of a system with rotating
+    unbalance.
+
+    Parameters
+    ----------
+    m: float
+        Mass of the system
+    m0, e: float
+        Mass and eccentricity of the unbalance.
+    zs: array
+        Array with the damping values
+    rmin, rmax: float
+        Minimum and maximum frequency ratio
+    normalized: bool
+        If true, the displacement is normalized (m*X/(m0*e))
+
+    Returns
+    ----------
+    fig: Matplotlib figure
+        Plot with Displacement displacement and phase
+        for a system with rotating unbalance.
+
+    Examples:
+    >>> rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1, 0.25, 0.707, 1], rmin=0, rmax=3.5, normalized=True)
+    (<matplotlib.figure.Figure object at 0x0000...>, None)"""
+
+    r = sp.linspace(rmin, rmax, 100*(rmax-rmin))
+    Xn = sp.zeros((len(zs), len(r)), complex)
+    for z in enumerate(zs):
+        Xn[z[0]] = (r / (1 - r**2 + 2*1j*r*z[1]))
+
+    fig = plt.figure(figsize=(8,6))
+    ax1 = plt.subplot(211)
+    ax2 = plt.subplot(212, sharex=ax1)
+    plt.tight_layout()
+
+    if normalized==False:
+        Xn = Xn * (m0 * e / m)
+        ax1.set_ylabel('Displacement Magnitude')
+        ax1.set_title('Displacement Magnitude vs Frequency Ratio')
+    else:
+        ax1.set_ylabel('Normalized Displacement Magnitude')
+        ax1.set_title('Normalized Displacement Magnitude vs Frequency Ratio')
+
+    ax2.set_xlabel('Frequency Ratio')
+    ax2.set_ylabel('Phase')
+    ax2.set_title('Phase vs Frequency Ratio')
+
+    for X_z in Xn:
+        ax1.plot(r, sp.absolute(X_z))
+        ax2.plot(r, -sp.angle(X_z)/sp.pi*180)
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
 
