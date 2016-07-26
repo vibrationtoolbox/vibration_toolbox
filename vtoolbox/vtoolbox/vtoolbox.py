@@ -17,6 +17,9 @@ import IPython.core.display as ipcd
 
 # from ipywidgets.widgets.interaction import interact, interactive
 
+#__all__ = ['rotating_unbalance']
+
+
 def sdof_free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     """
     returns t, x, v, zeta, omega, omega_d, A
@@ -715,7 +718,7 @@ def forced_sdof_response(m=10, c=0, k=100, x0=1, v0=0,
         Force frequency
     F0: float
         Force magnitude
-    tf: float
+    max_time: float
         End time
 
     Returns
@@ -726,9 +729,9 @@ def forced_sdof_response(m=10, c=0, k=100, x0=1, v0=0,
     Examples:
     >>> forced_sdof_response(m=10, c=0, k=100, x0=1, v0=0, wdr=0.5, F0=10, max_time=100)
     (array([  0.00000000e+00,   4.00016001e-03,   8.00032001e-03, ...,
-             9.99919997e+01,   9.99959998e+01,   1.00000000e+02]), array([ 1.        ,  0.999928  ,  0.99971199, ..., -0.30949427,
-           -0.31951584, -0.32947086]), array([ 0.        , -0.03600047, -0.07199521, ..., -2.51347853,
-           -2.49704075, -2.48020131]))"""
+             9.99919997e+01,   9.99959998e+01,   1.00000000e+02]), array([ 1.        ,  0.999928  ,  0.99971199, ..., -0.30949486,
+           -0.31951643, -0.32947144]), array([ 0.        , -0.03600047, -0.07199521, ..., -2.51347812,
+           -2.49704032, -2.48020085]))"""
 
     def sdofs_deriv(x_xd, t, m=m, c=c, k=k):
         x, xd = x_xd
@@ -902,6 +905,48 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
         ax2.plot(r, -sp.angle(X_z)/sp.pi*180)
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
+
+    return fig, plt.show()
+
+
+def impulse_response(m, c, k, Fo, max_time):
+    """
+        Returns a plot with the response of the system to an
+        impulse of magnitude Fo (N.s).
+
+        Parameters
+        ----------
+        m, c, k: float
+            Mass, damping and stiffness.
+        Fo: float
+            Force applied over time (units N.s)
+        max_time: float
+            End time
+
+        Returns
+        ----------
+        fig: Matplotlib figure
+            Plot with the response of the system to an
+        impulse of magnitude Fo (N.s).
+
+        Examples:
+        >>> impulse_response(m=100, c=20, k=2000, Fo=10, max_time=100)
+        (<matplotlib.figure.Figure object at 0x0000...>, None)"""
+    t = sp.linspace(0, max_time, int(250 * max_time))
+
+    wn = sp.sqrt(k / m)
+    zeta = c / (2 * wn * m)
+    wd = wn * sp.sqrt(1 - zeta**2)
+    fo = Fo / m
+
+    x = fo / (wd * sp.exp(zeta * wn * t)) * sp.sin(wd * t)
+
+    fig = plt.figure(figsize=(8,6))
+    ax1 = plt.subplot(111)
+    ax1.set_xlabel('Time')
+    ax1.set_ylabel('Displacement')
+    ax1.set_title('Displacement vs Time')
+    ax1.plot(t, x)
 
     return fig, plt.show()
 
