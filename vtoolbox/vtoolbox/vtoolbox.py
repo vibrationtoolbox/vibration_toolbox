@@ -932,6 +932,7 @@ def impulse_response(m, c, k, Fo, max_time):
         Examples:
         >>> impulse_response(m=100, c=20, k=2000, Fo=10, max_time=100)
         (<matplotlib.figure.Figure object at 0x0000...>, None)"""
+
     t = sp.linspace(0, max_time, int(250 * max_time))
 
     wn = sp.sqrt(k / m)
@@ -940,6 +941,66 @@ def impulse_response(m, c, k, Fo, max_time):
     fo = Fo / m
 
     x = fo / (wd * sp.exp(zeta * wn * t)) * sp.sin(wd * t)
+
+    fig = plt.figure(figsize=(8,6))
+    ax1 = plt.subplot(111)
+    ax1.set_xlabel('Time')
+    ax1.set_ylabel('Displacement')
+    ax1.set_title('Displacement vs Time')
+    ax1.plot(t, x)
+
+    return fig, plt.show()
+
+
+def step_response(m, c, k, Fo, max_time):
+    """
+        Returns a plot with the response of the system to an
+        step of magnitude Fo.
+
+        Parameters
+        ----------
+        m, c, k: float
+            Mass, damping and stiffness.
+        Fo: float
+            Force applied
+        max_time: float
+            End time
+
+        Returns
+        ----------
+        fig: Matplotlib figure
+            Plot with the response of the system to an
+        step of magnitude Fo.
+
+        Examples:
+        >>> step_response(m=100, c=20, k=2000, Fo=10, max_time=100)
+        (<matplotlib.figure.Figure object at 0x0000...>, None)"""
+
+    t = sp.linspace(0, max_time, int(250 * max_time))
+
+    wn = sp.sqrt(k / m)
+    zeta = c / (2 * wn * m)
+    wd = wn * sp.sqrt(1 - zeta**2)
+    fo = Fo / m
+
+    if zeta != 1:
+        phi = sp.arctan(zeta / sp.sqrt(1 - zeta**2))
+
+    if 0 < zeta < 1:
+        x = fo / wn**2 * (1 - wn / wd*sp.exp(-zeta * wn * t)*sp.cos(wd * t - phi))
+    elif zeta == 1:
+        lam = -wn
+        A1 = -fo / wn**2
+        A2 = -A1 * lam
+        x = fo / wn**2 + A1 * sp.exp(lam * t) + A2 * t * sp.exp(lam * t)
+    elif zeta > 1:
+        lam1 = -zeta * wn - wn * sp.sqrt(zeta**2 - 1)
+        lam2 = -zeta * wn + wn * sp.sqrt(zeta**2 - 1)
+        A2 = fo / (wn**2 * (lam2 / lam1 - 1))
+        A1 = -lam2 / lam1 * A2
+        x = fo / wn**2 + A1 * sp.exp(lam1 * t) + A2 * sp.exp(lam2 * t)
+    else:
+        raise ValueError('Zeta should be greater than zero')
 
     fig = plt.figure(figsize=(8,6))
     ax1 = plt.subplot(111)
