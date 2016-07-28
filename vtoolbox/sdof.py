@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import numpy as np
 import scipy as sp
 import matplotlib as mpl
@@ -15,7 +15,7 @@ mpl.rcParams['figure.figsize'] = (10, 6)
 import IPython.core.display as ipcd
 
 
-# from ipywidgets.widgets.interaction import interact, interactive
+from ipywidgets.widgets.interaction import interact, interactive
 
 #__all__ = ['rotating_unbalance']
 
