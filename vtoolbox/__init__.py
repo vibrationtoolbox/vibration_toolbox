@@ -20,5 +20,5 @@ all toolbox functions in the name space
 `import vtoolbox.sdof as sdof` will tuck the sdoc functions in the `sdof` box. 
 
 """
-from sdof import *
+from .sdof import *
 
