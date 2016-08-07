@@ -727,11 +727,9 @@ def forced_sdof_response(m=10, c=0, k=100, x0=1, v0=0,
         Time, displacement and velocity
 
     Examples:
-    >>> forced_sdof_response(m=10, c=0, k=100, x0=1, v0=0, wdr=0.5, F0=10, max_time=100)
-    (array([  0.00000000e+00,   4.00016001e-03,   8.00032001e-03, ...,
-             9.99919997e+01,   9.99959998e+01,   1.00000000e+02]), array([ 1.        ,  0.999928  ,  0.99971199, ..., -0.30949486,
-           -0.31951643, -0.32947144]), array([ 0.        , -0.03600047, -0.07199521, ..., -2.51347812,
-           -2.49704032, -2.48020085]))"""
+    >>> f = forced_sdof_response(m=10, c=0, k=100, x0=1, v0=0, wdr=0.5, F0=10, max_time=100)
+    >>> f[0][0]
+    0.0"""
 
     def sdofs_deriv(x_xd, t, m=m, c=c, k=k):
         x, xd = x_xd
@@ -1010,6 +1008,61 @@ def step_response(m, c, k, Fo, max_time):
     ax1.plot(t, x)
 
     return fig, plt.show()
+
+
+def fourier_series(dat, t, n):
+    """
+    Fourier series approximation to a function.
+    returns Fourier coefficients of a function.
+    The coefficients are numerical approximations of the true
+    coefficients.
+
+        Parameters
+        ----------
+        dat: array
+            Array of data representing the function.
+        t: array
+            Corresponding time array.
+        n: int
+            The desired number of terms to use in the
+            Fourier series.
+
+        Returns
+        ----------
+        a, b: array
+            Arrays with the Fourier coefficients.
+            The function also produces a plot of the approximation.
+
+        Examples:
+        >>> f = sp.hstack((sp.arange(-1, 1, .04), sp.arange(1, -1, -.04)))
+        >>> f += 1
+        >>> t = sp.arange(0, len(f))/len(f)
+        >>> a, b = fourier_series(f, t, 5)
+        >>> a[0]
+        2.0"""
+
+    len_ = len(dat)/2
+    fs = (sp.fft(dat))/len_
+    a0 = fs[0]
+    a = sp.real(sp.hstack((a0, fs[1:len(fs/2)])))
+    b = -sp.imag(fs[1:len(fs/2)])
+    len_ *= 2
+    dt = 2*sp.pi/len_
+    tp = sp.arange(0, 2*sp.pi, dt)
+    dataapprox = a[0]/2 + sp.zeros_like(dat)
+    fig1 = plt.figure(figsize=(8,6))
+    ax1 = fig1.add_subplot(111)
+    ax1.plot(t, dat)
+
+    for i in range(1, n):
+        newdat = a[i]*sp.cos(tp*i) + b[i]*sp.sin(tp*i)
+        dataapprox += newdat
+        if i == n-1:
+            ax1.plot(t, newdat)
+
+    ax1.plot(t, dataapprox)
+
+    return a, b
 
 
 if __name__ == "__main__":
