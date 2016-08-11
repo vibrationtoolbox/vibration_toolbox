@@ -1029,8 +1029,8 @@ def fourier_series(dat, t, n):
 
         Returns
         ----------
-        a, b: array
-            Arrays with the Fourier coefficients.
+        a, b: tuple
+            Tuple containing arrays with the Fourier coefficients.
             The function also produces a plot of the approximation.
 
         Examples:
@@ -1063,6 +1063,46 @@ def fourier_series(dat, t, n):
     ax1.plot(t, dataapprox)
 
     return a, b
+
+
+def response_spectrum(f):
+    """
+    Will display the response spectrum to a partial ramp
+    input(see Figure 3.13) for the system with natural frequency
+    f (in Hz) and no damping.
+
+        Parameters
+        ----------
+        f: float
+            Natural frequency.
+
+        Returns
+        ----------
+        t, rs: tuple
+            Tuple with time and response arrays. It also returns
+            a plot with the response spectrum.
+        Examples:
+        >>> a = response_spectrum(10)
+        >>> a[1][10]
+        1.6285602401720802"""
+    t = sp.linspace(.001 * 4 / f, 10 / f, 200)
+    w = 2 * sp.pi * f
+
+    one = sp.ones_like(t)
+
+    rs1 = one / (w * t)
+    rs2 = sp.sqrt(2 * (1 - sp.cos(w * t)))
+
+    rs = one + rs1 * rs2
+
+    fig = plt.figure(figsize=(8,6))
+    ax1 = fig.add_subplot(111)
+    ax1.set_xlabel('Rise time (t_1)')
+    ax1.set_ylabel('Dimensionless maximum response - (xk/Fo)max')
+    ax1.set_title('Response spectrum of a SDOF system with f = %s Hz' % f)
+    ax1.plot(t, rs)
+
+    return t, rs
 
 
 if __name__ == "__main__":
