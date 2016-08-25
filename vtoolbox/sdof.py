@@ -1105,6 +1105,64 @@ def response_spectrum(f):
     return t, rs
 
 
+def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
+    """
+    Plot the Fourier series defined by:
+    N is the number of terms.
+
+        Parameters
+        ----------
+        a0: float or str
+            a0 Fourier coefficient.
+        aodd: float or str
+            an Fourier coefficient for n odd.
+        aeven: float or str
+            an Fourier coefficient for n even.
+        bodd: float or str
+            bn Fourier coefficient for n odd
+        beven: float or str
+            bn Fourier coefficient for n even
+
+        Returns
+        ----------
+        t, F: tuple
+            Tuple with time and F(t). It also returns
+            a plot with the Fourier approximation.
+        Examples:
+        >>> # Square wave
+        >>> a = fourier_approximation(-1, 0, 0, '-3*(-1+(-1)**n)/n/pi', '-3*(-1+(-1)**n)/n/pi', 20, 2)
+        >>> a[1][10]
+        1.2697210294282535
+        >>> # Triangular wave
+        >>> a = fourier_approximation(0,'-8/pi**2/n**2',0,0,0,20,10)
+        >>> a[1][10]
+        -0.90234928911935097"""
+    args = [str(arg) for arg in [a0, aodd, aeven, bodd, beven]] # change to str
+    a0, aodd, aeven, bodd, beven = args
+
+    dt = min(T/400, T/10*N)
+    t = sp.arange(0, T*3, dt)
+    F = 0*t + eval(a0)/2
+    pi = sp.pi
+
+    for n in range(1, N):
+        if n % 2 == 0:
+            a = aeven
+            b = beven
+        else:
+            a = aodd
+            b = bodd
+        F = F + eval(a)*sp.cos(n*2*sp.pi*t/T) + eval(b)*sp.sin(n*2*sp.pi*t/T)
+
+    fig = plt.figure(figsize=(8,6))
+    ax1 = fig.add_subplot(111)
+    ax1.set_xlabel('Time, t')
+    ax1.set_ylabel('F(t)')
+    ax1.plot(t, F)
+
+    return t, F
+
+
 if __name__ == "__main__":
     import doctest
     import vtoolbox as vtb
