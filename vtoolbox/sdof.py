@@ -765,6 +765,8 @@ def steady_state_response(zs, rmin, rmax):
     (0.98423159842039087-0.15988334018879749j)
     """
 
+    if not isinstance(zs, list):
+        zs = [zs]
     r = sp.linspace(rmin, rmax, 100*(rmax-rmin))
     A0 = sp.zeros((len(zs), len(r)), complex)
     for z in enumerate(zs):
@@ -823,6 +825,7 @@ def transmissibility(zs, rmin, rmax):
     >>> D[10]
     1.0100027508815634
     """
+
     if not isinstance(zs, list):
         zs = [zs]
     r = sp.linspace(rmin, rmax, 100*(rmax-rmin))
@@ -895,6 +898,8 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
     (0.10104614704226758-0.0051182602098315527j)
     """
 
+    if not isinstance(zs, list):
+        zs = [zs]
     r = sp.linspace(rmin, rmax, 100*(rmax-rmin))
     Xn = sp.zeros((len(zs), len(r)), complex)
     for z in enumerate(zs):
@@ -1126,6 +1131,7 @@ def response_spectrum(f):
     >>> rs[10]
     1.6285602401720802
     """
+
     t = sp.linspace(.001 * 4 / f, 10 / f, 200)
     w = 2 * sp.pi * f
 
