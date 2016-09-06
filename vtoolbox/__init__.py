@@ -21,4 +21,5 @@ all toolbox functions in the name space
 
 """
 from .sdof import *
+from .mdof import *
 
