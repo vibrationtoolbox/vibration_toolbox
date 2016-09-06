@@ -30,7 +30,7 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 
     m, c, k:           1) Floats. Mass, damping and stiffness.
     x0, v0:            2) Floats. Initial conditions
-    max_time:          3) Float. end time or response to be returned
+    max_time:          3) Float.
 
     Returns
 
@@ -215,7 +215,7 @@ def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
     """
 
-    # creates the state matrix
+    # creates the state space matrix
     A = sp.array([[0, 1],
                   [-k / m, -c / m]])
     # creates the x array and set the first line according to the initial

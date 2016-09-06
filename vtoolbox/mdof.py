@@ -82,12 +82,10 @@ def modes_system_undamped(M, K):
 
     Parameters
     ----------
-    A: array
-        A complex or real matrix whose eigenvalues and eigenvectors
-        will be computed.
-    B: float or str
-        Right-hand side matrix in a generalized eigenvalue problem.
-        Default is None, identity matrix is assumed.
+    M: array
+        Mass matrix
+    K: array
+        Stiffness matrix
 
     Returns
     ----------
@@ -120,9 +118,75 @@ def modes_system_undamped(M, K):
     return lam, P, S, Sinv
 
 
+def response_system_undamped(M, K, x0, v0, max_time):
+    """
+    This function calculates the time response for an undamped system
+    and returns the vector (state-space) X. The n first rows contain the
+    displacement (x) and the n last rows contain velocity (v) for each
+    coordinate. Each column is related to a time-step.
+    The time array is also returned.
+
+    Parameters
+    ----------
+    M: array
+        Mass matrix
+    K: array
+        Stiffness matrix
+    x0: array
+        Array with displacement initial conditions
+    v0: array
+        Array with velocity initial conditions
+    max_time: float
+        End time
+
+    Returns
+    ----------
+    t: array
+        Array with the time
+    X: array
+        The state-space vector for each time
+
+    Examples:
+    >>> M = sp.array([[1, 0],
+    ...               [0, 4]])
+    >>> K = sp.array([[12, -2],
+    ...               [-2, 12]])
+    >>> x0 = sp.array([1, 1])
+    >>> v0 = sp.array([0, 0])
+    >>> max_time = 10
+    >>> t, X = response_system_undamped(M, K, x0, v0, max_time)
+    >>> X[:, 0] # first column of X will contain the initial conditions [x1, x2, v1, v2]
+    array([ 1.,  1.,  0.,  0.])
+    >>> X[:, 1] # displacement and velocities after delta t
+    array([ 0.99991994,  0.99997998, -0.04001478, -0.01000397])
+    """
+
+    t = sp.linspace(0, max_time, int(250 * max_time))
+    dt = t[1] - t[0]
+
+    n = len(M)
+
+    Z = sp.zeros((n, n))
+    I = sp.eye(n, n)
+
+    # creates the state space matrix
+    A = sp.vstack([sp.hstack([Z,               I]),
+                   sp.hstack([-la.pinv(M) @ K, Z])])
+
+    # creates the x array and set the first line according to the initial
+    # conditions
+    X = sp.zeros((2*n, len(t)))
+    X[:, 0] = sp.hstack([x0, v0])
+
+    Ad = la.expm(A * dt)
+    for i in range(len(t) - 1):
+        X[:, i + 1] = Ad @ X[:, i]
+
+    return t, X
+
+
 if __name__ == "__main__":
     import doctest
-    import vtoolbox as vtb
 
     doctest.testmod(optionflags=doctest.ELLIPSIS)
     # doctest.run_docstring_examples(frfest,globals(),optionflags=doctest.ELLIPSIS)
