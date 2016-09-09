@@ -3,13 +3,8 @@ import numpy as np
 import scipy as sp
 import matplotlib as mpl
 from scipy.interpolate import UnivariateSpline
-from ipywidgets import interact, interactive, widgets
 from IPython.display import clear_output, display, HTML
 from scipy import integrate
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib.colors import cnames
-from matplotlib import animation
-import IPython.core.display as ipcd
 from ipywidgets.widgets.interaction import interact, interactive
 
 mpl.rcParams['lines.linewidth'] = 2
