@@ -156,6 +156,116 @@ def modes_system_undamped(M, K):
     return w, P, S, Sinv
 
 
+def modes_system(M, K, C=None):
+    """
+    This function will return the natural frequencies (wn), the
+    damped natural frequencies (wd), the damping ratios (zeta),
+    the right eigenvectors (X) and the left eigenvectors (Y) for a
+    system defined by M, K and C.
+    If the dampind matrix 'C' is none or if the damping is proportional,
+    wd and zeta will be none and X and Y will be equal.
+
+    Parameters
+    ----------
+    M: array
+        Mass matrix
+    K: array
+        Stiffness matrix
+    C: array
+        Damping matrix
+
+    Returns
+    ----------
+    wn: array
+        The natural frequencies of the system
+    wd: array
+        The damped natural frequencies of the system
+    zeta: array
+        The damping ratios
+    X: array
+        The right eigenvectors
+    Y: array
+        The left eigenvectors
+
+    Examples:
+    >>> M = sp.array([[1, 0],
+    ...               [0, 1]])
+    >>> K = sp.array([[1, -0.4],
+    ...               [0.4, 6]])
+    >>> C = sp.array([[0.3, -4],
+    ...               [4, 0.2]])
+    >>> wn, wd, zeta, X, Y = modes_system(M, K, C)
+    Damping is non-proportional, eigenvectors are complex.
+    >>> wn
+    array([ 0.5206175 ,  4.76729024,  0.5206175 ,  4.76729024])
+    >>> wd
+    array([ 0.50825856,  4.76531454, -0.50825856, -4.76531454])
+    >>> zeta
+    array([ 0.21659744,  0.02878692,  0.21659744,  0.02878692])
+    >>> X
+    array([[ 0.83593587+0.j        ,  0.13536177-0.00208189j,
+             0.83593587-0.j        ,  0.13536177+0.00208189j],
+           [ 0.00811744-0.29648107j,  0.00444279+0.15426956j,
+             0.00811744+0.29648107j,  0.00444279-0.15426956j],
+           [-0.09426382+0.42487157j, -0.00865558+0.6453271j ,
+            -0.09426382-0.42487157j, -0.00865558-0.6453271j ],
+           [ 0.14977369+0.03755828j, -0.73575270+0.j        ,
+             0.14977369-0.03755828j, -0.73575270-0.j        ]])
+    >>> Y
+    array([[ 0.57880640-0.04653746j,  0.12020049-0.05551985j,
+             0.57880640+0.04653746j,  0.12020049+0.05551985j],
+           [ 0.01204879+1.25620685j, -0.06167340-0.8279964j ,
+             0.01204879-1.25620685j, -0.06167340+0.8279964j ],
+           [-0.00101305-0.3004544j ,  0.01513120-0.57704216j,
+            -0.00101305+0.3004544j ,  0.01513120+0.57704216j],
+           [ 0.10657189+0.0025583j , -0.65801243-0.00842571j,
+             0.10657189-0.0025583j , -0.65801243+0.00842571j]])
+    >>> C = K*2 # with proportional damping
+    >>> wn, wd, zeta, X, Y = modes_system(M, K, C)
+    Damping is proportional or zero, eigenvectors are real
+    >>> X
+    array([[-0.99677405,  0.08025891],
+           [ 0.08025891, -0.99677405]])
+    """
+
+    n = len(M)
+
+    Z = sp.zeros((n, n))
+    I = sp.eye(n)
+    Minv = la.inv(M)
+
+    if (C is None or
+        la.norm(Minv @ C @ K - Minv @ K @ C, 2) < 1e-8*la.norm(Minv @ K @ C, 2)):
+        w, P, S, Sinv = modes_system_undamped(M, K)
+        wn = None
+        wd = None
+        zeta = None
+        X = P
+        Y = P
+        print('Damping is proportional or zero, eigenvectors are real')
+        return wn, wd, zeta, X, Y
+
+    Z = sp.zeros((n, n))
+    I = sp.eye(n)
+
+    # creates the state space matrix
+    A = sp.vstack([sp.hstack([Z, I]),
+                   sp.hstack([-la.pinv(M) @ K, -la.pinv(M) @ C])])
+
+    w, X = eigen(A)
+    _, Y = eigen(A.T)
+
+    wd = sp.imag(w)
+    wn = sp.absolute(w)
+    zeta = (-sp.real(w)/sp.absolute(w))
+
+    Y = normalize(X, Y)
+
+    print('Damping is non-proportional, eigenvectors are complex.')
+
+    return wn, wd, zeta, X, Y
+
+
 def response_system_undamped(M, K, x0, v0, max_time):
     """
     This function calculates the time response for an undamped system
