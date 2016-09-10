@@ -126,7 +126,7 @@ def modes_system_undamped(M, K):
 
     Returns
     ----------
-    lam: array
+    w: array
         The natural frequencies of the system
     P: array
         The eigenvectors of the system are.
@@ -142,17 +142,18 @@ def modes_system_undamped(M, K):
     >>> K = sp.array([[8, -4, 0],
     ...               [-4, 8, -4],
     ...               [0, -4, 4]])
-    >>> lam, P, S, Sinv = modes_system_undamped(M, K)
-    >>> lam
-    array([ 0.19806226+0.j,  1.55495813+0.j,  3.24697960+0.j])
+    >>> w, P, S, Sinv = modes_system_undamped(M, K)
+    >>> w
+    array([ 0.44504187+0.j,  1.24697960+0.j,  1.80193774+0.j])
     """
     L = la.cholesky(M)
     Linv = la.inv(L)
     lam, P = eigen(Linv @ K @ Linv.T)
+    w = sp.sqrt(lam)
     S = Linv @ P
     Sinv = P.T @ Linv
 
-    return lam, P, S, Sinv
+    return w, P, S, Sinv
 
 
 def response_system_undamped(M, K, x0, v0, max_time):
