@@ -1,5 +1,6 @@
 import scipy as sp
 import scipy.linalg as la
+import scipy.signal as signal
 import matplotlib as mpl
 
 mpl.rcParams['lines.linewidth'] = 2
@@ -331,6 +332,102 @@ def response_system_undamped(M, K, x0, v0, max_time):
         X[:, i + 1] = Ad @ X[:, i]
 
     return t, X
+
+
+def response_system(M, C, K, F, x0, v0, t):
+    """
+    This function solves the system given the initial
+    displacement vector 'X0', initial velocity vector 'V0',
+    the mass matrix 'M', the stiffness matrix 'M', and the damping
+    matrix 'C' and force 'F'.
+    T is a row vector of evenly spaced times.
+    F is a matrix of forces over time, each column corresponding
+    to the corresponding column of T, each row corresponding to
+    the same numbered DOF.
+
+    Parameters
+    ----------
+    M: array
+        Mass matrix
+    K: array
+        Stiffness matrix
+    C: array
+        Damping matrix
+    x0: array
+        Array with displacement initial conditions
+    v0: array
+        Array with velocity initial conditions
+    t: array
+        Array withe evenly spaced times
+
+    Returns
+    ----------
+    T : array
+        Time values for the output.
+    yout : array
+        System response.
+    xout : array
+        Time evolution of the state vector.
+
+    Examples:
+    >>> M = sp.array([[9, 0],
+    ...               [0, 1]])
+    >>> K = sp.array([[27, -3],
+    ...               [-3, 3]])
+    >>> C = K/10
+    >>> x0 = sp.array([0, 1])
+    >>> v0 = sp.array([1, 0])
+    >>> t = sp.linspace(0, 10, 100)
+    >>> F = sp.vstack([0*t,
+    ...                3*sp.cos(2*t)])
+    >>> tou, yout, xout = response_system(M, C, K, F, x0, v0, t)
+    >>> tou[:10]
+    array([ 0.        ,  0.1010101 ,  0.2020202 ,  0.3030303 ,  0.4040404 ,
+            0.50505051,  0.60606061,  0.70707071,  0.80808081,  0.90909091])
+    >>> yout[:10]
+    array([[ 0.        ,  1.        ,  1.        ,  0.        ],
+           [ 0.1006699 ,  1.0019166 ,  0.9882704 ,  0.04164362],
+           [ 0.19867119,  1.00889664,  0.94748001,  0.09763215],
+           [ 0.29117815,  1.02159599,  0.87992707,  0.15230092],
+           [ 0.37563287,  1.03911711,  0.78859082,  0.19072496],
+           [ 0.44980625,  1.05913319,  0.67697613,  0.19968169],
+           [ 0.5118431 ,  1.07810368,  0.54895551,  0.16848849],
+           [ 0.56029149,  1.09156627,  0.40861572,  0.08967373],
+           [ 0.59411703,  1.09448692,  0.26011522, -0.04055038],
+           [ 0.61270358,  1.08164667,  0.10755703, -0.22203433]])
+    >>> xout[:10]
+    array([[ 0.        ,  1.        ,  1.        ,  0.        ],
+           [ 0.1006699 ,  1.0019166 ,  0.9882704 ,  0.04164362],
+           [ 0.19867119,  1.00889664,  0.94748001,  0.09763215],
+           [ 0.29117815,  1.02159599,  0.87992707,  0.15230092],
+           [ 0.37563287,  1.03911711,  0.78859082,  0.19072496],
+           [ 0.44980625,  1.05913319,  0.67697613,  0.19968169],
+           [ 0.5118431 ,  1.07810368,  0.54895551,  0.16848849],
+           [ 0.56029149,  1.09156627,  0.40861572,  0.08967373],
+           [ 0.59411703,  1.09448692,  0.26011522, -0.04055038],
+           [ 0.61270358,  1.08164667,  0.10755703, -0.22203433]])
+    """
+
+    n = len(M)
+
+    Z = sp.zeros((n, n))
+    I = sp.eye(n)
+
+    # creates the state space matrix
+    A = sp.vstack([sp.hstack([Z,               I]),
+                   sp.hstack([-la.pinv(M) @ K, -la.pinv(M) @ C])])
+    B = sp.vstack([Z,
+                   la.inv(M)])
+    C = sp.eye(2*n)
+    D = 0*B
+
+    sys = signal.lti(A, B, C, D)
+
+    IC = sp.hstack([x0, v0])
+    F = F.T
+    T, yout, xout = signal.lsim(sys, F, t, IC)
+
+    return T, yout, xout
 
 
 if __name__ == "__main__":
