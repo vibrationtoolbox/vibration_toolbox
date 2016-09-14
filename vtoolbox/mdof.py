@@ -150,7 +150,7 @@ def modes_system_undamped(M, K):
     L = la.cholesky(M)
     Linv = la.inv(L)
     lam, P = eigen(Linv @ K @ Linv.T)
-    w = sp.sqrt(lam)
+    w = sp.real(sp.sqrt(lam))
     S = Linv @ P
     Sinv = P.T @ Linv
 
@@ -234,12 +234,12 @@ def modes_system(M, K, C=None):
     Z = sp.zeros((n, n))
     I = sp.eye(n)
     Minv = la.inv(M)
-
-    if (C is None or
+    
+    if (C is None or sp.all(C == 0) or # check if C has only zero entries
         la.norm(Minv @ C @ K - Minv @ K @ C, 2) < 1e-8*la.norm(Minv @ K @ C, 2)):
         w, P, S, Sinv = modes_system_undamped(M, K)
-        wn = None
-        wd = None
+        wn = w
+        wd = w
         zeta = None
         X = P
         Y = P
