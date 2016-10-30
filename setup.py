@@ -23,6 +23,7 @@ setup(name='Vibration Toolbox',
       keywords=['vibration','mechanical engineering'],
       install_requires=[
       'numpy',
+      'python>=3.5'
       'scipy',
       'matplotlib'
       ]
