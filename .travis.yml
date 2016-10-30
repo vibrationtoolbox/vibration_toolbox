@@ -14,6 +14,8 @@ before_install:
   - sudo apt-get install -y python-scipy python3-scipy
 
 install:
+  - pip install ipython
+  - pip install jupyter
   - pip install .
 
 script:
