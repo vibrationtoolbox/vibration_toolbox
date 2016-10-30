@@ -34,7 +34,7 @@ def frf(x, f, dt):
     Examples:
     >>> # First we need to load the sampled data which in a .mat file
     >>> import scipy.io as sio
-    >>> data = sio.loadmat('data/frf_data1')
+    >>> data = sio.loadmat('vtoolbox/data/frf_data1.mat')
     >>> # Data is imported as arrays. We need to modify then to fit our function
     >>> x = data['x']
     >>> x = x.reshape(len(x))
@@ -44,8 +44,8 @@ def frf(x, f, dt):
     >>> dt = float(dt)
     >>> # Now we are able to call the function
     >>> freq, mag, ang, coh = frf(x, f, dt)
-    >>> mag[10]
-    1.0183948530809073
+    >>> mag[10]   # doctest: +ELLIPSIS
+    1.018394853080...
     """
 
     w = sp.sin(sp.pi*sp.arange(len(f))/len(f))**2 # window
