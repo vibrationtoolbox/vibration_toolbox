@@ -3,7 +3,10 @@
 #from distutils.core import setup
 from setuptools import setup
 import os
+import sys
 
+if sys.version_info < (3,6):
+    sys.exit('Sorry, Python < 2.7 is not supported')
 # Utility function to read the README file.
 # Used for the long_description.  It's nice, because now 1) we have a top level
 # README file and 2) it's easier to type in the README file than to put a raw
