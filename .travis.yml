@@ -12,7 +12,7 @@ python:
 before_install:
   - sudo apt-get install -y python-numpy python3-numpy
   - sudo apt-get install -y python-scipy python3-scipy
-  - mkdir -p $HOME/.config/matplotlib 
+  - mkdir -p $HOME/.config/matplotlib
 
 install:
   - pip install ipython
@@ -25,8 +25,8 @@ cache:
 
 before_script: # configure a headless display to test plot generation
   - python -c 'import matplotlib.pyplot'
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
   - sleep 3 # give xvfb some time to start
 
 script:
