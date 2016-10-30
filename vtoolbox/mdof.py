@@ -145,7 +145,7 @@ def modes_system_undamped(M, K):
     ...               [0, -4, 4]])
     >>> w, P, S, Sinv = modes_system_undamped(M, K)
     >>> w
-    array([ 0.44504187+0.j,  1.24697960+0.j,  1.80193774+0.j])
+    array([ 0.44504187,  1.2469796 ,  1.80193774])
     """
     L = la.cholesky(M)
     Linv = la.inv(L)
@@ -234,7 +234,7 @@ def modes_system(M, K, C=None):
     Z = sp.zeros((n, n))
     I = sp.eye(n)
     Minv = la.inv(M)
-    
+
     if (C is None or sp.all(C == 0) or # check if C has only zero entries
         la.norm(Minv @ C @ K - Minv @ K @ C, 2) < 1e-8*la.norm(Minv @ K @ C, 2)):
         w, P, S, Sinv = modes_system_undamped(M, K)
@@ -436,7 +436,7 @@ if __name__ == "__main__":
     doctest.testmod(optionflags=doctest.ELLIPSIS)
     # doctest.run_docstring_examples(frfest,globals(),optionflags=doctest.ELLIPSIS)
     # doctest.run_docstring_examples(asd,globals(),optionflags=doctest.ELLIPSIS)
-    """ What this does. 
+    """ What this does.
     python (name of this file)  -v
     will test all of the examples in the help.
 
