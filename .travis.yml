@@ -14,7 +14,7 @@ before_install:
   - sudo apt-get install -y python-scipy python3-scipy
   - mkdir -p $HOME/.config/matplotlib
 
-install: travis_wait 30 mvn install
+install:
   - pip install ipython
   - pip install jupyter
   - pip install .
@@ -30,4 +30,4 @@ before_script: # configure a headless display to test plot generation
   - sleep 3 # give xvfb some time to start
 
 script:
-  - nosetests   --with-doctest --doctest-tests --doctest-extension= 'vtoolbox'
+  - nosetests --with-doctest --doctest-tests --doctest-extension= 'vtoolbox'
