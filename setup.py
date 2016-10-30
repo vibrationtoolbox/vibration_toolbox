@@ -19,7 +19,7 @@ setup(name='Vibration Toolbox',
       url='https://github.com/vibrationtoolbox/pvtoolbox',
       download_url='https://github.com/josephcslater/array_to_latex/archive/0.5b0.tar.gz',
       packages=['vibration_toolbox'],
-      long_description = read('README.rst'),
+      long_description = read('readme.rst'),
       keywords=['vibration','mechanical engineering'],
       install_requires=[
       'numpy',
