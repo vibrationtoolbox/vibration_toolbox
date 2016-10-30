@@ -33,6 +33,7 @@ def frf(x, f, dt):
         coherence.
     Examples:
     >>> # First we need to load the sampled data which in a .mat file
+    >>> import vtoolbox as vt
     >>> import scipy.io as sio
     >>> data = sio.loadmat('vtoolbox/data/frf_data1.mat')
     >>> # Data is imported as arrays. We need to modify then to fit our function
@@ -43,7 +44,7 @@ def frf(x, f, dt):
     >>> dt = data['dt']
     >>> dt = float(dt)
     >>> # Now we are able to call the function
-    >>> freq, mag, ang, coh = frf(x, f, dt)
+    >>> freq, mag, ang, coh = vt.frf(x, f, dt)
     >>> mag[10]   # doctest: +ELLIPSIS
     1.018394853080...
     """
