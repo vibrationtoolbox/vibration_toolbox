@@ -14,7 +14,7 @@ before_install:
   - sudo apt-get install -y python-scipy python3-scipy
   - mkdir -p $HOME/.config/matplotlib
 
-install:
+install: travis_wait 30 mvn install
   - pip install ipython
   - pip install jupyter
   - pip install .
@@ -25,8 +25,8 @@ cache:
 
 before_script: # configure a headless display to test plot generation
   - python -c 'import matplotlib.pyplot'
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 
 script:
