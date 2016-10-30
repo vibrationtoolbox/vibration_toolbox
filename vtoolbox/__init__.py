@@ -1,11 +1,7 @@
 """
-I believe we need to keep this project simple for users.
-Remember the intent is to a demonstrate/teach vibration.
-This will not be a massively comprehensive set of tools,
-so  `__all__` should contain any submodules should also be imported
-when a user executes "from vtoolbox import *"
+The Vibration Toolbox, Python Edition
 
-As there are no submodules, this is a placeholder in case such ever happens.
+Joseph C. Slater and Raphael Timbo
 
 __all__ = ['directory']
 """
