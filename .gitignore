@@ -1,4 +1,9 @@
 *.*~
+
+Vibration_Toolbox.egg-info
+Vibration_Toolbox.egg-info/*
+VibrationToolbox.egg-info
+
 # OS generated files #
 ######################
 .DS_Store
