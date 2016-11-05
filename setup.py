@@ -24,7 +24,7 @@ setup(name='Vibration Toolbox',
       packages=['vtoolbox'],
       long_description = read('readme.rst'),
       keywords=['vibration','mechanical engineering'],
-      install_requires=['numpy', 'scipy', 'matplotlib']
+      install_requires=['numpy', 'scipy', 'matplotlib', 'vibration']
       )
 
 # https://docs.python.org/3/distutils/setupscript.html#additional-meta-data
