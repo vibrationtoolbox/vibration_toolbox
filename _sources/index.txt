@@ -13,7 +13,7 @@ The Engineering Vibration Toolbox
 Overview
 ==========
 
-The Engineering Vibration Toolbox is a set of over 35 educational
+The Engineering Vibration  Toolbox is a set of over 35 educational
 programs and associated files by `Joseph C.
 Slater <http://josephcslater.github.io>`__.
 It can be run on any platform supported by
