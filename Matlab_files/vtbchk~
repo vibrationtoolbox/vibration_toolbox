@@ -1,0 +1,23 @@
+function vtbchk
+% Checks to see if vtbud needs to be run
+% chkskip tells how often to run check.
+chkskip=7% number of days to go without checking again.
+curpath=pwd
+vtbdir=which('vtb1_1.m');
+insdatestamp=urlread(['file:///' fullfile(vtbdir,'vtbdatestamp.txt')]);
+chkdatestamp=urlread(['file:///' fullfile(vtbdir,'chkdatestamp.txt')]);
+curdatestamp=urlread('http://www.cs.wright.edu/people/faculty/jslater/vtoolbox/vtoolbox/vtbdatestamp.txt');
+
+cd(vtbdir)
+
+if (str2num(chkdatestamp)<(datenum(d.date)+chkskip))&(str2num(insdatestamp)<str2num(curdatestamp))
+	vtbud
+end
+	
+	
+
+fid = fopen('chkdatestamp.txt','wt');
+fprintf(fid,'%s',num2str(datenum(d.date)));
+fclose(fid);
+cd curpath
+
