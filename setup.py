@@ -14,15 +14,15 @@ if sys.version_info < (3,5):
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-setup(name='vibration-toolbox',
-      version='0.5b8',
+setup(name='vibration_toolbox',
+      version='0.5b9',
       description='Educational code illustrating fundamentals of vibration for mechanical engineers.',
       author='Joseph C. Slater and Raphael Timbo',
       author_email='joseph.c.slater@gmail.com',
-      url='https://github.com/vibrationtoolbox/vibration-toolbox',
-      download_url='https://github.com/vibrationtoolbox/vibration-toolbox/archive/0.5b8.tar.gz',
-      packages=['vibration-toolbox'],
-      package_data={'vibration-toolbox': ['../readme.rst', 'data/*.mat'],'':['readme.rst']},
+      url='https://github.com/vibrationtoolbox/vibration_toolbox',
+      download_url='https://github.com/vibrationtoolbox/vibration_toolbox/archive/0.5b9.tar.gz',
+      packages=['vibration_toolbox'],
+      package_data={'vibration_toolbox': ['../readme.rst', 'data/*.mat'],'':['readme.rst']},
       long_description = read('readme.rst'),
       keywords=['vibration','mechanical engineering'],
       install_requires=['numpy', 'scipy', 'matplotlib']
