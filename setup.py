@@ -15,16 +15,17 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(name='vibration-toolbox',
-      version='0.5b7',
+      version='0.5b8',
       description='Educational code illustrating fundamentals of vibration for mechanical engineers.',
       author='Joseph C. Slater and Raphael Timbo',
       author_email='joseph.c.slater@gmail.com',
       url='https://github.com/vibrationtoolbox/vibration-toolbox',
-      download_url='https://github.com/vibrationtoolbox/vibration-toolbox/archive/0.5b7.tar.gz',
+      download_url='https://github.com/vibrationtoolbox/vibration-toolbox/archive/0.5b8.tar.gz',
       packages=['vibration-toolbox'],
+      package_data={'vibration-toolbox': ['../readme.rst', 'data/*.mat'],'':['readme.rst']},
       long_description = read('readme.rst'),
       keywords=['vibration','mechanical engineering'],
-      install_requires=['numpy', 'scipy', 'matplotlib', 'vibration']
+      install_requires=['numpy', 'scipy', 'matplotlib']
       )
 
 # https://docs.python.org/3/distutils/setupscript.html#additional-meta-data

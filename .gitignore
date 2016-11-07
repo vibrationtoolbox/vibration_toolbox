@@ -19,7 +19,7 @@ Thumbs.db
 <<<<<<< HEAD
 
 .DS_Store
-
+dist
 =======
 .ipynb_check*
 .ipynb*check*/*
