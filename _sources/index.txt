@@ -1,0 +1,54 @@
+.. Vibration Toolbox documentation master file, created by
+   sphinx-quickstart on Thu Apr 23 10:28:07 2015.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+=============================================
+The Engineering Vibration Toolbox
+=============================================
+
+:Author:
+   Joseph C. Slater and Raphael Timbo
+
+Overview
+==========
+
+The Engineering Vibration Toolbox is a set of over 35 educational
+programs and associated files by `Joseph C.
+Slater <http://josephcslater.github.io>`__.
+It can be run on any platform supported by
+`Matlab <http://www.mathworks.com/>`__ or
+`Octave <http://www.octave.org>`__  (Mac, Windows, VMS, Unix, Cygwin). Also
+included are help files, examples, and files containing raw
+experimental data. The codes include single degree of freedom
+response, response spectrum, finite elements, numerical integration,
+modal analysis and phase plane analysis. It is included free with
+the text "Engineering Vibration" by `Prof. Daniel J. Inman <http://www.engin.umich.edu/college/about/people/profiles/f-to-j/daniel-inman>`__ (`Prentice
+Hall <http://www.prenhall.com>`__).
+
+I highly recommend use of
+`Octave <http://www.octave.org>`__. If you know `Matlab <http://www.mathworks.com/>`__, you already
+know most of `Octave <http://www.octave.org>`__. Most students will hardly know the difference,
+except that it's free! The *Octavized*
+toolbox can be found `here <ovtoolbox>`__. Further, the licensing is
+less restrictive (no charge for professional use!). The entire archive
+can be `downloaded as a zip file <https://github.com/vibrationtoolbox/ovtoolbox/archive/master.zip>`__. Please
+refer to the `Octave web site <http://www.octave.org>`__ for details on obtaining and installing
+`Octave <http://www.octave.org>`__.
+
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+   vtoolbox2
+
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`search`
