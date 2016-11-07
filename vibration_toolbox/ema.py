@@ -36,24 +36,19 @@ def frf(x, f, dt):
     >>> import vibration_toolbox as vt
     >>> import scipy.io as sio
     >>> import os
-    >>> print(os.getcwd())
-    >>> print(os.listdir('vibration_toolbox/data'))
+    >>> #print(os.getcwd())
+    >>> #print(os.listdir('vibration_toolbox/data'))
     >>> data = sio.loadmat('vibration_toolbox/data/frf_data1.mat')
-    >>> print(data)
+    >>> #print(data)
     >>> # Data is imported as arrays. We need to modify then to fit our function
     >>> x = data['x']
     >>> x = x.reshape(len(x))
-    >>> print(x)
     >>> f = data['f']
     >>> f = f.reshape(len(f))
-    >>> print(f)
     >>> dt = data['dt']
     >>> dt = float(dt)
-    >>> print(dt)
     >>> # Now we are able to call the function
     >>> freq, mag, ang, coh = vt.frf(x, f, dt)
-    >>> print(freq)
-    >>> print(mag)
     >>> mag[10]   # doctest: +ELLIPSIS
     1.018394853080...
     """

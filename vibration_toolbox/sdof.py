@@ -37,17 +37,17 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
              9.99199680e+00,   9.99599840e+00,   1.00000000e+01]), array([[ 1.        ],
            [ 0.99591926],
            [ 0.9916807 ],
-           ..., 
+           ...,
            [ 0.56502396],
            [ 0.56123989],
            [ 0.55736747]]), array([[-1.        ],
            [-1.03952678],
            [-1.07887136],
-           ..., 
+           ...,
            [-0.93454914],
            [-0.95670532],
            [-0.97869947]]), 0.015811388300841896, 3.1622776601683795, 3.1618823507524758, 1.0441611791969838)
-    """
+"""
 
     omega = sp.sqrt(k / m)
     zeta = c / 2 / omega / m
@@ -284,7 +284,7 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
     """
     %VTB6_3 Natural frequencies and mass normalized mode shape for an Euler-
     % Bernoulli beam with a chosen boundary condition.
-    % [w,x,U]=VTB6_3(n,bctype,bmpar,npoints) will return the nth natural 
+    % [w,x,U]=VTB6_3(n,bctype,bmpar,npoints) will return the nth natural
     % frequency (w) and mode shape (U) of an Euler-Bernoulli beam.
     % If n is a vector, return the coresponding mode shapes and natural
     % frequencies.
@@ -302,7 +302,7 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
     %
     % The beam parameters are input through the vector bmpar:
     % bmpar = [E I rho A L];
-    % where the variable names are consistent with Section 6.5 of the 
+    % where the variable names are consistent with Section 6.5 of the
     % text.
     %
     %% Example: 20 cm long aluminum beam with h=1.5 cm, b=3 cm
@@ -614,13 +614,13 @@ def response(xdd, f, t, x0, v0):
              9.99199680e+00,   9.99599840e+00,   1.00000000e+01]), array([[ 1.        ],
            [ 0.99591926],
            [ 0.9916807 ],
-           ..., 
+           ...,
            [ 0.56502396],
            [ 0.56123989],
            [ 0.55736747]]), array([[-1.        ],
            [-1.03952678],
            [-1.07887136],
-           ..., 
+           ...,
            [-0.93454914],
            [-0.95670532],
            [-0.97869947]]), 0.015811388300841896, 3.1622776601683795, 3.1618823507524758, 1.0441611791969838)
@@ -1212,13 +1212,13 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
 
 if __name__ == "__main__":
     import doctest
-    doctest.testmod(verbose=True, optionflags=doctest.ELLIPSIS)
-    #import vtoolbox as vtb
+    doctest.testmod(verbose=False, optionflags=doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)
+    #import vibration_toolbox as vtb
 
 
     # doctest.run_docstring_examples(frfest,globals(),optionflags=doctest.ELLIPSIS)
     # doctest.run_docstring_examples(asd,globals(),optionflags=doctest.ELLIPSIS)
-    """ What this does. 
+    """ What this does.
     python (name of this file)  -v
     will test all of the examples in the help.
 
