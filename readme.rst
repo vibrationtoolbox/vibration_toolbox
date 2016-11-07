@@ -9,6 +9,15 @@ Python. This is an *educational* set of codes intended for
 demonstration. You may find them useful for application, but that
 isn't the intent.
 
+
+Version 0.5b0 install failure
+------------------------------
+If you attempted to install 0.5b0, you may need to clear the cache first.
+The easy way to do this is to ``pip install --user vibrationtoolbox==0.5b2``.
+
+When a new version is released, use ``pip install --upgrade --user vibrationtoolbox``.
+
+
 Currently:
 
 Type

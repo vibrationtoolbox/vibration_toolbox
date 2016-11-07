@@ -15,12 +15,12 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(name='VibrationToolbox',
-      version='0.5b0',
+      version='0.5b2',
       description='Educational code illustrating fundamentals of vibration for mechanical engineers.',
       author='Joseph C. Slater and Raphael Timbo',
       author_email='joseph.c.slater@gmail.com',
       url='https://github.com/vibrationtoolbox/pvtoolbox',
-      download_url='https://github.com/josephcslater/array_to_latex/archive/0.5b0.tar.gz',
+      download_url='https://github.com/vibrationtoolbox/pvtoolbox/archive/0.5b2.tar.gz',
       packages=['vtoolbox'],
       long_description = read('readme.rst'),
       keywords=['vibration','mechanical engineering'],
