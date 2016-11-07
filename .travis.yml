@@ -1,0 +1,33 @@
+# numpy, sympy not whitelisted by travis; need sudo
+sudo: true
+
+language: python
+
+python:
+    - "3.5"
+
+#virtualenv:
+#  system_site_packages: true
+
+before_install:
+  - sudo apt-get install -y python-numpy python3-numpy
+  - sudo apt-get install -y python-scipy python3-scipy
+  - mkdir -p $HOME/.config/matplotlib
+
+install:
+  - pip install ipython
+  - pip install jupyter
+  - pip install .
+
+cache:
+  directories:
+    - $HOME/.cache/matplotlib
+
+before_script: # configure a headless display to test plot generation
+  - python -c 'import matplotlib.pyplot'
+#  - "export DISPLAY=:99.0"
+#  - "sh -e /etc/init.d/xvfb start"
+#  - sleep 3 # give xvfb some time to start
+
+script:
+  - nosetests --with-doctest --doctest-tests --doctest-extension= 'vtoolbox'
