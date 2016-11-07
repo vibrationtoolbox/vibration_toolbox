@@ -33,12 +33,12 @@ def frf(x, f, dt):
         coherence.
     Examples:
     >>> # First we need to load the sampled data which in a .mat file
-    >>> import vtoolbox as vt
+    >>> import vibration_toolbox as vt
     >>> import scipy.io as sio
     >>> import os
     >>> print(os.getcwd())
-    >>> print(os.listdir('vtoolbox/data'))
-    >>> data = sio.loadmat('vtoolbox/data/frf_data1.mat')
+    >>> print(os.listdir('vibration_toolbox/data'))
+    >>> data = sio.loadmat('vibration_toolbox/data/frf_data1.mat')
     >>> print(data)
     >>> # Data is imported as arrays. We need to modify then to fit our function
     >>> x = data['x']
