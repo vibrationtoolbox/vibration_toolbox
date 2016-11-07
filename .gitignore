@@ -19,7 +19,7 @@ Thumbs.db
 <<<<<<< HEAD
 
 .DS_Store
-*.rst
+
 =======
 .ipynb_check*
 .ipynb*check*/*
