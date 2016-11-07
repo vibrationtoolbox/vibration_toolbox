@@ -11,7 +11,7 @@ __all__ = ['directory']
 With this, `from vibration_toolbox import *` will import
 all toolbox functions in the name space
 
-`import vibration_toolbox as vtb` will keep them tucked behind `vtb`
+`import vibration_toolbox as vt` will keep them tucked behind `vt`
 
 `import vibration_toolbox.sdof as sdof` will tuck the sdof functions in the `sdof` name space.
 

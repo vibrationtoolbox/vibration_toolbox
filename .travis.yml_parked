@@ -30,4 +30,4 @@ before_script: # configure a headless display to test plot generation
 #  - sleep 3 # give xvfb some time to start
 
 script:
-  - nosetests --with-doctest --doctest-tests --doctest-extension= 'vtoolbox'
+  - nosetests --with-doctest --doctest-tests
