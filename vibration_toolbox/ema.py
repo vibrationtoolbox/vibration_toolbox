@@ -49,7 +49,7 @@ def frf(x, f, dt):
     >>> dt = float(dt)
     >>> # Now we are able to call the function
     >>> freq, mag, ang, coh = vt.frf(x, f, dt)
-    >>> mag[10]   # doctest: +ELLIPSIS
+    >>> mag[10]
     1.018394853080...
     """
 
@@ -103,7 +103,7 @@ def frf(x, f, dt):
 
 if __name__ == "__main__":
     import doctest
-    doctest.testmod(optionflags=doctest.ELLIPSIS)
+    doctest.testmod(optionflags=doctest.ELLIPSIS| doctest.NORMALIZE_WHITESPACE|doctest.REPORT_NDIFF)
 
     """ What this does.
     python (name of this file)  -v

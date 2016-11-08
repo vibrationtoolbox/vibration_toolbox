@@ -1212,7 +1212,7 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
 
 if __name__ == "__main__":
     import doctest
-    doctest.testmod(verbose=False, optionflags=doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)
+    doctest.testmod(optionflags=doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)
     #import vibration_toolbox as vtb
 
 
