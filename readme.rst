@@ -19,7 +19,7 @@ Type
 
 at your command prompt.
 
-Take a look at ``vtb1_1.ipynb`` and ``vtoolbox Demos.ipynb``, but
+Take a look at ``vtb1_1.ipynb`` and ``vibration_toolbox/Demos.ipynb``, but
 recognize that they are not completely ready to go. Not even close.
 
 However, it gives an idea of where I
