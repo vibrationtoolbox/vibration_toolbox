@@ -6,6 +6,11 @@ import matplotlib as mpl
 mpl.rcParams['lines.linewidth'] = 2
 mpl.rcParams['figure.figsize'] = (10, 6)
 
+__all__ = ["modes_system",
+           "modes_system_undamped",
+           "response_system",
+           "response_system_undamped"]
+
 
 def eigen(A, B=None):
     """

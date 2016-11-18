@@ -1,6 +1,8 @@
 import scipy as sp
 import matplotlib.pyplot as plt
 
+__all__= ["frf"]
+
 
 def frf(x, f, dt):
     """

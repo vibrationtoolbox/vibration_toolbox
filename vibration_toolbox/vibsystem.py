@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.linalg as la
+from scipy import signal
 
 __all__ = ['VibSystem']
 
@@ -145,5 +146,22 @@ class VibSystem(object):
         idx = self._index(evalues)
 
         return evalues[idx], evectors[:, idx]
+
+    def H(self):
+        Z = np.zeros((self.n, self.n))
+        I = np.eye(self.n)
+
+        A = self.A()
+        B = np.vstack([Z,
+                       la.inv(self.M)])
+
+        # y = Cx + Df
+        # Considering (for a 3x3 case) C = [1, 1, 1, 0, 0, 0]; D = [0, 0, 0]
+        C = np.hstack((np.diag(I), np.diag(np.zeros_like(I))))
+        D = np.diag(np.zeros_like(I))
+
+        sys = signal.lti(A, B, C, D)
+
+        return sys
 
 
