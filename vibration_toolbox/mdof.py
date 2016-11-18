@@ -1,4 +1,4 @@
-import scipy as sp
+import numpy as np
 import scipy.linalg as la
 import scipy.signal as signal
 import matplotlib as mpl
@@ -33,7 +33,7 @@ def eigen(A, B=None):
         Sorted eigenvalues
 
     Examples:
-    >>> L = sp.array([[2, -1, 0],
+    >>> L = np.array([[2, -1, 0],
     ...               [-4, 8, -4],
     ...               [0, -4, 4]])
     >>> lam, P = eigen(L)
@@ -48,7 +48,7 @@ def eigen(A, B=None):
     if all(eigs == 0 for eigs in evalues.imag):
         if all(eigs > 0 for eigs in evalues.real):
             idxp = evalues.real.argsort()  # positive in increasing order
-            idxn = sp.array([], dtype=int)
+            idxn = np.array([], dtype=int)
         else:
             idxp = evalues.real.argsort()[int(len(evalues)/2):]  # positive in increasing order
             idxn = evalues.real.argsort()[int(len(evalues)/2) - 1::-1]  # negative in decreasing order
@@ -57,7 +57,7 @@ def eigen(A, B=None):
         idxp = evalues.imag.argsort()[int(len(evalues)/2):]  # positive in increasing order
         idxn = evalues.imag.argsort()[int(len(evalues)/2) - 1::-1]  # negative in decreasing order
 
-    idx = sp.hstack([idxp, idxn])
+    idx = np.hstack([idxp, idxn])
 
     return evalues[idx], evectors[:, idx]
 
@@ -81,11 +81,11 @@ def normalize(X, Y):
         Normalized matrix
 
     Examples:
-    >>> X = sp.array([[ 0.84+0.j  ,  0.14-0.j  ,  0.84-0.j  ,  0.14+0.j  ],
+    >>> X = np.array([[ 0.84+0.j  ,  0.14-0.j  ,  0.84-0.j  ,  0.14+0.j  ],
     ...               [ 0.01-0.3j ,  0.00+0.15j,  0.01+0.3j ,  0.00-0.15j],
     ...               [-0.09+0.42j, -0.01+0.65j, -0.09-0.42j, -0.01-0.65j],
     ...               [ 0.15+0.04j, -0.74+0.j  ,  0.15-0.04j, -0.74-0.j  ]])
-    >>> Y = sp.array([[-0.03-0.41j,  0.04+0.1j , -0.03+0.41j,  0.04-0.1j ],
+    >>> Y = np.array([[-0.03-0.41j,  0.04+0.1j , -0.03+0.41j,  0.04-0.1j ],
     ...            [ 0.88+0.j  ,  0.68+0.j  ,  0.88-0.j  ,  0.68-0.j  ],
     ...            [-0.21-0.j  ,  0.47+0.05j, -0.21+0.j  ,  0.47-0.05j],
     ...            [ 0.00-0.08j,  0.05-0.54j,  0.00+0.08j,  0.05+0.54j]])
@@ -101,9 +101,9 @@ def normalize(X, Y):
              0.11289137 +9.08101611e-04j, -0.65854649 +5.87827297e-03j]])
     """
 
-    Yn = sp.zeros_like(X)
+    Yn = np.zeros_like(X)
     YTX = Y.T @ X # normalize y so that Y.T @ X will return I
-    factors = [1/a for a in sp.diag(YTX)]
+    factors = [1/a for a in np.diag(YTX)]
     # multiply each column in y by a factor in 'factors'
     for col in enumerate(Y.T):
         Yn[col[0]] = col[1]*factors[col[0]]
@@ -137,10 +137,10 @@ def modes_system_undamped(M, K):
         The modal transformation matrix S^-1(takes x -> r(modal coordinates))
 
     Examples:
-    >>> M = sp.array([[4, 0, 0],
+    >>> M = np.array([[4, 0, 0],
     ...               [0, 4, 0],
     ...               [0, 0, 4]])
-    >>> K = sp.array([[8, -4, 0],
+    >>> K = np.array([[8, -4, 0],
     ...               [-4, 8, -4],
     ...               [0, -4, 4]])
     >>> w, P, S, Sinv = modes_system_undamped(M, K)
@@ -150,7 +150,7 @@ def modes_system_undamped(M, K):
     L = la.cholesky(M)
     Linv = la.inv(L)
     lam, P = eigen(Linv @ K @ Linv.T)
-    w = sp.real(sp.sqrt(lam))
+    w = np.real(np.sqrt(lam))
     S = Linv @ P
     Sinv = P.T @ Linv
 
@@ -189,11 +189,11 @@ def modes_system(M, K, C=None):
         The left eigenvectors
 
     Examples:
-    >>> M = sp.array([[1, 0],
+    >>> M = np.array([[1, 0],
     ...               [0, 1]])
-    >>> K = sp.array([[1, -0.4],
+    >>> K = np.array([[1, -0.4],
     ...               [0.4, 6]])
-    >>> C = sp.array([[0.3, -4],
+    >>> C = np.array([[0.3, -4],
     ...               [4, 0.2]])
     >>> wn, wd, zeta, X, Y = modes_system(M, K, C)
     Damping is non-proportional, eigenvectors are complex.
@@ -231,11 +231,11 @@ def modes_system(M, K, C=None):
 
     n = len(M)
 
-    Z = sp.zeros((n, n))
-    I = sp.eye(n)
+    Z = np.zeros((n, n))
+    I = np.eye(n)
     Minv = la.inv(M)
 
-    if (C is None or sp.all(C == 0) or # check if C has only zero entries
+    if (C is None or np.all(C == 0) or # check if C has only zero entries
         la.norm(Minv @ C @ K - Minv @ K @ C, 2) < 1e-8*la.norm(Minv @ K @ C, 2)):
         w, P, S, Sinv = modes_system_undamped(M, K)
         wn = w
@@ -246,19 +246,19 @@ def modes_system(M, K, C=None):
         print('Damping is proportional or zero, eigenvectors are real')
         return wn, wd, zeta, X, Y
 
-    Z = sp.zeros((n, n))
-    I = sp.eye(n)
+    Z = np.zeros((n, n))
+    I = np.eye(n)
 
     # creates the state space matrix
-    A = sp.vstack([sp.hstack([Z, I]),
-                   sp.hstack([-la.pinv(M) @ K, -la.pinv(M) @ C])])
+    A = np.vstack([np.hstack([Z, I]),
+                   np.hstack([-la.pinv(M) @ K, -la.pinv(M) @ C])])
 
     w, X = eigen(A)
     _, Y = eigen(A.T)
 
-    wd = sp.imag(w)
-    wn = sp.absolute(w)
-    zeta = (-sp.real(w)/sp.absolute(w))
+    wd = np.imag(w)
+    wn = np.absolute(w)
+    zeta = (-np.real(w)/np.absolute(w))
 
     Y = normalize(X, Y)
 
@@ -296,12 +296,12 @@ def response_system_undamped(M, K, x0, v0, max_time):
         The state-space vector for each time
 
     Examples:
-    >>> M = sp.array([[1, 0],
+    >>> M = np.array([[1, 0],
     ...               [0, 4]])
-    >>> K = sp.array([[12, -2],
+    >>> K = np.array([[12, -2],
     ...               [-2, 12]])
-    >>> x0 = sp.array([1, 1])
-    >>> v0 = sp.array([0, 0])
+    >>> x0 = np.array([1, 1])
+    >>> v0 = np.array([0, 0])
     >>> max_time = 10
     >>> t, X = response_system_undamped(M, K, x0, v0, max_time)
     >>> X[:, 0] # first column of X will contain the initial conditions [x1, x2, v1, v2]
@@ -310,22 +310,22 @@ def response_system_undamped(M, K, x0, v0, max_time):
     array([ 0.99991994,  0.99997998, -0.04001478, -0.01000397])
     """
 
-    t = sp.linspace(0, max_time, int(250 * max_time))
+    t = np.linspace(0, max_time, int(250 * max_time))
     dt = t[1] - t[0]
 
     n = len(M)
 
-    Z = sp.zeros((n, n))
-    I = sp.eye(n, n)
+    Z = np.zeros((n, n))
+    I = np.eye(n, n)
 
     # creates the state space matrix
-    A = sp.vstack([sp.hstack([Z,               I]),
-                   sp.hstack([-la.pinv(M) @ K, Z])])
+    A = np.vstack([np.hstack([Z,               I]),
+                   np.hstack([-la.pinv(M) @ K, Z])])
 
     # creates the x array and set the first line according to the initial
     # conditions
-    X = sp.zeros((2*n, len(t)))
-    X[:, 0] = sp.hstack([x0, v0])
+    X = np.zeros((2*n, len(t)))
+    X[:, 0] = np.hstack([x0, v0])
 
     Ad = la.expm(A * dt)
     for i in range(len(t) - 1):
@@ -370,16 +370,16 @@ def response_system(M, C, K, F, x0, v0, t):
         Time evolution of the state vector.
 
     Examples:
-    >>> M = sp.array([[9, 0],
+    >>> M = np.array([[9, 0],
     ...               [0, 1]])
-    >>> K = sp.array([[27, -3],
+    >>> K = np.array([[27, -3],
     ...               [-3, 3]])
     >>> C = K/10
-    >>> x0 = sp.array([0, 1])
-    >>> v0 = sp.array([1, 0])
-    >>> t = sp.linspace(0, 10, 100)
-    >>> F = sp.vstack([0*t,
-    ...                3*sp.cos(2*t)])
+    >>> x0 = np.array([0, 1])
+    >>> v0 = np.array([1, 0])
+    >>> t = np.linspace(0, 10, 100)
+    >>> F = np.vstack([0*t,
+    ...                3*np.cos(2*t)])
     >>> tou, yout, xout = response_system(M, C, K, F, x0, v0, t)
     >>> tou[:10]
     array([ 0.        ,  0.1010101 ,  0.2020202 ,  0.3030303 ,  0.4040404 ,
@@ -410,20 +410,20 @@ def response_system(M, C, K, F, x0, v0, t):
 
     n = len(M)
 
-    Z = sp.zeros((n, n))
-    I = sp.eye(n)
+    Z = np.zeros((n, n))
+    I = np.eye(n)
 
     # creates the state space matrix
-    A = sp.vstack([sp.hstack([Z,               I]),
-                   sp.hstack([-la.pinv(M) @ K, -la.pinv(M) @ C])])
-    B = sp.vstack([Z,
+    A = np.vstack([np.hstack([Z,               I]),
+                   np.hstack([-la.pinv(M) @ K, -la.pinv(M) @ C])])
+    B = np.vstack([Z,
                    la.inv(M)])
-    C = sp.eye(2*n)
+    C = np.eye(2*n)
     D = 0*B
 
     sys = signal.lti(A, B, C, D)
 
-    IC = sp.hstack([x0, v0])
+    IC = np.hstack([x0, v0])
     F = F.T
     T, yout, xout = signal.lsim(sys, F, t, IC)
 
