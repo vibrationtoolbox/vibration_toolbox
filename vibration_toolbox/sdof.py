@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import scipy as sp
+from scipy import fft
 import matplotlib as mpl
 from scipy.interpolate import UnivariateSpline
 from IPython.display import clear_output, display, HTML
@@ -32,27 +32,18 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     t, x, v: 1) Arrays. Time, displacement, and velocity
 
     :Example:
-    >>> free_response()
-    (array([  0.00000000e+00,   4.00160064e-03,   8.00320128e-03, ...,
-             9.99199680e+00,   9.99599840e+00,   1.00000000e+01]), array([[ 1.        ],
+    >>> free_response()[1][:5] # get the first five values of x
+    array([[ 1.        ],
            [ 0.99591926],
            [ 0.9916807 ],
-           ...,
-           [ 0.56502396],
-           [ 0.56123989],
-           [ 0.55736747]]), array([[-1.        ],
-           [-1.03952678],
-           [-1.07887136],
-           ...,
-           [-0.93454914],
-           [-0.95670532],
-           [-0.97869947]]), 0.015811388300841896, 3.1622776601683795, 3.1618823507524758, 1.0441611791969838)
+           [ 0.98728508],
+           [ 0.98273317]])
 """
 
-    omega = sp.sqrt(k / m)
+    omega = np.sqrt(k / m)
     zeta = c / 2 / omega / m
-    omega_d = omega * sp.sqrt(1 - zeta ** 2)
-    A = sp.sqrt(x0 ** 2 + (v0 + omega * zeta * x0) ** 2 / omega_d ** 2)
+    omega_d = omega * np.sqrt(1 - zeta ** 2)
+    A = np.sqrt(x0 ** 2 + (v0 + omega * zeta * x0) ** 2 / omega_d ** 2)
 
     #    print('The natural frequency is ', omega, 'rad/s.');
     #    print('The damping ratio is ', zeta);
@@ -106,8 +97,8 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
     ax.grid('on')
     ax.plot(t, x)
     if zeta < 1:
-        ax.plot(t, A * sp.exp(-zeta * omega * t), '--', t, -A *
-                sp.exp(-zeta * omega * t), '--g', linewidth=1)
+        ax.plot(t, A * np.exp(-zeta * omega * t), '--', t, -A *
+                np.exp(-zeta * omega * t), '--g', linewidth=1)
         tmin, tmax, xmin, xmax = ax.axis()
         ax.text(.75 * tmax, .95 * (xmax - xmin) + xmin,
                 '$\omega$ = %0.2f rad/sec' % (omega))
@@ -141,7 +132,7 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     zeta = c / (2 * w * m)  # (1.30)
 
     wd = w * np.sqrt(1 - zeta**2)  # (1.37)
-    t = sp.linspace(0, n * dt, n + 1)
+    t = np.linspace(0, n * dt, n + 1)
 
     print('The natural frequency is ', w, 'rad/s.')
     print('The damping ratio is ', zeta)
@@ -211,17 +202,17 @@ def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     """
 
     # creates the state space matrix
-    A = sp.array([[0, 1],
+    A = np.array([[0, 1],
                   [-k / m, -c / m]])
     # creates the x array and set the first line according to the initial
     # conditions
-    x = sp.zeros((n + 1, 2))
+    x = np.zeros((n + 1, 2))
     x[0] = x0, v0
 
     for i in range(0, n):
         x[i + 1] = x[i] + dt * A@x[i]
 
-    t = sp.linspace(0, n * dt, n + 1)
+    t = np.linspace(0, n * dt, n + 1)
 
     return t, x
 
@@ -261,10 +252,10 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
            [ 0.92210029, -0.38173305]]))
     """
 
-    t = sp.linspace(0, n * dt, n + 1)
-    x = sp.zeros((n + 1, 2))
+    t = np.linspace(0, n * dt, n + 1)
+    x = np.zeros((n + 1, 2))
     x[0, :] = x0, v0
-    A = sp.array([[0, 1],
+    A = np.array([[0, 1],
                   [-k / m, -c / m]])
 
     def f(x_): return A@x_
@@ -279,7 +270,7 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     return t, x
 
 
-def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3, 2747, .015 * 0.03, 0.4)),
+def euler_beam_modes(n=10, bctype=2, beamparams=np.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3, 2747, .015 * 0.03, 0.4)),
                      npoints=2001):
     """
     %VTB6_3 Natural frequencies and mass normalized mode shape for an Euler-
@@ -325,28 +316,28 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
     L = beamparams[4]
     if isinstance(n, int):
         ln = n
-        n = sp.arange(n) + 1
+        n = np.arange(n) + 1
     else:
         ln = len(n)
 
     # len=[0:(1/(npoints-1)):1]';  %Normalized length of the beam
-    len = sp.linspace(0, 1, npoints)
+    len = np.linspace(0, 1, npoints)
     x = len * L
     # Determine natural frequencies and mode shapes depending on the
     # boundary condition.
     # Mass simplification. The following was arange_(1,length_(n)).reshape(-1)
-    mode_num_range = sp.arange(0, ln)
-    Bnl = sp.empty(ln)
-    w = sp.empty(ln)
-    U = sp.empty([npoints, ln])
+    mode_num_range = np.arange(0, ln)
+    Bnl = np.empty(ln)
+    w = np.empty(ln)
+    U = np.empty([npoints, ln])
 
     if bctype == 1:
         desc = 'Free-Free '
-        Bnllow = sp.array((0, 0, 4.73004074486, 7.8532046241,
+        Bnllow = np.array((0, 0, 4.73004074486, 7.8532046241,
                            10.995607838, 14.1371654913, 17.2787596574))
         for i in mode_num_range:
             if n[i] > 7:
-                Bnl[i] = (2 * n[i] - 3) * sp.pi / 2
+                Bnl[i] = (2 * n[i] - 3) * np.pi / 2
             else:
                 Bnl[i] = Bnllow[i]
         for i in mode_num_range:
@@ -357,81 +348,81 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
                 w[i] = 0
                 U[:, i] = len - 0.5
             else:
-                sig = (sp.cosh(Bnl[i]) - sp.cos(Bnl[i])) / \
-                      (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
-                w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
+                sig = (np.cosh(Bnl[i]) - np.cos(Bnl[i])) / \
+                      (np.sinh(Bnl[i]) - np.sin(Bnl[i]))
+                w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
                 b = Bnl[i] * len
-                U[:, i] = sp.cosh(b) + sp.cos(b) - sig * \
-                    (sp.sinh(b) + sp.sin(b))
+                U[:, i] = np.cosh(b) + np.cos(b) - sig * \
+                    (np.sinh(b) + np.sin(b))
     elif bctype == 2:
         desc = 'Clamped-Free '
-        Bnllow = sp.array((1.88, 4.69, 7.85, 10.99, 14.14))
+        Bnllow = np.array((1.88, 4.69, 7.85, 10.99, 14.14))
         for i in mode_num_range:
             if n[i] > 4:
-                Bnl[i] = (2 * n[i] - 1) * sp.pi / 2
+                Bnl[i] = (2 * n[i] - 1) * np.pi / 2
             else:
                 Bnl[i] = Bnllow[i]
 
         for i in mode_num_range:
-            sig = (sp.sinh(Bnl[i]) - sp.sin(Bnl[i])) / \
-                  (sp.cosh(Bnl[i]) - sp.cos(Bnl[i]))
-            w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
+            sig = (np.sinh(Bnl[i]) - np.sin(Bnl[i])) / \
+                  (np.cosh(Bnl[i]) - np.cos(Bnl[i]))
+            w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
             # plt.plot(x,(sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))))
-            U[:, i] = sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))
+            U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
 
     elif bctype == 3:
         desc = 'Clamped-Pinned '
-        Bnllow = sp.array((3.93, 7.07, 10.21, 13.35, 16.49))
+        Bnllow = np.array((3.93, 7.07, 10.21, 13.35, 16.49))
         for i in mode_num_range:
             if n[i] > 4:
-                Bnl[i] = (4 * n[i] + 1) * sp.pi / 4
+                Bnl[i] = (4 * n[i] + 1) * np.pi / 4
             else:
                 Bnl[i] = Bnllow[i]
         for i in mode_num_range:
-            sig = (sp.cosh(Bnl[i]) - sp.cos(Bnl[i])) / \
-                  (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
-            w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
+            sig = (np.cosh(Bnl[i]) - np.cos(Bnl[i])) / \
+                  (np.sinh(Bnl[i]) - np.sin(Bnl[i]))
+            w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
-            U[:, i] = sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))
+            U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
     elif bctype == 4:
         desc = 'Clamped-Sliding '
-        Bnllow = sp.array((2.37, 5.5, 8.64, 11.78, 14.92))
+        Bnllow = np.array((2.37, 5.5, 8.64, 11.78, 14.92))
         for i in mode_num_range:
             if n[i] > 4:
-                Bnl[i] = (4 * n[i] - 1) * sp.pi / 4
+                Bnl[i] = (4 * n[i] - 1) * np.pi / 4
             else:
                 Bnl[i] = Bnllow[i]
         for i in mode_num_range:
-            sig = (sp.sinh(Bnl[i]) + sp.sin(Bnl[i])) / \
-                  (sp.cosh(Bnl[i]) - sp.cos(Bnl[i]))
-            w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
+            sig = (np.sinh(Bnl[i]) + np.sin(Bnl[i])) / \
+                  (np.cosh(Bnl[i]) - np.cos(Bnl[i]))
+            w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
-            U[:, i] = sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))
+            U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
     elif bctype == 5:
         desc = 'Clamped-Clamped '
-        Bnllow = sp.array((4.73, 7.85, 11, 14.14, 17.28))
+        Bnllow = np.array((4.73, 7.85, 11, 14.14, 17.28))
         for i in mode_num_range:
             if n[i] > 4:
-                Bnl[i] = (2 * n[i] + 1) * sp.pi / 2
+                Bnl[i] = (2 * n[i] + 1) * np.pi / 2
             else:
                 Bnl[i] = Bnllow[i]
         for i in mode_num_range:
-            sig = (sp.cosh(Bnl[i]) - sp.cos(Bnl[i])) / \
-                  (sp.sinh(Bnl[i]) - sp.sin(Bnl[i]))
-            w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
+            sig = (np.cosh(Bnl[i]) - np.cos(Bnl[i])) / \
+                  (np.sinh(Bnl[i]) - np.sin(Bnl[i]))
+            w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
-            U[:, i] = sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))
+            U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
     elif bctype == 6:
         desc = 'Pinned-Pinned '
         for i in mode_num_range:
-            Bnl[i] = n[i] * sp.pi
-            w[i] = (Bnl[i] ** 2) * sp.sqrt(E * I / (rho * A * L ** 4))
-            U[:, i] = sp.sin(Bnl[i] * len)
+            Bnl[i] = n[i] * np.pi
+            w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
+            U[:, i] = np.sin(Bnl[i] * len)
 
     # Mass Normalization of mode shapes
     for i in mode_num_range:
-        U[:, i] = U[:, i] / sp.sqrt(sp.dot(U[:, i], U[:, i]) * rho * A * L)
+        U[:, i] = U[:, i] / np.sqrt(np.dot(U[:, i], U[:, i]) * rho * A * L)
 
     """
     ppause=0
@@ -472,7 +463,7 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
                             delete_(handle3)
                             return w,x,U
 
-                    plot_(x,U[:,1] * sp.cos(ii))
+                    plot_(x,U[:,1] * np.cos(ii))
                     axis_([0,L,- max_(abs_(U)),max_(abs_(U))])
                     grid_(char('on'))
                     figure_(gcf)
@@ -490,7 +481,7 @@ def euler_beam_modes(n=10, bctype=2, beamparams=sp.array((7.31e10, 1 / 12 * 0.03
 
 
 def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
-                   beamparams=sp.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3, 2747, .015 * 0.03, 0.4)), bctype=2):
+                   beamparams=np.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3, 2747, .015 * 0.03, 0.4)), bctype=2):
     print(fmin)
     E = beamparams[0]
     I = beamparams[1]
@@ -499,16 +490,16 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
     L = beamparams[4]
     np = 2001
     i = 0
-    w = sp.linspace(fmin, fmax, 2001) * 2 * sp.pi
+    w = np.linspace(fmin, fmax, 2001) * 2 * np.pi
     if min([xin, xout]) < 0 or max([xin, xout]) > L:
         disp_(char('One or both locations are not on the beam'))
         return
-    wn = sp.array((0, 0))
+    wn = np.array((0, 0))
     # The number 100 is arbitrarily large and unjustified.
-    a = sp.empty([np, 100], dtype=complex)
-    f = sp.empty(100)
+    a = np.empty([np, 100], dtype=complex)
+    f = np.empty(100)
 
-    while wn[-1] < 1.3 * (fmax * 2 * sp.pi):
+    while wn[-1] < 1.3 * (fmax * 2 * np.pi):
         i = i + 1
         # legtext[i + 1]=[char('Contribution of mode '),num2str_(i)]
         wn, xx, U = euler_beam_modes(i, bctype, beamparams, 5000)
@@ -521,37 +512,37 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
         # print(wn[-1])
         # print(w)
         a[:, i - 1] = rho * A * Uin * Uout / \
-            (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * sp.sqrt(-1))
+            (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * np.sqrt(-1))
         # print(a[0:10,i])
         # plt.plot(sp.log10(sp.absolute(a[:,i])))
         # input("Press Enter to continue...")
-        f[i] = wn[-1] / 2 / sp.pi
+        f[i] = wn[-1] / 2 / np.pi
     a = a[:, 0:i]
     plt.subplot(211)
-    plt.plot(w / 2 / sp.pi, 20 * sp.log10(sp.absolute(sp.sum(a, axis=1))), '-')
+    plt.plot(w / 2 / np.pi, 20 * np.log10(np.absolute(np.sum(a, axis=1))), '-')
     plt.hold('on')
-    plt.plot(w / 2 / sp.pi, 20 * sp.log10(sp.absolute(a)), '-')
+    plt.plot(w / 2 / np.pi, 20 * np.log10(np.absolute(a)), '-')
     plt.grid('on')
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('FRF (dB)')
     axlim = plt.axis()
 
     plt.axis(
-        axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
+        axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
 
     plt.subplot(212)
-    plt.plot(w / 2 / sp.pi, sp.unwrap(sp.angle(sp.sum(a, axis=1))) /
-             sp.pi * 180, '-')
+    plt.plot(w / 2 / np.pi, np.unwrap(np.angle(np.sum(a, axis=1))) /
+             np.pi * 180, '-')
     plt.hold('on')
-    plt.plot(w / 2 / sp.pi, sp.unwrap(sp.angle(a)) / sp.pi * 180, '-')
+    plt.plot(w / 2 / np.pi, np.unwrap(np.angle(a)) / np.pi * 180, '-')
     plt.grid('on')
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')
     axlim = plt.axis()
     plt.axis(
-        axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
+        axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
 
-    fout = w / 2 / sp.pi
+    fout = w / 2 / np.pi
     H = a
     return fout, H
 
@@ -573,22 +564,22 @@ def ebf1(xin, xout):
 
 def frfplot(f, H):
     plt.subplot(211)
-    plt.plot(f, 20 * sp.log10(sp.absolute(sp.sum(H, axis=1))), '-')
+    plt.plot(f, 20 * np.log10(np.absolute(np.sum(H, axis=1))), '-')
     plt.grid('on')
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('FRF (dB)')
     axlim = plt.axis()
     plt.axis(
-        axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
+        axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
 
     plt.subplot(212)
-    plt.plot(f, sp.unwrap(sp.angle(sp.sum(H, axis=1))) / sp.pi * 180, '-')
+    plt.plot(f, np.unwrap(np.angle(np.sum(H, axis=1))) / np.pi * 180, '-')
     plt.grid('on')
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')
     axlim = plt.axis()
     plt.axis(
-        axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
+        axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
 
 
 def response(xdd, f, t, x0, v0):
@@ -609,27 +600,18 @@ def response(xdd, f, t, x0, v0):
     t, x, v: 1) Arrays. Time, displacement, and velocity
 
     :Example:
-    >>> free_response()
-    (array([  0.00000000e+00,   4.00160064e-03,   8.00320128e-03, ...,
-             9.99199680e+00,   9.99599840e+00,   1.00000000e+01]), array([[ 1.        ],
+    >>> free_response()[1][:5] # get the first five values of x
+    array([[ 1.        ],
            [ 0.99591926],
            [ 0.9916807 ],
-           ...,
-           [ 0.56502396],
-           [ 0.56123989],
-           [ 0.55736747]]), array([[-1.        ],
-           [-1.03952678],
-           [-1.07887136],
-           ...,
-           [-0.93454914],
-           [-0.95670532],
-           [-0.97869947]]), 0.015811388300841896, 3.1622776601683795, 3.1618823507524758, 1.0441611791969838)
+           [ 0.98728508],
+           [ 0.98273317]])
     """
 
-    omega = sp.sqrt(k / m)
+    omega = np.sqrt(k / m)
     zeta = c / 2 / omega / m
-    omega_d = omega * sp.sqrt(1 - zeta**2)
-    A = sp.sqrt(x0**2 + (v0 + omega * zeta * x0)**2 / omega_d**2)
+    omega_d = omega * np.sqrt(1 - zeta**2)
+    A = np.sqrt(x0**2 + (v0 + omega * zeta * x0)**2 / omega_d**2)
 #    print('The natural frequency is ', omega, 'rad/s.');
 #    print('The damping ratio is ', zeta);
 #    print('The damped natural frequency is ', omega_d);
@@ -679,13 +661,13 @@ def forced_analytical(m=10, k=100, x0=1, v0=0,
              9.99997500e+01,   9.99998750e+01,   1.00000000e+02]), array([ 1.        ,  0.99999993,  0.99999972, ..., -0.32885349,
            -0.32916361, -0.32947367]))"""
 
-    t = sp.linspace(0, tf, tf/0.000125)
+    t = np.linspace(0, tf, tf/0.000125)
 
     f0 = F0 / m
-    w = sp.sqrt(k / m)
-    x = (v0 / w * sp.sin(w * t) +
-         (x0 - f0 / (w**2 - wdr**2)) * sp.cos(w * t) +
-         f0 / (w**2 - wdr**2) * sp.cos(wdr * t))   # (2.11)
+    w = np.sqrt(k / m)
+    x = (v0 / w * np.sin(w * t) +
+         (x0 - f0 / (w**2 - wdr**2)) * np.cos(w * t) +
+         f0 / (w**2 - wdr**2) * np.cos(wdr * t))   # (2.11)
 
     return t, x
 
@@ -722,11 +704,11 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
 
     def sdofs_deriv(x_xd, t, m=m, c=c, k=k):
         x, xd = x_xd
-        return [xd, (F0*sp.cos(wdr*t) / m) - (c / m) * xd - (k / m) * x]
+        return [xd, (F0*np.cos(wdr*t) / m) - (c / m) * xd - (k / m) * x]
 
-    z0 = sp.array([x0, v0])
+    z0 = np.array([x0, v0])
     # Solve for the trajectories
-    t = sp.linspace(0, max_time, int(250 * max_time))
+    t = np.linspace(0, max_time, int(250 * max_time))
     z_t = integrate.odeint(sdofs_deriv, z0, t)
 
     x, y = z_t.T
@@ -762,8 +744,8 @@ def steady_state_response(zs, rmin, rmax):
 
     if not isinstance(zs, list):
         zs = [zs]
-    r = sp.linspace(rmin, rmax, 100*(rmax-rmin))
-    A0 = sp.zeros((len(zs), len(r)), complex)
+    r = np.linspace(rmin, rmax, 100*(rmax-rmin))
+    A0 = np.zeros((len(zs), len(r)), complex)
     for z in enumerate(zs):
         A0[z[0]] = (1/(1 - r**2 + 2*1j*r*z[1]))
 
@@ -780,8 +762,8 @@ def steady_state_response(zs, rmin, rmax):
     ax2.set_title('Phase vs Frequency Ratio')
 
     for A in A0:
-        ax1.plot(r, (sp.absolute(A)))
-        ax2.plot(r, -sp.angle(A)/sp.pi*180)
+        ax1.plot(r, (np.absolute(A)))
+        ax2.plot(r, -np.angle(A)/np.pi*180)
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
 
@@ -823,8 +805,8 @@ def transmissibility(zs, rmin, rmax):
 
     if not isinstance(zs, list):
         zs = [zs]
-    r = sp.linspace(rmin, rmax, 100*(rmax-rmin))
-    DT = sp.zeros((len(zs), len(r)))
+    r = np.linspace(rmin, rmax, 100*(rmax-rmin))
+    DT = np.zeros((len(zs), len(r)))
     for z in enumerate(zs):
         # 2.71
         DT[z[0]] = ((1 + (2 * z[1] * r)**2) /
@@ -895,8 +877,8 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
 
     if not isinstance(zs, list):
         zs = [zs]
-    r = sp.linspace(rmin, rmax, 100*(rmax-rmin))
-    Xn = sp.zeros((len(zs), len(r)), complex)
+    r = np.linspace(rmin, rmax, 100*(rmax-rmin))
+    Xn = np.zeros((len(zs), len(r)), complex)
     for z in enumerate(zs):
         Xn[z[0]] = (r / (1 - r**2 + 2*1j*r*z[1]))
 
@@ -918,8 +900,8 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
     ax2.set_title('Phase vs Frequency Ratio')
 
     for X_z in Xn:
-        ax1.plot(r, sp.absolute(X_z))
-        ax2.plot(r, -sp.angle(X_z)/sp.pi*180)
+        ax1.plot(r, np.absolute(X_z))
+        ax2.plot(r, -np.angle(X_z)/np.pi*180)
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
 
@@ -958,14 +940,14 @@ def impulse_response(m, c, k, Fo, max_time):
     0.0039629845398805623
     """
 
-    t = sp.linspace(0, max_time, int(250 * max_time))
+    t = np.linspace(0, max_time, int(250 * max_time))
 
-    wn = sp.sqrt(k / m)
+    wn = np.sqrt(k / m)
     zeta = c / (2 * wn * m)
-    wd = wn * sp.sqrt(1 - zeta**2)
+    wd = wn * np.sqrt(1 - zeta**2)
     fo = Fo / m
 
-    x = fo / (wd * sp.exp(zeta * wn * t)) * sp.sin(wd * t)
+    x = fo / (wd * np.exp(zeta * wn * t)) * np.sin(wd * t)
 
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
@@ -1009,29 +991,29 @@ def step_response(m, c, k, Fo, max_time):
     7.9581008173000833e-05
     """
 
-    t = sp.linspace(0, max_time, int(250 * max_time))
+    t = np.linspace(0, max_time, int(250 * max_time))
 
-    wn = sp.sqrt(k / m)
+    wn = np.sqrt(k / m)
     zeta = c / (2 * wn * m)
-    wd = wn * sp.sqrt(1 - zeta**2)
+    wd = wn * np.sqrt(1 - zeta**2)
     fo = Fo / m
 
     if zeta != 1:
-        phi = sp.arctan(zeta / sp.sqrt(1 - zeta**2))
+        phi = np.arctan(zeta / np.sqrt(1 - zeta**2))
 
     if 0 < zeta < 1:
-        x = fo / wn**2 * (1 - wn / wd*sp.exp(-zeta * wn * t)*sp.cos(wd * t - phi))
+        x = fo / wn**2 * (1 - wn / wd*np.exp(-zeta * wn * t)*np.cos(wd * t - phi))
     elif zeta == 1:
         lam = -wn
         A1 = -fo / wn**2
         A2 = -A1 * lam
-        x = fo / wn**2 + A1 * sp.exp(lam * t) + A2 * t * sp.exp(lam * t)
+        x = fo / wn**2 + A1 * np.exp(lam * t) + A2 * t * np.exp(lam * t)
     elif zeta > 1:
-        lam1 = -zeta * wn - wn * sp.sqrt(zeta**2 - 1)
-        lam2 = -zeta * wn + wn * sp.sqrt(zeta**2 - 1)
+        lam1 = -zeta * wn - wn * np.sqrt(zeta**2 - 1)
+        lam2 = -zeta * wn + wn * np.sqrt(zeta**2 - 1)
         A2 = fo / (wn**2 * (lam2 / lam1 - 1))
         A1 = -lam2 / lam1 * A2
-        x = fo / wn**2 + A1 * sp.exp(lam1 * t) + A2 * sp.exp(lam2 * t)
+        x = fo / wn**2 + A1 * np.exp(lam1 * t) + A2 * np.exp(lam2 * t)
     else:
         raise ValueError('Zeta should be greater than zero')
 
@@ -1071,29 +1053,29 @@ def fourier_series(dat, t, n):
         The function also produces a plot of the approximation.
 
     Examples:
-    >>> f = sp.hstack((sp.arange(-1, 1, .04), sp.arange(1, -1, -.04)))
+    >>> f = np.hstack((np.arange(-1, 1, .04), np.arange(1, -1, -.04)))
     >>> f += 1
-    >>> t = sp.arange(0, len(f))/len(f)
+    >>> t = np.arange(0, len(f))/len(f)
     >>> a, b = fourier_series(f, t, 5)
     >>> a[0]
     2.0
     """
 
     len_ = len(dat)/2
-    fs = (sp.fft(dat))/len_
+    fs = (fft(dat))/len_
     a0 = fs[0]
-    a = sp.real(sp.hstack((a0, fs[1:len(fs/2)])))
-    b = -sp.imag(fs[1:len(fs/2)])
+    a = np.real(np.hstack((a0, fs[1:len(fs/2)])))
+    b = -np.imag(fs[1:len(fs/2)])
     len_ *= 2
-    dt = 2*sp.pi/len_
-    tp = sp.arange(0, 2*sp.pi, dt)
-    dataapprox = a[0]/2 + sp.zeros_like(dat)
+    dt = 2*np.pi/len_
+    tp = np.arange(0, 2*np.pi, dt)
+    dataapprox = a[0]/2 + np.zeros_like(dat)
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
     ax1.plot(t, dat)
 
     for i in range(1, n):
-        newdat = a[i]*sp.cos(tp*i) + b[i]*sp.sin(tp*i)
+        newdat = a[i]*np.cos(tp*i) + b[i]*np.sin(tp*i)
         dataapprox += newdat
         if i == n-1:
             ax1.plot(t, newdat)
@@ -1127,13 +1109,13 @@ def response_spectrum(f):
     1.6285602401720802
     """
 
-    t = sp.linspace(.001 * 4 / f, 10 / f, 200)
-    w = 2 * sp.pi * f
+    t = np.linspace(.001 * 4 / f, 10 / f, 200)
+    w = 2 * np.pi * f
 
-    one = sp.ones_like(t)
+    one = np.ones_like(t)
 
     rs1 = one / (w * t)
-    rs2 = sp.sqrt(2 * (1 - sp.cos(w * t)))
+    rs2 = np.sqrt(2 * (1 - np.cos(w * t)))
 
     rs = one + rs1 * rs2
 
@@ -1186,9 +1168,9 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     a0, aodd, aeven, bodd, beven = args
 
     dt = min(T/400, T/10*N)
-    t = sp.arange(0, T*3, dt)
+    t = np.arange(0, T*3, dt)
     F = 0*t + eval(a0)/2
-    pi = sp.pi
+    pi = np.pi
 
     for n in range(1, N):
         if n % 2 == 0:
@@ -1197,7 +1179,7 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
         else:
             a = aodd
             b = bodd
-        F = F + eval(a)*sp.cos(n*2*sp.pi*t/T) + eval(b)*sp.sin(n*2*sp.pi*t/T)
+        F = F + eval(a)*np.cos(n*2*np.pi*t/T) + eval(b)*np.sin(n*2*np.pi*t/T)
 
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
