@@ -1,6 +1,9 @@
 import numpy as np
 import scipy.linalg as la
 
+__all__ = ['VibSystem']
+
+
 class VibSystem(object):
     def __init__(self, M, C, K, name=None):
         r"""A multiple degrees of freedom system.

@@ -19,3 +19,4 @@ all toolbox functions in the name space
 from .sdof import *
 from .mdof import *
 from .ema import *
+from .vibsystem import *
