@@ -37,10 +37,7 @@ def frf(x, f, dt):
     >>> # First we need to load the sampled data which in a .mat file
     >>> import vibration_toolbox as vt
     >>> import scipy.io as sio
-    >>> import os
-    >>> #print(os.getcwd())
-    >>> #print(os.listdir('vibration_toolbox/data'))
-    >>> data = sio.loadmat('vibration_toolbox/data/frf_data1.mat')
+    >>> data = sio.loadmat(vt.__path__[0] + '/data/frf_data1.mat')
     >>> #print(data)
     >>> # Data is imported as arrays. We need to modify then to fit our function
     >>> x = data['x']
