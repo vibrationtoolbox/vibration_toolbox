@@ -41,14 +41,11 @@ def frf(x, f, dt):
     >>> #print(data)
     >>> # Data is imported as arrays. We need to modify then to fit our function
     >>> x = data['x']
-    >>> print(x)
     >>> x = x.reshape(len(x))
     >>> f = data['f']
     >>> f = f.reshape(len(f))
-    >>> print(f)
     >>> dt = data['dt']
     >>> dt = float(dt)
-    >>> print(dt)
     >>> # Now we are able to call the function
     >>> freq, mag, ang, coh = vt.frf(x, f, dt)
     >>> mag[10]
