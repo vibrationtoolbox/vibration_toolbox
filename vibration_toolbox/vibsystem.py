@@ -33,6 +33,8 @@ class VibSystem(object):
             System's natural frequencies in Hz.
         wd : array
             System's damped natural frequencies in Hz.
+        H:
+            Continuous-time linear time invariant system
 
         Examples
         --------
@@ -55,7 +57,6 @@ class VibSystem(object):
         array([ 5.03292121,  8.71727525])
         >>> sys1.wd
         array([ 5.03229206,  8.71400566])
-
         """
         self._M = M
         self._C = C
@@ -66,6 +67,7 @@ class VibSystem(object):
         self.evectors = None
         self.wn = None
         self.wd = None
+        self.H = None
 
         self.n = len(M)
         self._calc_system()
@@ -104,6 +106,7 @@ class VibSystem(object):
         self.evalues, self.evectors = self._eigen()
         self.wn = (np.absolute(self.evalues)/(2*np.pi))[:self.n]
         self.wd = (np.imag(self.evalues)/(2*np.pi))[:self.n]
+        self.H = self._H()
 
     def A(self):
         """State space matrix"""
@@ -120,7 +123,8 @@ class VibSystem(object):
         r"""Function used to generate an index that will sort
         eigenvalues and eigenvectors based on the imaginary (wd)
         part of the eigenvalues. Positive eigenvalues will be
-        positioned at the first half of the array."""
+        positioned at the first half of the array.
+        """
         # avoid float point errors when sorting
         evals_truncated = np.around(eigenvalues, decimals=10)
         a = np.imag(evals_truncated)  # First column
@@ -135,10 +139,11 @@ class VibSystem(object):
         return idx
 
     def _eigen(self, sorted_=True):
-        r"""This method will return the eigenvalues and eigenvectors of the
-        state space matrix A, sorted by the index method which considers
-        the imaginary part (wd) of the eigenvalues for sorting.
-        To avoid sorting use sorted_=False"""
+        r"""This method will return the eigenvalues and eigenvectors of
+        the state space matrix A, sorted by the index method which
+        considers the imaginary part (wd) of the eigenvalues for sorting.
+        To avoid sorting use sorted_=False
+        """
         evalues, evectors = la.eig(self.A())
         if sorted_ is False:
             return evalues, evectors
@@ -147,21 +152,42 @@ class VibSystem(object):
 
         return evalues[idx], evectors[:, idx]
 
-    def H(self):
+    def _H(self):
+        r"""Continuous-time linear time invariant system.
+
+        This method is used to create a Continuous-time linear
+        time invariant system for the mdof system.
+        From this system we can obtain poles, impulse response,
+        generate a bode, etc.
+
+
+        """
         Z = np.zeros((self.n, self.n))
         I = np.eye(self.n)
 
+        # x' = Ax + Bu
+        B2 = I
         A = self.A()
         B = np.vstack([Z,
-                       la.inv(self.M)])
+                       la.solve(self.M, B2)])
 
-        # y = Cx + Df
-        # Considering (for a 3x3 case) C = [1, 1, 1, 0, 0, 0]; D = [0, 0, 0]
-        C = np.hstack((np.diag(I), np.diag(np.zeros_like(I))))
-        D = np.diag(np.zeros_like(I))
+        # y = Cx + Du
+        # Observation matrices
+        Cd = I
+        Cv = Z
+        Ca = Z
+
+        C = np.hstack((Cd - Ca @ la.solve(self.M, self.K), Cv - Ca @ la.solve(self.M, self.C)))
+        D = Ca @ la.solve(self.M, B2)
 
         sys = signal.lti(A, B, C, D)
 
         return sys
+
+    def time_response(self, F, t, ic=None):
+        if ic is not None:
+            return signal.lsim(self.H, F, t, ic)
+        else:
+            return signal.lsim(self.H, F, t)
 
 
