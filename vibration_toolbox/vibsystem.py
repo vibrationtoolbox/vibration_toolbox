@@ -185,9 +185,53 @@ class VibSystem(object):
         return sys
 
     def time_response(self, F, t, ic=None):
+        r"""Time response for a mdof system.
+
+        This method returns the time response for a mdof system
+        given a force, time and initial conditions.
+
+        Parameters
+        ----------
+        F : array
+            Force array (needs to have the same length as time array).
+        t : array
+            Time array.
+        ic : array
+            The initial conditions on the state vector (zero by default).
+
+        Returns
+        ----------
+        t : array
+            Time values for the output.
+        yout : array
+            System response.
+        xout : array
+            Time evolution of the state vector.
+
+
+        Examples
+        --------
+        >>> m1, m2 = 1, 1
+        >>> c1, c2, c3 = 1, 1, 1
+        >>> k1, k2, k3 = 1e3, 1e3, 1e3
+
+        >>> M = np.array([[m1, 0],
+        ...               [0, m2]])
+        >>> C = np.array([[c1+c2, -c2],
+        ...               [-c2, c2+c3]])
+        >>> K = np.array([[k1+k2, -k2],
+        ...               [-k2, k2+k3]])
+        >>> sys1 = VibSystem(M, C, K) # create the system
+        >>> t = np.linspace(0, 25, 1000) # time array
+        >>> F2 = np.zeros((len(t), 2))
+        >>> F2[:, 1] = 1000*np.sin(40*t) # force applied on m2
+        >>> t, yout, xout = sys1.time_response(F2, t)
+        >>> yout[:5, 0] # response on m1
+        array([ 0.        ,  0.00304585,  0.07034816,  0.32048951,  0.60748282])
+        >>> yout[:5, 1] # response on m2
+        array([ 0.        ,  0.08160348,  0.46442657,  0.7885541 ,  0.47808092])
+        """
         if ic is not None:
             return signal.lsim(self.H, F, t, ic)
         else:
             return signal.lsim(self.H, F, t)
-
-
