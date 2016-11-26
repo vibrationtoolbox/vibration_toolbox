@@ -2,8 +2,6 @@
 The Vibration Toolbox, Python Edition
 
 Joseph C. Slater and Raphael Timbo
-
-__all__ = ['directory']
 """
 
 
@@ -16,6 +14,14 @@ all toolbox functions in the name space
 `import vibration_toolbox.sdof as sdof` will tuck the sdof functions in the `sdof` name space.
 
 """
+
+__title__ = 'vibration_toolbox'
+__version__ = '0.5b9'
+__author__ = 'Joseph C. Slater and Raphael Timbo'
+__license__ = 'MIT'
+__copyright__ = 'Copyright 1991-2016 Joseph C. Slater'
+__all__ = ['sdof', 'mdof', 'ema', 'vibsystem', '__version__']
+
 from .sdof import *
 from .mdof import *
 from .ema import *
