@@ -14,8 +14,16 @@ if sys.version_info < (3,5):
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+with open('vibration_toolbox/__init__.py', 'rb') as fid:
+    for line in fid:
+        line = line.decode('utf-8')
+        if line.startswith('__version__'):
+            version = line.strip().split()[-1][1:-1]
+            break
+
+
 setup(name='vibration_toolbox',
-      version='0.5b9',
+      version=version,
       description='Educational code illustrating fundamentals of vibration for mechanical engineers.',
       author='Joseph C. Slater and Raphael Timbo',
       author_email='joseph.c.slater@gmail.com',
