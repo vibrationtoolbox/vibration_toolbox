@@ -5,8 +5,8 @@ The Engineering Vibration Toolbox for Python
 .. image:: https://badge.fury.io/py/vibration_toolbox.png/
     :target: http://badge.fury.io/py/vibration_toolbox
 
-.. image:: https://coveralls.io/repos/vibrationtoolbox/vibration_toolbox/badge.png?branch=master
-  :target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
+#.. image:: https://coveralls.io/repos/vibrationtoolbox/vibration_toolbox/badge.png?branch=master
+#  :target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
 
 
 Joseph C. Slater and Raphael Timbo
