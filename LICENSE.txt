@@ -1,5 +1,5 @@
 vibration_toolbox
-=============
+==================
 Copyright (C) 1993 by Joseph C. Slater
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
