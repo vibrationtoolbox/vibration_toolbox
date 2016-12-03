@@ -22,6 +22,9 @@ __license__ = 'MIT'
 __copyright__ = 'Copyright 1991-2016 Joseph C. Slater'
 __all__ = ['sdof', 'mdof', 'ema', 'vibsystem', '__version__']
 
+import scipy as sp
+import matplotlib.pyplot as plt
+
 from .sdof import *
 from .mdof import *
 from .ema import *
