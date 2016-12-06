@@ -1,7 +1,7 @@
 The Engineering Vibration Toolbox for Python
 =================================================
 
-
+.. include:: <isonum.txt>
 .. image:: https://badge.fury.io/py/vibration_toolbox.png/
     :target: http://badge.fury.io/py/vibration_toolbox
 
@@ -12,10 +12,14 @@ The Engineering Vibration Toolbox for Python
 Joseph C. Slater and Raphael Timbo
 
 This is the translated `Engineering Vibration Toolbox <https://vibrationtoolbox.github.io>`_,
-originally written for `Matlab <http://www.mathworks.com>`_, but with extra features only for
+originally written for `Matlab <http://www.mathworks.com>`_ :supsub:`reg` `reg`, but with extra features only for
 Python. This is an *educational* set of codes intended for
 demonstration. You may find them useful for application, but that
 isn't the intent.
+
+:supsub:`reg`
+
+|reg|
 
 Installation
 --------------
@@ -27,6 +31,6 @@ To install::
 
   pip install --user vibration_toolbox
 
-To run, open a ``jupyter` notebook and type::
+To run, open a ``jupyter`` notebook and type::
 
   import vibration_toolbox as vt
