@@ -9,7 +9,7 @@ The Engineering Vibration Toolbox for Python
 ..  #:target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
 
 
-Joseph C. Slater and Raphael Timbo
+Joseph C. Slater and Raphael Timbó
 
 This is the translated `Engineering Vibration Toolbox <https://vibrationtoolbox.github.io>`_,
 originally written for `Matlab <http://www.mathworks.com>`_ ®, but with extra features only for
