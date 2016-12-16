@@ -13,5 +13,8 @@ look at https://testpypi.python.org/pypi
 
 To release
 ----------------
-python setup.py register -r pypi
-python setup.py sdist upload -r pypi
+
+.. code-block:: python
+
+  python setup.py register -r pypi
+  python setup.py sdist upload -r pypi
