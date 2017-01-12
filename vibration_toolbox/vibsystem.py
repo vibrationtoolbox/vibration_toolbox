@@ -20,13 +20,14 @@ class VibSystem(object):
             Damping matrix.
         K : array
             Stiffness matrix.
-        name : str
+        name : str, optional
             Name of the system.
 
         Attributes
         ----------
         evalues : array
             System's eigenvalues.
+
         evectors : array
             System's eigenvectors.
         wn : array
