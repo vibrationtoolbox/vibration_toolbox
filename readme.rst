@@ -18,7 +18,7 @@ Python. This is an *educational* set of codes intended for
 demonstration. You may find them useful for application, but that
 isn't the intent.
 
-For more information, please see the `documentation for the Python version <http://vibrationtoolbox.github.io/vibration_toolbox/>`_ but excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox.
+For more information, please see the `documentation for the Python version <http://vibrationtoolbox.github.io/vibration_toolbox/>`_ but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox.
 
 
 Installation
