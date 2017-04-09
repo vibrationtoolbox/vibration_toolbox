@@ -1,6 +1,7 @@
 The Engineering Vibration Toolbox for Python
 =================================================
 
+
 .. include:: <isonum.txt>
 .. image:: https://badge.fury.io/py/vibration_toolbox.png/
     :target: http://badge.fury.io/py/vibration_toolbox
@@ -16,6 +17,9 @@ originally written for `Matlab <http://www.mathworks.com>`_ ®, but with extra f
 Python. This is an *educational* set of codes intended for
 demonstration. You may find them useful for application, but that
 isn't the intent.
+
+For more information, please see the `documentation for the Python version <http://vibrationtoolbox.github.io/vibration_toolbox/>`_ but excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox.
+
 
 Installation
 --------------
