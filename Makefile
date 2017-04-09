@@ -12,8 +12,8 @@ export NAME=vibration_toolbox
 export GHP_MSG="Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`"
 export VERSION=`python -c "import $(NAME); print($(NAME).__version__)"`
 
-all: clean
-	python setup.py install
+#all: clean
+#	python setup.py install
 
 #----------------------------------------------------
 clean:
@@ -46,15 +46,15 @@ release: clean gh-pages
 	twine upload dist/*
 	shasum -a 256 dist/*.tar.gz
 
-docs: clean
+docs:
 	export SPHINXOPTS=-W
-	pip install sphinx-bootstrap-theme numpydoc sphinx ghp-import
+	# pip install sphinx-bootstrap-theme numpydoc sphinx ghp-import
+	make -C docs clean
 	make -C docs html
 
 gh-pages:
 	git checkout master
 	git pull origin master
-	cp oct2py/tests/*.m example
 	git commit -a -m "Keep examples in sync"; true
 	git push origin; true
 	make docs
