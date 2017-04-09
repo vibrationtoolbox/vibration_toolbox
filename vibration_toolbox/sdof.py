@@ -40,13 +40,16 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 
     Examples
     --------
-    >>> free_response()[1][:5] # get the first five values of x
+    >>> import matplotlib.pyplot as plt
+    >>> import vibration_toolbox as vtb
+    >>> vtb.free_response()[1][:5] # get the first five values of x
     array([[ 1.        ],
            [ 0.99591926],
            [ 0.9916807 ],
            [ 0.98728508],
            [ 0.98273317]])
-
+    >>> t, x, *_ = vtb.free_response() # *_ ignores all other returns
+    >>> plt.plot(t,x)
     """
 
     omega = np.sqrt(k / m)

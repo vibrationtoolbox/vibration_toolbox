@@ -19,9 +19,12 @@
 #
 import os
 import sys
+import sphinx.environment
+from docutils.utils import get_source_line
+
+# Find modules and their help for inclusion in documentation
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.append('../vibration_toolbox')
-
 
 # -- General configuration ------------------------------------------------
 
@@ -41,7 +44,8 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.ifconfig',
               'sphinx.ext.viewcode',
               'sphinx.ext.githubpages',
-              'sphinx.ext.autosectionlabel']
+              'sphinx.ext.autosectionlabel',
+              'matplotlib.sphinxext.plot_directive']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -84,13 +88,24 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'readme.rst']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+
+# Block out warning from nonlocal image in main readme file of repository when
+# building docs in sphinx
+# http://stackoverflow.com/questions/12772927/specifying-an-online-image-in-sphinx-restructuredtext-format
+def _warn_node(self, msg, node, **kwargs):
+    if not msg.startswith('nonlocal image URI found:'):
+        self._warnfunc(msg, '%s:%s' % get_source_line(node), **kwargs)
+
+
+sphinx.environment.BuildEnvironment.warn_node = _warn_node
 
 
 # -- Options for HTML output ----------------------------------------------
