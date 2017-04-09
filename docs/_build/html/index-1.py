@@ -8,3 +8,7 @@ vtb.free_response()[1][:5] # get the first five values of x
 # [ 0.98273317]])
 t, x, *_ = vtb.free_response() # *_ ignores all other returns
 plt.plot(t,x)
+plt.xlabel('Time (sec)')
+plt.ylabel('Displacement (m)')
+plt.title('Displacement versus time')
+plt.grid('on')

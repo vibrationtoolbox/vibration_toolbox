@@ -72,7 +72,7 @@
 <span class="sd">        mass, damping coefficient, stiffness</span>
 <span class="sd">    x0, v0:  floats, optional</span>
 <span class="sd">        initial displacement, initial velocity</span>
-<span class="sd">    max_time: floatm optional</span>
+<span class="sd">    max_time: float, optional</span>
 <span class="sd">        end time for :math:`x(t)`</span>
 
 <span class="sd">    Returns</span>
@@ -95,6 +95,10 @@
 <span class="sd">           [ 0.98273317]])</span>
 <span class="sd">    &gt;&gt;&gt; t, x, *_ = vtb.free_response() # *_ ignores all other returns</span>
 <span class="sd">    &gt;&gt;&gt; plt.plot(t,x)</span>
+<span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;Time (sec)&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;Displacement (m)&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; plt.title(&#39;Displacement versus time&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; plt.grid(&#39;on&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="n">m</span><span class="p">)</span>

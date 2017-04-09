@@ -27,7 +27,7 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
         mass, damping coefficient, stiffness
     x0, v0:  floats, optional
         initial displacement, initial velocity
-    max_time: floatm optional
+    max_time: float, optional
         end time for :math:`x(t)`
 
     Returns
@@ -50,6 +50,10 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
            [ 0.98273317]])
     >>> t, x, *_ = vtb.free_response() # *_ ignores all other returns
     >>> plt.plot(t,x)
+    >>> plt.xlabel('Time (sec)')
+    >>> plt.ylabel('Displacement (m)')
+    >>> plt.title('Displacement versus time')
+    >>> plt.grid('on')
     """
 
     omega = np.sqrt(k / m)
