@@ -12,33 +12,42 @@ mpl.rcParams['figure.figsize'] = (10, 6)
 
 
 def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
-    """
-    returns t, x, v, zeta, omega, omega_d, A
-    $\alpha$
-    Returns free response of a second order linear ordinary differential equation
-    defined by
+    """Free response of a second order linear oscillator.
+
+    Returns t, x, v, zeta, omega, omega_d and A resulting from the
+    free response of a second order linear ordinary differential
+    equation defined by
     :math:`m\ddot{x} + c \dot{x} + k x = 0`
     given initial conditions :math:`x_0` and :math:`\dot{x}_0 = v_0` for
     :math:`0 < t < t_{max}`
 
     Parameters
-
-    m, c, k:           1) Floats. Mass, damping and stiffness.
-    x0, v0:            2) Floats. Initial conditions
-    max_time:          3) Float.
+    ----------
+    m, c, k :  floats, optional
+        mass, damping coefficient, stiffness
+    x0, v0:  floats, optional
+        initial displacement, initial velocity
+    max_time: floatm optional
+        end time for :math:`x(t)`
 
     Returns
+    -------
+    t, x, v : ndarrays
+        time, displacement, and velocity
+    zeta, omega, omega_d, A : floats
+        damping ratio, undamped natural frequency, damped natural frequency,
+        Amplitude
 
-    t, x, v: 1) Arrays. Time, displacement, and velocity
-
-    :Example:
+    Examples
+    --------
     >>> free_response()[1][:5] # get the first five values of x
     array([[ 1.        ],
            [ 0.99591926],
            [ 0.9916807 ],
            [ 0.98728508],
            [ 0.98273317]])
-"""
+
+    """
 
     omega = np.sqrt(k / m)
     zeta = c / 2 / omega / m
