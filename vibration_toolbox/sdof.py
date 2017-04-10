@@ -152,7 +152,6 @@ def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
         print('phase_plot_i can only be used in an iPython notebook.')
 
 
-
 def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
     t, x, v, zeta, omega, omega_d, A = free_response(
         m, c, k, x0, v0, max_time)
@@ -308,9 +307,7 @@ def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
 
 def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
-    """
-    Returns free response of a second order linear ordinary differential equation
-    using the Runge-Kutta method for integration.
+    """Runge-Kutta solution of underdamped system
 
     Parameters
     ----------
@@ -360,44 +357,52 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     return t, x
 
 
-def euler_beam_modes(n=10, bctype=2, beamparams=np.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3, 2747, .015 * 0.03, 0.4)),
+def euler_beam_modes(n=10, bctype=2,
+                     beamparams=np.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3,
+                                          2747, .015 * 0.03, 0.4)),
                      npoints=2001):
-    """
-    %VTB6_3 Natural frequencies and mass normalized mode shape for an Euler-
-    % Bernoulli beam with a chosen boundary condition.
-    % [w,x,U]=VTB6_3(n,bctype,bmpar,npoints) will return the nth natural
-    % frequency (w) and mode shape (U) of an Euler-Bernoulli beam.
-    % If n is a vector, return the coresponding mode shapes and natural
-    % frequencies.
-    % With no output arguments the modes are ploted.
-    % If only one mode is requested, and there are no output arguments, the
-    % mode shape is animated.
-    % The boundary condition is defined as follows:
-    %
-    % bctype = 1 free-free
-    % bctype = 2 clamped-free
-    % bctype = 3 clamped-pinned
-    % bctype = 4 clamped-sliding
-    % bctype = 5 clamped-clamped
-    % bctype = 6 pinned-pinned
-    %
-    % The beam parameters are input through the vector bmpar:
-    % bmpar = [E I rho A L];
-    % where the variable names are consistent with Section 6.5 of the
-    % text.
-    %
-    %% Example: 20 cm long aluminum beam with h=1.5 cm, b=3 cm
-    %% Animate the 4th mode for free-free boundary conditions
-    % E=7.31e10;
-    % I=1/12*.03*.015^3;
-    % rho=2747;
-    % A=.015*.03;
-    % L=0.2;
-    % vtb6_3(4,1,[E I rho A L]);
-    %
+    """Mode shapes and natural frequencies of Euler-Bernoulli beam
 
-    % Copyright Joseph C. Slater, 2007
-    % Engineering Vibration Toolbox
+    Parameters
+    ----------
+    n: int, numpy array
+        mode number or array of mode numbers
+    bctype: int
+        bctype = 1 free-free
+        bctype = 2 clamped-free
+        bctype = 3 clamped-pinned
+        bctype = 4 clamped-sliding
+        bctype = 5 clamped-clamped
+        bctype = 6 pinned-pinned
+    beamparams: numpy array
+        E, I, rho, A, L
+        Young's modulus, second moment of area, density, cross section area,
+        length of beam
+    npoints: int
+        number of points for returned mode shape array
+
+
+
+    Returns
+    -------
+    omega_n: numpy array
+        array of natural frequencies
+    x: numpy array
+        x coordinate
+    U: numpy array
+        mass normalized mode shape
+
+
+    Examples
+    --------
+    >>> import matplotlib.pyplot as plt
+    >>> import vibration_toolbox as vtb
+    >>> omega_n, x, U = vtb.euler_beam_modes(n=1)
+    >>> plt.plot(x,U)
+    >>> plt.xlabel('x (m)')
+    >>> plt.ylabel('Displacement (m)')
+    >>> plt.title('Mode 1')
+
     """
     E = beamparams[0]
     I = beamparams[1]
@@ -458,7 +463,8 @@ def euler_beam_modes(n=10, bctype=2, beamparams=np.array((7.31e10, 1 / 12 * 0.03
                   (np.cosh(Bnl[i]) - np.cos(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
             b = Bnl[i] * len
-            # plt.plot(x,(sp.cosh(b) - sp.cos(b) - sig * (sp.sinh(b) - sp.sin(b))))
+            # plt.plot(x,(sp.cosh(b) - sp.cos(b) -
+            # sig * (sp.sinh(b) - sp.sin(b))))
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
 
     elif bctype == 3:
@@ -567,11 +573,61 @@ def euler_beam_modes(n=10, bctype=2, beamparams=np.array((7.31e10, 1 / 12 * 0.03
             delete_(handle2)
             delete_(handle3)
     """
-    return w, x, U
+    omega_n = w
+    return omega_n, x, U
 
 
 def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
-                   beamparams=np.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3, 2747, .015 * 0.03, 0.4)), bctype=2):
+                   beamparams=np.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3,
+                                        2747, .015 * 0.03, 0.4)), bctype=2):
+    '''Frequency response function fo Euler-Bernoulli beam
+
+    Parameters
+    ----------
+    xin: float
+        location of applied force
+    xout: float
+        location of displacement sensor
+    fmin: float
+        lowest frequency of interest
+    fmax: float
+        highest frrequency of interest
+    zeta: float
+        damping ratio
+    bctype: int
+        bctype = 1 free-free
+        bctype = 2 clamped-free
+        bctype = 3 clamped-pinned
+        bctype = 4 clamped-sliding
+        bctype = 5 clamped-clamped
+        bctype = 6 pinned-pinned
+    beamparams: numpy array
+        E, I, rho, A, L
+        Young's modulus, second moment of area, density, cross section area,
+        length of beam
+    npoints: int
+        number of points for returned mode shape array
+
+    Returns
+    -------
+    
+    fout: numpy array
+        array of driving frequencies (Hz)
+    H: numpy array
+        Frequency Response Function
+
+    Examples
+    --------
+    >>> import matplotlib.pyplot as plt
+    >>> import vibration_toolbox as vtb
+    >>> omega_n, x, U = vtb.euler_beam_modes(n=1)
+    >>> plt.plot(x,U)
+    >>> plt.xlabel('x (m)')
+    >>> plt.ylabel('Displacement (m)')
+    >>> plt.title('Mode 1')
+
+    '''
+
     print(fmin)
     E = beamparams[0]
     I = beamparams[1]
@@ -617,8 +673,8 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
     plt.ylabel('FRF (dB)')
     axlim = plt.axis()
 
-    plt.axis(
-        axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
+    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] -
+             axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
 
     plt.subplot(212)
     plt.plot(w / 2 / np.pi, np.unwrap(np.angle(np.sum(a, axis=1))) /
@@ -629,8 +685,8 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')
     axlim = plt.axis()
-    plt.axis(
-        axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
+    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] -
+             axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
 
     fout = w / 2 / np.pi
     H = a
@@ -659,8 +715,8 @@ def frfplot(f, H):
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('FRF (dB)')
     axlim = plt.axis()
-    plt.axis(
-        axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
+    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] -
+             axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
 
     plt.subplot(212)
     plt.plot(f, np.unwrap(np.angle(np.sum(H, axis=1))) / np.pi * 180, '-')
@@ -668,8 +724,8 @@ def frfplot(f, H):
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')
     axlim = plt.axis()
-    plt.axis(
-        axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
+    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] -
+             axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
 
 
 def response(xdd, f, t, x0, v0):
@@ -721,7 +777,7 @@ def response(xdd, f, t, x0, v0):
 
 
 def forced_analytical(m=10, k=100, x0=1, v0=0,
-                           wdr=0.5, F0=10, tf=100):
+                      wdr=0.5, F0=10, tf=100):
 
     """
     Returns the response of an undamped single degree of freedom system
@@ -763,7 +819,7 @@ def forced_analytical(m=10, k=100, x0=1, v0=0,
 
 
 def forced_response(m=10, c=0, k=100, x0=1, v0=0,
-                        wdr=0.5, F0=10, max_time=100):
+                    wdr=0.5, F0=10, max_time=100):
     """
     Returns the the response of an underdamped single degree of
     freedom system to a sinusoidal input with amplitude F0 and
@@ -771,15 +827,15 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
 
     Parameters
     ----------
-    m, c, k: float
+    m, c, k: float, optional
         Mass and stiffness
-    x0, v0: float
+    x0, v0: float, optional
         Initial conditions
-    wdr:
+    wdr: float, optional
         Force frequency
-    F0: float
+    F0: float, optional
         Force magnitude
-    max_time: float
+    max_time: float, optional
         End time
 
     Returns

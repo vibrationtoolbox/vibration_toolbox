@@ -29,6 +29,29 @@ __________________________________
 
 .. autofunction:: euler
 
+.. autofunction:: forced_response
+
+.. autofunction:: euler_beam_modes
+
+.. autofunction:: euler_beam_frf
+
+.. autofunction:: forced_response
+
+.. autofunction:: transmissibility
+
+.. autofunction:: rotating_unbalance
+
+.. autofunction:: impulse_response
+
+.. autofunction:: step_response
+
+.. autofunction:: fourier_series
+
+.. autofunction:: fourier_approximation
+
+.. autofunction:: response_spectrum
+           
+
 .. .. automodule:: sdof
     :members:
 
