@@ -610,7 +610,7 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
 
     Returns
     -------
-    
+
     fout: numpy array
         array of driving frequencies (Hz)
     H: numpy array
@@ -620,11 +620,7 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
     --------
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
-    >>> omega_n, x, U = vtb.euler_beam_modes(n=1)
-    >>> plt.plot(x,U)
-    >>> plt.xlabel('x (m)')
-    >>> plt.ylabel('Displacement (m)')
-    >>> plt.title('Mode 1')
+    >>> omega_n, x, U = vtb.euler_beam_frf()
 
     '''
 
