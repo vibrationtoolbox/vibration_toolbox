@@ -655,7 +655,7 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    </span>
+
 <span class="sd">    fout: numpy array</span>
 <span class="sd">        array of driving frequencies (Hz)</span>
 <span class="sd">    H: numpy array</span>
@@ -665,11 +665,7 @@
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
 <span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
-<span class="sd">    &gt;&gt;&gt; omega_n, x, U = vtb.euler_beam_modes(n=1)</span>
-<span class="sd">    &gt;&gt;&gt; plt.plot(x,U)</span>
-<span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;x (m)&#39;)</span>
-<span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;Displacement (m)&#39;)</span>
-<span class="sd">    &gt;&gt;&gt; plt.title(&#39;Mode 1&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; omega_n, x, U = vtb.euler_beam_frf()</span>
 
 <span class="sd">    &#39;&#39;&#39;</span>
 
