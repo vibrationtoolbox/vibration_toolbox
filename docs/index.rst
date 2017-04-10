@@ -12,6 +12,9 @@ Welcome to Vibration Toolbox's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   .. module:: sdof
+      :synopsis: Single Degree of Freedom Systems
+
 
 Single Degree of Freedom Functions
 __________________________________

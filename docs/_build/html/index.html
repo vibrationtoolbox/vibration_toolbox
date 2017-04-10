@@ -297,130 +297,6 @@ frequency wdr.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="sdof.euler_beam_modes">
-<code class="descclassname">sdof.</code><code class="descname">euler_beam_modes</code><span class="sig-paren">(</span><em>n=10</em>, <em>bctype=2</em>, <em>beamparams=array([  7.31000000e+10</em>, <em>8.43750000e-09</em>, <em>2.74700000e+03</em>, <em>4.50000000e-04</em>, <em>4.00000000e-01])</em>, <em>npoints=2001</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sdof.html#euler_beam_modes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.euler_beam_modes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mode shapes and natural frequencies of Euler-Bernoulli beam</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n: int, numpy array</strong></p>
-<blockquote>
-<div><p>mode number or array of mode numbers</p>
-</div></blockquote>
-<p><strong>bctype: int</strong></p>
-<blockquote>
-<div><p>bctype = 1 free-free
-bctype = 2 clamped-free
-bctype = 3 clamped-pinned
-bctype = 4 clamped-sliding
-bctype = 5 clamped-clamped
-bctype = 6 pinned-pinned</p>
-</div></blockquote>
-<p><strong>beamparams: numpy array</strong></p>
-<blockquote>
-<div><p>E, I, rho, A, L
-Young&#8217;s modulus, second moment of area, density, cross section area,
-length of beam</p>
-</div></blockquote>
-<p><strong>npoints: int</strong></p>
-<blockquote>
-<div><p>number of points for returned mode shape array</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">omega_n: numpy array</p>
-<blockquote>
-<div><p>array of natural frequencies</p>
-</div></blockquote>
-<p>x: numpy array</p>
-<blockquote>
-<div><p>x coordinate</p>
-</div></blockquote>
-<p>U: numpy array</p>
-<blockquote class="last">
-<div><p>mass normalized mode shape</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<p>(<a class="reference external" href=".//index-3.py">Source code</a>, <a class="reference external" href=".//index-3.png">png</a>, <a class="reference external" href=".//index-3.hires.png">hires.png</a>, <a class="reference external" href=".//index-3.pdf">pdf</a>)</p>
-<div class="figure">
-<img alt="_images/index-3.png" src="_images/index-3.png" />
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="sdof.euler_beam_frf">
-<code class="descclassname">sdof.</code><code class="descname">euler_beam_frf</code><span class="sig-paren">(</span><em>xin=0.22</em>, <em>xout=0.22</em>, <em>fmin=0.0</em>, <em>fmax=1000.0</em>, <em>zeta=0.02</em>, <em>beamparams=array([  7.31000000e+10</em>, <em>8.43750000e-09</em>, <em>2.74700000e+03</em>, <em>4.50000000e-04</em>, <em>4.00000000e-01])</em>, <em>bctype=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sdof.html#euler_beam_frf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.euler_beam_frf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Frequency response function fo Euler-Bernoulli beam</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>xin: float</strong></p>
-<blockquote>
-<div><p>location of applied force</p>
-</div></blockquote>
-<p><strong>xout: float</strong></p>
-<blockquote>
-<div><p>location of displacement sensor</p>
-</div></blockquote>
-<p><strong>fmin: float</strong></p>
-<blockquote>
-<div><p>lowest frequency of interest</p>
-</div></blockquote>
-<p><strong>fmax: float</strong></p>
-<blockquote>
-<div><p>highest frrequency of interest</p>
-</div></blockquote>
-<p><strong>zeta: float</strong></p>
-<blockquote>
-<div><p>damping ratio</p>
-</div></blockquote>
-<p><strong>bctype: int</strong></p>
-<blockquote>
-<div><p>bctype = 1 free-free
-bctype = 2 clamped-free
-bctype = 3 clamped-pinned
-bctype = 4 clamped-sliding
-bctype = 5 clamped-clamped
-bctype = 6 pinned-pinned</p>
-</div></blockquote>
-<p><strong>beamparams: numpy array</strong></p>
-<blockquote>
-<div><p>E, I, rho, A, L
-Young&#8217;s modulus, second moment of area, density, cross section area,
-length of beam</p>
-</div></blockquote>
-<p><strong>npoints: int</strong></p>
-<blockquote>
-<div><p>number of points for returned mode shape array</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">fout: numpy array</p>
-<blockquote>
-<div><p>array of driving frequencies (Hz)</p>
-</div></blockquote>
-<p>H: numpy array</p>
-<blockquote class="last">
-<div><p>Frequency Response Function</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<p>(<a class="reference external" href=".//index-4.py">Source code</a>, <a class="reference external" href=".//index-4.png">png</a>, <a class="reference external" href=".//index-4.hires.png">hires.png</a>, <a class="reference external" href=".//index-4.pdf">pdf</a>)</p>
-<div class="figure">
-<img alt="_images/index-4.png" src="_images/index-4.png" />
-</div>
-</dd></dl>
-
-<dl class="function">
 <dt>
 <code class="descclassname">sdof.</code><code class="descname">forced_response</code><span class="sig-paren">(</span><em>m=10</em>, <em>c=0</em>, <em>k=100</em>, <em>x0=1</em>, <em>v0=0</em>, <em>wdr=0.5</em>, <em>F0=10</em>, <em>max_time=100</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sdof.html#forced_response"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Returns the the response of an underdamped single degree of
@@ -820,6 +696,9 @@ a plot with the response spectrum.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-continuous_systems">
+<span id="continuous-systems"></span><h3>Continuous Systems<a class="headerlink" href="#module-continuous_systems" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -843,6 +722,7 @@ a plot with the response spectrum.</p>
 <li><a class="reference internal" href="#the-engineering-vibration-toolbox-for-python">The Engineering Vibration Toolbox for Python</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a><ul>
 <li><a class="reference internal" href="#module-sdof">Single Degree of Freedom Functions</a></li>
+<li><a class="reference internal" href="#module-continuous_systems">Continuous Systems</a></li>
 </ul>
 </li>
 </ul>
