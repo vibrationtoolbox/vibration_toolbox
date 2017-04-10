@@ -54,6 +54,7 @@ originally written for <a class="reference external" href="http://www.mathworks.
 Python. This is an <em>educational</em> set of codes intended for
 demonstration. You may find them useful for application, but that
 isn&#8217;t the intent.</p>
+<p>For more information, please see the <a class="reference external" href="http://vibrationtoolbox.github.io/vibration_toolbox/">documentation for the Python version</a> but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox.</p>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>Installation is made easy with <code class="docutils literal"><span class="pre">pip</span></code>, with releases as we have time while we try
@@ -70,7 +71,9 @@ issue reports (on <a class="reference external" href="http://github.com/vibratio
 <p>For examples, see the <a class="reference external" href="https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/JupyterNotebooks">JupyterNotebooks folder</a>.</p>
 <div class="toctree-wrapper compound">
 </div>
-<span class="target" id="module-sdof"></span><dl class="function">
+<div class="section" id="module-sdof">
+<span id="single-degree-of-freedom-functions"></span><h3>Single Degree of Freedom Functions<a class="headerlink" href="#module-sdof" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
 <dt id="sdof.free_response">
 <code class="descclassname">sdof.</code><code class="descname">free_response</code><span class="sig-paren">(</span><em>m=10</em>, <em>c=1</em>, <em>k=100</em>, <em>x0=1</em>, <em>v0=-1</em>, <em>max_time=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sdof.html#free_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.free_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Free response of a second order linear oscillator.</p>
@@ -118,6 +121,132 @@ Amplitude</p>
 </div>
 </dd></dl>
 
+<dl class="function">
+<dt id="sdof.phase_plot">
+<code class="descclassname">sdof.</code><code class="descname">phase_plot</code><span class="sig-paren">(</span><em>m=10</em>, <em>c=1</em>, <em>k=100</em>, <em>x0=1</em>, <em>v0=-1</em>, <em>max_time=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sdof.html#phase_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.phase_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Phase plot of free response of single degree of freedom system.
+For information on variables see <cite>free_response</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k</strong> :  floats, optional</p>
+<blockquote>
+<div><p>mass, damping coefficient, stiffness</p>
+</div></blockquote>
+<p><strong>x0, v0:  floats, optional</strong></p>
+<blockquote>
+<div><p>initial displacement, initial velocity</p>
+</div></blockquote>
+<p><strong>max_time: float, optional</strong></p>
+<blockquote class="last">
+<div><p>end time for <span class="math">\(x(t)\)</span></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>(<a class="reference external" href=".//index-2.py">Source code</a>, <a class="reference external" href=".//index-2.png">png</a>, <a class="reference external" href=".//index-2.hires.png">hires.png</a>, <a class="reference external" href=".//index-2.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="_images/index-2.png" src="_images/index-2.png" />
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdof.phase_plot_i">
+<code class="descclassname">sdof.</code><code class="descname">phase_plot_i</code><span class="sig-paren">(</span><em>max_time=(1.0</em>, <em>200.0)</em>, <em>v0=(-100</em>, <em>100</em>, <em>1.0)</em>, <em>m=(1.0</em>, <em>100.0</em>, <em>1.0)</em>, <em>c=(0.0</em>, <em>1.0</em>, <em>0.1)</em>, <em>x0=(-100</em>, <em>100</em>, <em>1)</em>, <em>k=(1.0</em>, <em>100.0</em>, <em>1.0)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sdof.html#phase_plot_i"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.phase_plot_i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interactive phase plot of free response of single degree of freedom system.
+<code class="docutils literal"><span class="pre">phase_plot_i</span></code> is only functional in a
+<a class="reference external" href="http://jupyter.org">Jupyter notebook</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k</strong> :  floats, optional</p>
+<blockquote>
+<div><p>mass, damping coefficient, stiffness</p>
+</div></blockquote>
+<p><strong>x0, v0:  floats, optional</strong></p>
+<blockquote>
+<div><p>initial displacement, initial velocity</p>
+</div></blockquote>
+<p><strong>max_time: float, optional</strong></p>
+<blockquote class="last">
+<div><p>end time for <span class="math">\(x(t)\)</span></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdof.time_plot_i">
+<code class="descclassname">sdof.</code><code class="descname">time_plot_i</code><span class="sig-paren">(</span><em>max_time=(1.0</em>, <em>100.0)</em>, <em>x0=(-100</em>, <em>100)</em>, <em>v0=(-100</em>, <em>100)</em>, <em>m=(1.0</em>, <em>100.0)</em>, <em>c=(0.0</em>, <em>100.0)</em>, <em>k=(1.0</em>, <em>100.0)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sdof.html#time_plot_i"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.time_plot_i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interactive single degree of freedom free reponse plot in iPython
+<code class="docutils literal"><span class="pre">time_plot_i</span></code> is only functional in a
+<a class="reference external" href="http://jupyter.org">Jupyter notebook</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k</strong> :  floats, optional</p>
+<blockquote>
+<div><p>mass, damping coefficient, stiffness</p>
+</div></blockquote>
+<p><strong>x0, v0:  floats, optional</strong></p>
+<blockquote>
+<div><p>initial displacement, initial velocity</p>
+</div></blockquote>
+<p><strong>max_time: float, optional</strong></p>
+<blockquote class="last">
+<div><p>end time for <span class="math">\(x(t)\)</span></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="sdof.euler">
+<code class="descclassname">sdof.</code><code class="descname">euler</code><span class="sig-paren">(</span><em>m=1</em>, <em>c=0.1</em>, <em>k=1</em>, <em>x0=1</em>, <em>v0=0</em>, <em>n=8</em>, <em>dt=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sdof.html#euler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.euler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns free response of a second order linear ordinary differential equation
+using the Euler method for integration.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k: float</strong></p>
+<blockquote>
+<div><p>Mass, damping and stiffness.</p>
+</div></blockquote>
+<p><strong>x0, v0: float</strong></p>
+<blockquote>
+<div><p>Initial conditions</p>
+</div></blockquote>
+<p><strong>n: int</strong></p>
+<blockquote>
+<div><p>The number of steps</p>
+</div></blockquote>
+<p><strong>dt: float</strong></p>
+<blockquote>
+<div><p>The step size.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">t, x, v: array</p>
+<blockquote class="last">
+<div><p>Time, displacement, and velocity</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -139,7 +268,10 @@ Amplitude</p>
   <ul>
 <li><a class="reference internal" href="#">Welcome to Vibration Toolbox&#8217;s documentation!</a></li>
 <li><a class="reference internal" href="#the-engineering-vibration-toolbox-for-python">The Engineering Vibration Toolbox for Python</a><ul>
-<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#module-sdof">Single Degree of Freedom Functions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>

@@ -3,9 +3,26 @@ import numpy as np
 from scipy import fft
 import matplotlib as mpl
 from scipy.interpolate import UnivariateSpline
-from IPython.display import clear_output, display, HTML
 from scipy import integrate
-from ipywidgets.widgets.interaction import interact, interactive
+
+try:
+    from IPython.display import clear_output, display, HTML
+    from ipywidgets.widgets.interaction import interact, interactive
+except ImportError:
+    print('Interactive iPython tools will not work without IPython.display \
+          and ipywidgets installed.')
+
+
+def in_ipynb():
+    try:
+        cfg = get_ipython().config
+        if cfg['IPKernelApp']['parent_appname'] == 'ipython-notebook':
+            return True
+        else:
+            return False
+    except NameError:
+        return False
+
 
 mpl.rcParams['lines.linewidth'] = 2
 mpl.rcParams['figure.figsize'] = (10, 6)
@@ -81,7 +98,24 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 
 def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     '''Phase plot of free response of single degree of freedom system.
-    For information on variables see `free_response`'''
+    For information on variables see `free_response`
+
+    Parameters
+    ----------
+    m, c, k :  floats, optional
+        mass, damping coefficient, stiffness
+    x0, v0:  floats, optional
+        initial displacement, initial velocity
+    max_time: float, optional
+        end time for :math:`x(t)`
+
+    Examples
+    --------
+    >>> import matplotlib.pyplot as plt
+    >>> import vibration_toolbox as vtb
+    >>> vtb.phase_plot() # *_ ignores all other returns
+
+    '''
     t, x, v, zeta, omega, omega_d, A = free_response(
         m, c, k, x0, v0, max_time)
     fig = plt.figure()
@@ -93,13 +127,30 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     ax.plot(x, v)
 
 
-def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0), m=(1.0, 100.0, 1.0),
-                      c=(0.0, 1.0, 0.1), x0=(-100, 100, 1), k=(1.0, 100.0, 1.0)):
+def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
+                 m=(1.0, 100.0, 1.0),
+                 c=(0.0, 1.0, 0.1), x0=(-100, 100, 1), k=(1.0, 100.0, 1.0)):
     '''Interactive phase plot of free response of single degree of freedom system.
-    For information on variables see ``free_response``'''
-    w = interactive(phase_plot, max_time=max_time, v0=v0, m=m,
-                    c=c, x0=x0, k=k)
-    display(w)
+    ``phase_plot_i`` is only functional in a
+    `Jupyter notebook <http://jupyter.org>`_.
+
+    Parameters
+    ----------
+    m, c, k :  floats, optional
+        mass, damping coefficient, stiffness
+    x0, v0:  floats, optional
+        initial displacement, initial velocity
+    max_time: float, optional
+        end time for :math:`x(t)`
+
+    '''
+    if in_ipynb():
+        w = interactive(phase_plot, max_time=max_time, v0=v0, m=m,
+                        c=c, x0=x0, k=k)
+        display(w)
+    else:
+        print('phase_plot_i can only be used in an iPython notebook.')
+
 
 
 def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
@@ -127,19 +178,41 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
         ax.text(.75 * tmax, .95 * (xmax - xmin) +
                 xmin, '$\zeta$ = %0.2f' % (zeta))
         ax.text(.75 * tmax, .90 * (xmax - xmin) + xmin,
-                '$\lambda_1$ = %0.2f' % (zeta * omega - omega * (zeta ** 2 - 1)))
+                '$\lambda_1$ = %0.2f' %
+                (zeta * omega - omega * (zeta ** 2 - 1)))
         ax.text(.75 * tmax, .85 * (xmax - xmin) + xmin,
-                '$\lambda_2$ = %0.2f' % (zeta * omega + omega * (zeta ** 2 - 1)))
+                '$\lambda_2$ = %0.2f' %
+                (zeta * omega + omega * (zeta ** 2 - 1)))
 
 
-def time_plot_i(max_time=(1.0, 100.0), v0=(-100, 100), m=(1.0, 100.0),
-                     c=(0.0, 100.0), x0=(-100, 100), k=(1.0, 100.0)):
-    w = interactive(time_plot, max_time=max_time, v0=v0, m=m,
-                    c=c, x0=x0, k=k)
-    # I'd like to get the sliders to be side by side to take less vertical space
+def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
+                m=(1.0, 100.0), c=(0.0, 100.0), k=(1.0, 100.0)):
+    '''Interactive single degree of freedom free reponse plot in iPython
+    ``time_plot_i`` is only functional in a
+    `Jupyter notebook <http://jupyter.org>`_.
+
+    Parameters
+    ----------
+    m, c, k :  floats, optional
+        mass, damping coefficient, stiffness
+    x0, v0:  floats, optional
+        initial displacement, initial velocity
+    max_time: float, optional
+        end time for :math:`x(t)`
+
+    '''
+    if in_ipynb():
+        w = interactive(time_plot, max_time=max_time, v0=v0, m=m,
+                        c=c, x0=x0, k=k)
+        display(w)
+    else:
+        print('time_plot_i can only be used in an iPython notebook.')
+    '''
+    I'd like to get the sliders to be side by side to take less vertical
+    space
     # cont = widgets.HBox(children = w)
-    # print(help(w))
-    display(w)
+    print(help(w))
+    '''
 
 
 def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
@@ -175,8 +248,9 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
             (2 * w * np.sqrt(zeta**2 - 1))  # (1.43)
         print('a1= ', a1)
         print('a2= ', a2)
-        x = np.exp(-zeta * w * t) * (a1 * np.exp(-w * np.sqrt(zeta**2 - 1)
-                                                 * t) + a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t))  # (1.41)
+        x = (np.exp(-zeta * w * t) *
+             (a1 * np.exp(-w * np.sqrt(zeta**2 - 1) * t) +
+             a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
 
     return x
 

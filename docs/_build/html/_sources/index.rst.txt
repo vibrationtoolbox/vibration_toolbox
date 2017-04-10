@@ -12,12 +12,25 @@ Welcome to Vibration Toolbox's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+
+Single Degree of Freedom Functions
+__________________________________
+
 .. py:module:: sdof
 
 .. autofunction:: free_response
 
+
+.. autofunction:: phase_plot
+
+.. autofunction:: phase_plot_i
+
+.. autofunction:: time_plot_i
+
+.. autofunction:: euler
+
 .. .. automodule:: sdof
-..    :members:
+    :members:
 
 Indices and tables
 ==================

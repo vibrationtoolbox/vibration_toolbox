@@ -42,13 +42,16 @@ release: clean gh-pages
 	git tag v$(VERSION)
 	git push origin --all
 	git push origin --tags
-	printf '\nUpgrade oct2py-feedstock with release and sha256 sum:'
+	printf '\nUpgrade vibration toolbox with release and sha256 sum:'
+	printf '\nOK, no sha256 sum yet:'
 	twine upload dist/*
 	shasum -a 256 dist/*.tar.gz
 
 docs:
+	# Warnings become errors and stop build
 	export SPHINXOPTS=-W
 	# pip install sphinx-bootstrap-theme numpydoc sphinx ghp-import
+	# Run the make file in the docs directory
 	make -C docs clean
 	make -C docs html
 
