@@ -31,10 +31,6 @@ __________________________________
 
 .. autofunction:: forced_response
 
-.. autofunction:: euler_beam_modes
-
-.. autofunction:: euler_beam_frf
-
 .. autofunction:: forced_response
 
 .. autofunction:: transmissibility
@@ -50,7 +46,16 @@ __________________________________
 .. autofunction:: fourier_approximation
 
 .. autofunction:: response_spectrum
-           
+
+Continuous Systems
+__________________
+
+.. py:module:: continuous_systems
+
+.. autofunction:: euler_beam_modes
+
+.. autofunction:: euler_beam_frf
+
 
 .. .. automodule:: sdof
     :members:
