@@ -48,9 +48,26 @@
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">fft</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">UnivariateSpline</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">integrate</span>
-<span class="kn">from</span> <span class="nn">ipywidgets.widgets.interaction</span> <span class="k">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+    <span class="kn">from</span> <span class="nn">ipywidgets.widgets.interaction</span> <span class="k">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Interactive iPython tools will not work without IPython.display </span><span class="se">\</span>
+<span class="s1">          and ipywidgets installed.&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">in_ipynb</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">config</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;IPKernelApp&#39;</span><span class="p">][</span><span class="s1">&#39;parent_appname&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ipython-notebook&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
 
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;lines.linewidth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
@@ -124,9 +141,26 @@
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">omega_d</span><span class="p">,</span> <span class="n">A</span></div>
 
 
-<span class="k">def</span> <span class="nf">phase_plot</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<div class="viewcode-block" id="phase_plot"><a class="viewcode-back" href="../index.html#sdof.phase_plot">[docs]</a><span class="k">def</span> <span class="nf">phase_plot</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Phase plot of free response of single degree of freedom system.</span>
-<span class="sd">    For information on variables see `free_response`&#39;&#39;&#39;</span>
+<span class="sd">    For information on variables see `free_response`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m, c, k :  floats, optional</span>
+<span class="sd">        mass, damping coefficient, stiffness</span>
+<span class="sd">    x0, v0:  floats, optional</span>
+<span class="sd">        initial displacement, initial velocity</span>
+<span class="sd">    max_time: float, optional</span>
+<span class="sd">        end time for :math:`x(t)`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
+<span class="sd">    &gt;&gt;&gt; vtb.phase_plot() # *_ ignores all other returns</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">omega_d</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">free_response</span><span class="p">(</span>
         <span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">max_time</span><span class="p">)</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
@@ -135,16 +169,33 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Displacement&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Velocity&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">phase_plot_i</span><span class="p">(</span><span class="n">max_time</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">),</span> <span class="n">v0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
-                      <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">x0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)):</span>
+<div class="viewcode-block" id="phase_plot_i"><a class="viewcode-back" href="../index.html#sdof.phase_plot_i">[docs]</a><span class="k">def</span> <span class="nf">phase_plot_i</span><span class="p">(</span><span class="n">max_time</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">),</span> <span class="n">v0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+                 <span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+                 <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">x0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)):</span>
     <span class="sd">&#39;&#39;&#39;Interactive phase plot of free response of single degree of freedom system.</span>
-<span class="sd">    For information on variables see ``free_response``&#39;&#39;&#39;</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">phase_plot</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="n">max_time</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="n">v0</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
-                    <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="sd">    ``phase_plot_i`` is only functional in a</span>
+<span class="sd">    `Jupyter notebook &lt;http://jupyter.org&gt;`_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m, c, k :  floats, optional</span>
+<span class="sd">        mass, damping coefficient, stiffness</span>
+<span class="sd">    x0, v0:  floats, optional</span>
+<span class="sd">        initial displacement, initial velocity</span>
+<span class="sd">    max_time: float, optional</span>
+<span class="sd">        end time for :math:`x(t)`</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">in_ipynb</span><span class="p">():</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">phase_plot</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="n">max_time</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="n">v0</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+                        <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;phase_plot_i can only be used in an iPython notebook.&#39;</span><span class="p">)</span></div>
+
 
 
 <span class="k">def</span> <span class="nf">time_plot</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
@@ -172,19 +223,41 @@
         <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">95</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span>
                 <span class="n">xmin</span><span class="p">,</span> <span class="s1">&#39;$\zeta$ = </span><span class="si">%0.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">zeta</span><span class="p">))</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">90</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span> <span class="n">xmin</span><span class="p">,</span>
-                <span class="s1">&#39;$\lambda_1$ = </span><span class="si">%0.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">-</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span><span class="n">zeta</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
+                <span class="s1">&#39;$\lambda_1$ = </span><span class="si">%0.2f</span><span class="s1">&#39;</span> <span class="o">%</span>
+                <span class="p">(</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">-</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span><span class="n">zeta</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">85</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span> <span class="n">xmin</span><span class="p">,</span>
-                <span class="s1">&#39;$\lambda_2$ = </span><span class="si">%0.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">+</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span><span class="n">zeta</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
+                <span class="s1">&#39;$\lambda_2$ = </span><span class="si">%0.2f</span><span class="s1">&#39;</span> <span class="o">%</span>
+                <span class="p">(</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">+</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span><span class="n">zeta</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
 
 
-<span class="k">def</span> <span class="nf">time_plot_i</span><span class="p">(</span><span class="n">max_time</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">v0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span>
-                     <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">x0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)):</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">time_plot</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="n">max_time</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="n">v0</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
-                    <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
-    <span class="c1"># I&#39;d like to get the sliders to be side by side to take less vertical space</span>
-    <span class="c1"># cont = widgets.HBox(children = w)</span>
-    <span class="c1"># print(help(w))</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<div class="viewcode-block" id="time_plot_i"><a class="viewcode-back" href="../index.html#sdof.time_plot_i">[docs]</a><span class="k">def</span> <span class="nf">time_plot_i</span><span class="p">(</span><span class="n">max_time</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">x0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">v0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+                <span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)):</span>
+    <span class="sd">&#39;&#39;&#39;Interactive single degree of freedom free reponse plot in iPython</span>
+<span class="sd">    ``time_plot_i`` is only functional in a</span>
+<span class="sd">    `Jupyter notebook &lt;http://jupyter.org&gt;`_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m, c, k :  floats, optional</span>
+<span class="sd">        mass, damping coefficient, stiffness</span>
+<span class="sd">    x0, v0:  floats, optional</span>
+<span class="sd">        initial displacement, initial velocity</span>
+<span class="sd">    max_time: float, optional</span>
+<span class="sd">        end time for :math:`x(t)`</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">in_ipynb</span><span class="p">():</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">time_plot</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="n">max_time</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="n">v0</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+                        <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;time_plot_i can only be used in an iPython notebook.&#39;</span><span class="p">)</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    I&#39;d like to get the sliders to be side by side to take less vertical</span>
+<span class="sd">    space</span>
+<span class="sd">    # cont = widgets.HBox(children = w)</span>
+<span class="sd">    print(help(w))</span>
+<span class="sd">    &#39;&#39;&#39;</span></div>
 
 
 <span class="k">def</span> <span class="nf">analytical</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
@@ -220,13 +293,14 @@
             <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">w</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">zeta</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># (1.43)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a1= &#39;</span><span class="p">,</span> <span class="n">a1</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;a2= &#39;</span><span class="p">,</span> <span class="n">a2</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">w</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">zeta</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-                                                 <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">a2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">zeta</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">))</span>  <span class="c1"># (1.41)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">w</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span>
+             <span class="p">(</span><span class="n">a1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">w</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">zeta</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">+</span>
+             <span class="n">a2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">zeta</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span><span class="p">)))</span>  <span class="c1"># (1.41)</span>
 
     <span class="k">return</span> <span class="n">x</span>
 
 
-<span class="k">def</span> <span class="nf">euler</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+<div class="viewcode-block" id="euler"><a class="viewcode-back" href="../index.html#sdof.euler">[docs]</a><span class="k">def</span> <span class="nf">euler</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns free response of a second order linear ordinary differential equation</span>
 <span class="sd">    using the Euler method for integration.</span>
@@ -275,7 +349,7 @@
 
     <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span></div>
 
 
 <span class="k">def</span> <span class="nf">rk4</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
