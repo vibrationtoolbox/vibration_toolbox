@@ -620,7 +620,7 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
     --------
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
-    >>> *_ = vtb.euler_beam_frf()
+    >>> vtb.euler_beam_frf()
 
     '''
 
