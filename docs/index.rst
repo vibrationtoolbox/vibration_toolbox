@@ -51,7 +51,7 @@ _________________________________________________
 
 
 :mod:`continuous_systems` -- Continuous Systems
-_________________________________________________
+_______________________________________________
 
 .. module:: continuous_systems
    :synopsis: Continuous Systems
