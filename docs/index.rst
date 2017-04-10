@@ -12,17 +12,16 @@ Welcome to Vibration Toolbox's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   .. module:: sdof
-      :synopsis: Single Degree of Freedom Systems
 
+:mod:`sdof` -- Single Degree of Freedom Functions
+_________________________________________________
 
-Single Degree of Freedom Functions
-__________________________________
+.. module:: sdof
+   :synopsis: Single Degree of Freedom Systems
 
-.. py:module:: sdof
+.. .. py:module:: sdof
 
 .. autofunction:: free_response
-
 
 .. autofunction:: phase_plot
 
@@ -50,10 +49,14 @@ __________________________________
 
 .. autofunction:: response_spectrum
 
-Continuous Systems
-__________________
 
-.. py:module:: continuous_systems
+:mod:`continuous_systems` -- Continuous Systems
+_________________________________________________
+
+.. module:: continuous_systems
+   :synopsis: Continuous Systems
+
+.. .. py:module:: continuous_systems
 
 .. autofunction:: euler_beam_modes
 
