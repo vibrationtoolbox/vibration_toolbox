@@ -3,8 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Vibration Toolbox's documentation!
-=============================================
 
 .. include:: ../readme.rst
 
@@ -51,12 +49,12 @@ _________________________________________________
 
 
 :mod:`continuous_systems` -- Continuous Systems
-_________________________________________________
+_______________________________________________
 
 .. module:: continuous_systems
    :synopsis: Continuous Systems
-   
-.. py:module:: continuous_systems
+
+.. .. py:module:: continuous_systems
 
 .. autofunction:: euler_beam_modes
 
