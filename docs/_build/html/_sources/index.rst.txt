@@ -22,7 +22,7 @@ Tutorials with worked examples and background information for the Vibration Tool
 
 
 
-
+.. This will all need to go into the API references, along with the junk in the sdof.rst file
 
 :mod:`continuous_systems` -- Continuous Systems
 _______________________________________________

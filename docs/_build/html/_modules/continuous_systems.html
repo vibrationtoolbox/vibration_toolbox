@@ -74,8 +74,8 @@
 
 
 <div class="viewcode-block" id="euler_beam_modes"><a class="viewcode-back" href="../index.html#continuous_systems.euler_beam_modes">[docs]</a><span class="k">def</span> <span class="nf">euler_beam_modes</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bctype</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">2001</span><span class="p">,</span>
-                     <span class="n">beamparams</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">12</span> <span class="o">*</span> <span class="mf">0.03</span> <span class="o">*</span> <span class="o">.</span><span class="mi">015</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,</span>
-                                          <span class="mi">2747</span><span class="p">,</span> <span class="o">.</span><span class="mi">015</span> <span class="o">*</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))):</span>
+                     <span class="n">beamparams</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mf">8.4375e-09</span><span class="p">,</span>
+                                          <span class="mi">2747</span><span class="p">,</span> <span class="mf">4.5e-04</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))):</span>
     <span class="sd">&quot;&quot;&quot;Mode shapes and natural frequencies of Euler-Bernoulli beam.</span>
 
 <span class="sd">    Parameters</span>
@@ -360,8 +360,6 @@
     <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">ELLIPSIS</span> <span class="o">|</span>
                     <span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
     <span class="c1"># import vibration_toolbox as vtb</span>
-
-
     <span class="c1"># doctest.run_docstring_examples(frfest,globals(),</span>
     <span class="c1"># optionflags=doctest.ELLIPSIS)</span>
     <span class="c1"># doctest.run_docstring_examples(asd,globals(),</span>

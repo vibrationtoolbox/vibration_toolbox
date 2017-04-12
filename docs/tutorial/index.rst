@@ -5,6 +5,15 @@ Vibration Toolbox
 .. sectionauthor:: Joseph C. Slater
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    sdof
+   working_notebook.ipynb
+
+
+..   Beats
+
+..   ../../JupyterNotebooks/temp
+..   working_notebook.ipynb
+
+.. .. include:: ../../JupyterNotebooks/temp

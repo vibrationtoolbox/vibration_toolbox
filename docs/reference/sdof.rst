@@ -1,5 +1,5 @@
 Single Degree of Freedom Systems (:mod:`vibration_toolbox.sdof`)
-================================================================
+----------------------------------------------------------------
 
 .. sectionauthor:: Joseph C. Slater
 

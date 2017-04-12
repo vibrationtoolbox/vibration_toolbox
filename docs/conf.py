@@ -25,6 +25,7 @@ from docutils.utils import get_source_line
 # Find modules and their help for inclusion in documentation
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.append('../vibration_toolbox')
+sys.path.append('../JupyterNotebooks')
 
 # -- General configuration ------------------------------------------------
 
@@ -45,7 +46,10 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.viewcode',
               'sphinx.ext.githubpages',
               'sphinx.ext.autosectionlabel',
-              'matplotlib.sphinxext.plot_directive']
+              'matplotlib.sphinxext.plot_directive',
+              'nbsphinx',
+              'sphinx.ext.mathjax',
+              'IPython.sphinxext.ipython_console_highlighting']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -88,7 +92,8 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'readme.rst']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'readme.rst',
+                    '**.ipynb_checkpoints']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'

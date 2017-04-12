@@ -11,3 +11,41 @@ For information on how function docstrings are used, see `numpydoc <https://gith
 
 For plots:
 http://matplotlib.org/sampledoc/extensions.html
+
+Section levels
+--------------
+
+===============
+ Title
+===============
+
+
+Section Title
+=============
+
+Subsection Title
+----------------
+
+Subsubsection Title
+___________________
+
+Subsubsubsection Title
+~~~~~~~~~~~~~~~~~~~~~~
+
+Section Title
+`````````````
+
+Section Title
+'''''''''''''
+
+Section Title
+.............
+
+Section Title
+*************
+
+Section Title
++++++++++++++
+
+Section Title
+^^^^^^^^^^^^^

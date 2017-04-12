@@ -1,5 +1,6 @@
-The Engineering Vibration Toolbox for Python
-=================================================
+=============================================
+ The Engineering Vibration Toolbox for Python
+=============================================
 
 
 .. include:: <isonum.txt>
@@ -20,9 +21,9 @@ isn't the intent.
 
 For more information, please see the `documentation for the Python version <http://vibrationtoolbox.github.io/vibration_toolbox/>`_ but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox.
 
-
-Installation
---------------
+-------------
+ Installation
+-------------
 Installation is made easy with ``pip``, with releases as we have time while we try
 to create a full first release. Much of it works already, but we certainly need
 issue reports (on `github <http://github.com/vibrationtoolbox/vibration_toolbox>`_).

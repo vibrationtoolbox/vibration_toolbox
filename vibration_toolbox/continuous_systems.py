@@ -29,8 +29,8 @@ mpl.rcParams['figure.figsize'] = (10, 6)
 
 
 def euler_beam_modes(n=10, bctype=2, npoints=2001,
-                     beamparams=np.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3,
-                                          2747, .015 * 0.03, 0.4))):
+                     beamparams=np.array((7.31e10, 8.4375e-09,
+                                          2747, 4.5e-04, 0.4))):
     """Mode shapes and natural frequencies of Euler-Bernoulli beam.
 
     Parameters
@@ -315,8 +315,6 @@ if __name__ == "__main__":
     doctest.testmod(optionflags=doctest.ELLIPSIS |
                     doctest.NORMALIZE_WHITESPACE)
     # import vibration_toolbox as vtb
-
-
     # doctest.run_docstring_examples(frfest,globals(),
     # optionflags=doctest.ELLIPSIS)
     # doctest.run_docstring_examples(asd,globals(),

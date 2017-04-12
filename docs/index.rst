@@ -18,11 +18,15 @@ Tutorials with worked examples and background information for the Vibration Tool
 .. toctree::
   :maxdepth: 2
 
-  tutorial/index.rst
+  tutorial/index
+  reference
 
+Reference Guide
+_______________
 
+.. toctree::
 
-
+.. This will all need to go into the API references, along with the junk in the sdof.rst file
 
 :mod:`continuous_systems` -- Continuous Systems
 _______________________________________________
