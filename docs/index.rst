@@ -10,42 +10,18 @@
    :maxdepth: 2
    :caption: Contents:
 
+Tutorial
+--------
 
-:mod:`sdof` -- Single Degree of Freedom Functions
-_________________________________________________
+Tutorials with worked examples and background information for the Vibration Toolbox.
 
-.. module:: sdof
-   :synopsis: Single Degree of Freedom Systems
+.. toctree::
+  :maxdepth: 2
 
-.. .. py:module:: sdof
+  tutorial/index.rst
 
-.. autofunction:: free_response
 
-.. autofunction:: phase_plot
 
-.. autofunction:: phase_plot_i
-
-.. autofunction:: time_plot_i
-
-.. autofunction:: euler
-
-.. autofunction:: forced_response
-
-.. autofunction:: forced_response
-
-.. autofunction:: transmissibility
-
-.. autofunction:: rotating_unbalance
-
-.. autofunction:: impulse_response
-
-.. autofunction:: step_response
-
-.. autofunction:: fourier_series
-
-.. autofunction:: fourier_approximation
-
-.. autofunction:: response_spectrum
 
 
 :mod:`continuous_systems` -- Continuous Systems
