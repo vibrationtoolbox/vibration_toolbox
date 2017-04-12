@@ -15,23 +15,13 @@ ___________________
 Subsubsubsection Title
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Section Title
-`````````````
+Subsubsubsubection Title
+````````````````````````
+We shouldn't ever need this.
 
-Section Title
-'''''''''''''
-
-Section Title
-.............
-
-Section Title
-*************
-
-Section Title
-+++++++++++++
-
-Section Title
-^^^^^^^^^^^^^
+Subsubsubsubsubection Title
+'''''''''''''''''''''''''''
+Just for show?
 
 All documentation will be built with via `sphinx <http://sphinx-doc.org>`_ using ``make html`` in the ``docs`` directory
 
