@@ -3,8 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Vibration Toolbox's documentation!
-=============================================
 
 .. include:: ../readme.rst
 
@@ -12,45 +10,31 @@ Welcome to Vibration Toolbox's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+Tutorial
+--------
 
-Single Degree of Freedom Functions
-__________________________________
+Tutorials with worked examples and background information for the Vibration Toolbox.
 
-.. py:module:: sdof
+.. toctree::
+  :maxdepth: 2
 
-.. autofunction:: free_response
+  tutorial/index
 
 
-.. autofunction:: phase_plot
+Reference
+---------
 
-.. autofunction:: phase_plot_i
+.. toctree::
+  :maxdepth: 2
 
-.. autofunction:: time_plot_i
+  reference/index
 
-.. autofunction:: euler
 
-.. autofunction:: forced_response
 
-.. autofunction:: euler_beam_modes
+.. This will all need to go into the API references, along with the junk in the sdof.rst file
 
-.. autofunction:: euler_beam_frf
 
-.. autofunction:: forced_response
 
-.. autofunction:: transmissibility
-
-.. autofunction:: rotating_unbalance
-
-.. autofunction:: impulse_response
-
-.. autofunction:: step_response
-
-.. autofunction:: fourier_series
-
-.. autofunction:: fourier_approximation
-
-.. autofunction:: response_spectrum
-           
 
 .. .. automodule:: sdof
     :members:

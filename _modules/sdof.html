@@ -73,7 +73,7 @@
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="free_response"><a class="viewcode-back" href="../index.html#sdof.free_response">[docs]</a><span class="k">def</span> <span class="nf">free_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<div class="viewcode-block" id="free_response"><a class="viewcode-back" href="../reference/sdof.html#sdof.free_response">[docs]</a><span class="k">def</span> <span class="nf">free_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Free response of a second order linear oscillator.</span>
 
 <span class="sd">    Returns t, x, v, zeta, omega, omega_d and A resulting from the</span>
@@ -141,7 +141,7 @@
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">omega_d</span><span class="p">,</span> <span class="n">A</span></div>
 
 
-<div class="viewcode-block" id="phase_plot"><a class="viewcode-back" href="../index.html#sdof.phase_plot">[docs]</a><span class="k">def</span> <span class="nf">phase_plot</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<div class="viewcode-block" id="phase_plot"><a class="viewcode-back" href="../reference/sdof.html#sdof.phase_plot">[docs]</a><span class="k">def</span> <span class="nf">phase_plot</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Phase plot of free response of single degree of freedom system.</span>
 <span class="sd">    For information on variables see `free_response`</span>
 
@@ -172,7 +172,7 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="phase_plot_i"><a class="viewcode-back" href="../index.html#sdof.phase_plot_i">[docs]</a><span class="k">def</span> <span class="nf">phase_plot_i</span><span class="p">(</span><span class="n">max_time</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">),</span> <span class="n">v0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+<div class="viewcode-block" id="phase_plot_i"><a class="viewcode-back" href="../reference/sdof.html#sdof.phase_plot_i">[docs]</a><span class="k">def</span> <span class="nf">phase_plot_i</span><span class="p">(</span><span class="n">max_time</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">),</span> <span class="n">v0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
                  <span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
                  <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">x0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)):</span>
     <span class="sd">&#39;&#39;&#39;Interactive phase plot of free response of single degree of freedom system.</span>
@@ -229,7 +229,7 @@
                 <span class="p">(</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">+</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span><span class="n">zeta</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
 
 
-<div class="viewcode-block" id="time_plot_i"><a class="viewcode-back" href="../index.html#sdof.time_plot_i">[docs]</a><span class="k">def</span> <span class="nf">time_plot_i</span><span class="p">(</span><span class="n">max_time</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">x0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">v0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+<div class="viewcode-block" id="time_plot_i"><a class="viewcode-back" href="../reference/sdof.html#sdof.time_plot_i">[docs]</a><span class="k">def</span> <span class="nf">time_plot_i</span><span class="p">(</span><span class="n">max_time</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">x0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">v0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
                 <span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)):</span>
     <span class="sd">&#39;&#39;&#39;Interactive single degree of freedom free reponse plot in iPython</span>
 <span class="sd">    ``time_plot_i`` is only functional in a</span>
@@ -299,7 +299,7 @@
     <span class="k">return</span> <span class="n">x</span>
 
 
-<div class="viewcode-block" id="euler"><a class="viewcode-back" href="../index.html#sdof.euler">[docs]</a><span class="k">def</span> <span class="nf">euler</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+<div class="viewcode-block" id="euler"><a class="viewcode-back" href="../reference/sdof.html#sdof.euler">[docs]</a><span class="k">def</span> <span class="nf">euler</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns free response of a second order linear ordinary differential equation</span>
 <span class="sd">    using the Euler method for integration.</span>
@@ -400,348 +400,6 @@
         <span class="n">x</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">k1</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">k2</span> <span class="o">+</span> <span class="n">k3</span><span class="p">)</span> <span class="o">+</span> <span class="n">k4</span><span class="p">)</span> <span class="o">/</span> <span class="mf">6.0</span>
 
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span>
-
-
-<div class="viewcode-block" id="euler_beam_modes"><a class="viewcode-back" href="../index.html#sdof.euler_beam_modes">[docs]</a><span class="k">def</span> <span class="nf">euler_beam_modes</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bctype</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                     <span class="n">beamparams</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">12</span> <span class="o">*</span> <span class="mf">0.03</span> <span class="o">*</span> <span class="o">.</span><span class="mi">015</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,</span>
-                                          <span class="mi">2747</span><span class="p">,</span> <span class="o">.</span><span class="mi">015</span> <span class="o">*</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)),</span>
-                     <span class="n">npoints</span><span class="o">=</span><span class="mi">2001</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Mode shapes and natural frequencies of Euler-Bernoulli beam</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    n: int, numpy array</span>
-<span class="sd">        mode number or array of mode numbers</span>
-<span class="sd">    bctype: int</span>
-<span class="sd">        bctype = 1 free-free</span>
-<span class="sd">        bctype = 2 clamped-free</span>
-<span class="sd">        bctype = 3 clamped-pinned</span>
-<span class="sd">        bctype = 4 clamped-sliding</span>
-<span class="sd">        bctype = 5 clamped-clamped</span>
-<span class="sd">        bctype = 6 pinned-pinned</span>
-<span class="sd">    beamparams: numpy array</span>
-<span class="sd">        E, I, rho, A, L</span>
-<span class="sd">        Young&#39;s modulus, second moment of area, density, cross section area,</span>
-<span class="sd">        length of beam</span>
-<span class="sd">    npoints: int</span>
-<span class="sd">        number of points for returned mode shape array</span>
-
-
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    omega_n: numpy array</span>
-<span class="sd">        array of natural frequencies</span>
-<span class="sd">    x: numpy array</span>
-<span class="sd">        x coordinate</span>
-<span class="sd">    U: numpy array</span>
-<span class="sd">        mass normalized mode shape</span>
-
-
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
-<span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
-<span class="sd">    &gt;&gt;&gt; omega_n, x, U = vtb.euler_beam_modes(n=1)</span>
-<span class="sd">    &gt;&gt;&gt; plt.plot(x,U)</span>
-<span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;x (m)&#39;)</span>
-<span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;Displacement (m)&#39;)</span>
-<span class="sd">    &gt;&gt;&gt; plt.title(&#39;Mode 1&#39;)</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">E</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">I</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">rho</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-    <span class="n">L</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="n">ln</span> <span class="o">=</span> <span class="n">n</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-
-    <span class="c1"># len=[0:(1/(npoints-1)):1]&#39;;  %Normalized length of the beam</span>
-    <span class="nb">len</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">npoints</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="nb">len</span> <span class="o">*</span> <span class="n">L</span>
-    <span class="c1"># Determine natural frequencies and mode shapes depending on the</span>
-    <span class="c1"># boundary condition.</span>
-    <span class="c1"># Mass simplification. The following was arange_(1,length_(n)).reshape(-1)</span>
-    <span class="n">mode_num_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ln</span><span class="p">)</span>
-    <span class="n">Bnl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">ln</span><span class="p">)</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">ln</span><span class="p">)</span>
-    <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">npoints</span><span class="p">,</span> <span class="n">ln</span><span class="p">])</span>
-
-    <span class="k">if</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Free-Free &#39;</span>
-        <span class="n">Bnllow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">4.73004074486</span><span class="p">,</span> <span class="mf">7.8532046241</span><span class="p">,</span>
-                           <span class="mf">10.995607838</span><span class="p">,</span> <span class="mf">14.1371654913</span><span class="p">,</span> <span class="mf">17.2787596574</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">7</span><span class="p">:</span>
-                <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bnllow</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span> <span class="o">*</span> <span class="mi">0</span>
-            <span class="k">elif</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span> <span class="o">-</span> <span class="mf">0.5</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">sig</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">/</span> \
-                      <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-                <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span> <span class="o">**</span> <span class="mi">4</span><span class="p">))</span>
-                <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span>
-                <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> \
-                    <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
-    <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Clamped-Free &#39;</span>
-        <span class="n">Bnllow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">1.88</span><span class="p">,</span> <span class="mf">4.69</span><span class="p">,</span> <span class="mf">7.85</span><span class="p">,</span> <span class="mf">10.99</span><span class="p">,</span> <span class="mf">14.14</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bnllow</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
-            <span class="n">sig</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">/</span> \
-                  <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span> <span class="o">**</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span>
-            <span class="c1"># plt.plot(x,(sp.cosh(b) - sp.cos(b) -</span>
-            <span class="c1"># sig * (sp.sinh(b) - sp.sin(b))))</span>
-            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
-
-    <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Clamped-Pinned &#39;</span>
-        <span class="n">Bnllow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">3.93</span><span class="p">,</span> <span class="mf">7.07</span><span class="p">,</span> <span class="mf">10.21</span><span class="p">,</span> <span class="mf">13.35</span><span class="p">,</span> <span class="mf">16.49</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bnllow</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
-            <span class="n">sig</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">/</span> \
-                  <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span> <span class="o">**</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span>
-            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
-    <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Clamped-Sliding &#39;</span>
-        <span class="n">Bnllow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">2.37</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">8.64</span><span class="p">,</span> <span class="mf">11.78</span><span class="p">,</span> <span class="mf">14.92</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bnllow</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
-            <span class="n">sig</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">/</span> \
-                  <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span> <span class="o">**</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span>
-            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
-    <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Clamped-Clamped &#39;</span>
-        <span class="n">Bnllow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">4.73</span><span class="p">,</span> <span class="mf">7.85</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mf">14.14</span><span class="p">,</span> <span class="mf">17.28</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Bnllow</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
-            <span class="n">sig</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">/</span> \
-                  <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span> <span class="o">**</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span>
-            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
-    <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
-        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Pinned-Pinned &#39;</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
-            <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span> <span class="o">**</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">)</span>
-
-    <span class="c1"># Mass Normalization of mode shapes</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
-        <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
-
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ppause=0</span>
-<span class="sd">    x=len * L</span>
-<span class="sd">    if nargout == 0:</span>
-<span class="sd">        if length_(n) != 1:</span>
-<span class="sd">            for i in arange_(1,length_(n)).reshape(-1):</span>
-<span class="sd">                plot_(x,U[:,i])</span>
-<span class="sd">                axis_([0,L,min_(min_(U)),max_(max_(U))])</span>
-<span class="sd">                figure_(gcf)</span>
-<span class="sd">                title_([desc,char(&#39;  &#39;),char(&#39;Mode &#39;),int2str_(i),char(&#39;     Natural Frequency = &#39;),num2str_(w[i]),char(&#39; rad/s&#39;)])</span>
-<span class="sd">                ylabel_(char(&#39;Modal Amplitude&#39;))</span>
-<span class="sd">                xlabel_(char(&#39;Length along bar - x&#39;))</span>
-<span class="sd">                grid_(char(&#39;on&#39;))</span>
-<span class="sd">                disp_(char(&#39;Press return to continue&#39;))</span>
-<span class="sd">                pause</span>
-<span class="sd">        else:</span>
-<span class="sd">            nsteps=50</span>
-<span class="sd">            clf</span>
-<span class="sd">            step=2 * pi / (nsteps)</span>
-<span class="sd">            i=arange_(0,(2 * pi - step),step)</span>
-<span class="sd">            hold_(char(&#39;off&#39;))</span>
-<span class="sd">            handle=uicontrol_(char(&#39;style&#39;),char(&#39;pushbutton&#39;),char(&#39;units&#39;),char(&#39;normal&#39;),char(&#39;backgroundcolor&#39;),char(&#39;red&#39;),char(&#39;position&#39;),[0.94,0.94,0.05,0.05],char(&#39;String&#39;),char(&#39;Stop&#39;),char(&#39;callback&#39;),char(&#39;global stopstop;stopstop=1;&#39;))</span>
-<span class="sd">            handle2=uicontrol_(char(&#39;style&#39;),char(&#39;pushbutton&#39;),char(&#39;units&#39;),char(&#39;normal&#39;),char(&#39;backgroundcolor&#39;),char(&#39;yellow&#39;),char(&#39;position&#39;),[0.94,0.87,0.05,0.05],char(&#39;String&#39;),char(&#39;Pause&#39;),char(&#39;callback&#39;),char(&#39;global ppause;ppause=1;&#39;))</span>
-<span class="sd">            handle3=uicontrol_(char(&#39;style&#39;),char(&#39;pushbutton&#39;),char(&#39;units&#39;),char(&#39;normal&#39;),char(&#39;backgroundcolor&#39;),char(&#39;green&#39;),char(&#39;position&#39;),[0.94,0.8,0.05,0.05],char(&#39;String&#39;),char(&#39;Resume&#39;),char(&#39;callback&#39;),char(&#39;global ppause;ppause=0;&#39;))</span>
-<span class="sd">            stopstop=0</span>
-<span class="sd">            bb=0</span>
-<span class="sd">            while stopstop == 0 and bb &lt; 100:</span>
-
-<span class="sd">                bb=bb + 1</span>
-<span class="sd">                for ii in [i].reshape(-1):</span>
-<span class="sd">                    while ppause == 1:</span>
-
-<span class="sd">                        pause_(0.01)</span>
-<span class="sd">                        if stopstop == 1:</span>
-<span class="sd">                            delete_(handle)</span>
-<span class="sd">                            delete_(handle2)</span>
-<span class="sd">                            delete_(handle3)</span>
-<span class="sd">                            return w,x,U</span>
-
-<span class="sd">                    plot_(x,U[:,1] * np.cos(ii))</span>
-<span class="sd">                    axis_([0,L,- max_(abs_(U)),max_(abs_(U))])</span>
-<span class="sd">                    grid_(char(&#39;on&#39;))</span>
-<span class="sd">                    figure_(gcf)</span>
-<span class="sd">                    title_([desc,char(&#39;  &#39;),char(&#39;Mode &#39;),int2str_(n),char(&#39;     \\omega_n = &#39;),num2str_(w[1]),char(&#39; rad/s&#39;)])</span>
-<span class="sd">                    ylabel_(char(&#39;Modal Amplitude&#39;))</span>
-<span class="sd">                    xlabel_(char(&#39;Length along bar - x&#39;))</span>
-<span class="sd">                    drawnow</span>
-
-<span class="sd">            clear_(char(&#39;stopstop&#39;))</span>
-<span class="sd">            delete_(handle)</span>
-<span class="sd">            delete_(handle2)</span>
-<span class="sd">            delete_(handle3)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">omega_n</span> <span class="o">=</span> <span class="n">w</span>
-    <span class="k">return</span> <span class="n">omega_n</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">U</span></div>
-
-
-<div class="viewcode-block" id="euler_beam_frf"><a class="viewcode-back" href="../index.html#sdof.euler_beam_frf">[docs]</a><span class="k">def</span> <span class="nf">euler_beam_frf</span><span class="p">(</span><span class="n">xin</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span> <span class="n">xout</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span> <span class="n">fmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">zeta</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>
-                   <span class="n">beamparams</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">12</span> <span class="o">*</span> <span class="mf">0.03</span> <span class="o">*</span> <span class="o">.</span><span class="mi">015</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,</span>
-                                        <span class="mi">2747</span><span class="p">,</span> <span class="o">.</span><span class="mi">015</span> <span class="o">*</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)),</span> <span class="n">bctype</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Frequency response function fo Euler-Bernoulli beam</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    xin: float</span>
-<span class="sd">        location of applied force</span>
-<span class="sd">    xout: float</span>
-<span class="sd">        location of displacement sensor</span>
-<span class="sd">    fmin: float</span>
-<span class="sd">        lowest frequency of interest</span>
-<span class="sd">    fmax: float</span>
-<span class="sd">        highest frrequency of interest</span>
-<span class="sd">    zeta: float</span>
-<span class="sd">        damping ratio</span>
-<span class="sd">    bctype: int</span>
-<span class="sd">        bctype = 1 free-free</span>
-<span class="sd">        bctype = 2 clamped-free</span>
-<span class="sd">        bctype = 3 clamped-pinned</span>
-<span class="sd">        bctype = 4 clamped-sliding</span>
-<span class="sd">        bctype = 5 clamped-clamped</span>
-<span class="sd">        bctype = 6 pinned-pinned</span>
-<span class="sd">    beamparams: numpy array</span>
-<span class="sd">        E, I, rho, A, L</span>
-<span class="sd">        Young&#39;s modulus, second moment of area, density, cross section area,</span>
-<span class="sd">        length of beam</span>
-<span class="sd">    npoints: int</span>
-<span class="sd">        number of points for returned mode shape array</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-
-<span class="sd">    fout: numpy array</span>
-<span class="sd">        array of driving frequencies (Hz)</span>
-<span class="sd">    H: numpy array</span>
-<span class="sd">        Frequency Response Function</span>
-
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
-<span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
-<span class="sd">    &gt;&gt;&gt; vtb.euler_beam_frf()</span>
-
-<span class="sd">    &#39;&#39;&#39;</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="n">fmin</span><span class="p">)</span>
-    <span class="n">E</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">I</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">rho</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-    <span class="n">L</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
-    <span class="n">np</span> <span class="o">=</span> <span class="mi">2001</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">,</span> <span class="mi">2001</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-    <span class="k">if</span> <span class="nb">min</span><span class="p">([</span><span class="n">xin</span><span class="p">,</span> <span class="n">xout</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">max</span><span class="p">([</span><span class="n">xin</span><span class="p">,</span> <span class="n">xout</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">:</span>
-        <span class="n">disp_</span><span class="p">(</span><span class="n">char</span><span class="p">(</span><span class="s1">&#39;One or both locations are not on the beam&#39;</span><span class="p">))</span>
-        <span class="k">return</span>
-    <span class="n">wn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-    <span class="c1"># The number 100 is arbitrarily large and unjustified.</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">np</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-
-    <span class="k">while</span> <span class="n">wn</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="p">(</span><span class="n">fmax</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">):</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="c1"># legtext[i + 1]=[char(&#39;Contribution of mode &#39;),num2str_(i)]</span>
-        <span class="n">wn</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">euler_beam_modes</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">bctype</span><span class="p">,</span> <span class="n">beamparams</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
-        <span class="n">spl</span> <span class="o">=</span> <span class="n">UnivariateSpline</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
-        <span class="n">Uin</span> <span class="o">=</span> <span class="n">spl</span><span class="p">(</span><span class="n">xin</span><span class="p">)</span>
-        <span class="n">Uout</span> <span class="o">=</span> <span class="n">spl</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
-        <span class="c1"># Uin=spline_(xx,U,xin)</span>
-        <span class="c1"># Uout=spline_(xx,U,xout)</span>
-
-        <span class="c1"># print(wn[-1])</span>
-        <span class="c1"># print(w)</span>
-        <span class="n">a</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">Uin</span> <span class="o">*</span> <span class="n">Uout</span> <span class="o">/</span> \
-            <span class="p">(</span><span class="n">wn</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">w</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">zeta</span> <span class="o">*</span> <span class="n">wn</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-        <span class="c1"># print(a[0:10,i])</span>
-        <span class="c1"># plt.plot(sp.log10(sp.absolute(a[:,i])))</span>
-        <span class="c1"># input(&quot;Press Enter to continue...&quot;)</span>
-        <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">wn</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))),</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">a</span><span class="p">)),</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;FRF (dB)&#39;</span><span class="p">)</span>
-    <span class="n">axlim</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">()</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">axlim</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span>
-             <span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">])]))</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)))</span> <span class="o">/</span>
-             <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">180</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">180</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Phase (deg)&#39;</span><span class="p">)</span>
-    <span class="n">axlim</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">axlim</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span>
-             <span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">])]))</span>
-
-    <span class="n">fout</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-    <span class="n">H</span> <span class="o">=</span> <span class="n">a</span>
-    <span class="k">return</span> <span class="n">fout</span><span class="p">,</span> <span class="n">H</span></div>
-
-
-<span class="k">def</span> <span class="nf">ebf</span><span class="p">(</span><span class="n">xin</span><span class="p">,</span> <span class="n">xout</span><span class="p">,</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">,</span> <span class="n">zeta</span><span class="p">):</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">euler_beam_frf</span><span class="p">(</span><span class="n">xin</span><span class="p">,</span> <span class="n">xout</span><span class="p">,</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">,</span> <span class="n">zeta</span><span class="p">)</span>
-    <span class="k">return</span>
-
-
-<span class="k">def</span> <span class="nf">ebf1</span><span class="p">(</span><span class="n">xin</span><span class="p">,</span> <span class="n">xout</span><span class="p">):</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">euler_beam_frf</span><span class="p">(</span><span class="n">xin</span><span class="p">,</span> <span class="n">xout</span><span class="p">)</span>
-    <span class="k">return</span>
 
 
 <span class="c1"># def</span>
@@ -859,7 +517,7 @@
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span>
 
 
-<div class="viewcode-block" id="forced_response"><a class="viewcode-back" href="../index.html#sdof.forced_response">[docs]</a><span class="k">def</span> <span class="nf">forced_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<div class="viewcode-block" id="forced_response"><a class="viewcode-back" href="../reference/sdof.html#sdof.forced_response">[docs]</a><span class="k">def</span> <span class="nf">forced_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                     <span class="n">wdr</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">F0</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the the response of an underdamped single degree of</span>
@@ -959,7 +617,7 @@
     <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">A</span>
 
 
-<div class="viewcode-block" id="transmissibility"><a class="viewcode-back" href="../index.html#sdof.transmissibility">[docs]</a><span class="k">def</span> <span class="nf">transmissibility</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">rmin</span><span class="p">,</span> <span class="n">rmax</span><span class="p">):</span>
+<div class="viewcode-block" id="transmissibility"><a class="viewcode-back" href="../reference/sdof.html#sdof.transmissibility">[docs]</a><span class="k">def</span> <span class="nf">transmissibility</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">rmin</span><span class="p">,</span> <span class="n">rmax</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a plot Displacement transmissibility ratio</span>
 <span class="sd">    and force transmissibility ratio of a single degree</span>
@@ -1028,7 +686,7 @@
     <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">F</span></div>
 
 
-<div class="viewcode-block" id="rotating_unbalance"><a class="viewcode-back" href="../index.html#sdof.rotating_unbalance">[docs]</a><span class="k">def</span> <span class="nf">rotating_unbalance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">zs</span><span class="p">,</span> <span class="n">rmin</span><span class="p">,</span> <span class="n">rmax</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="rotating_unbalance"><a class="viewcode-back" href="../reference/sdof.html#sdof.rotating_unbalance">[docs]</a><span class="k">def</span> <span class="nf">rotating_unbalance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">zs</span><span class="p">,</span> <span class="n">rmin</span><span class="p">,</span> <span class="n">rmax</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a plot Displacement of a system with rotating</span>
 <span class="sd">    unbalance.</span>
@@ -1097,7 +755,7 @@
     <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">Xn</span></div>
 
 
-<div class="viewcode-block" id="impulse_response"><a class="viewcode-back" href="../index.html#sdof.impulse_response">[docs]</a><span class="k">def</span> <span class="nf">impulse_response</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">Fo</span><span class="p">,</span> <span class="n">max_time</span><span class="p">):</span>
+<div class="viewcode-block" id="impulse_response"><a class="viewcode-back" href="../reference/sdof.html#sdof.impulse_response">[docs]</a><span class="k">def</span> <span class="nf">impulse_response</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">Fo</span><span class="p">,</span> <span class="n">max_time</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a plot with the response of the system to an</span>
 <span class="sd">    impulse of magnitude Fo (N.s).</span>
@@ -1148,7 +806,7 @@
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span></div>
 
 
-<div class="viewcode-block" id="step_response"><a class="viewcode-back" href="../index.html#sdof.step_response">[docs]</a><span class="k">def</span> <span class="nf">step_response</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">Fo</span><span class="p">,</span> <span class="n">max_time</span><span class="p">):</span>
+<div class="viewcode-block" id="step_response"><a class="viewcode-back" href="../reference/sdof.html#sdof.step_response">[docs]</a><span class="k">def</span> <span class="nf">step_response</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">Fo</span><span class="p">,</span> <span class="n">max_time</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a plot with the response of the system to an</span>
 <span class="sd">    step of magnitude Fo.</span>
@@ -1216,7 +874,7 @@
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span></div>
 
 
-<div class="viewcode-block" id="fourier_series"><a class="viewcode-back" href="../index.html#sdof.fourier_series">[docs]</a><span class="k">def</span> <span class="nf">fourier_series</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<div class="viewcode-block" id="fourier_series"><a class="viewcode-back" href="../reference/sdof.html#sdof.fourier_series">[docs]</a><span class="k">def</span> <span class="nf">fourier_series</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fourier series approximation to a function.</span>
 <span class="sd">    returns Fourier coefficients of a function.</span>
@@ -1274,7 +932,7 @@
     <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span></div>
 
 
-<div class="viewcode-block" id="response_spectrum"><a class="viewcode-back" href="../index.html#sdof.response_spectrum">[docs]</a><span class="k">def</span> <span class="nf">response_spectrum</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<div class="viewcode-block" id="response_spectrum"><a class="viewcode-back" href="../reference/sdof.html#sdof.response_spectrum">[docs]</a><span class="k">def</span> <span class="nf">response_spectrum</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Will display the response spectrum to a partial ramp</span>
 <span class="sd">    input(see Figure 3.13) for the system with natural frequency</span>
@@ -1318,7 +976,7 @@
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">rs</span></div>
 
 
-<div class="viewcode-block" id="fourier_approximation"><a class="viewcode-back" href="../index.html#sdof.fourier_approximation">[docs]</a><span class="k">def</span> <span class="nf">fourier_approximation</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span> <span class="n">aodd</span><span class="p">,</span> <span class="n">aeven</span><span class="p">,</span> <span class="n">bodd</span><span class="p">,</span> <span class="n">beven</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+<div class="viewcode-block" id="fourier_approximation"><a class="viewcode-back" href="../reference/sdof.html#sdof.fourier_approximation">[docs]</a><span class="k">def</span> <span class="nf">fourier_approximation</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span> <span class="n">aodd</span><span class="p">,</span> <span class="n">aeven</span><span class="p">,</span> <span class="n">bodd</span><span class="p">,</span> <span class="n">beven</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot the Fourier series defined by:</span>
 <span class="sd">    N is the number of terms.</span>
