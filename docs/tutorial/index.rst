@@ -1,6 +1,6 @@
-*****************
-Vibration Toolbox
-*****************
+Tutorial
+________
+
 
 .. sectionauthor:: Joseph C. Slater
 

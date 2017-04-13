@@ -19,26 +19,21 @@ Tutorials with worked examples and background information for the Vibration Tool
   :maxdepth: 2
 
   tutorial/index
-  reference
 
-Reference Guide
-_______________
+
+Reference
+---------
 
 .. toctree::
+  :maxdepth: 2
+
+  reference/index
+
+
 
 .. This will all need to go into the API references, along with the junk in the sdof.rst file
 
-:mod:`continuous_systems` -- Continuous Systems
-_______________________________________________
 
-.. module:: continuous_systems
-   :synopsis: Continuous Systems
-
-.. .. py:module:: continuous_systems
-
-.. autofunction:: euler_beam_modes
-
-.. autofunction:: euler_beam_frf
 
 
 .. .. automodule:: sdof

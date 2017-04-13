@@ -27,7 +27,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Vibration Toolbox" href="tutorial/index.html" />
+    <link rel="next" title="Tutorial" href="tutorial/index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -69,155 +69,41 @@ issue reports (on <a class="reference external" href="http://github.com/vibratio
 <p>For examples, see the <a class="reference external" href="https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/JupyterNotebooks">JupyterNotebooks folder</a>.</p>
 <div class="toctree-wrapper compound">
 </div>
-</div>
 <div class="section" id="tutorial">
-<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<h3>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h3>
 <p>Tutorials with worked examples and background information for the Vibration Toolbox.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/index.html">Vibration Toolbox</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/sdof.html">Single Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/index.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/sdof.html">Single Degree of Freedom Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/working_notebook.html">Working Notebook</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<div class="section" id="module-continuous_systems">
-<span id="continuous-systems-continuous-systems"></span><h3><a class="reference internal" href="#module-continuous_systems" title="continuous_systems: Continuous Systems"><code class="xref py py-mod docutils literal"><span class="pre">continuous_systems</span></code></a> &#8211; Continuous Systems<a class="headerlink" href="#module-continuous_systems" title="Permalink to this headline">¶</a></h3>
-<dl class="function">
-<dt id="continuous_systems.euler_beam_modes">
-<code class="descclassname">continuous_systems.</code><code class="descname">euler_beam_modes</code><span class="sig-paren">(</span><em>n=10</em>, <em>bctype=2</em>, <em>npoints=2001</em>, <em>beamparams=array([  7.31000000e+10</em>, <em>8.43750000e-09</em>, <em>2.74700000e+03</em>, <em>4.50000000e-04</em>, <em>4.00000000e-01])</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/continuous_systems.html#euler_beam_modes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#continuous_systems.euler_beam_modes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mode shapes and natural frequencies of Euler-Bernoulli beam.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n: int, numpy array</strong></p>
-<blockquote>
-<div><p>mode number or array of mode numbers</p>
-</div></blockquote>
-<p><strong>bctype: int</strong></p>
-<blockquote>
-<div><p>bctype = 1 free-free
-bctype = 2 clamped-free
-bctype = 3 clamped-pinned
-bctype = 4 clamped-sliding
-bctype = 5 clamped-clamped
-bctype = 6 pinned-pinned</p>
-</div></blockquote>
-<p><strong>beamparams: numpy array</strong></p>
-<blockquote>
-<div><p>E, I, rho, A, L
-Young&#8217;s modulus, second moment of area, density, cross section area,
-length of beam</p>
-</div></blockquote>
-<p><strong>npoints: int</strong></p>
-<blockquote>
-<div><p>number of points for returned mode shape array</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">omega_n: numpy array</p>
-<blockquote>
-<div><p>array of natural frequencies</p>
-</div></blockquote>
-<p>x: numpy array</p>
-<blockquote>
-<div><p>x coordinate</p>
-</div></blockquote>
-<p>U: numpy array</p>
-<blockquote class="last">
-<div><p>mass normalized mode shape</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<p>(<a class="reference external" href=".//index-1.py">Source code</a>, <a class="reference external" href=".//index-1.png">png</a>, <a class="reference external" href=".//index-1.hires.png">hires.png</a>, <a class="reference external" href=".//index-1.pdf">pdf</a>)</p>
-<div class="figure">
-<img alt="_images/index-1.png" src="_images/index-1.png" />
 </div>
-</dd></dl>
-
-<dl class="function">
-<dt id="continuous_systems.euler_beam_frf">
-<code class="descclassname">continuous_systems.</code><code class="descname">euler_beam_frf</code><span class="sig-paren">(</span><em>xin=0.22</em>, <em>xout=0.22</em>, <em>fmin=0.0</em>, <em>fmax=1000.0</em>, <em>zeta=0.02</em>, <em>beamparams=array([  7.31000000e+10</em>, <em>8.43750000e-09</em>, <em>2.74700000e+03</em>, <em>4.50000000e-04</em>, <em>4.00000000e-01])</em>, <em>bctype=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/continuous_systems.html#euler_beam_frf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#continuous_systems.euler_beam_frf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Frequency response function fo Euler-Bernoulli beam</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>xin: float</strong></p>
-<blockquote>
-<div><p>location of applied force</p>
-</div></blockquote>
-<p><strong>xout: float</strong></p>
-<blockquote>
-<div><p>location of displacement sensor</p>
-</div></blockquote>
-<p><strong>fmin: float</strong></p>
-<blockquote>
-<div><p>lowest frequency of interest</p>
-</div></blockquote>
-<p><strong>fmax: float</strong></p>
-<blockquote>
-<div><p>highest frrequency of interest</p>
-</div></blockquote>
-<p><strong>zeta: float</strong></p>
-<blockquote>
-<div><p>damping ratio</p>
-</div></blockquote>
-<p><strong>bctype: int</strong></p>
-<blockquote>
-<div><p>bctype = 1 free-free
-bctype = 2 clamped-free
-bctype = 3 clamped-pinned
-bctype = 4 clamped-sliding
-bctype = 5 clamped-clamped
-bctype = 6 pinned-pinned</p>
-</div></blockquote>
-<p><strong>beamparams: numpy array</strong></p>
-<blockquote>
-<div><p>E, I, rho, A, L
-Young&#8217;s modulus, second moment of area, density, cross section area,
-length of beam</p>
-</div></blockquote>
-<p><strong>npoints: int</strong></p>
-<blockquote>
-<div><p>number of points for returned mode shape array</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">fout: numpy array</p>
-<blockquote>
-<div><p>array of driving frequencies (Hz)</p>
-</div></blockquote>
-<p>H: numpy array</p>
-<blockquote class="last">
-<div><p>Frequency Response Function</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<p>(<a class="reference external" href=".//index-2.py">Source code</a>, <a class="reference external" href=".//index-2.png">png</a>, <a class="reference external" href=".//index-2.hires.png">hires.png</a>, <a class="reference external" href=".//index-2.pdf">pdf</a>)</p>
-<div class="figure">
-<img alt="_images/index-2.png" src="_images/index-2.png" />
-</div>
-</dd></dl>
-
-</div>
-</div>
+<div class="section" id="reference">
+<h3>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/sdof.html">Single Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/continuous.html">Continuous Systems (<code class="docutils literal"><span class="pre">continuous_systems</span></code>)</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h4>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
 <li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -229,20 +115,22 @@ length of beam</p>
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">The Engineering Vibration Toolbox for Python</a><ul>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#tutorial">Tutorial</a><ul>
-<li><a class="reference internal" href="#module-continuous_systems"><code class="docutils literal"><span class="pre">continuous_systems</span></code> &#8211; Continuous Systems</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#tutorial">Tutorial</a></li>
+<li><a class="reference internal" href="#reference">Reference</a><ul>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="tutorial/index.html" title="next chapter">Vibration Toolbox</a></li>
+      <li>Next: <a href="tutorial/index.html" title="next chapter">Tutorial</a></li>
   </ul></li>
 </ul>
 </div>

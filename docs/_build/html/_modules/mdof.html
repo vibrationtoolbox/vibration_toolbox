@@ -1,0 +1,540 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mdof &#8212; Vibration Toolbox 0.5b9 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.5b9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mdof</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
+<span class="kn">import</span> <span class="nn">scipy.signal</span> <span class="k">as</span> <span class="nn">signal</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;lines.linewidth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;modes_system&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;modes_system_undamped&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;response_system&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;response_system_undamped&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">eigen</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function is used to sort eigenvalues and eigenvectors</span>
+<span class="sd">    e.g. for a given system linalg.eig will return eingenvalues as:</span>
+<span class="sd">    (array([ 0. +89.4j,  0. -89.4j,  0. +89.4j,  0. -89.4j,  0.+983.2j,  0.-983.2j,  0. +40.7j,  0. -40.7j])</span>
+<span class="sd">    This function will sort this eigenvalues as:</span>
+<span class="sd">    (array([ 0. +40.7j,  0. +89.4j,  0. +89.4j,  0.+983.2j,  0. -40.7j,  0. -89.4j,  0. -89.4j,  0.-983.2j])</span>
+<span class="sd">    Correspondent eigenvectors will follow the same order.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    A: array</span>
+<span class="sd">        A complex or real matrix whose eigenvalues and eigenvectors</span>
+<span class="sd">        will be computed.</span>
+<span class="sd">    B: float or str</span>
+<span class="sd">        Right-hand side matrix in a generalized eigenvalue problem.</span>
+<span class="sd">        Default is None, identity matrix is assumed.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    evalues: array</span>
+<span class="sd">        Sorted eigenvalues</span>
+<span class="sd">    evectors: array</span>
+<span class="sd">        Sorted eigenvalues</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">    &gt;&gt;&gt; L = np.array([[2, -1, 0],</span>
+<span class="sd">    ...               [-4, 8, -4],</span>
+<span class="sd">    ...               [0, -4, 4]])</span>
+<span class="sd">    &gt;&gt;&gt; lam, P = eigen(L)</span>
+<span class="sd">    &gt;&gt;&gt; lam</span>
+<span class="sd">    array([  0.56258062+0.j,   2.63206172+0.j,  10.80535766+0.j])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">B</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">evalues</span><span class="p">,</span> <span class="n">evectors</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">evalues</span><span class="p">,</span> <span class="n">evectors</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">eigs</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">eigs</span> <span class="ow">in</span> <span class="n">evalues</span><span class="o">.</span><span class="n">imag</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">eigs</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">eigs</span> <span class="ow">in</span> <span class="n">evalues</span><span class="o">.</span><span class="n">real</span><span class="p">):</span>
+            <span class="n">idxp</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>  <span class="c1"># positive in increasing order</span>
+            <span class="n">idxn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">idxp</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evalues</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">):]</span>  <span class="c1"># positive in increasing order</span>
+            <span class="n">idxn</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evalues</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># negative in decreasing order</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">idxp</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evalues</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">):]</span>  <span class="c1"># positive in increasing order</span>
+        <span class="n">idxn</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evalues</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># negative in decreasing order</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">idxp</span><span class="p">,</span> <span class="n">idxn</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">evalues</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">evectors</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function is used to normalize vectors of the matrix</span>
+<span class="sd">    Y with respect to X so that Y.T @ X = I (identity).</span>
+<span class="sd">    This is used to normalize the matrix with the left eigenvectors.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X: array</span>
+<span class="sd">        A complex or real matrix</span>
+<span class="sd">    Y: array</span>
+<span class="sd">        A complex or real matrix to be normalized</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Yn: array</span>
+<span class="sd">        Normalized matrix</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">    &gt;&gt;&gt; X = np.array([[ 0.84+0.j  ,  0.14-0.j  ,  0.84-0.j  ,  0.14+0.j  ],</span>
+<span class="sd">    ...               [ 0.01-0.3j ,  0.00+0.15j,  0.01+0.3j ,  0.00-0.15j],</span>
+<span class="sd">    ...               [-0.09+0.42j, -0.01+0.65j, -0.09-0.42j, -0.01-0.65j],</span>
+<span class="sd">    ...               [ 0.15+0.04j, -0.74+0.j  ,  0.15-0.04j, -0.74-0.j  ]])</span>
+<span class="sd">    &gt;&gt;&gt; Y = np.array([[-0.03-0.41j,  0.04+0.1j , -0.03+0.41j,  0.04-0.1j ],</span>
+<span class="sd">    ...            [ 0.88+0.j  ,  0.68+0.j  ,  0.88-0.j  ,  0.68-0.j  ],</span>
+<span class="sd">    ...            [-0.21-0.j  ,  0.47+0.05j, -0.21+0.j  ,  0.47-0.05j],</span>
+<span class="sd">    ...            [ 0.00-0.08j,  0.05-0.54j,  0.00+0.08j,  0.05+0.54j]])</span>
+<span class="sd">    &gt;&gt;&gt; Yn = normalize(X, Y)</span>
+<span class="sd">    &gt;&gt;&gt; Yn</span>
+<span class="sd">    array([[ 0.57822773 -4.69882840e-02j,  0.11696967 -5.85231773e-02j,</span>
+<span class="sd">             0.57822773 +4.69882840e-02j,  0.11696967 +5.85231773e-02j],</span>
+<span class="sd">           [ 0.00998912 +1.24180506e+00j, -0.06879320 -8.22911025e-01j,</span>
+<span class="sd">             0.00998912 -1.24180506e+00j, -0.06879320 +8.22911025e-01j],</span>
+<span class="sd">           [-0.00238377 -2.96339843e-01j,  0.01295993 -5.73835061e-01j,</span>
+<span class="sd">            -0.00238377 +2.96339843e-01j,  0.01295993 +5.73835061e-01j],</span>
+<span class="sd">           [ 0.11289137 -9.08101611e-04j, -0.65854649 -5.87827297e-03j,</span>
+<span class="sd">             0.11289137 +9.08101611e-04j, -0.65854649 +5.87827297e-03j]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">Yn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">YTX</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span> <span class="c1"># normalize y so that Y.T @ X will return I</span>
+    <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">YTX</span><span class="p">)]</span>
+    <span class="c1"># multiply each column in y by a factor in &#39;factors&#39;</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Y</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+        <span class="n">Yn</span><span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">factors</span><span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="n">Yn</span> <span class="o">=</span> <span class="n">Yn</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="k">return</span> <span class="n">Yn</span>
+
+
+<div class="viewcode-block" id="modes_system_undamped"><a class="viewcode-back" href="../reference/mdof.html#mdof.modes_system_undamped">[docs]</a><span class="k">def</span> <span class="nf">modes_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function will return the natural frequencies (w),</span>
+<span class="sd">    eigenvectors (P), mode shapes (S) abd the modal transformation</span>
+<span class="sd">    matrix S^-1(takes x -&gt; r(modal coordinates) for an undamped system.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    M: array</span>
+<span class="sd">        Mass matrix</span>
+<span class="sd">    K: array</span>
+<span class="sd">        Stiffness matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    w: array</span>
+<span class="sd">        The natural frequencies of the system</span>
+<span class="sd">    P: array</span>
+<span class="sd">        The eigenvectors of the system are.</span>
+<span class="sd">    S: array</span>
+<span class="sd">        The mode shapes of the system.</span>
+<span class="sd">    Sinv: array</span>
+<span class="sd">        The modal transformation matrix S^-1(takes x -&gt; r(modal coordinates))</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">    &gt;&gt;&gt; M = np.array([[4, 0, 0],</span>
+<span class="sd">    ...               [0, 4, 0],</span>
+<span class="sd">    ...               [0, 0, 4]])</span>
+<span class="sd">    &gt;&gt;&gt; K = np.array([[8, -4, 0],</span>
+<span class="sd">    ...               [-4, 8, -4],</span>
+<span class="sd">    ...               [0, -4, 4]])</span>
+<span class="sd">    &gt;&gt;&gt; w, P, S, Sinv = modes_system_undamped(M, K)</span>
+<span class="sd">    &gt;&gt;&gt; w</span>
+<span class="sd">    array([ 0.44504187,  1.2469796 ,  1.80193774])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+    <span class="n">Linv</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+    <span class="n">lam</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">eigen</span><span class="p">(</span><span class="n">Linv</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">Linv</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lam</span><span class="p">))</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">Linv</span> <span class="o">@</span> <span class="n">P</span>
+    <span class="n">Sinv</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Linv</span>
+
+    <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Sinv</span></div>
+
+
+<div class="viewcode-block" id="modes_system"><a class="viewcode-back" href="../reference/mdof.html#mdof.modes_system">[docs]</a><span class="k">def</span> <span class="nf">modes_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function will return the natural frequencies (wn), the</span>
+<span class="sd">    damped natural frequencies (wd), the damping ratios (zeta),</span>
+<span class="sd">    the right eigenvectors (X) and the left eigenvectors (Y) for a</span>
+<span class="sd">    system defined by M, K and C.</span>
+<span class="sd">    If the dampind matrix &#39;C&#39; is none or if the damping is proportional,</span>
+<span class="sd">    wd and zeta will be none and X and Y will be equal.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    M: array</span>
+<span class="sd">        Mass matrix</span>
+<span class="sd">    K: array</span>
+<span class="sd">        Stiffness matrix</span>
+<span class="sd">    C: array</span>
+<span class="sd">        Damping matrix</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    wn: array</span>
+<span class="sd">        The natural frequencies of the system</span>
+<span class="sd">    wd: array</span>
+<span class="sd">        The damped natural frequencies of the system</span>
+<span class="sd">    zeta: array</span>
+<span class="sd">        The damping ratios</span>
+<span class="sd">    X: array</span>
+<span class="sd">        The right eigenvectors</span>
+<span class="sd">    Y: array</span>
+<span class="sd">        The left eigenvectors</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">    &gt;&gt;&gt; M = np.array([[1, 0],</span>
+<span class="sd">    ...               [0, 1]])</span>
+<span class="sd">    &gt;&gt;&gt; K = np.array([[1, -0.4],</span>
+<span class="sd">    ...               [0.4, 6]])</span>
+<span class="sd">    &gt;&gt;&gt; C = np.array([[0.3, -4],</span>
+<span class="sd">    ...               [4, 0.2]])</span>
+<span class="sd">    &gt;&gt;&gt; wn, wd, zeta, X, Y = modes_system(M, K, C)</span>
+<span class="sd">    Damping is non-proportional, eigenvectors are complex.</span>
+<span class="sd">    &gt;&gt;&gt; wn</span>
+<span class="sd">    array([ 0.5206175 ,  4.76729024,  0.5206175 ,  4.76729024])</span>
+<span class="sd">    &gt;&gt;&gt; wd</span>
+<span class="sd">    array([ 0.50825856,  4.76531454, -0.50825856, -4.76531454])</span>
+<span class="sd">    &gt;&gt;&gt; zeta</span>
+<span class="sd">    array([ 0.21659744,  0.02878692,  0.21659744,  0.02878692])</span>
+<span class="sd">    &gt;&gt;&gt; X</span>
+<span class="sd">    array([[ 0.83593587+0.j        ,  0.13536177-0.00208189j,</span>
+<span class="sd">             0.83593587-0.j        ,  0.13536177+0.00208189j],</span>
+<span class="sd">           [ 0.00811744-0.29648107j,  0.00444279+0.15426956j,</span>
+<span class="sd">             0.00811744+0.29648107j,  0.00444279-0.15426956j],</span>
+<span class="sd">           [-0.09426382+0.42487157j, -0.00865558+0.6453271j ,</span>
+<span class="sd">            -0.09426382-0.42487157j, -0.00865558-0.6453271j ],</span>
+<span class="sd">           [ 0.14977369+0.03755828j, -0.73575270+0.j        ,</span>
+<span class="sd">             0.14977369-0.03755828j, -0.73575270-0.j        ]])</span>
+<span class="sd">    &gt;&gt;&gt; Y</span>
+<span class="sd">    array([[ 0.57880640-0.04653746j,  0.12020049-0.05551985j,</span>
+<span class="sd">             0.57880640+0.04653746j,  0.12020049+0.05551985j],</span>
+<span class="sd">           [ 0.01204879+1.25620685j, -0.06167340-0.8279964j ,</span>
+<span class="sd">             0.01204879-1.25620685j, -0.06167340+0.8279964j ],</span>
+<span class="sd">           [-0.00101305-0.3004544j ,  0.01513120-0.57704216j,</span>
+<span class="sd">            -0.00101305+0.3004544j ,  0.01513120+0.57704216j],</span>
+<span class="sd">           [ 0.10657189+0.0025583j , -0.65801243-0.00842571j,</span>
+<span class="sd">             0.10657189-0.0025583j , -0.65801243+0.00842571j]])</span>
+<span class="sd">    &gt;&gt;&gt; C = K*2 # with proportional damping</span>
+<span class="sd">    &gt;&gt;&gt; wn, wd, zeta, X, Y = modes_system(M, K, C)</span>
+<span class="sd">    Damping is proportional or zero, eigenvectors are real</span>
+<span class="sd">    &gt;&gt;&gt; X</span>
+<span class="sd">    array([[-0.99677405,  0.08025891],</span>
+<span class="sd">           [ 0.08025891, -0.99677405]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">Minv</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">C</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">C</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="c1"># check if C has only zero entries</span>
+        <span class="n">la</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Minv</span> <span class="o">@</span> <span class="n">C</span> <span class="o">@</span> <span class="n">K</span> <span class="o">-</span> <span class="n">Minv</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">C</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-8</span><span class="o">*</span><span class="n">la</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Minv</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">C</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Sinv</span> <span class="o">=</span> <span class="n">modes_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+        <span class="n">wn</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="n">wd</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="n">zeta</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">P</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">P</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Damping is proportional or zero, eigenvectors are real&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span>
+
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="c1"># creates the state space matrix</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span> <span class="n">I</span><span class="p">]),</span>
+                   <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">M</span><span class="p">)</span> <span class="o">@</span> <span class="n">K</span><span class="p">,</span> <span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">M</span><span class="p">)</span> <span class="o">@</span> <span class="n">C</span><span class="p">])])</span>
+
+    <span class="n">w</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">eigen</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">eigen</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="n">wd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">wn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">zeta</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Damping is non-proportional, eigenvectors are complex.&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span></div>
+
+
+<div class="viewcode-block" id="response_system_undamped"><a class="viewcode-back" href="../reference/mdof.html#mdof.response_system_undamped">[docs]</a><span class="k">def</span> <span class="nf">response_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">max_time</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function calculates the time response for an undamped system</span>
+<span class="sd">    and returns the vector (state-space) X. The n first rows contain the</span>
+<span class="sd">    displacement (x) and the n last rows contain velocity (v) for each</span>
+<span class="sd">    coordinate. Each column is related to a time-step.</span>
+<span class="sd">    The time array is also returned.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    M: array</span>
+<span class="sd">        Mass matrix</span>
+<span class="sd">    K: array</span>
+<span class="sd">        Stiffness matrix</span>
+<span class="sd">    x0: array</span>
+<span class="sd">        Array with displacement initial conditions</span>
+<span class="sd">    v0: array</span>
+<span class="sd">        Array with velocity initial conditions</span>
+<span class="sd">    max_time: float</span>
+<span class="sd">        End time</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t: array</span>
+<span class="sd">        Array with the time</span>
+<span class="sd">    X: array</span>
+<span class="sd">        The state-space vector for each time</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">    &gt;&gt;&gt; M = np.array([[1, 0],</span>
+<span class="sd">    ...               [0, 4]])</span>
+<span class="sd">    &gt;&gt;&gt; K = np.array([[12, -2],</span>
+<span class="sd">    ...               [-2, 12]])</span>
+<span class="sd">    &gt;&gt;&gt; x0 = np.array([1, 1])</span>
+<span class="sd">    &gt;&gt;&gt; v0 = np.array([0, 0])</span>
+<span class="sd">    &gt;&gt;&gt; max_time = 10</span>
+<span class="sd">    &gt;&gt;&gt; t, X = response_system_undamped(M, K, x0, v0, max_time)</span>
+<span class="sd">    &gt;&gt;&gt; X[:, 0] # first column of X will contain the initial conditions [x1, x2, v1, v2]</span>
+<span class="sd">    array([ 1.,  1.,  0.,  0.])</span>
+<span class="sd">    &gt;&gt;&gt; X[:, 1] # displacement and velocities after delta t</span>
+<span class="sd">    array([ 0.99991994,  0.99997998, -0.04001478, -0.01000397])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_time</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mi">250</span> <span class="o">*</span> <span class="n">max_time</span><span class="p">))</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+    <span class="c1"># creates the state space matrix</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span>               <span class="n">I</span><span class="p">]),</span>
+                   <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">M</span><span class="p">)</span> <span class="o">@</span> <span class="n">K</span><span class="p">,</span> <span class="n">Z</span><span class="p">])])</span>
+
+    <span class="c1"># creates the x array and set the first line according to the initial</span>
+    <span class="c1"># conditions</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+    <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">])</span>
+
+    <span class="n">Ad</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="n">A</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">X</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Ad</span> <span class="o">@</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">X</span></div>
+
+
+<div class="viewcode-block" id="response_system"><a class="viewcode-back" href="../reference/mdof.html#mdof.response_system">[docs]</a><span class="k">def</span> <span class="nf">response_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function solves the system given the initial</span>
+<span class="sd">    displacement vector &#39;X0&#39;, initial velocity vector &#39;V0&#39;,</span>
+<span class="sd">    the mass matrix &#39;M&#39;, the stiffness matrix &#39;M&#39;, and the damping</span>
+<span class="sd">    matrix &#39;C&#39; and force &#39;F&#39;.</span>
+<span class="sd">    T is a row vector of evenly spaced times.</span>
+<span class="sd">    F is a matrix of forces over time, each column corresponding</span>
+<span class="sd">    to the corresponding column of T, each row corresponding to</span>
+<span class="sd">    the same numbered DOF.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    M: array</span>
+<span class="sd">        Mass matrix</span>
+<span class="sd">    K: array</span>
+<span class="sd">        Stiffness matrix</span>
+<span class="sd">    C: array</span>
+<span class="sd">        Damping matrix</span>
+<span class="sd">    x0: array</span>
+<span class="sd">        Array with displacement initial conditions</span>
+<span class="sd">    v0: array</span>
+<span class="sd">        Array with velocity initial conditions</span>
+<span class="sd">    t: array</span>
+<span class="sd">        Array withe evenly spaced times</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    T : array</span>
+<span class="sd">        Time values for the output.</span>
+<span class="sd">    yout : array</span>
+<span class="sd">        System response.</span>
+<span class="sd">    xout : array</span>
+<span class="sd">        Time evolution of the state vector.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">    &gt;&gt;&gt; M = np.array([[9, 0],</span>
+<span class="sd">    ...               [0, 1]])</span>
+<span class="sd">    &gt;&gt;&gt; K = np.array([[27, -3],</span>
+<span class="sd">    ...               [-3, 3]])</span>
+<span class="sd">    &gt;&gt;&gt; C = K/10</span>
+<span class="sd">    &gt;&gt;&gt; x0 = np.array([0, 1])</span>
+<span class="sd">    &gt;&gt;&gt; v0 = np.array([1, 0])</span>
+<span class="sd">    &gt;&gt;&gt; t = np.linspace(0, 10, 100)</span>
+<span class="sd">    &gt;&gt;&gt; F = np.vstack([0*t,</span>
+<span class="sd">    ...                3*np.cos(2*t)])</span>
+<span class="sd">    &gt;&gt;&gt; tou, yout, xout = response_system(M, C, K, F, x0, v0, t)</span>
+<span class="sd">    &gt;&gt;&gt; tou[:10]</span>
+<span class="sd">    array([ 0.        ,  0.1010101 ,  0.2020202 ,  0.3030303 ,  0.4040404 ,</span>
+<span class="sd">            0.50505051,  0.60606061,  0.70707071,  0.80808081,  0.90909091])</span>
+<span class="sd">    &gt;&gt;&gt; yout[:10]</span>
+<span class="sd">    array([[ 0.        ,  1.        ,  1.        ,  0.        ],</span>
+<span class="sd">           [ 0.1006699 ,  1.0019166 ,  0.9882704 ,  0.04164362],</span>
+<span class="sd">           [ 0.19867119,  1.00889664,  0.94748001,  0.09763215],</span>
+<span class="sd">           [ 0.29117815,  1.02159599,  0.87992707,  0.15230092],</span>
+<span class="sd">           [ 0.37563287,  1.03911711,  0.78859082,  0.19072496],</span>
+<span class="sd">           [ 0.44980625,  1.05913319,  0.67697613,  0.19968169],</span>
+<span class="sd">           [ 0.5118431 ,  1.07810368,  0.54895551,  0.16848849],</span>
+<span class="sd">           [ 0.56029149,  1.09156627,  0.40861572,  0.08967373],</span>
+<span class="sd">           [ 0.59411703,  1.09448692,  0.26011522, -0.04055038],</span>
+<span class="sd">           [ 0.61270358,  1.08164667,  0.10755703, -0.22203433]])</span>
+<span class="sd">    &gt;&gt;&gt; xout[:10]</span>
+<span class="sd">    array([[ 0.        ,  1.        ,  1.        ,  0.        ],</span>
+<span class="sd">           [ 0.1006699 ,  1.0019166 ,  0.9882704 ,  0.04164362],</span>
+<span class="sd">           [ 0.19867119,  1.00889664,  0.94748001,  0.09763215],</span>
+<span class="sd">           [ 0.29117815,  1.02159599,  0.87992707,  0.15230092],</span>
+<span class="sd">           [ 0.37563287,  1.03911711,  0.78859082,  0.19072496],</span>
+<span class="sd">           [ 0.44980625,  1.05913319,  0.67697613,  0.19968169],</span>
+<span class="sd">           [ 0.5118431 ,  1.07810368,  0.54895551,  0.16848849],</span>
+<span class="sd">           [ 0.56029149,  1.09156627,  0.40861572,  0.08967373],</span>
+<span class="sd">           [ 0.59411703,  1.09448692,  0.26011522, -0.04055038],</span>
+<span class="sd">           [ 0.61270358,  1.08164667,  0.10755703, -0.22203433]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="c1"># creates the state space matrix</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span>               <span class="n">I</span><span class="p">]),</span>
+                   <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">M</span><span class="p">)</span> <span class="o">@</span> <span class="n">K</span><span class="p">,</span> <span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">M</span><span class="p">)</span> <span class="o">@</span> <span class="n">C</span><span class="p">])])</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span>
+                   <span class="n">la</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">M</span><span class="p">)])</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">B</span>
+
+    <span class="n">sys</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lti</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
+
+    <span class="n">IC</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">])</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">T</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lsim</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">IC</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">T</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">xout</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">ELLIPSIS</span><span class="p">)</span>
+    <span class="c1"># doctest.run_docstring_examples(frfest,globals(),optionflags=doctest.ELLIPSIS)</span>
+    <span class="c1"># doctest.run_docstring_examples(asd,globals(),optionflags=doctest.ELLIPSIS)</span>
+    <span class="sd">&quot;&quot;&quot; What this does.</span>
+<span class="sd">    python (name of this file)  -v</span>
+<span class="sd">    will test all of the examples in the help.</span>
+
+<span class="sd">    Leaving off -v will run the tests without any output. Success will return nothing.</span>
+
+<span class="sd">    See the doctest section of the python manual.</span>
+<span class="sd">    https://docs.python.org/3.5/library/doctest.html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Joseph C. Slater and Raphael Timbo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

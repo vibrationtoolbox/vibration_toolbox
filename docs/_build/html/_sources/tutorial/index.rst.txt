@@ -1,6 +1,6 @@
-*****************
-Vibration Toolbox
-*****************
+Tutorial
+________
+
 
 .. sectionauthor:: Joseph C. Slater
 
@@ -9,7 +9,9 @@ Vibration Toolbox
 
    sdof
    working_notebook.ipynb
-   Beats
+
+
+..   Beats
 
 ..   ../../JupyterNotebooks/temp
 ..   working_notebook.ipynb
