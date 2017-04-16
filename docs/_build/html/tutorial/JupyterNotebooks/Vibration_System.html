@@ -210,26 +210,26 @@ div.nboutput div.output_area.stderr {
 <h1>Vibration System Objects<a class="headerlink" href="#Vibration-System-Objects" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [1]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="kn">as</span> <span class="nn">vt</span>
+<span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="kn">as</span> <span class="nn">vtb</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="Vibration-system-object">
 <h1>Vibration system object<a class="headerlink" href="#Vibration-system-object" title="Permalink to this headline">¶</a></h1>
-<p>This notebook will introduce the class VibSystem(), which is available
+<p>This notebook will introduce the class VibeSystem(), which is available
 in the vibration_toolbox. As an example we will use the following 3
 degree of freedom system:</p>
 <div class="figure" id="id1">
 <img alt="System" src="../../_images/system.png" />
 <p class="caption"><span class="caption-text">System</span></p>
 </div>
-<p>If we look at the help for the VibSystem class we have:</p>
+<p>If we look at the help for the VibeSystem class we have:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Parameters</span>
 <span class="o">----------</span>
 <span class="n">M</span> <span class="p">:</span> <span class="n">array</span>
@@ -243,7 +243,7 @@ degree of freedom system:</p>
 </pre></div>
 </div>
 <p>So we need to get the mass, stiffness and damping matrix to create a
-VibSystem object (the name of the system is optional and can be used
+VibeSystem object (the name of the system is optional and can be used
 latter to help when we plot results).</p>
 <p>For this system the kinetic energy is:</p>
 <p>where <span class="math">\({\bf q(t)} = [q_0(t) \  q_1(t) \ q_2(t)]^T\)</span> is the
@@ -288,7 +288,7 @@ configuration vector. The mass matrix for this system is given by:</p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">sys</span> <span class="o">=</span> <span class="n">vt</span><span class="o">.</span><span class="n">VibSystem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;3 dof system&#39;</span><span class="p">)</span>
+<span></span><span class="n">sys</span> <span class="o">=</span> <span class="n">vt</span><span class="o">.</span><span class="n">VibeSystem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;3 dof system&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
