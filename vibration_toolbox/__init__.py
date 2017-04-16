@@ -21,7 +21,7 @@ __version__ = '0.5b9'
 __author__ = u'Joseph C. Slater and Raphael Timbó'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 1991-2017 Joseph C. Slater'
-__all__ = ['sdof', 'mdof', 'ema', 'vibsystem', 'continuous_systems',
+__all__ = ['sdof', 'mdof', 'ema', 'vibesystem.py', 'continuous_systems',
            '__version__']
 
 import scipy as sp
@@ -30,5 +30,5 @@ import matplotlib.pyplot as plt
 from .sdof import *
 from .mdof import *
 from .ema import *
-from .vibsystem import *
+from .vibesystem import *
 from .continuous_systems import *

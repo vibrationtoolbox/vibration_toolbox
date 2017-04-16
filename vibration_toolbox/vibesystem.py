@@ -2,10 +2,10 @@ import numpy as np
 import scipy.linalg as la
 from scipy import signal
 
-__all__ = ['VibSystem']
+__all__ = ['VibeSystem']
 
 
-class VibSystem(object):
+class VibeSystem(object):
     def __init__(self, M, C, K, name=None):
         r"""A multiple degrees of freedom system.
 
@@ -53,7 +53,7 @@ class VibSystem(object):
         ...               [-c2, c2+c3]])
         >>> K = np.array([[k1+k2, -k2],
         ...               [-k2, k2+k3]])
-        >>> sys1 = VibSystem(M, C, K)
+        >>> sys1 = VibeSystem(M, C, K)
         >>> sys1.wn
         array([ 5.03292121,  8.71727525])
         >>> sys1.wd
@@ -222,7 +222,7 @@ class VibSystem(object):
         ...               [-c2, c2+c3]])
         >>> K = np.array([[k1+k2, -k2],
         ...               [-k2, k2+k3]])
-        >>> sys1 = VibSystem(M, C, K) # create the system
+        >>> sys1 = VibeSystem(M, C, K) # create the system
         >>> t = np.linspace(0, 25, 1000) # time array
         >>> F2 = np.zeros((len(t), 2))
         >>> F2[:, 1] = 1000*np.sin(40*t) # force applied on m2
@@ -275,7 +275,7 @@ class VibSystem(object):
         ...               [-c2, c2+c3]])
         >>> K = np.array([[k1+k2, -k2],
         ...               [-k2, k2+k3]])
-        >>> sys1 = VibSystem(M, C, K) # create the system
+        >>> sys1 = VibeSystem(M, C, K) # create the system
         >>> omega, magdb, phase = sys1.freq_response()
         >>> magdb[0, 1, :4] # magnitude for output on 0 and input on 1.
         array([-69.54242509, -69.54234685, -69.54211212, -69.5417209 ])
