@@ -137,6 +137,13 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'VibrationToolboxdoc'
 
+html_theme_options = {
+#    'logo': 'js.jpg',
+    'github_button': 'True',
+    'github_user': 'vibrationtoolbox',
+    'analytics_id': 'UA-62100376-4',
+}
+
 
 # -- Options for LaTeX output ---------------------------------------------
 
