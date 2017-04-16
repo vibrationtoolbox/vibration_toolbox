@@ -70,8 +70,8 @@ numpydoc_use_plots = True
 
 # General information about the project.
 project = 'Vibration Toolbox'
-copyright = '2017, Joseph C. Slater and Raphael Timbo'
-author = 'Joseph C. Slater and Raphael Timbo'
+copyright = u'2017, Joseph C. Slater and Raphael Timbó'
+author = u'Joseph C. Slater and Raphael Timbó'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -163,7 +163,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'VibrationToolbox.tex', 'Vibration Toolbox Documentation',
-     'Joseph C. Slater and Raphael Timbo', 'manual'),
+     'Joseph C. Slater and Raphael Timbó', 'manual'),
 ]
 
 
