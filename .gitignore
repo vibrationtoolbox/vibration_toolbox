@@ -1,14 +1,12 @@
 *.*~
-<<<<<<< HEAD
+
 =======
 
 Vibration_Toolbox.egg-info
 Vibration_Toolbox.egg-info/*
 VibrationToolbox.egg-info
 
->>>>>>> refs/remotes/origin/master
 # OS generated files #
-######################
 .DS_Store
 .DS_Store?
 ._*
@@ -16,11 +14,10 @@ VibrationToolbox.egg-info
 .Trashes
 ehthumbs.db
 Thumbs.db
-<<<<<<< HEAD
+
 
 .DS_Store
 
-=======
 .ipynb_check*
 .ipynb*check*/*
 .#.*
@@ -37,4 +34,3 @@ Untitled*.ipynb
 *.*~
 __pycache__
 .idea/
->>>>>>> refs/remotes/origin/master
