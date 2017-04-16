@@ -1,20 +1,18 @@
 {
  "cells": [
   {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "collapsed": true
-   },
-   "outputs": [],
+   "cell_type": "markdown",
+   "metadata": {},
    "source": [
-    "%matplotlib inline"
+    "# Title"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
-   "metadata": {},
+   "execution_count": 1,
+   "metadata": {
+    "collapsed": true
+   },
    "outputs": [],
    "source": [
     "import numpy as np\n",
@@ -29,12 +27,12 @@
    ]
   },
   {
+   "attachments": {},
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "This notebook will introduce the ```class VibSystem()```, which is available in the vibration_toolbox.\n",
-    "\n",
-    "As an example we will use the following 3 degree of fredom system:\n",
+    "This notebook will introduce the class VibSystem(), which is available in the vibration_toolbox.\n",
+    "As an example we will use the following 3 degree of freedom system:\n",
     "\n",
     "![System](system.png)"
    ]
@@ -107,7 +105,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 2,
    "metadata": {
     "collapsed": true
    },
@@ -127,8 +125,10 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
-   "metadata": {},
+   "execution_count": 3,
+   "metadata": {
+    "collapsed": true
+   },
    "outputs": [],
    "source": [
     "M = np.array([[m0, 0, 0],\n",
@@ -141,19 +141,21 @@
    ]
   },
   {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "sys = vt.VibSystem(M, C, K, name='3 dof system')"
+   ]
+  },
+  {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
     "Now we have everything needed to create a vibration system object:"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 5,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "sys = vt.VibSystem(M, C, K, name='3 dof system')"
    ]
   },
   {
@@ -167,8 +169,10 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
-   "metadata": {},
+   "execution_count": 7,
+   "metadata": {
+    "scrolled": true
+   },
    "outputs": [
     {
      "data": {
@@ -176,7 +180,7 @@
        "array([  2.83322453,   7.93851871,  11.47149191])"
       ]
      },
-     "execution_count": 9,
+     "execution_count": 7,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -194,16 +198,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "array([  2.83220788,   7.9162503 ,  11.40422301])"
+       "array([  2.83311158,   7.93604753,  11.46403708])"
       ]
      },
-     "execution_count": 10,
+     "execution_count": 8,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -221,22 +225,22 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 21,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "array([  2.82190789,   7.68746931,  10.70033077])"
+       "array([ 2.78768234,  6.87957115,  7.95002732])"
       ]
      },
-     "execution_count": 21,
+     "execution_count": 10,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "sys.C = 10*C\n",
+    "sys.C = 20*C\n",
     "sys.wd"
    ]
   },
@@ -251,12 +255,23 @@
   }
  ],
  "metadata": {
-  "anaconda-cloud": {},
   "hide_input": false,
   "kernelspec": {
    "display_name": "Python 3",
    "language": "python",
    "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.1"
   },
   "latex_envs": {
    "bibliofile": "biblio.bib",
@@ -267,5 +282,5 @@
   }
  },
  "nbformat": 4,
- "nbformat_minor": 1
+ "nbformat_minor": 2
 }
