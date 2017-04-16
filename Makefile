@@ -34,7 +34,6 @@ cover: clean
 	coverage annotate
 
 release: clean gh-pages
-	pip install wheel
 	python setup.py register
 	rm -rf dist
 	python setup.py bdist_wheel

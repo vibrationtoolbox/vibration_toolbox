@@ -206,12 +206,12 @@ div.nboutput div.output_area.stderr {
 </style>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [1]:
+<span></span>In [2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="kn">as</span> <span class="nn">vt</span>
+<div class="input_area highlight-none"><div class="highlight"><pre>
+<span></span>import numpy as np
+import vibration_toolbox as vt
 </pre></div>
 </div>
 </div>
@@ -250,41 +250,41 @@ configuration vector. The mass matrix for this system is given by:</p>
 <p>Let&#8217;s consider the following values for our system:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [2]:
+<span></span>In [3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">m0</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="n">k2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1600</span><span class="p">,</span> <span class="mi">1600</span><span class="p">,</span> <span class="mi">1600</span><span class="p">)</span>
-<span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="mf">1e-3</span>
+<div class="input_area highlight-none"><div class="highlight"><pre>
+<span></span>m0, m1, m2 = (1, 1, 1)
+k0, k1, k2 = (1600, 1600, 1600)
+alpha, beta = 1e-3, 1e-3
 </pre></div>
 </div>
 </div>
 <p>Now we use numpy to create our matrices:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [3]:
+<span></span>In [4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">m0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">m2</span><span class="p">]])</span>
-<span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">k0</span><span class="o">+</span><span class="n">k1</span><span class="p">,</span> <span class="o">-</span><span class="n">k1</span><span class="p">,</span>   <span class="mi">0</span><span class="p">],</span>
-              <span class="p">[</span><span class="o">-</span><span class="n">k1</span><span class="p">,</span> <span class="n">k1</span><span class="o">+</span><span class="n">k2</span><span class="p">,</span> <span class="o">-</span><span class="n">k2</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">0</span><span class="p">,</span>     <span class="o">-</span><span class="n">k2</span><span class="p">,</span>  <span class="n">k2</span><span class="p">]])</span>
-<span class="n">C</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">*</span><span class="n">M</span> <span class="o">+</span> <span class="n">beta</span><span class="o">*</span><span class="n">K</span>
+<div class="input_area highlight-none"><div class="highlight"><pre>
+<span></span>M = np.array([[m0, 0, 0],
+              [0, m1, 0],
+              [0, 0, m2]])
+K = np.array([[k0+k1, -k1,   0],
+              [-k1, k1+k2, -k2],
+              [0,     -k2,  k2]])
+C = alpha*M + beta*K
 </pre></div>
 </div>
 </div>
 <p>Now we have everything needed to create a vibration system object:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [4]:
+<span></span>In [5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">sys</span> <span class="o">=</span> <span class="n">vt</span><span class="o">.</span><span class="n">VibSystem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;3 dof system&#39;</span><span class="p">)</span>
+<div class="input_area highlight-none"><div class="highlight"><pre>
+<span></span>sys = vt.VibSystem(M, C, K, name=&#39;3 dof system&#39;)
 </pre></div>
 </div>
 </div>
@@ -293,17 +293,17 @@ attributes and methods that are available.</p>
 <p>As an example we can get the natural frequencies:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [5]:
+<span></span>In [6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">sys</span><span class="o">.</span><span class="n">wn</span>
+<div class="input_area highlight-none"><div class="highlight"><pre>
+<span></span>sys.wn
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[5]:
+<span></span>Out[6]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -314,17 +314,17 @@ attributes and methods that are available.</p>
 <p>Or the damped natural frequencies:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [6]:
+<span></span>In [7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">sys</span><span class="o">.</span><span class="n">wd</span>
+<div class="input_area highlight-none"><div class="highlight"><pre>
+<span></span>sys.wd
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[6]:
+<span></span>Out[7]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
@@ -335,22 +335,32 @@ attributes and methods that are available.</p>
 <p>M, C and K can be changed and the system will be updated:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [7]:
+<span></span>In [8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">sys</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">C</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">wd</span>
+<div class="input_area highlight-none"><div class="highlight"><pre>
+<span></span>sys.C = 3*C
+sys.wd
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[7]:
+<span></span>Out[8]:
 </pre></div>
 </div>
 <div class="output_area highlight-none"><div class="highlight"><pre>
 <span></span>array([  2.83220788,   7.9162503 ,  11.40422301])
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-none"><div class="highlight"><pre>
+<span></span>
 </pre></div>
 </div>
 </div>
