@@ -21,9 +21,9 @@ isn't the intent.
 
 For more information, please see the `documentation for the Python version <http://vibrationtoolbox.github.io/vibration_toolbox/>`_ but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox.
 
--------------
- Installation
--------------
+
+Installation
+------------
 Installation is made easy with ``pip``, with releases as we have time while we try
 to create a full first release. Much of it works already, but we certainly need
 issue reports (on `github <http://github.com/vibrationtoolbox/vibration_toolbox>`_).
@@ -34,6 +34,6 @@ To install::
 
 To run, open a ``jupyter`` notebook and type::
 
-  import vibration_toolbox as vt
+  import vibration_toolbox as vtb
 
 For examples, see the `JupyterNotebooks folder <https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/JupyterNotebooks>`_.
