@@ -67,9 +67,13 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
            [ 0.98273317]])
     >>> t, x, *_ = vtb.free_response() # *_ ignores all other returns
     >>> plt.plot(t,x)
+    [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('Time (sec)')
+    <matplotlib.text.Text object at ...>
     >>> plt.ylabel('Displacement (m)')
+    <matplotlib.text.Text object at ...>
     >>> plt.title('Displacement versus time')
+    <matplotlib.text.Text object at ...>
     >>> plt.grid('on')
     """
 

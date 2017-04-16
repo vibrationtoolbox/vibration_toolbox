@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy import fft
+import scipy as sp
 import matplotlib as mpl
 from scipy.interpolate import UnivariateSpline
-from scipy import integrate
+
 
 try:
     from IPython.display import clear_output, display, HTML
@@ -29,14 +29,14 @@ mpl.rcParams['figure.figsize'] = (10, 6)
 
 
 def euler_beam_modes(n=10, bctype=2, npoints=2001,
-                     beamparams=np.array((7.31e10, 8.4375e-09,
-                                          2747, 4.5e-04, 0.4))):
+                     beamparams=np.array([7.31e10, 8.4375e-09,
+                                          2747.0, 4.5e-04, 0.4])):
     """Mode shapes and natural frequencies of Euler-Bernoulli beam.
 
     Parameters
     ----------
     n: int, numpy array
-        mode number or array of mode numbers
+        highest mode number or array of mode numbers to return
     bctype: int
         bctype = 1 free-free
         bctype = 2 clamped-free
@@ -68,10 +68,13 @@ def euler_beam_modes(n=10, bctype=2, npoints=2001,
     >>> import vibration_toolbox as vtb
     >>> omega_n, x, U = vtb.euler_beam_modes(n=1)
     >>> plt.plot(x,U)
+    [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
+    <matplotlib.text.Text object at ...>
     >>> plt.ylabel('Displacement (m)')
+    <matplotlib.text.Text object at ...>
     >>> plt.title('Mode 1')
-
+    <matplotlib.text.Text object at ...>
     """
     E = beamparams[0]
     I = beamparams[1]
@@ -194,10 +197,11 @@ def euler_beam_modes(n=10, bctype=2, npoints=2001,
 
 
 def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
-                   beamparams=np.array((7.31e10, 1 / 12 * 0.03 * .015 ** 3,
-                                        2747, .015 * 0.03, 0.4)), bctype=2):
-    '''Frequency response function fo Euler-Bernoulli beam
-
+                   bctype=2, npoints=2001,
+                   beamparams=np.array([7.31e10, 1 / 12 * 0.03 * .015 ** 3,
+                                        2747.0, .015 * 0.03, 0.4])):
+    """Frequency response function fo Euler-Bernoulli beam.
+    See working notebook for working code
     Parameters
     ----------
     xin: float
@@ -207,7 +211,7 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
     fmin: float
         lowest frequency of interest
     fmax: float
-        highest frrequency of interest
+        highest frequency of interest
     zeta: float
         damping ratio
     bctype: int
@@ -236,65 +240,70 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
     --------
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
-    >>> vtb.euler_beam_frf()
-
-    '''
-
+    >>> _, _ = vtb.euler_beam_frf()
+    """
     E = beamparams[0]
     I = beamparams[1]
     rho = beamparams[2]
     A = beamparams[3]
     L = beamparams[4]
-    np = 2001
+    npoints = 2001
     i = 0
-    w = np.linspace(fmin, fmax, 2001) * 2 * np.pi
+    w = sp.linspace(fmin, fmax, 2001) * 2 * sp.pi
     if min([xin, xout]) < 0 or max([xin, xout]) > L:
         print('One or both locations are not on the beam')
         return
-    wn = np.array((0, 0))
+    wn = sp.array((0, 0))
     # The number 100 is arbitrarily large and unjustified.
-    a = np.empty([np, 100], dtype=complex)
-    f = np.empty(100)
+    a = sp.empty([npoints, 100], dtype=complex)
+    f = sp.empty(100)
 
-    while wn[-1] < 1.3 * (fmax * 2 * np.pi):
+    while wn[-1] < 1.3 * (fmax * 2 * sp.pi):
+
         i = i + 1
-        # legtext[i + 1]=[char('Contribution of mode '),num2str_(i)]
-        wn, xx, U = euler_beam_modes(i, bctype, beamparams, 5000)
+# legtext[i + 1]=[char('Contribution of mode '),num2str_(i)]
+        wn, xx, U = euler_beam_modes(n=i, bctype=bctype,
+                                     beamparams=beamparams, npoints=5000)
         spl = UnivariateSpline(xx, U[:, i - 1])
         Uin = spl(xin)
         Uout = spl(xout)
+        # Uin=spline_(xx,U,xin)
+        # Uout=spline_(xx,U,xout)
+
+        # print(wn[-1])
+        # print(w)
         a[:, i - 1] = rho * A * Uin * Uout / \
-            (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * np.sqrt(-1))
+            (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * sp.sqrt(-1))
         # print(a[0:10,i])
         # plt.plot(sp.log10(sp.absolute(a[:,i])))
-        # input("Press Enter to continue...")
-        f[i] = wn[-1] / 2 / np.pi
+
+        f[i] = wn[-1] / 2 / sp.pi
     a = a[:, 0:i]
     plt.subplot(211)
-    plt.plot(w / 2 / np.pi, 20 * np.log10(np.absolute(np.sum(a, axis=1))), '-')
-    plt.hold('on')
-    plt.plot(w / 2 / np.pi, 20 * np.log10(np.absolute(a)), '-')
+    plt.plot(w / 2 / sp.pi, 20 * sp.log10(sp.absolute(sp.sum(a, axis=1))), '-')
+    # plt.hold('on')
+    plt.plot(w / 2 / sp.pi, 20 * sp.log10(sp.absolute(a)), '-')
     plt.grid('on')
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('FRF (dB)')
     axlim = plt.axis()
 
-    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] -
-             axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
+    plt.axis(axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
+                               0.1 * (axlim[3] - axlim[2])]))
 
     plt.subplot(212)
-    plt.plot(w / 2 / np.pi, np.unwrap(np.angle(np.sum(a, axis=1))) /
-             np.pi * 180, '-')
-    plt.hold('on')
-    plt.plot(w / 2 / np.pi, np.unwrap(np.angle(a)) / np.pi * 180, '-')
+    plt.plot(w / 2 / sp.pi, sp.unwrap(sp.angle(sp.sum(a, axis=1))) /
+             sp.pi * 180, '-')
+    # plt.hold('on')
+    plt.plot(w / 2 / sp.pi, sp.unwrap(sp.angle(a)) / sp.pi * 180, '-')
     plt.grid('on')
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')
     axlim = plt.axis()
-    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] -
-             axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
+    plt.axis(axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
+                               0.1 * (axlim[3] - axlim[2])]))
 
-    fout = w / 2 / np.pi
+    fout = w / 2 / sp.pi
     H = a
     return fout, H
 
