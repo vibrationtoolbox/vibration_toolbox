@@ -7,3 +7,4 @@ Reference Guide
   sdof
   mdof
   continuous
+  vibe_system

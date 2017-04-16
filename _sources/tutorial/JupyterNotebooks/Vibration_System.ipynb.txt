@@ -1,0 +1,286 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Title"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "import vibration_toolbox as vt"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Vibration system object"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This notebook will introduce the class VibSystem(), which is available in the vibration_toolbox.\n",
+    "As an example we will use the following 3 degree of freedom system:\n",
+    "\n",
+    "![System](system.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If we look at the help for the VibSystem class we have:\n",
+    "```\n",
+    "Parameters\n",
+    "----------\n",
+    "M : array\n",
+    "    Mass matrix.\n",
+    "C : array\n",
+    "    Damping matrix.\n",
+    "K : array\n",
+    "    Stiffness matrix.\n",
+    "name : str, optional\n",
+    "    Name of the system.\n",
+    "```\n",
+    "So we need to get the mass, stiffness and damping matrix to create a VibSystem object (the name of the system is optional and can be used latter to help when we plot results).\n",
+    "\n",
+    "For this system the kinetic energy is:\n",
+    "\n",
+    "\\begin{equation}\n",
+    "T = \\frac{1}{2}[m_0\\dot{q_0}(t)^2 + m_1\\dot{q_1}(t)^2 + m_2\\dot{q_2}(t)^2] = \\frac{1}{2}{\\bf \\dot{q}}^T(t)\\ M \\ {\\bf \\dot{q}}(t)\n",
+    "\\end{equation}\n",
+    "\n",
+    "where ${\\bf q(t)} = [q_0(t) \\  q_1(t) \\ q_2(t)]^T$ is the configuration vector. The mass matrix for this system is given by:\n",
+    "\n",
+    "\\begin{equation}\n",
+    "M = \n",
+    "\\begin{bmatrix} \n",
+    "        m_0 & 0 & 0\\\\\n",
+    "        0 & m_1 & 0 \\\\\n",
+    "        0 & 0 & m_2\n",
+    "\\end{bmatrix}\n",
+    "\\end{equation}  \n",
+    "\n",
+    "The potential energy is:\n",
+    "\n",
+    "\\begin{equation}\n",
+    "V = \\frac{1}{2}[k_0 q_0(t)^2 + k_1(q_1(t) - q_0(t))^2 + k_2 q_2(t)^2]\n",
+    "\\end{equation}\n",
+    "\n",
+    "\\begin{equation}\n",
+    "= \\frac{1}{2}[(k_0+k_1)q_0(t)^2 + (k_1+k_2)q_1(t)^2 + (k_2)q_2(t)^2 -2k_1 q_0(t)q_1(t) - 2k_2 q_2(t) \\\\\n",
+    "\\end{equation}\n",
+    "\n",
+    "\\begin{equation}\n",
+    "= \\frac{1}{2}{\\bf \\dot{q}}^T(t)\\ K \\ {\\bf \\dot{q}}(t)\n",
+    "\\end{equation}\n",
+    "\n",
+    "And the stiffness matrix is:\n",
+    "\n",
+    "\\begin{equation}\n",
+    "K = \n",
+    "\\begin{bmatrix} \n",
+    "        k_0 +k_1 & -k_1 & 0\\\\\n",
+    "        -k_1 & k_1+k_2 & -k_2 \\\\\n",
+    "        0 & -k_2 & k_2\n",
+    "\\end{bmatrix}\n",
+    "\\end{equation}   \n",
+    "\n",
+    "In this case we will consider proportional damping: $C = \\alpha M + \\beta K$.\n",
+    "\n",
+    "Let's consider the following values for our system:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "m0, m1, m2 = (1, 1, 1)\n",
+    "k0, k1, k2 = (1600, 1600, 1600)\n",
+    "alpha, beta = 1e-3, 1e-3"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we use numpy to create our matrices:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "M = np.array([[m0, 0, 0],\n",
+    "              [0, m1, 0],\n",
+    "              [0, 0, m2]])\n",
+    "K = np.array([[k0+k1, -k1,   0],\n",
+    "              [-k1, k1+k2, -k2],\n",
+    "              [0,     -k2,  k2]])\n",
+    "C = alpha*M + beta*K"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "sys = vt.VibSystem(M, C, K, name='3 dof system')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we have everything needed to create a vibration system object:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now, if we type **```sys.```** and press ```tab``` we can see the system's attributes and methods that are available.\n",
+    "\n",
+    "As an example we can get the natural frequencies:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([  2.83322453,   7.93851871,  11.47149191])"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "sys.wn"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Or the damped natural frequencies:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([  2.83311158,   7.93604753,  11.46403708])"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "sys.wd"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "M, C and K can be changed and the system will be updated:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([ 2.78768234,  6.87957115,  7.95002732])"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "sys.C = 20*C\n",
+    "sys.wd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "hide_input": false,
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.1"
+  },
+  "latex_envs": {
+   "bibliofile": "biblio.bib",
+   "cite_by": "apalike",
+   "current_citInitial": 1,
+   "eqLabelWithNumbers": true,
+   "eqNumInitial": 0
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
