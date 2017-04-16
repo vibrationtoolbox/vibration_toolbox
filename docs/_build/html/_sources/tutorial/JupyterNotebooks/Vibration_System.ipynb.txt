@@ -2,6 +2,17 @@
  "cells": [
   {
    "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "%matplotlib inline"
+   ]
+  },
+  {
+   "cell_type": "code",
    "execution_count": 2,
    "metadata": {},
    "outputs": [],
@@ -156,7 +167,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [
     {
@@ -165,7 +176,7 @@
        "array([  2.83322453,   7.93851871,  11.47149191])"
       ]
      },
-     "execution_count": 6,
+     "execution_count": 9,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -183,16 +194,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "array([  2.83311158,   7.93604753,  11.46403708])"
+       "array([  2.83220788,   7.9162503 ,  11.40422301])"
       ]
      },
-     "execution_count": 7,
+     "execution_count": 10,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -210,22 +221,22 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 21,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "array([  2.83220788,   7.9162503 ,  11.40422301])"
+       "array([  2.82190789,   7.68746931,  10.70033077])"
       ]
      },
-     "execution_count": 8,
+     "execution_count": 21,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "sys.C = 3*C\n",
+    "sys.C = 10*C\n",
     "sys.wd"
    ]
   },
