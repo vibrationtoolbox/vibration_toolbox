@@ -62,7 +62,7 @@
 {</p>
 <blockquote>
 <div><p>&#8220;cell_type&#8221;: &#8220;code&#8221;,
-&#8220;execution_count&#8221;: 1,
+&#8220;execution_count&#8221;: null,
 &#8220;metadata&#8221;: {</p>
 <blockquote>
 <div>&#8220;collapsed&#8221;: true</div></blockquote>
@@ -71,7 +71,7 @@
 &#8220;source&#8221;: [</p>
 <blockquote>
 <div>&#8220;import numpy as npn&#8221;,
-&#8220;import vibration_toolbox as vt&#8221;</div></blockquote>
+&#8220;import vibration_toolbox as vtb&#8221;</div></blockquote>
 <p>]</p>
 </div></blockquote>
 <p>},
@@ -91,7 +91,7 @@
 &#8220;metadata&#8221;: {},
 &#8220;source&#8221;: [</p>
 <blockquote>
-<div>&#8220;This notebook will introduce the class VibSystem(), which is available in the vibration_toolbox.n&#8221;,
+<div>&#8220;This notebook will introduce the class VibeSystem(), which is available in the vibration_toolbox.n&#8221;,
 &#8220;As an example we will use the following 3 degree of freedom system:n&#8221;,
 &#8220;n&#8221;,
 &#8221;![System](system.png)&#8221;</div></blockquote>
@@ -104,7 +104,7 @@
 &#8220;metadata&#8221;: {},
 &#8220;source&#8221;: [</p>
 <blockquote>
-<div>&#8220;If we look at the help for the VibSystem class we have:n&#8221;,
+<div>&#8220;If we look at the help for the VibeSystem class we have:n&#8221;,
 &#8220;<code class="docutils literal"><span class="pre">`\n&quot;,</span>
 <span class="pre">&quot;Parameters\n&quot;,</span>
 <span class="pre">&quot;----------\n&quot;,</span>
@@ -117,7 +117,7 @@
 <span class="pre">&quot;name</span> <span class="pre">:</span> <span class="pre">str,</span> <span class="pre">optional\n&quot;,</span>
 <span class="pre">&quot;</span>&#160;&#160;&#160; <span class="pre">Name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">system.\n&quot;,</span>
 <span class="pre">&quot;`</span></code>n&#8221;,
-&#8220;So we need to get the mass, stiffness and damping matrix to create a VibSystem object (the name of the system is optional and can be used latter to help when we plot results).n&#8221;,
+&#8220;So we need to get the mass, stiffness and damping matrix to create a VibeSystem object (the name of the system is optional and can be used latter to help when we plot results).n&#8221;,
 &#8220;n&#8221;,
 &#8220;For this system the kinetic energy is:n&#8221;,
 &#8220;n&#8221;,
@@ -226,7 +226,7 @@
 &#8220;outputs&#8221;: [],
 &#8220;source&#8221;: [</p>
 <blockquote>
-<div>&#8220;sys = vt.VibSystem(M, C, K, name=&#8216;3 dof system&#8217;)&#8221;</div></blockquote>
+<div>&#8220;sys = vt.VibeSystem(M, C, K, name=&#8216;3 dof system&#8217;)&#8221;</div></blockquote>
 <p>]</p>
 </div></blockquote>
 <p>},
@@ -384,7 +384,10 @@
 <div>&#8220;collapsed&#8221;: true</div></blockquote>
 <p>},
 &#8220;outputs&#8221;: [],
-&#8220;source&#8221;: []</p>
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;&#8221;</div></blockquote>
+<p>]</p>
 </div></blockquote>
 <p class="last">}</p>
 </dd>
@@ -404,7 +407,7 @@
 <div><dl class="docutils">
 <dt>&#8220;codemirror_mode&#8221;: {</dt>
 <dd>&#8220;name&#8221;: &#8220;ipython&#8221;,
-&#8220;version&#8221;: 3</dd>
+&#8220;version&#8221;: 3.0</dd>
 </dl>
 <p>},
 &#8220;file_extension&#8221;: &#8221;.py&#8221;,
@@ -419,14 +422,14 @@
 <blockquote>
 <div>&#8220;bibliofile&#8221;: &#8220;biblio.bib&#8221;,
 &#8220;cite_by&#8221;: &#8220;apalike&#8221;,
-&#8220;current_citInitial&#8221;: 1,
+&#8220;current_citInitial&#8221;: 1.0,
 &#8220;eqLabelWithNumbers&#8221;: true,
-&#8220;eqNumInitial&#8221;: 0</div></blockquote>
+&#8220;eqNumInitial&#8221;: 0.0</div></blockquote>
 <p>}</p>
 </div></blockquote>
 <p class="last">},
 &#8220;nbformat&#8221;: 4,
-&#8220;nbformat_minor&#8221;: 2</p>
+&#8220;nbformat_minor&#8221;: 0</p>
 </dd>
 </dl>
 <p>}</p>
