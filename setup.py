@@ -25,7 +25,7 @@ with open('vibration_toolbox/__init__.py', 'rb') as fid:
 setup(name='vibration_toolbox',
       version=version,
       description='Educational code illustrating fundamentals of vibration for mechanical engineers.',
-      author='Joseph C. Slater and Raphael Timbo',
+      author=u'Joseph C. Slater and Raphael Timbó',
       author_email='joseph.c.slater@gmail.com',
       url='https://github.com/vibrationtoolbox/vibration_toolbox',
       download_url='https://github.com/vibrationtoolbox/vibration_toolbox/archive/0.5b9.tar.gz',

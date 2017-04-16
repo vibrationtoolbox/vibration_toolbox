@@ -8,8 +8,8 @@ ________
    :maxdepth: 2
 
    sdof
+   Vibration_System
    working_notebook.ipynb
-
 
 ..   Beats
 

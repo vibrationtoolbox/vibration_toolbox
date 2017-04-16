@@ -1,6 +1,0 @@
-Dummy title
-===========
-
-.. include:: sdof
-
-.. include:: ../../JupyterNotebooks/temp

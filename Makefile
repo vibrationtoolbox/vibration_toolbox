@@ -37,7 +37,7 @@ release: clean gh-pages
 	pip install wheel
 	python setup.py register
 	rm -rf dist
-	python setup.py bdist_wheel --universal
+	python setup.py bdist_wheel
 	python setup.py sdist
 	git tag v$(VERSION)
 	git push origin --all

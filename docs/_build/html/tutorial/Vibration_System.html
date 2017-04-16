@@ -1,0 +1,461 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Vibration System Objects &#8212; Vibration Toolbox 0.5b9 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.5b9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="vibration-system-objects">
+<h1>Vibration System Objects<a class="headerlink" href="#vibration-system-objects" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first docutils">
+<dt>&#8220;cells&#8221;: [</dt>
+<dd><dl class="first docutils">
+<dt>{</dt>
+<dd><p class="first">&#8220;cell_type&#8221;: &#8220;code&#8221;,
+&#8220;execution_count&#8221;: 1,
+&#8220;metadata&#8221;: {</p>
+<blockquote>
+<div>&#8220;collapsed&#8221;: true</div></blockquote>
+<p>},
+&#8220;outputs&#8221;: [],
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;import numpy as npn&#8221;,
+&#8220;import vibration_toolbox as vt&#8221;</div></blockquote>
+<p class="last">]</p>
+</dd>
+</dl>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;markdown&#8221;,
+&#8220;metadata&#8221;: {},
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;# Vibration system object&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;markdown&#8221;,
+&#8220;metadata&#8221;: {},
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;This notebook will introduce the <code class="docutils literal"><span class="pre">`class</span> <span class="pre">VibSystem()`</span></code>, which is available in the vibration_toolbox.n&#8221;,
+&#8220;n&#8221;,
+&#8220;As an example we will use the following 3 degree of fredom system:n&#8221;,
+&#8220;n&#8221;,
+&#8221;![System](system.png)&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;markdown&#8221;,
+&#8220;metadata&#8221;: {},
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;If we look at the help for the VibSystem class we have:n&#8221;,
+&#8220;<code class="docutils literal"><span class="pre">`\n&quot;,</span>
+<span class="pre">&quot;Parameters\n&quot;,</span>
+<span class="pre">&quot;----------\n&quot;,</span>
+<span class="pre">&quot;M</span> <span class="pre">:</span> <span class="pre">array\n&quot;,</span>
+<span class="pre">&quot;</span>&#160;&#160;&#160; <span class="pre">Mass</span> <span class="pre">matrix.\n&quot;,</span>
+<span class="pre">&quot;C</span> <span class="pre">:</span> <span class="pre">array\n&quot;,</span>
+<span class="pre">&quot;</span>&#160;&#160;&#160; <span class="pre">Damping</span> <span class="pre">matrix.\n&quot;,</span>
+<span class="pre">&quot;K</span> <span class="pre">:</span> <span class="pre">array\n&quot;,</span>
+<span class="pre">&quot;</span>&#160;&#160;&#160; <span class="pre">Stiffness</span> <span class="pre">matrix.\n&quot;,</span>
+<span class="pre">&quot;name</span> <span class="pre">:</span> <span class="pre">str,</span> <span class="pre">optional\n&quot;,</span>
+<span class="pre">&quot;</span>&#160;&#160;&#160; <span class="pre">Name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">system.\n&quot;,</span>
+<span class="pre">&quot;`</span></code>n&#8221;,
+&#8220;So we need to get the mass, stiffness and damping matrix to create a VibSystem object (the name of the system is optional and can be used latter to help when we plot results).n&#8221;,
+&#8220;n&#8221;,
+&#8220;For this system the kinetic energy is:n&#8221;,
+&#8220;n&#8221;,
+&#8220;\begin{equation}n&#8221;,
+&#8220;T = \frac{1}{2}[m_0\dot{q_0}(t)^2 + m_1\dot{q_1}(t)^2 + m_2\dot{q_2}(t)^2] = \frac{1}{2}{\bf \dot{q}}^T(t)\ M \ {\bf \dot{q}}(t)n&#8221;,
+&#8220;\end{equation}n&#8221;,
+&#8220;n&#8221;,
+&#8220;where ${\bf q(t)} = [q_0(t) \  q_1(t) \ q_2(t)]^T$ is the configuration vector. The mass matrix for this system is given by:n&#8221;,
+&#8220;n&#8221;,
+&#8220;\begin{equation}n&#8221;,
+&#8220;M = n&#8221;,
+&#8220;\begin{bmatrix} n&#8221;,
+&#8221;        m_0 &amp; 0 &amp; 0\\n&#8221;,
+&#8221;        0 &amp; m_1 &amp; 0 \\n&#8221;,
+&#8221;        0 &amp; 0 &amp; m_2n&#8221;,
+&#8220;\end{bmatrix}n&#8221;,
+&#8220;\end{equation}  n&#8221;,
+&#8220;n&#8221;,
+&#8220;The potential energy is:n&#8221;,
+&#8220;n&#8221;,
+&#8220;\begin{equation}n&#8221;,
+&#8220;V = \frac{1}{2}[k_0 q_0(t)^2 + k_1(q_1(t) - q_0(t))^2 + k_2 q_2(t)^2]n&#8221;,
+&#8220;\end{equation}n&#8221;,
+&#8220;n&#8221;,
+&#8220;\begin{equation}n&#8221;,
+&#8220;= \frac{1}{2}[(k_0+k_1)q_0(t)^2 + (k_1+k_2)q_1(t)^2 + (k_2)q_2(t)^2 -2k_1 q_0(t)q_1(t) - 2k_2 q_2(t) \\n&#8221;,
+&#8220;\end{equation}n&#8221;,
+&#8220;n&#8221;,
+&#8220;\begin{equation}n&#8221;,
+&#8220;= \frac{1}{2}{\bf \dot{q}}^T(t)\ K \ {\bf \dot{q}}(t)n&#8221;,
+&#8220;\end{equation}n&#8221;,
+&#8220;n&#8221;,
+&#8220;And the stiffness matrix is:n&#8221;,
+&#8220;n&#8221;,
+&#8220;\begin{equation}n&#8221;,
+&#8220;K = n&#8221;,
+&#8220;\begin{bmatrix} n&#8221;,
+&#8221;        k_0 +k_1 &amp; -k_1 &amp; 0\\n&#8221;,
+&#8221;        -k_1 &amp; k_1+k_2 &amp; -k_2 \\n&#8221;,
+&#8221;        0 &amp; -k_2 &amp; k_2n&#8221;,
+&#8220;\end{bmatrix}n&#8221;,
+&#8220;\end{equation}   n&#8221;,
+&#8220;n&#8221;,
+&#8220;In this case we will consider proportional damping: $C = \alpha M + \beta K$.n&#8221;,
+&#8220;n&#8221;,
+&#8220;Let&#8217;s consider the following values for our system:&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;code&#8221;,
+&#8220;execution_count&#8221;: 2,
+&#8220;metadata&#8221;: {</p>
+<blockquote>
+<div>&#8220;collapsed&#8221;: true</div></blockquote>
+<p>},
+&#8220;outputs&#8221;: [],
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;m0, m1, m2 = (1, 1, 1)n&#8221;,
+&#8220;k0, k1, k2 = (1600, 1600, 1600)n&#8221;,
+&#8220;alpha, beta = 1e-3, 1e-3&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;markdown&#8221;,
+&#8220;metadata&#8221;: {},
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;Now we use numpy to create our matrices:&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;code&#8221;,
+&#8220;execution_count&#8221;: 3,
+&#8220;metadata&#8221;: {</p>
+<blockquote>
+<div>&#8220;collapsed&#8221;: false</div></blockquote>
+<p>},
+&#8220;outputs&#8221;: [],
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;M = np.array([[m0, 0, 0],n&#8221;,
+&#8221;              [0, m1, 0],n&#8221;,
+&#8221;              [0, 0, m2]])n&#8221;,
+&#8220;K = np.array([[k0+k1, -k1,   0],n&#8221;,
+&#8221;              [-k1, k1+k2, -k2],n&#8221;,
+&#8221;              [0,     -k2,  k2]])n&#8221;,
+&#8220;C = alpha*M + beta*K&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;markdown&#8221;,
+&#8220;metadata&#8221;: {},
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;Now we have everything needed to create a vibration system object:&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;code&#8221;,
+&#8220;execution_count&#8221;: 4,
+&#8220;metadata&#8221;: {</p>
+<blockquote>
+<div>&#8220;collapsed&#8221;: false</div></blockquote>
+<p>},
+&#8220;outputs&#8221;: [],
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;sys = vt.VibSystem(M, C, K, name=&#8216;3 dof system&#8217;)&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;markdown&#8221;,
+&#8220;metadata&#8221;: {},
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;Now, if we type <strong>```sys.```</strong> and press <code class="docutils literal"><span class="pre">`tab`</span></code> we can see the system&#8217;s attributes and methods that are available.n&#8221;,
+&#8220;n&#8221;,
+&#8220;As an example we can get the natural frequencies:&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;code&#8221;,
+&#8220;execution_count&#8221;: 5,
+&#8220;metadata&#8221;: {</p>
+<blockquote>
+<div>&#8220;collapsed&#8221;: false</div></blockquote>
+<p>},
+&#8220;outputs&#8221;: [</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first docutils">
+<dt>&#8220;data&#8221;: {</dt>
+<dd><dl class="first docutils">
+<dt>&#8220;text/plain&#8221;: [</dt>
+<dd>&#8220;array([  2.83322453,   7.93851871,  11.47149191])&#8221;</dd>
+</dl>
+<p class="last">]</p>
+</dd>
+</dl>
+<p class="last">},
+&#8220;execution_count&#8221;: 5,
+&#8220;metadata&#8221;: {},
+&#8220;output_type&#8221;: &#8220;execute_result&#8221;</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>],
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;sys.wn&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;markdown&#8221;,
+&#8220;metadata&#8221;: {},
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;Or the damped natural frequencies:&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;code&#8221;,
+&#8220;execution_count&#8221;: 6,
+&#8220;metadata&#8221;: {</p>
+<blockquote>
+<div>&#8220;collapsed&#8221;: false</div></blockquote>
+<p>},
+&#8220;outputs&#8221;: [</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first docutils">
+<dt>&#8220;data&#8221;: {</dt>
+<dd><dl class="first docutils">
+<dt>&#8220;text/plain&#8221;: [</dt>
+<dd>&#8220;array([  2.83311158,   7.93604753,  11.46403708])&#8221;</dd>
+</dl>
+<p class="last">]</p>
+</dd>
+</dl>
+<p class="last">},
+&#8220;execution_count&#8221;: 6,
+&#8220;metadata&#8221;: {},
+&#8220;output_type&#8221;: &#8220;execute_result&#8221;</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>],
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;sys.wd&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;markdown&#8221;,
+&#8220;metadata&#8221;: {},
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;M, C and K can be changed and the system will be updated:&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>},
+{</p>
+<blockquote>
+<div><p>&#8220;cell_type&#8221;: &#8220;code&#8221;,
+&#8220;execution_count&#8221;: 7,
+&#8220;metadata&#8221;: {</p>
+<blockquote>
+<div>&#8220;collapsed&#8221;: false</div></blockquote>
+<p>},
+&#8220;outputs&#8221;: [</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first docutils">
+<dt>&#8220;data&#8221;: {</dt>
+<dd><dl class="first docutils">
+<dt>&#8220;text/plain&#8221;: [</dt>
+<dd>&#8220;array([  2.83220788,   7.9162503 ,  11.40422301])&#8221;</dd>
+</dl>
+<p class="last">]</p>
+</dd>
+</dl>
+<p class="last">},
+&#8220;execution_count&#8221;: 7,
+&#8220;metadata&#8221;: {},
+&#8220;output_type&#8221;: &#8220;execute_result&#8221;</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>],
+&#8220;source&#8221;: [</p>
+<blockquote>
+<div>&#8220;sys.C = 3*Cn&#8221;,
+&#8220;sys.wd&#8221;</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p class="last">}</p>
+</dd>
+</dl>
+<p>],
+&#8220;metadata&#8221;: {</p>
+<blockquote>
+<div><p>&#8220;anaconda-cloud&#8221;: {},
+&#8220;kernelspec&#8221;: {</p>
+<blockquote>
+<div>&#8220;display_name&#8221;: &#8220;Python [default]&#8221;,
+&#8220;language&#8221;: &#8220;python&#8221;,
+&#8220;name&#8221;: &#8220;python3&#8221;</div></blockquote>
+<p>},
+&#8220;language_info&#8221;: {</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&#8220;codemirror_mode&#8221;: {</dt>
+<dd>&#8220;name&#8221;: &#8220;ipython&#8221;,
+&#8220;version&#8221;: 3</dd>
+</dl>
+<p>},
+&#8220;file_extension&#8221;: &#8221;.py&#8221;,
+&#8220;mimetype&#8221;: &#8220;text/x-python&#8221;,
+&#8220;name&#8221;: &#8220;python&#8221;,
+&#8220;nbconvert_exporter&#8221;: &#8220;python&#8221;,
+&#8220;pygments_lexer&#8221;: &#8220;ipython3&#8221;,
+&#8220;version&#8221;: &#8220;3.5.2&#8221;</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p class="last">},
+&#8220;nbformat&#8221;: 4,
+&#8220;nbformat_minor&#8221;: 1</p>
+</dd>
+</dl>
+<p>}</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/tutorial/Vibration_System.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Joseph C. Slater and Raphael Timbo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/tutorial/Vibration_System.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,6 +1,6 @@
 vibration_toolbox
 ==================
-Copyright (C) 1993 by Joseph C. Slater and Raphael Timbo
+Copyright (C) 1993 by Joseph C. Slater and Raphael Timbó
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
