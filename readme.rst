@@ -19,7 +19,7 @@ originally written for `Matlab <http://www.mathworks.com>`_\®, but with extra f
 demonstration of concepts. You may find them useful for application, but that
 isn't the intent. If you have professional level needs, please `contact the authors <mailto:joseph.c.slater@gmail.com>`_.
 
-For more information, please see the `documentation for the Python version <http://vibrationtoolbox.github.io/vibration_toolbox/>`_ but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox so this is taking some time. We don't need feedback at this time, but we will take assistance in improving documentation and code. 
+For more information, please see the `documentation for the Python version <http://vibrationtoolbox.github.io/vibration_toolbox/>`_ but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox so this is taking some time. We don't need feedback at this time, but we will take assistance in improving documentation and code.
 
 
 Installation
@@ -37,3 +37,19 @@ To run, open a ``jupyter`` notebook and type::
   import vibration_toolbox as vtb
 
 For examples, see the `JupyterNotebooks folder <https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/JupyterNotebooks>`_.
+
+Installation of current code
+____________________________
+
+The usage documentation is far behind the current code, while the reference is way ahead of the released code due to the ``autodoc`` capability of `Sphinx <http://www.sphinx.org>`_. Especially as of early 2017, the code is in rapid development, and so is the documentation. Releases to `pypi <https://pypi.python.org/pypi>`_ are far behind current status as stopping to deploy would cost more time that it is worth. We have the objective of releasing a first non-beta version at the end of May, but even this cannot be promised.
+
+If you wish to install the current version of the software, download the latest ``wheel`` file from
+``https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/dist``. This should be easy to understand, outside of what a ``wheel file`` is. Don't fret that. It's the full package as it stands.
+
+Then, type::
+
+  pip install --force-reinstall --upgrade --user dist/vibration_toolbox-0.5b9-py3-none-any.whl
+
+Where you see ``0.5.b9`` above, you will likely need to insert the correct version. We don't increment versions for each minor edit, so you may have to force upgrade.
+
+That should be it. 
