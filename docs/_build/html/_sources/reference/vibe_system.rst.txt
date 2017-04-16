@@ -8,13 +8,9 @@ Vibration Systems (:mod:`vibsystem.py`)
 .. module:: vibsystem
    :synopsis: Vibration System Objects
 
-.. autoclass_content:: both
-
-.. py:class:: vibsystem
-
-.. autoclass:: vibsystem
+.. autoclass:: VibSystem
    :members:
-   :inherited-members:
+
 
    .. automethod::
       :members:
