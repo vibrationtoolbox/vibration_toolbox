@@ -10,11 +10,3 @@ Vibration Systems (:mod:`vibsystem.py`)
 
 .. autoclass:: VibSystem
    :members:
-
-
-   .. automethod::
-      :members:
-
-
-.. automodule:: vibsystem
-   :members:
