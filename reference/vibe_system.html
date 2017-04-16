@@ -46,9 +46,147 @@
   <div class="section" id="vibration-systems-vibsystem-py">
 <h1>Vibration Systems (<code class="xref py py-mod docutils literal"><span class="pre">vibsystem.py</span></code>)<a class="headerlink" href="#vibration-systems-vibsystem-py" title="Permalink to this headline">¶</a></h1>
 <span class="target" id="module-vibsystem"></span><dl class="class">
-<dt id="vibsystem.vibsystem">
-<em class="property">class </em><code class="descclassname">vibsystem.</code><code class="descname">vibsystem</code><a class="headerlink" href="#vibsystem.vibsystem" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="vibsystem.VibSystem">
+<em class="property">class </em><code class="descclassname">vibsystem.</code><code class="descname">VibSystem</code><span class="sig-paren">(</span><em>M</em>, <em>C</em>, <em>K</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibsystem.html#VibSystem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibsystem.VibSystem" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Attributes</p>
+<p class="rubric">Methods</p>
+<dl class="method">
+<dt id="vibsystem.VibSystem.A">
+<code class="descname">A</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibsystem.html#VibSystem.A"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibsystem.VibSystem.A" title="Permalink to this definition">¶</a></dt>
+<dd><p>State space matrix</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vibsystem.VibSystem.freq_response">
+<code class="descname">freq_response</code><span class="sig-paren">(</span><em>omega=None</em>, <em>modes=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibsystem.html#VibSystem.freq_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibsystem.VibSystem.freq_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Frequency response for a mdof system.</p>
+<p>This method returns the frequency response for a mdof system
+given a range of frequencies and the modes that will be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>omega</strong> : array, optional</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Array with the desired range of frequencies (the default</dt>
+<dd><p class="first last">is 0 to 1.5 x highest damped natural frequency.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>modes</strong> : list, optional</p>
+<blockquote>
+<div><p>Modes that will be used to calculate the frequency response
+(all modes will be used if a list is not given).</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>omega</strong> : array</p>
+<blockquote>
+<div><p>Array with the frequencies</p>
+</div></blockquote>
+<p><strong>magdb</strong> : array</p>
+<blockquote>
+<div><p>Magnitude (dB) of the frequency response for each pair input/output.
+The order of the array is: [output, input, magnitude]</p>
+</div></blockquote>
+<p><strong>phase</strong> : array</p>
+<blockquote class="last">
+<div><p>Phase of the frequency response for each pair input/output.
+The order of the array is: [output, input, phase]</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k1</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">k3</span> <span class="o">=</span> <span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">m1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">m2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">c1</span><span class="o">+</span><span class="n">c2</span><span class="p">,</span> <span class="o">-</span><span class="n">c2</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="n">c2</span><span class="p">,</span> <span class="n">c2</span><span class="o">+</span><span class="n">c3</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">k1</span><span class="o">+</span><span class="n">k2</span><span class="p">,</span> <span class="o">-</span><span class="n">k2</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="n">k2</span><span class="p">,</span> <span class="n">k2</span><span class="o">+</span><span class="n">k3</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys1</span> <span class="o">=</span> <span class="n">VibSystem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># create the system</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">omega</span><span class="p">,</span> <span class="n">magdb</span><span class="p">,</span> <span class="n">phase</span> <span class="o">=</span> <span class="n">sys1</span><span class="o">.</span><span class="n">freq_response</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">magdb</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="c1"># magnitude for output on 0 and input on 1.</span>
+<span class="go">array([-69.54242509, -69.54234685, -69.54211212, -69.5417209 ])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">phase</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">],</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># phase for output on 1 and input on 1.</span>
+<span class="go">array([-0.     , -0.00471, -0.00942, -0.01413])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="vibsystem.VibSystem.time_response">
+<code class="descname">time_response</code><span class="sig-paren">(</span><em>F</em>, <em>t</em>, <em>ic=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibsystem.html#VibSystem.time_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibsystem.VibSystem.time_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time response for a mdof system.</p>
+<p>This method returns the time response for a mdof system
+given a force, time and initial conditions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>F</strong> : array</p>
+<blockquote>
+<div><p>Force array (needs to have the same length as time array).</p>
+</div></blockquote>
+<p><strong>t</strong> : array</p>
+<blockquote>
+<div><p>Time array.</p>
+</div></blockquote>
+<p><strong>ic</strong> : array, optional</p>
+<blockquote>
+<div><p>The initial conditions on the state vector (zero by default).</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>t</strong> : array</p>
+<blockquote>
+<div><p>Time values for the output.</p>
+</div></blockquote>
+<p><strong>yout</strong> : array</p>
+<blockquote>
+<div><p>System response.</p>
+</div></blockquote>
+<p><strong>xout</strong> : array</p>
+<blockquote class="last">
+<div><p>Time evolution of the state vector.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">k1</span><span class="p">,</span> <span class="n">k2</span><span class="p">,</span> <span class="n">k3</span> <span class="o">=</span> <span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">m1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">m2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">c1</span><span class="o">+</span><span class="n">c2</span><span class="p">,</span> <span class="o">-</span><span class="n">c2</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="n">c2</span><span class="p">,</span> <span class="n">c2</span><span class="o">+</span><span class="n">c3</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">k1</span><span class="o">+</span><span class="n">k2</span><span class="p">,</span> <span class="o">-</span><span class="n">k2</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="n">k2</span><span class="p">,</span> <span class="n">k2</span><span class="o">+</span><span class="n">k3</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys1</span> <span class="o">=</span> <span class="n">VibSystem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># create the system</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="c1"># time array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F2</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">40</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="c1"># force applied on m2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">sys1</span><span class="o">.</span><span class="n">time_response</span><span class="p">(</span><span class="n">F2</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># response on m1</span>
+<span class="go">array([ 0.        ,  0.00304585,  0.07034816,  0.32048951,  0.60748282])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># response on m2</span>
+<span class="go">array([ 0.        ,  0.08160348,  0.46442657,  0.7885541 ,  0.47808092])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
 
 <span class="target" id="module-vibsystem"></span></div>
 
