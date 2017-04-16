@@ -41,7 +41,7 @@ For examples, see the `JupyterNotebooks folder <https://github.com/vibrationtool
 Installation of current code
 ____________________________
 
-The usage documentation is far behind the current code, while the reference is way ahead of the released code due to the ``autodoc`` capability of `Sphinx <http://www.sphinx.org>`_. Especially as of early 2017, the code is in rapid development, and so is the documentation. Releases to `pypi <https://pypi.python.org/pypi>`_ are far behind current status as stopping to deploy would cost more time that it is worth. We have the objective of releasing a first non-beta version at the end of May, but even this cannot be promised.
+The usage documentation is far behind the current code, while the reference is way ahead of the released code due to the ``autodoc`` capability of `Sphinx <http://www.sphinx-doc.org/en/stable/>`_. Especially as of early 2017, the code is in rapid development, and so is the documentation. Releases to `pypi <https://pypi.python.org/pypi>`_ are far behind current status as stopping to deploy would cost more time that it is worth. We have the objective of releasing a first non-beta version at the end of May, but even this cannot be promised.
 
 If you wish to install the current version of the software, download the latest ``wheel`` file from
 ``https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/dist``. This should be easy to understand, outside of what a ``wheel file`` is. Don't fret that. It's the full package as it stands.
@@ -52,4 +52,4 @@ Then, type::
 
 Where you see ``0.5.b9`` above, you will likely need to insert the correct version. We don't increment versions for each minor edit, so you may have to force upgrade.
 
-That should be it. 
+That should be it. Please note issues on the `issues tab <https://github.com/vibrationtoolbox/vibration_toolbox>`_ on github. 
