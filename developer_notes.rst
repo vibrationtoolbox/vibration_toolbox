@@ -1,9 +1,7 @@
 To make distribution.
 
 1) Edit the version number in ``vibration_toolbox/__init__.py``
-2) Edit the version  ``download_url`` in ``setup.py`` if it doesn't work
-  (I tried to automate this)
-3) Use the Makefile, ``make release``
+2) Use the Makefile, ``make release``
 
 The ``conf.py`` file for the documentation pulls the version from ``__init__.py``
 
