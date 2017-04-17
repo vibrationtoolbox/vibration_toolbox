@@ -3,7 +3,7 @@
 =============================================
 
 
-.. include:: <isonum.txt>
+.. .. include:: <isonum.txt>
 .. image:: https://badge.fury.io/py/vibration_toolbox.png/
     :target: http://badge.fury.io/py/vibration_toolbox
 
