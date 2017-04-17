@@ -40,7 +40,7 @@ Reference
     :members:
 
 Indices and tables
-==================
+__________________
 
 * :ref:`genindex`
 * :ref:`modindex`
