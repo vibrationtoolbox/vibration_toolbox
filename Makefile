@@ -33,9 +33,9 @@ cover: clean
 	coverage annotate
 
 release: clean gh-pages
-	python setup.py register
+	#python setup.py register
 	rm -rf dist
-	python setup.py bdist_wheel
+	python setup.py sdist bdist_wheel
 	# python setup.py sdist
 	git tag v$(VERSION)
 	git push origin --all
@@ -43,11 +43,11 @@ release: clean gh-pages
 	printf '\nUpgrade vibration toolbox with release and sha256 sum:'
 	printf '\nOK, no sha256 sum yet:'
 	twine upload dist/*
-	#shasum -a 256 dist/*.tar.gz
+	shasum -a 256 dist/*.tar.gz
 
 wheel: gh-pages
 	rm -rf dist
-	python setup.py bdist_wheel
+	python setup.py sdist bdist_wheel
 
 docs:
 	# Warnings become errors and stop build
