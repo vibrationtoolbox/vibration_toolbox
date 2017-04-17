@@ -107,7 +107,7 @@ def normalize(X, Y):
     """
 
     Yn = np.zeros_like(X)
-    YTX = Y.T @ X # normalize y so that Y.T @ X will return I
+    YTX = Y.T @ X  # normalize y so that Y.T @ X will return I
     factors = [1/a for a in np.diag(YTX)]
     # multiply each column in y by a factor in 'factors'
     for col in enumerate(Y.T):
@@ -311,7 +311,7 @@ def response_system_undamped(M, K, x0, v0, max_time):
     >>> v0 = np.array([0, 0])
     >>> max_time = 10
     >>> t, X = response_system_undamped(M, K, x0, v0, max_time)
-    >>> X[:, 0] # first column of X will contain the initial conditions [x1, x2, v1, v2]
+    >>> X[:, 0] # first column is the initial conditions [x1, x2, v1, v2]
     array([ 1.,  1.,  0.,  0.])
     >>> X[:, 1] # displacement and velocities after delta t
     array([ 0.99991994,  0.99997998, -0.04001478, -0.01000397])
@@ -447,7 +447,8 @@ if __name__ == "__main__":
     python (name of this file)  -v
     will test all of the examples in the help.
 
-    Leaving off -v will run the tests without any output. Success will return nothing.
+    Leaving off -v will run the tests without any output. Success will return
+    nothing.
 
     See the doctest section of the python manual.
     https://docs.python.org/3.5/library/doctest.html
