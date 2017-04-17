@@ -130,6 +130,14 @@ sphinx.environment.BuildEnvironment.warn_node = _warn_node
 #
 html_theme = 'alabaster'
 
+
+html_sidebars = {
+    '**': [
+        'about.html', 'navigation.html', 'searchbox.html', 'sourcelink.html',
+    ]
+}
+
+
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
@@ -149,6 +157,8 @@ htmlhelp_basename = 'VibrationToolboxdoc'
 
 html_theme_options = {
 #    'logo': 'js.jpg',
+    'logo_name': 'VTB',
+    'description': 'Vibration Education in a Modern Environment',
     'github_button': 'True',
     'github_user': 'vibrationtoolbox',
     'analytics_id': 'UA-62100376-4',
