@@ -286,7 +286,6 @@ class VibeSystem(object):
         >>> np.around(phase[1, 1, :4],5) # phase for output on 1 and input on 1.
         array([...0.     , -0.00471, -0.00942, -0.01413])
         """
-
         rows = self.H.inputs  # inputs (mag and phase)
         cols = self.H.inputs  # outputs
 
