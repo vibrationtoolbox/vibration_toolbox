@@ -52,7 +52,8 @@
 <span class="target" id="module-mdof"></span><dl class="function">
 <dt id="mdof.modes_system">
 <code class="descclassname">mdof.</code><code class="descname">modes_system</code><span class="sig-paren">(</span><em>M</em>, <em>K</em>, <em>C=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#modes_system"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.modes_system" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will return the natural frequencies (wn), the
+<dd><p>Natural frequencies, damping ratios, and mode shapes of MDOF system.
+This function will return the natural frequencies (wn), the
 damped natural frequencies (wd), the damping ratios (zeta),
 the right eigenvectors (X) and the left eigenvectors (Y) for a
 system defined by M, K and C.
@@ -432,7 +433,7 @@ The time array is also returned.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">response_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">max_time</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># first column of X will contain the initial conditions [x1, x2, v1, v2]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># first column is the initial conditions [x1, x2, v1, v2]</span>
 </pre></div>
 </div>
 <p>array([ 1.,  1.,  0.,  0.])</p>
