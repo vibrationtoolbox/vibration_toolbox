@@ -110,13 +110,15 @@ class VibeSystem(object):
         self.H = self._H()
 
     def A(self):
-        """State space matrix"""
+        """State space matrix
+        """
         Z = np.zeros((self.n, self.n))
         I = np.eye(self.n)
 
         A = np.vstack(
             [np.hstack([Z, I]),
-             np.hstack([la.solve(-self.M, self.K), la.solve(-self.M, self.C)])])
+             np.hstack([la.solve(-self.M, self.K),
+                        la.solve(-self.M, self.C)])])
         return A
 
     @staticmethod
@@ -160,8 +162,6 @@ class VibeSystem(object):
         time invariant system for the mdof system.
         From this system we can obtain poles, impulse response,
         generate a bode, etc.
-
-
         """
         Z = np.zeros((self.n, self.n))
         I = np.eye(self.n)
@@ -178,7 +178,8 @@ class VibeSystem(object):
         Cv = Z
         Ca = Z
 
-        C = np.hstack((Cd - Ca @ la.solve(self.M, self.K), Cv - Ca @ la.solve(self.M, self.C)))
+        C = np.hstack((Cd - Ca @ la.solve(self.M, self.K),
+                       Cv - Ca @ la.solve(self.M, self.C)))
         D = Ca @ la.solve(self.M, B2)
 
         sys = signal.lti(A, B, C, D)
@@ -281,8 +282,8 @@ class VibeSystem(object):
         array([-69.54242509, -69.54234685, -69.54211212, -69.5417209 ])
         >>> np.around(phase[1, 1, :4],5) # phase for output on 1 and input on 1.
         array([-0.     , -0.00471, -0.00942, -0.01413])
-
         """
+
         rows = self.H.inputs  # inputs (mag and phase)
         cols = self.H.inputs  # outputs
 
