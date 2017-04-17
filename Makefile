@@ -32,7 +32,9 @@ cover: clean
 	nosetests $(TEST_ARGS) --with-cov --cov $(NAME) $(NAME)
 	coverage annotate
 
-release: clean gh-pages
+release: clean
+	pip install --user readme_renderer
+	python setup.py check -r -s
 	#python setup.py register
 	rm -rf dist
 	python setup.py sdist bdist_wheel
