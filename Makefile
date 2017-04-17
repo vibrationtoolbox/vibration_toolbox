@@ -46,6 +46,9 @@ release: clean gh-pages
 	twine upload dist/*
 	shasum -a 256 dist/*.tar.gz
 
+wheel: gh-pages
+	python setup.py bdist_wheel
+
 docs:
 	# Warnings become errors and stop build
 	export SPHINXOPTS=-W
