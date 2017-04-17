@@ -152,7 +152,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">Yn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-    <span class="n">YTX</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span> <span class="c1"># normalize y so that Y.T @ X will return I</span>
+    <span class="n">YTX</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span>  <span class="c1"># normalize y so that Y.T @ X will return I</span>
     <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">YTX</span><span class="p">)]</span>
     <span class="c1"># multiply each column in y by a factor in &#39;factors&#39;</span>
     <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Y</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
@@ -209,7 +209,7 @@
 
 
 <div class="viewcode-block" id="modes_system"><a class="viewcode-back" href="../reference/mdof.html#mdof.modes_system">[docs]</a><span class="k">def</span> <span class="nf">modes_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Natural frequencies, damping ratios, and mode shapes of MDOF system.</span>
 <span class="sd">    This function will return the natural frequencies (wn), the</span>
 <span class="sd">    damped natural frequencies (wd), the damping ratios (zeta),</span>
 <span class="sd">    the right eigenvectors (X) and the left eigenvectors (Y) for a</span>
@@ -286,8 +286,9 @@
     <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
     <span class="n">Minv</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">C</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">C</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="c1"># check if C has only zero entries</span>
-        <span class="n">la</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Minv</span> <span class="o">@</span> <span class="n">C</span> <span class="o">@</span> <span class="n">K</span> <span class="o">-</span> <span class="n">Minv</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">C</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e-8</span><span class="o">*</span><span class="n">la</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Minv</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">C</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">C</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">C</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span>  <span class="c1"># check if C has only zero entries</span>
+            <span class="n">la</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Minv</span> <span class="o">@</span> <span class="n">C</span> <span class="o">@</span> <span class="n">K</span> <span class="o">-</span> <span class="n">Minv</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">C</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span>
+            <span class="mf">1e-8</span><span class="o">*</span><span class="n">la</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Minv</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">C</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
         <span class="n">w</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Sinv</span> <span class="o">=</span> <span class="n">modes_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
         <span class="n">wn</span> <span class="o">=</span> <span class="n">w</span>
         <span class="n">wd</span> <span class="o">=</span> <span class="n">w</span>
@@ -355,7 +356,7 @@
 <span class="sd">    &gt;&gt;&gt; v0 = np.array([0, 0])</span>
 <span class="sd">    &gt;&gt;&gt; max_time = 10</span>
 <span class="sd">    &gt;&gt;&gt; t, X = response_system_undamped(M, K, x0, v0, max_time)</span>
-<span class="sd">    &gt;&gt;&gt; X[:, 0] # first column of X will contain the initial conditions [x1, x2, v1, v2]</span>
+<span class="sd">    &gt;&gt;&gt; X[:, 0] # first column is the initial conditions [x1, x2, v1, v2]</span>
 <span class="sd">    array([ 1.,  1.,  0.,  0.])</span>
 <span class="sd">    &gt;&gt;&gt; X[:, 1] # displacement and velocities after delta t</span>
 <span class="sd">    array([ 0.99991994,  0.99997998, -0.04001478, -0.01000397])</span>
@@ -491,7 +492,8 @@
 <span class="sd">    python (name of this file)  -v</span>
 <span class="sd">    will test all of the examples in the help.</span>
 
-<span class="sd">    Leaving off -v will run the tests without any output. Success will return nothing.</span>
+<span class="sd">    Leaving off -v will run the tests without any output. Success will return</span>
+<span class="sd">    nothing.</span>
 
 <span class="sd">    See the doctest section of the python manual.</span>
 <span class="sd">    https://docs.python.org/3.5/library/doctest.html</span>
