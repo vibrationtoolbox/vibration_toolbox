@@ -20,8 +20,7 @@ clean:
 	rm -rf build
 	rm -rf dist
 	find . -name "*.pyc" -o -name "*.py,cover"| xargs rm -f
-	python -c $(KILL_PROC)
-	killall -9 nosetests; true
+#	killall -9 nosetests; true
 
 test: clean
 	python setup.py build
@@ -37,16 +36,17 @@ release: clean gh-pages
 	python setup.py register
 	rm -rf dist
 	python setup.py bdist_wheel
-	python setup.py sdist
+	# python setup.py sdist
 	git tag v$(VERSION)
 	git push origin --all
 	git push origin --tags
 	printf '\nUpgrade vibration toolbox with release and sha256 sum:'
 	printf '\nOK, no sha256 sum yet:'
 	twine upload dist/*
-	shasum -a 256 dist/*.tar.gz
+	#shasum -a 256 dist/*.tar.gz
 
-wheel: gh-pages 
+wheel: gh-pages
+	rm -rf dist
 	python setup.py bdist_wheel
 
 docs:
