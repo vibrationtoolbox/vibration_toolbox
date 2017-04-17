@@ -73,6 +73,8 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 
+numpydoc_show_class_members = False
+
 # Whether to produce plot:: directives for Examples sections that contain
 # import matplotlib
 numpydoc_use_plots = True
