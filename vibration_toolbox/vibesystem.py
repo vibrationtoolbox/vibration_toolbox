@@ -284,7 +284,7 @@ class VibeSystem(object):
         >>> magdb[0, 1, :4] # magnitude for output on 0 and input on 1.
         array([-69.54242509, -69.54234685, -69.54211212, -69.5417209 ])
         >>> np.around(phase[1, 1, :4],5) # phase for output on 1 and input on 1.
-        array([-0.     , -0.00471, -0.00942, -0.01413])
+        array([...0.     , -0.00471, -0.00942, -0.01413])
         """
 
         rows = self.H.inputs  # inputs (mag and phase)
