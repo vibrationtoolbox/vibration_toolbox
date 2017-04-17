@@ -49,11 +49,63 @@
 <dt id="vibesystem.VibeSystem">
 <em class="property">class </em><code class="descclassname">vibesystem.</code><code class="descname">VibeSystem</code><span class="sig-paren">(</span><em>M</em>, <em>C</em>, <em>K</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibesystem.html#VibeSystem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibesystem.VibeSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#vibesystem.VibeSystem.C" title="vibesystem.VibeSystem.C"><code class="xref py py-obj docutils literal"><span class="pre">C</span></code></a></td>
+<td>Damping Matrix</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#vibesystem.VibeSystem.K" title="vibesystem.VibeSystem.K"><code class="xref py py-obj docutils literal"><span class="pre">K</span></code></a></td>
+<td>Stiffness Matrix</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#vibesystem.VibeSystem.M" title="vibesystem.VibeSystem.M"><code class="xref py py-obj docutils literal"><span class="pre">M</span></code></a></td>
+<td>Mass Matrix</td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#vibesystem.VibeSystem.A" title="vibesystem.VibeSystem.A"><code class="xref py py-obj docutils literal"><span class="pre">A</span></code></a>()</td>
+<td>State space matrix</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#vibesystem.VibeSystem.freq_response" title="vibesystem.VibeSystem.freq_response"><code class="xref py py-obj docutils literal"><span class="pre">freq_response</span></code></a>([omega,&nbsp;modes])</td>
+<td>Frequency response for a mdof system.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#vibesystem.VibeSystem.time_response" title="vibesystem.VibeSystem.time_response"><code class="xref py py-obj docutils literal"><span class="pre">time_response</span></code></a>(F,&nbsp;t[,&nbsp;ic])</td>
+<td>Time response for a mdof system.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="vibesystem.VibeSystem.A">
 <code class="descname">A</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibesystem.html#VibeSystem.A"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibesystem.VibeSystem.A" title="Permalink to this definition">¶</a></dt>
 <dd><p>State space matrix</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="vibesystem.VibeSystem.C">
+<code class="descname">C</code><a class="headerlink" href="#vibesystem.VibeSystem.C" title="Permalink to this definition">¶</a></dt>
+<dd><p>Damping Matrix</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="vibesystem.VibeSystem.K">
+<code class="descname">K</code><a class="headerlink" href="#vibesystem.VibeSystem.K" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stiffness Matrix</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="vibesystem.VibeSystem.M">
+<code class="descname">M</code><a class="headerlink" href="#vibesystem.VibeSystem.M" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mass Matrix</p>
 </dd></dl>
 
 <dl class="method">

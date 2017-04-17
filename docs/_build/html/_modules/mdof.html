@@ -197,6 +197,7 @@
 <span class="sd">    &gt;&gt;&gt; w</span>
 <span class="sd">    array([ 0.44504187,  1.2469796 ,  1.80193774])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">L</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
     <span class="n">Linv</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
     <span class="n">lam</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">eigen</span><span class="p">(</span><span class="n">Linv</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">Linv</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>

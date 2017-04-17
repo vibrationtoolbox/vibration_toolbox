@@ -75,6 +75,7 @@ class VibeSystem(object):
 
     @property
     def M(self):
+        """Mass Matrix"""
         return self._M
 
     @M.setter
@@ -85,6 +86,7 @@ class VibeSystem(object):
 
     @property
     def C(self):
+        """Damping Matrix"""
         return self._C
 
     @C.setter
@@ -95,6 +97,7 @@ class VibeSystem(object):
 
     @property
     def K(self):
+        """Stiffness Matrix"""
         return self._K
 
     @K.setter

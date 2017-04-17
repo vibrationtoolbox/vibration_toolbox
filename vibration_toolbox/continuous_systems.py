@@ -242,6 +242,7 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
     >>> import vibration_toolbox as vtb
     >>> _, _ = vtb.euler_beam_frf()
     """
+    
     E = beamparams[0]
     I = beamparams[1]
     rho = beamparams[2]
