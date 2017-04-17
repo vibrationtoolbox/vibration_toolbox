@@ -46,7 +46,7 @@ release: clean gh-pages
 	twine upload dist/*
 	shasum -a 256 dist/*.tar.gz
 
-wheel: gh-pages
+wheel: gh-pages 
 	python setup.py bdist_wheel
 
 docs:
