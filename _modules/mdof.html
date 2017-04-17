@@ -197,6 +197,7 @@
 <span class="sd">    &gt;&gt;&gt; w</span>
 <span class="sd">    array([ 0.44504187,  1.2469796 ,  1.80193774])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">L</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
     <span class="n">Linv</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
     <span class="n">lam</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">eigen</span><span class="p">(</span><span class="n">Linv</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">Linv</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
@@ -501,15 +502,27 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Vibration Toolbox</a></h1>
+
+
+
+<p class="blurb">Vibration Education in a Modern Environment</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
 <ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
 </ul>
-</div>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Guide</a></li>
+</ul>
+
+
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
