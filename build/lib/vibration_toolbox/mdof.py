@@ -152,6 +152,7 @@ def modes_system_undamped(M, K):
     >>> w
     array([ 0.44504187,  1.2469796 ,  1.80193774])
     """
+
     L = la.cholesky(M)
     Linv = la.inv(L)
     lam, P = eigen(Linv @ K @ Linv.T)

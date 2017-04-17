@@ -164,7 +164,7 @@ def modes_system_undamped(M, K):
 
 
 def modes_system(M, K, C=None):
-    """
+    """Natural frequencies, damping ratios, and mode shapes of MDOF system.
     This function will return the natural frequencies (wn), the
     damped natural frequencies (wd), the damping ratios (zeta),
     the right eigenvectors (X) and the left eigenvectors (Y) for a
@@ -241,8 +241,9 @@ def modes_system(M, K, C=None):
     I = np.eye(n)
     Minv = la.inv(M)
 
-    if (C is None or np.all(C == 0) or # check if C has only zero entries
-        la.norm(Minv @ C @ K - Minv @ K @ C, 2) < 1e-8*la.norm(Minv @ K @ C, 2)):
+    if (C is None or np.all(C == 0) or  # check if C has only zero entries
+            la.norm(Minv @ C @ K - Minv @ K @ C, 2) <
+            1e-8*la.norm(Minv @ K @ C, 2)):
         w, P, S, Sinv = modes_system_undamped(M, K)
         wn = w
         wd = w
