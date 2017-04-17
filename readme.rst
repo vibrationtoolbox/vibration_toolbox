@@ -7,6 +7,9 @@
 .. image:: https://badge.fury.io/py/vibration_toolbox.png/
     :target: http://badge.fury.io/py/vibration_toolbox
 
+.. image:: https://travis-ci.org/vibrationtoolbox/vibration_toolbox.svg?branch=master
+    :target: https://travis-ci.org/vibrationtoolbox/vibration_toolbox
+
 .. #image:: https://coveralls.io/repos/vibrationtoolbox/vibration_toolbox/badge.png?branch=master
 ..  #:target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
 
