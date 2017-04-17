@@ -32,11 +32,13 @@ To install::
 
   pip install --user vibration_toolbox
 
-To run, open a ``jupyter`` notebook and type::
+where ``--user`` isn't necessary if you are using a locally installed version of Python such as `Anaconda <https://www.continuum.io/downloads>`_.
+
+To run, I recommend you open a `jupyter <https://jupyter.org>`_ notebook and type::
 
   import vibration_toolbox as vtb
 
-For examples, see the `JupyterNotebooks folder <https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/JupyterNotebooks>`_.
+For examples, see the `JupyterNotebooks folder <https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/JupyterNotebooks>`_. Some of these have interactive capabilities that are only apparent when you run them yourself instead of just looking at them on github.
 
 Installation of current code
 ____________________________
@@ -52,4 +54,4 @@ Then, type::
 
 Where you see ``0.5.b9`` above, you will likely need to insert the correct version. We don't increment versions for each minor edit, so you may have to force upgrade.
 
-That should be it. Please note issues on the `issues tab <https://github.com/vibrationtoolbox/vibration_toolbox>`_ on github. 
+That should be it. Please note issues on the `issues tab <https://github.com/vibrationtoolbox/vibration_toolbox>`_ on github.
