@@ -26,6 +26,9 @@ For more information, please see the `documentation for the Python version <http
 
 Installation
 ------------
+
+If you aren't familiar at all with Python, please see  :ref:`installing_python`.
+
 Installation is made easy with ``pip`` (or ``pip3``), with releases as we have time while we try
 to create a full first release. Much of it works already, but we certainly need
 issue reports (on `github <http://github.com/vibrationtoolbox/vibration_toolbox>`_).
