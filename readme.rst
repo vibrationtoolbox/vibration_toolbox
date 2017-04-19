@@ -13,11 +13,11 @@
 .. image:: https://img.shields.io/pypi/v/vibration_toolbox.svg
     :target:
 
-.. image:: https://img.shields.io/github/license/mashape/apistatus.svg
+.. image:: https://img.shields.io/github/license/vibration_toolbox/apistatus.svg
    :target:
 
-.. image:: https://img.shields.io/beerpay/hashdog/scrapfy-chrome-extension.svg
-   :target: 
+.. image:: https://img.shields.io/beerpay/hashdog/vibration_toolbox.svg
+   :target:
 
 .. #image:: https://coveralls.io/repos/vibrationtoolbox/vibration_toolbox/badge.png?branch=master
 ..  #:target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
