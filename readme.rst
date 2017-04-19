@@ -11,7 +11,7 @@
     :target: https://travis-ci.org/vibrationtoolbox/vibration_toolbox
 
 .. image:: https://img.shields.io/pypi/v/vibration_toolbox.svg
-    :target: 
+    :target: https://img.shields.io/pypi/v/vibration_toolbox
 
 .. image:: https://img.shields.io/github/license/mashape/apistatus.svg
     :target:
