@@ -11,13 +11,7 @@
     :target: https://travis-ci.org/vibrationtoolbox/vibration_toolbox
 
 .. image:: https://img.shields.io/pypi/v/vibration_toolbox.svg
-    :target:
-
-.. image:: https://img.shields.io/github/license/vibration_toolbox/apistatus.svg
-   :target:
-
-.. image:: https://img.shields.io/beerpay/hashdog/vibration_toolbox.svg
-   :target:
+    :target: https://img.shields.io/pypi/v/vibration_toolbox
 
 .. #image:: https://coveralls.io/repos/vibrationtoolbox/vibration_toolbox/badge.png?branch=master
 ..  #:target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
