@@ -53,10 +53,10 @@ class VibeSystem(object):
         ...               [-c2, c2+c3]])
         >>> K = np.array([[k1+k2, -k2],
         ...               [-k2, k2+k3]])
-        >>> sys1 = VibeSystem(M, C, K)
-        >>> sys1.wn
+        >>> sys = VibeSystem(M, C, K)
+        >>> sys.wn
         array([ 5.03292121,  8.71727525])
-        >>> sys1.wd
+        >>> sys.wd
         array([ 5.03229206,  8.71400566])
         """
         self._M = M
@@ -136,11 +136,11 @@ class VibeSystem(object):
         >>> K = np.array([[k1+k2, -k2],
         ...               [-k2, k2+k3]])
         >>> sys = VibeSystem(M, C, K) # create the system    
-        >>> print(np.array_str(sys.A(), precision=2))
-        [[  0.00e+00   0.00e+00   1.00e+00   0.00e+00]
-         [  0.00e+00   0.00e+00   0.00e+00   1.00e+00]
-         [ -2.00e+03   1.00e+03  -2.00e+00   1.00e+00]
-         [  1.00e+03  -2.00e+03   1.00e+00  -2.00e+00]]
+        >>> print(np.array_str(sys.A(), precision=2, suppress_small=True))
+        [[    0.     0.     1.     0.]
+         [    0.     0.     0.     1.]
+         [-2000.  1000.    -2.     1.]
+         [ 1000. -2000.     1.    -2.]]
         """
 
         Z = np.zeros((self.n, self.n))
@@ -254,15 +254,17 @@ class VibeSystem(object):
         ...               [-c2, c2+c3]])
         >>> K = np.array([[k1+k2, -k2],
         ...               [-k2, k2+k3]])
-        >>> sys1 = VibeSystem(M, C, K) # create the system
+        >>> sys = VibeSystem(M, C, K) # create the system
         >>> t = np.linspace(0, 25, 1000) # time array
         >>> F2 = np.zeros((len(t), 2))
         >>> F2[:, 1] = 1000*np.sin(40*t) # force applied on m2
-        >>> t, yout, xout = sys1.time_response(F2, t)
-        >>> yout[:5, 0] # response on m1
-        array([ 0.        ,  0.00304585,  0.07034816,  0.32048951,  0.60748282])
-        >>> yout[:5, 1] # response on m2
-        array([ 0.        ,  0.08160348,  0.46442657,  0.7885541 ,  0.47808092])
+        >>> t, yout, xout = sys.time_response(F2, t)
+        >>> # response on m1
+        >>> print(np.array_str(yout[:5, 0], precision=3)) 
+        [ 0.     0.003  0.07   0.32   0.607]
+        >>> # response on m2 
+        >>> print(np.array_str(yout[:5, 1], precision=3))
+        [ 0.     0.082  0.464  0.789  0.478]
         """
         if ic is not None:
             return signal.lsim(self.H, F, t, ic)
@@ -307,8 +309,8 @@ class VibeSystem(object):
         ...               [-c2, c2+c3]])
         >>> K = np.array([[k1+k2, -k2],
         ...               [-k2, k2+k3]])
-        >>> sys1 = VibeSystem(M, C, K) # create the system
-        >>> omega, magdb, phase = sys1.freq_response()
+        >>> sys = VibeSystem(M, C, K) # create the system
+        >>> omega, magdb, phase = sys.freq_response()
         >>> # magnitude for output on 0 and input on 1.
         >>> print(np.array_str(magdb[0, 1, :4], precision=2)) 
         [-69.54 -69.54 -69.54 -69.54]
