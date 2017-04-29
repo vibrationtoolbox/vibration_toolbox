@@ -114,7 +114,35 @@ class VibeSystem(object):
 
     def A(self):
         """State space matrix
+        
+        This method will return the state space matrix
+        of the system.
+        
+        Returns
+        ----------
+        A : array
+            System's state space matrix. 
+
+        Examples
+        --------
+        >>> m1, m2 = 1, 1
+        >>> c1, c2, c3 = 1, 1, 1
+        >>> k1, k2, k3 = 1e3, 1e3, 1e3
+
+        >>> M = np.array([[m1, 0],
+        ...               [0, m2]])
+        >>> C = np.array([[c1+c2, -c2],
+        ...               [-c2, c2+c3]])
+        >>> K = np.array([[k1+k2, -k2],
+        ...               [-k2, k2+k3]])
+        >>> sys = VibeSystem(M, C, K) # create the system        >>> sys =  
+        >>> print(np.array_str(sys.A(), precision=2))
+        [[  0.00e+00   0.00e+00   1.00e+00   0.00e+00]
+         [  0.00e+00   0.00e+00   0.00e+00   1.00e+00]
+         [ -2.00e+03   1.00e+03  -2.00e+00   1.00e+00]
+         [  1.00e+03  -2.00e+03   1.00e+00  -2.00e+00]]
         """
+
         Z = np.zeros((self.n, self.n))
         I = np.eye(self.n)
 
@@ -281,10 +309,10 @@ class VibeSystem(object):
         ...               [-k2, k2+k3]])
         >>> sys1 = VibeSystem(M, C, K) # create the system
         >>> omega, magdb, phase = sys1.freq_response()
-        >>> magdb[0, 1, :4] # magnitude for output on 0 and input on 1.
-        array([-69.54242509, -69.54234685, -69.54211212, -69.5417209 ])
-        >>> np.around(phase[1, 1, :4],5) # phase for output on 1 and input on 1.
-        array([...0.     , -0.00471, -0.00942, -0.01413])
+        >>> print(np.array_str(magdb[0, 1, :4], precision=2)) # magnitude for output on 0 and input on 1.
+        [-69.54 -69.54 -69.54 -69.54]
+        >>> print(np.array_str(phase[1, 1, :4], precision=2)) # phase for output on 1 and input on 1.
+        [ -4.37e-16  -4.71e-03  -9.42e-03  -1.41e-02]
         """
         rows = self.H.inputs  # inputs (mag and phase)
         cols = self.H.inputs  # outputs
