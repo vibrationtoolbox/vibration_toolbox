@@ -309,9 +309,11 @@ class VibeSystem(object):
         ...               [-k2, k2+k3]])
         >>> sys1 = VibeSystem(M, C, K) # create the system
         >>> omega, magdb, phase = sys1.freq_response()
-        >>> print(np.array_str(magdb[0, 1, :4], precision=2)) # magnitude for output on 0 and input on 1.
+        >>> # magnitude for output on 0 and input on 1.
+        >>> print(np.array_str(magdb[0, 1, :4], precision=2)) 
         [-69.54 -69.54 -69.54 -69.54]
-        >>> print(np.array_str(phase[1, 1, :4], precision=2)) # phase for output on 1 and input on 1.
+        >>> # phase for output on 1 and input on 1.
+        >>> print(np.array_str(phase[1, 1, :4], precision=2, suppress_small=True)) 
         [ -4.37e-16  -4.71e-03  -9.42e-03  -1.41e-02]
         """
         rows = self.H.inputs  # inputs (mag and phase)
