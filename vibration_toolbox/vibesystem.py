@@ -313,8 +313,8 @@ class VibeSystem(object):
         >>> print(np.array_str(magdb[0, 1, :4], precision=2)) 
         [-69.54 -69.54 -69.54 -69.54]
         >>> # phase for output on 1 and input on 1.
-        >>> print(np.array_str(phase[1, 1, :4], precision=2, suppress_small=True)) 
-        [ -4.37e-16  -4.71e-03  -9.42e-03  -1.41e-02]
+        >>> print(np.array_str(phase[1, 1, :4], precision=5, suppress_small=True)) 
+        [-0.      -0.00471 -0.00942 -0.01413]
         """
         rows = self.H.inputs  # inputs (mag and phase)
         cols = self.H.inputs  # outputs
