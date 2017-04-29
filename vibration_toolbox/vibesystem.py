@@ -135,7 +135,7 @@ class VibeSystem(object):
         ...               [-c2, c2+c3]])
         >>> K = np.array([[k1+k2, -k2],
         ...               [-k2, k2+k3]])
-        >>> sys = VibeSystem(M, C, K) # create the system        >>> sys =  
+        >>> sys = VibeSystem(M, C, K) # create the system    
         >>> print(np.array_str(sys.A(), precision=2))
         [[  0.00e+00   0.00e+00   1.00e+00   0.00e+00]
          [  0.00e+00   0.00e+00   0.00e+00   1.00e+00]
