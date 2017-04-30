@@ -8,8 +8,8 @@ ________
    :maxdepth: 2
 
    sdof
-   JupyterNotebooks/Beats.ipynb
-   JupyterNotebooks/Vibration_System.ipynb
+   Beats.ipynb
+   Vibration_System.ipynb
    working_notebook.ipynb
 
 ..   Beats
