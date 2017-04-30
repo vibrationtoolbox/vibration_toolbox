@@ -1,7 +1,10 @@
+This is the folder for building the complete documentation for the Vibration Toolbox. The actual documentation is hosted via `githubpages <http://vibrationtoolbox.github.io/vibration_toolbox/>`_.
+
+The remainder of this document contains notes for developers.
+
 To make the doc, in the `docs` folder type::
 
   make docs
-
 
 To serve the pages, move to the `docs/_build/html` folder and type::
 
