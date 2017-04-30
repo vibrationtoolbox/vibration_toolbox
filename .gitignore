@@ -16,7 +16,7 @@ ehthumbs.db
 Thumbs.db
 
 
-
+docs/_build
 .ipynb_check*
 .ipynb*check*/*
 .#.*
