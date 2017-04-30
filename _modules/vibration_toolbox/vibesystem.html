@@ -6,14 +6,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>vibesystem &#8212; Vibration Toolbox 0.5b10 documentation</title>
+    <title>vibration_toolbox.vibesystem &#8212; Vibration Toolbox 0.5b10 documentation</title>
     
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
+        URL_ROOT:    '../../',
         VERSION:     '0.5b10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -21,14 +21,14 @@
         SOURCELINK_SUFFIX: '.txt'
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -42,7 +42,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for vibesystem</h1><div class="highlight"><pre>
+  <h1>Source code for vibration_toolbox.vibesystem</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">signal</span>
@@ -50,7 +50,7 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;VibeSystem&#39;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="VibeSystem"><a class="viewcode-back" href="../reference/vibe_system.html#vibesystem.VibeSystem">[docs]</a><span class="k">class</span> <span class="nc">VibeSystem</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="VibeSystem"><a class="viewcode-back" href="../../reference/vibe_system.html#vibration_toolbox.vibesystem.VibeSystem">[docs]</a><span class="k">class</span> <span class="nc">VibeSystem</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;A multiple degrees of freedom system.</span>
 
@@ -157,7 +157,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">wd</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evalues</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))[:</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_H</span><span class="p">()</span>
 
-<div class="viewcode-block" id="VibeSystem.A"><a class="viewcode-back" href="../reference/vibe_system.html#vibesystem.VibeSystem.A">[docs]</a>    <span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="VibeSystem.A"><a class="viewcode-back" href="../../reference/vibe_system.html#vibration_toolbox.vibesystem.VibeSystem.A">[docs]</a>    <span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;State space matrix</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
@@ -234,7 +234,7 @@
 
         <span class="k">return</span> <span class="n">sys</span>
 
-<div class="viewcode-block" id="VibeSystem.time_response"><a class="viewcode-back" href="../reference/vibe_system.html#vibesystem.VibeSystem.time_response">[docs]</a>    <span class="k">def</span> <span class="nf">time_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ic</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="VibeSystem.time_response"><a class="viewcode-back" href="../../reference/vibe_system.html#vibration_toolbox.vibesystem.VibeSystem.time_response">[docs]</a>    <span class="k">def</span> <span class="nf">time_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ic</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Time response for a mdof system.</span>
 
 <span class="sd">        This method returns the time response for a mdof system</span>
@@ -286,7 +286,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">signal</span><span class="o">.</span><span class="n">lsim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="VibeSystem.freq_response"><a class="viewcode-back" href="../reference/vibe_system.html#vibesystem.VibeSystem.freq_response">[docs]</a>    <span class="k">def</span> <span class="nf">freq_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">modes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="VibeSystem.freq_response"><a class="viewcode-back" href="../../reference/vibe_system.html#vibration_toolbox.vibesystem.VibeSystem.freq_response">[docs]</a>    <span class="k">def</span> <span class="nf">freq_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">modes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Frequency response for a mdof system.</span>
 
 <span class="sd">        This method returns the frequency response for a mdof system</span>
@@ -329,8 +329,9 @@
 <span class="sd">        &gt;&gt;&gt; magdb[0, 1, :4] # magnitude for output on 0 and input on 1.</span>
 <span class="sd">        array([-69.54242509, -69.54234685, -69.54211212, -69.5417209 ])</span>
 <span class="sd">        &gt;&gt;&gt; np.around(phase[1, 1, :4],5) # phase for output on 1 and input on 1.</span>
-<span class="sd">        array([...0.     , -0.00471, -0.00942, -0.01413])</span>
+<span class="sd">        array([-0.     , -0.00471, -0.00942, -0.01413])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">inputs</span>  <span class="c1"># inputs (mag and phase)</span>
         <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">inputs</span>  <span class="c1"># outputs</span>
 
@@ -395,7 +396,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">Vibration Toolbox</a></h1>
+<h1 class="logo"><a href="../../index.html">Vibration Toolbox</a></h1>
 
 
 
@@ -408,16 +409,15 @@
 
 <h3>Navigation</h3>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference</a></li>
 </ul>
 
 
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search.html" method="get">
       <div><input type="text" name="q" /></div>
       <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />

@@ -23,13 +23,6 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Vibration system object"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
     "This notebook will introduce the class VibeSystem(), which is available in the vibration_toolbox.\n",
     "As an example we will use the following 3 degree of freedom system:\n",
     "\n",
@@ -250,9 +243,7 @@
     "collapsed": true
    },
    "outputs": [],
-   "source": [
-    ""
-   ]
+   "source": []
   }
  ],
  "metadata": {
@@ -265,7 +256,7 @@
   "language_info": {
    "codemirror_mode": {
     "name": "ipython",
-    "version": 3.0
+    "version": 3
    },
    "file_extension": ".py",
    "mimetype": "text/x-python",
@@ -277,11 +268,11 @@
   "latex_envs": {
    "bibliofile": "biblio.bib",
    "cite_by": "apalike",
-   "current_citInitial": 1.0,
+   "current_citInitial": 1,
    "eqLabelWithNumbers": true,
-   "eqNumInitial": 0.0
+   "eqNumInitial": 0
   }
  },
  "nbformat": 4,
- "nbformat_minor": 0
+ "nbformat_minor": 1
 }

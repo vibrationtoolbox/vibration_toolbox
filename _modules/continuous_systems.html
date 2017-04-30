@@ -96,7 +96,6 @@
 <span class="sd">    npoints: int</span>
 <span class="sd">        number of points for returned mode shape array</span>
 
-
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    omega_n: numpy array</span>
@@ -105,7 +104,6 @@
 <span class="sd">        x coordinate</span>
 <span class="sd">    U: numpy array</span>
 <span class="sd">        mass normalized mode shape</span>
-
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -121,6 +119,7 @@
 <span class="sd">    &gt;&gt;&gt; plt.title(&#39;Mode 1&#39;)</span>
 <span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">E</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">I</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">rho</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -246,7 +245,9 @@
                    <span class="n">beamparams</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">12</span> <span class="o">*</span> <span class="mf">0.03</span> <span class="o">*</span> <span class="o">.</span><span class="mi">015</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,</span>
                                         <span class="mf">2747.0</span><span class="p">,</span> <span class="o">.</span><span class="mi">015</span> <span class="o">*</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])):</span>
     <span class="sd">&quot;&quot;&quot;Frequency response function fo Euler-Bernoulli beam.</span>
+
 <span class="sd">    See working notebook for working code</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    xin: float</span>
@@ -275,7 +276,6 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-
 <span class="sd">    fout: numpy array</span>
 <span class="sd">        array of driving frequencies (Hz)</span>
 <span class="sd">    H: numpy array</span>
@@ -286,8 +286,9 @@
 <span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
 <span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
 <span class="sd">    &gt;&gt;&gt; _, _ = vtb.euler_beam_frf()</span>
+<span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="n">E</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">I</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">rho</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -305,24 +306,14 @@
     <span class="n">f</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 
     <span class="k">while</span> <span class="n">wn</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="p">(</span><span class="n">fmax</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span><span class="p">):</span>
-
         <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="c1"># legtext[i + 1]=[char(&#39;Contribution of mode &#39;),num2str_(i)]</span>
         <span class="n">wn</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">euler_beam_modes</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">bctype</span><span class="o">=</span><span class="n">bctype</span><span class="p">,</span>
                                      <span class="n">beamparams</span><span class="o">=</span><span class="n">beamparams</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
         <span class="n">spl</span> <span class="o">=</span> <span class="n">UnivariateSpline</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
         <span class="n">Uin</span> <span class="o">=</span> <span class="n">spl</span><span class="p">(</span><span class="n">xin</span><span class="p">)</span>
         <span class="n">Uout</span> <span class="o">=</span> <span class="n">spl</span><span class="p">(</span><span class="n">xout</span><span class="p">)</span>
-        <span class="c1"># Uin=spline_(xx,U,xin)</span>
-        <span class="c1"># Uout=spline_(xx,U,xout)</span>
-
-        <span class="c1"># print(wn[-1])</span>
-        <span class="c1"># print(w)</span>
         <span class="n">a</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">Uin</span> <span class="o">*</span> <span class="n">Uout</span> <span class="o">/</span> \
             <span class="p">(</span><span class="n">wn</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">w</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">zeta</span> <span class="o">*</span> <span class="n">wn</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-        <span class="c1"># print(a[0:10,i])</span>
-        <span class="c1"># plt.plot(sp.log10(sp.absolute(a[:,i])))</span>
-
         <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">wn</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="n">i</span><span class="p">]</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
@@ -340,7 +331,6 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)))</span> <span class="o">/</span>
              <span class="n">sp</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">180</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
-    <span class="c1"># plt.hold(&#39;on&#39;)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">sp</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">180</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
@@ -374,6 +364,7 @@
     <span class="c1"># doctest.run_docstring_examples(asd,globals(),</span>
     <span class="c1"># optionflags=doctest.ELLIPSIS)</span>
     <span class="sd">&quot;&quot;&quot; What this does.</span>
+
 <span class="sd">    python (name of this file)  -v</span>
 <span class="sd">    will test all of the examples in the help.</span>
 
@@ -403,10 +394,9 @@
 
 <h3>Navigation</h3>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
 </ul>
 
 

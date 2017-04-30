@@ -45,36 +45,36 @@
             
   <div class="section" id="vibration-systems-vibesystem-py">
 <h1>Vibration Systems (<code class="xref py py-mod docutils literal"><span class="pre">vibesystem.py</span></code>)<a class="headerlink" href="#vibration-systems-vibesystem-py" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-vibesystem"></span><dl class="class">
-<dt id="vibesystem.VibeSystem">
-<em class="property">class </em><code class="descclassname">vibesystem.</code><code class="descname">VibeSystem</code><span class="sig-paren">(</span><em>M</em>, <em>C</em>, <em>K</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibesystem.html#VibeSystem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibesystem.VibeSystem" title="Permalink to this definition">¶</a></dt>
+<dl class="class">
+<dt id="vibration_toolbox.vibesystem.VibeSystem">
+<em class="property">class </em><code class="descclassname">vibration_toolbox.vibesystem.</code><code class="descname">VibeSystem</code><span class="sig-paren">(</span><em>M</em>, <em>C</em>, <em>K</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
-<dt id="vibesystem.VibeSystem.A">
-<code class="descname">A</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibesystem.html#VibeSystem.A"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibesystem.VibeSystem.A" title="Permalink to this definition">¶</a></dt>
+<dt id="vibration_toolbox.vibesystem.VibeSystem.A">
+<code class="descname">A</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.A"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.A" title="Permalink to this definition">¶</a></dt>
 <dd><p>State space matrix</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="vibesystem.VibeSystem.C">
-<code class="descname">C</code><a class="headerlink" href="#vibesystem.VibeSystem.C" title="Permalink to this definition">¶</a></dt>
+<dt id="vibration_toolbox.vibesystem.VibeSystem.C">
+<code class="descname">C</code><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.C" title="Permalink to this definition">¶</a></dt>
 <dd><p>Damping Matrix</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="vibesystem.VibeSystem.K">
-<code class="descname">K</code><a class="headerlink" href="#vibesystem.VibeSystem.K" title="Permalink to this definition">¶</a></dt>
+<dt id="vibration_toolbox.vibesystem.VibeSystem.K">
+<code class="descname">K</code><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.K" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stiffness Matrix</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="vibesystem.VibeSystem.M">
-<code class="descname">M</code><a class="headerlink" href="#vibesystem.VibeSystem.M" title="Permalink to this definition">¶</a></dt>
+<dt id="vibration_toolbox.vibesystem.VibeSystem.M">
+<code class="descname">M</code><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.M" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mass Matrix</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="vibesystem.VibeSystem.freq_response">
-<code class="descname">freq_response</code><span class="sig-paren">(</span><em>omega=None</em>, <em>modes=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibesystem.html#VibeSystem.freq_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibesystem.VibeSystem.freq_response" title="Permalink to this definition">¶</a></dt>
+<dt id="vibration_toolbox.vibesystem.VibeSystem.freq_response">
+<code class="descname">freq_response</code><span class="sig-paren">(</span><em>omega=None</em>, <em>modes=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.freq_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.freq_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Frequency response for a mdof system.</p>
 <p>This method returns the frequency response for a mdof system
 given a range of frequencies and the modes that will be used.</p>
@@ -132,14 +132,14 @@ The order of the array is: [output, input, phase]</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">magdb</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="c1"># magnitude for output on 0 and input on 1.</span>
 <span class="go">array([-69.54242509, -69.54234685, -69.54211212, -69.5417209 ])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">phase</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">],</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># phase for output on 1 and input on 1.</span>
-<span class="go">array([...0.     , -0.00471, -0.00942, -0.01413])</span>
+<span class="go">array([-0.     , -0.00471, -0.00942, -0.01413])</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="vibesystem.VibeSystem.time_response">
-<code class="descname">time_response</code><span class="sig-paren">(</span><em>F</em>, <em>t</em>, <em>ic=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibesystem.html#VibeSystem.time_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibesystem.VibeSystem.time_response" title="Permalink to this definition">¶</a></dt>
+<dt id="vibration_toolbox.vibesystem.VibeSystem.time_response">
+<code class="descname">time_response</code><span class="sig-paren">(</span><em>F</em>, <em>t</em>, <em>ic=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.time_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.time_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time response for a mdof system.</p>
 <p>This method returns the time response for a mdof system
 given a force, time and initial conditions.</p>
@@ -224,11 +224,10 @@ given a force, time and initial conditions.</p>
 
 
 <h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
-</ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference Guide</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="continuous.html">Continuous Systems (<code class="docutils literal"><span class="pre">continuous_systems</span></code>)</a></li>

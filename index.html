@@ -27,7 +27,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tutorial" href="tutorial/index.html" />
+    <link rel="next" title="Installation" href="installation.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -47,66 +47,38 @@
 <h1>The Engineering Vibration Toolbox for Python<a class="headerlink" href="#the-engineering-vibration-toolbox-for-python" title="Permalink to this headline">¶</a></h1>
 <a class="reference external image-reference" href="http://badge.fury.io/py/vibration_toolbox"><img alt="https://badge.fury.io/py/vibration_toolbox.png/" src="https://badge.fury.io/py/vibration_toolbox.png/" /></a>
 <a class="reference external image-reference" href="https://travis-ci.org/vibrationtoolbox/vibration_toolbox"><img alt="https://travis-ci.org/vibrationtoolbox/vibration_toolbox.svg?branch=master" src="https://travis-ci.org/vibrationtoolbox/vibration_toolbox.svg?branch=master" /></a>
+<a class="reference external image-reference" href="https://img.shields.io/pypi/v/vibration_toolbox"><img alt="https://img.shields.io/pypi/v/vibration_toolbox.svg" src="https://img.shields.io/pypi/v/vibration_toolbox.svg" /></a>
 <p>Joseph C. Slater and Raphael Timbó</p>
 <p>Welcome to <a class="reference external" href="http://vibrationtoolbox.github.io/vibration_toolbox/">Engineering Vibration Toolbox</a>.
 Originally written for <a class="reference external" href="http://www.mathworks.com">Matlab</a>®, this <a class="reference external" href="http://python.org">Python</a> version is a completely new design build for modern education. This is an <em>educational</em> set of codes intended primarily for
 demonstration of concepts. You may find them useful for application, but that
 isn&#8217;t the intent. If you have professional-level needs please <a class="reference external" href="mailto:joseph&#46;c&#46;slater&#37;&#52;&#48;gmail&#46;com">contact the authors</a>.</p>
 <p>For more information, please see the <a class="reference external" href="http://vibrationtoolbox.github.io/vibration_toolbox/">documentation for the Python version</a> but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox so this is taking some time. We don&#8217;t need feedback at this time, but we will take assistance in improving documentation and code.</p>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>If you aren&#8217;t familiar at all with Python, please see  <a class="reference internal" href="Installing_Python.html#installing-python"><span class="std std-ref">Installing Python</span></a>.</p>
-<p>Installation is made easy with <code class="docutils literal"><span class="pre">pip</span></code> (or <code class="docutils literal"><span class="pre">pip3</span></code>), with releases as we have time while we try
-to create a full first release. Much of it works already, but we certainly need
-issue reports (on <a class="reference external" href="http://github.com/vibrationtoolbox/vibration_toolbox">github</a>).</p>
-<p>To install:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="n">vibration_toolbox</span>
-</pre></div>
-</div>
-<p>where <code class="docutils literal"><span class="pre">--user</span></code> isn&#8217;t necessary if you are using a locally installed version of Python such as <a class="reference external" href="https://www.continuum.io/downloads">Anaconda</a>.</p>
-<p>To run, I recommend you open a <a class="reference external" href="https://jupyter.org">jupyter</a> notebook by using <code class="docutils literal"><span class="pre">jupyter</span> <span class="pre">notebook</span></code> and then type:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
-</pre></div>
-</div>
-<p>For examples, see the <a class="reference external" href="https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/JupyterNotebooks">JupyterNotebooks folder</a>. Some of these have interactive capabilities that are only apparent when you run them yourself instead of just looking at them on github.</p>
-<div class="section" id="installation-of-current-code">
-<h3>Installation of current code<a class="headerlink" href="#installation-of-current-code" title="Permalink to this headline">¶</a></h3>
-<p>The usage documentation is far behind the current code, while the reference is way ahead of the released code due to the <a class="reference external" href="http://www.sphinx-doc.org/en/stable/ext/autodoc.html">autodoc</a> capability of <a class="reference external" href="http://www.sphinx-doc.org/en/stable/">Sphinx</a>. Especially as of early 2017, the code is in rapid development. So is the documentation. Releases to <a class="reference external" href="https://pypi.python.org/pypi">pypi</a> are far behind current status as stopping to deploy would cost more time that it is worth. We have the objective of releasing a first non-beta version at the end of May, but even this cannot be promised.</p>
-<p>If you wish to install the current version of the software, download the newest <code class="docutils literal"><span class="pre">wheel</span></code> file from
-<code class="docutils literal"><span class="pre">https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/dist</span></code>. This should be easy to understand, outside of what a <code class="docutils literal"><span class="pre">wheel</span> <span class="pre">file</span></code> is. Don&#8217;t fret that. It&#8217;s the full package as it currently stands (at lease the last time someone made a <cite>wheel</cite>).</p>
-<p>Then, type:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">force</span><span class="o">-</span><span class="n">reinstall</span> <span class="o">--</span><span class="n">upgrade</span> <span class="o">--</span><span class="n">user</span> <span class="n">dist</span><span class="o">/</span><span class="n">vibration_toolbox</span><span class="o">-</span><span class="mf">0.5</span><span class="n">b9</span><span class="o">-</span><span class="n">py3</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="nb">any</span><span class="o">.</span><span class="n">whl</span>
-</pre></div>
-</div>
-<p>Where you see <code class="docutils literal"><span class="pre">0.5.b9</span></code> above, you will likely need to insert the correct version. We don&#8217;t increment versions for each minor edit, so you may have to force upgrade.</p>
-<p>That should be it. Please note issues on the <a class="reference external" href="https://github.com/vibrationtoolbox/vibration_toolbox">issues tab</a> on github.</p>
-<div class="toctree-wrapper compound">
-</div>
-</div>
-</div>
-<div class="section" id="tutorial">
-<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
-<p>Tutorials with worked examples and background information for the Vibration Toolbox.</p>
+<div class="section" id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#easy-installation">Easy Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-of-current-development-version">Installation of current development version</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/index.html">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/sdof.html">Single Degree of Freedom Systems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/JupyterNotebooks/Beats.html">Beat phenomenon</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/JupyterNotebooks/Vibration_System.html">Vibration System Objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial/JupyterNotebooks/Vibration_System.html#Vibration-system-object">Vibration system object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/Beats.html">Beat phenomenon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/Vibration_System.html">Vibration System Objects</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial/working_notebook.html">Working Notebook</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/sdof.html">Single Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.sdof</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/sdof.html#module-sdof"><code class="docutils literal"><span class="pre">sdof</span></code> &#8211; Single Degree of Freedom Functions</a></li>
 </ul>
-</div>
-</div>
-<div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="reference/sdof.html">Single Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reference/mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="reference/mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.mdof</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference/mdof.html#mdof-multiple-degree-of-freedom-functions"><code class="docutils literal"><span class="pre">mdof</span></code> &#8211; Multiple Degree of Freedom Functions</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="reference/continuous.html">Continuous Systems (<code class="docutils literal"><span class="pre">continuous_systems</span></code>)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference/vibe_system.html">Vibration Systems (<code class="docutils literal"><span class="pre">vibesystem.py</span></code>)</a></li>
 </ul>
@@ -143,10 +115,9 @@ issue reports (on <a class="reference external" href="http://github.com/vibratio
 
 <h3>Navigation</h3>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial/index.html">Tutorial</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">Reference</a></li>
 </ul>
 
 
