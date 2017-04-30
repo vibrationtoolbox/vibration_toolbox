@@ -6,59 +6,58 @@ __all__ = ['VibeSystem']
 
 
 class VibeSystem(object):
+    r"""A multiple degrees of freedom system.
+
+    This class will create a multiple degree of
+    freedom system given M, C and K matrices.
+
+    Parameters
+    ----------
+    M : array
+        Mass matrix.
+    C : array
+        Damping matrix.
+    K : array
+        Stiffness matrix.
+    name : str, optional
+        Name of the system.
+
+    Attributes
+    ----------
+    evalues : array
+        System's eigenvalues.
+    evectors : array
+        System's eigenvectors.
+    wn : array
+        System's natural frequencies in Hz.
+    wd : array
+        System's damped natural frequencies in Hz.
+    H : scipy.signal.lti
+        Continuous-time linear time invariant system
+
+    Examples
+    --------
+    For a system consisting of two masses connected
+    to each other and both connected to a wall we have
+    the following matrices:
+
+    >>> m1, m2 = 1, 1
+    >>> c1, c2, c3 = 1, 1, 1
+    >>> k1, k2, k3 = 1e3, 1e3, 1e3
+
+    >>> M = np.array([[m1, 0],
+    ...               [0, m2]])
+    >>> C = np.array([[c1+c2, -c2],
+    ...               [-c2, c2+c3]])
+    >>> K = np.array([[k1+k2, -k2],
+    ...               [-k2, k2+k3]])
+    >>> sys = VibeSystem(M, C, K)
+    >>> sys.wn
+    array([ 5.03292121,  8.71727525])
+    >>> sys.wd
+    array([ 5.03229206,  8.71400566])
+    """
     def __init__(self, M, C, K, name=None):
-        r"""A multiple degrees of freedom system.
-
-        This class will create a multiple degree of
-        freedom system given M, C and K matrices.
-
-        Parameters
-        ----------
-        M : array
-            Mass matrix.
-        C : array
-            Damping matrix.
-        K : array
-            Stiffness matrix.
-        name : str, optional
-            Name of the system.
-
-        Attributes
-        ----------
-        evalues : array
-            System's eigenvalues.
-
-        evectors : array
-            System's eigenvectors.
-        wn : array
-            System's natural frequencies in Hz.
-        wd : array
-            System's damped natural frequencies in Hz.
-        H:
-            Continuous-time linear time invariant system
-
-        Examples
-        --------
-        For a system consisting of two masses connected
-        to each other and both connected to a wall we have
-        the following matrices:
-
-        >>> m1, m2 = 1, 1
-        >>> c1, c2, c3 = 1, 1, 1
-        >>> k1, k2, k3 = 1e3, 1e3, 1e3
-
-        >>> M = np.array([[m1, 0],
-        ...               [0, m2]])
-        >>> C = np.array([[c1+c2, -c2],
-        ...               [-c2, c2+c3]])
-        >>> K = np.array([[k1+k2, -k2],
-        ...               [-k2, k2+k3]])
-        >>> sys = VibeSystem(M, C, K)
-        >>> sys.wn
-        array([ 5.03292121,  8.71727525])
-        >>> sys.wd
-        array([ 5.03229206,  8.71400566])
-        """
         self._M = M
         self._C = C
         self._K = K
@@ -75,7 +74,6 @@ class VibeSystem(object):
 
     @property
     def M(self):
-        """Mass Matrix"""
         return self._M
 
     @M.setter
@@ -86,7 +84,6 @@ class VibeSystem(object):
 
     @property
     def C(self):
-        """Damping Matrix"""
         return self._C
 
     @C.setter
@@ -97,7 +94,6 @@ class VibeSystem(object):
 
     @property
     def K(self):
-        """Stiffness Matrix"""
         return self._K
 
     @K.setter
