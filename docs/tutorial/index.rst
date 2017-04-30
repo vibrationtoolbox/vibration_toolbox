@@ -1,6 +1,3 @@
-Tutorial
-________
-
 
 .. sectionauthor:: Joseph C. Slater
 
