@@ -59,6 +59,8 @@ docs:
 	make -C docs clean
 	make -C docs html
 
+html: docs
+
 gh-pages:
 	git checkout master
 	git pull origin master

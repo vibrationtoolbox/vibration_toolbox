@@ -1,3 +1,8 @@
+Tutorial
+--------
+
+
+Tutorials with worked examples and background information for the Vibration Toolbox.
 
 .. sectionauthor:: Joseph C. Slater
 
