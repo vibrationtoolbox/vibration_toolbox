@@ -129,12 +129,12 @@ class VibeSystem(object):
         M = np.array_str(self.M)
         K = np.array_str(self.K)
         C = np.array_str(self.C)
-        return (f'Mass Matrix: \n'
-                f'{M} \n\n'
-                f'Stiffness Matrix: \n'
-                f'{K} \n\n'
-                f'Damping Matrix: \n'
-                f'{C}')
+        return ('Mass Matrix: \n'
+                '{} \n\n'
+                'Stiffness Matrix: \n'
+                '{} \n\n'
+                'Damping Matrix: \n'
+                '{}'.format(M, K, C))
 
     def _calc_system(self):
         self.evalues, self.evectors = self._eigen()
