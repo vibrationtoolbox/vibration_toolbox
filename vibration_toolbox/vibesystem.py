@@ -482,3 +482,63 @@ class VibeSystem(object):
         ax1.set_xlabel('Frequency (rad/s)')
 
         return ax0, ax1
+
+    def plot_freq_response_grid(self, outs, inps, ax=None):
+        """Plot frequency response.
+        
+        This method plots the frequency response given
+        an output and an input.
+
+        Parameters
+        ----------
+        outs : list
+            List with the desired outputs.
+        inps : list
+            List with the desired outputs.        
+        
+        ax : array with matplotlib.axes, optional
+            Matplotlib axes array created with plt.subplots.
+            It needs to have a shape of (2*inputs, outputs).
+
+        Returns
+        -------
+        ax : array with matplotlib.axes, optional
+            Matplotlib axes array created with plt.subplots.
+           
+        Examples
+        --------
+        >>> m1, m2 = 1, 1
+        >>> c1, c2, c3 = 1, 1, 1
+        >>> k1, k2, k3 = 1e3, 1e3, 1e3
+
+        >>> M = np.array([[m1, 0],
+        ...               [0, m2]])
+        >>> C = np.array([[c1+c2, -c2],
+        ...               [-c2, c2+c3]])
+        >>> K = np.array([[k1+k2, -k2],
+        ...               [-k2, k2+k3]])
+        >>> sys = VibeSystem(M, C, K) # create the system
+        >>> # plot frequency response for inputs at [0, 1]
+        >>> # and outputs at [0, 1] 
+        >>> sys.plot_freq_response_grid(outs=[0, 1], inps=[0, 1])
+        array([[<matplotlib.axes._...
+        """
+        if ax is None:
+            fig, ax = plt.subplots(len(inps) * 2, len(outs),
+                                   sharex=True,
+                                   figsize=(4*len(outs), 3*len(inps)))
+            fig.subplots_adjust(hspace=0.001, wspace=0.25)
+
+        if len(outs) > 1:
+            for i, out in enumerate(outs):
+                for j, inp in enumerate(inps):
+                    self.plot_freq_response(out, inp,
+                                            ax[2*i, j],
+                                            ax[2*i + 1, j])
+        else:
+            for i, inp in enumerate(inps):
+                self.plot_freq_response(outs[0], inp,
+                                        ax[2*i],
+                                        ax[2*i + 1])
+
+        return ax
