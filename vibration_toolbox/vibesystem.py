@@ -518,8 +518,9 @@ class VibeSystem(object):
         >>> K = np.array([[k1+k2, -k2],
         ...               [-k2, k2+k3]])
         >>> sys = VibeSystem(M, C, K) # create the system
-        >>> # plot frequency response for input and output at m1
-        >>> sys.plot_freq_response_grid([0, 1], [0, 1])
+        >>> # plot frequency response for inputs at [0, 1]
+        >>> # and outputs at [0, 1] 
+        >>> sys.plot_freq_response_grid(outs=[0, 1], inps=[0, 1])
         array([[<matplotlib.axes._...
         """
         if ax is None:
