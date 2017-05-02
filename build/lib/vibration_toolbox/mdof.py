@@ -182,7 +182,7 @@ def modes_system(M, K, C=None):
         Damping matrix
 
     Returns
-    ----------
+    -------
     wn: array
         The natural frequencies of the system
     wd: array
@@ -194,7 +194,8 @@ def modes_system(M, K, C=None):
     Y: array
         The left eigenvectors
 
-    Examples:
+    Examples
+    --------
     >>> M = np.array([[1, 0],
     ...               [0, 1]])
     >>> K = np.array([[1, -0.4],
