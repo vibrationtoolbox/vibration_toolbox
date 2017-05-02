@@ -31,3 +31,11 @@ from .mdof import *
 from .ema import *
 from .vibesystem import *
 from .continuous_systems import *
+
+# print options were change inside modules to produce better
+# outputs at examples. Here we set the print options to the
+# default values after importing the modules to avoid changing
+# np default print options when importing the toolbox.
+np.set_printoptions(edgeitems=3, infstr='inf', linewidth=75,
+                    nanstr='nan', precision=8, suppress=False,
+                    threshold=1000, formatter=None)
