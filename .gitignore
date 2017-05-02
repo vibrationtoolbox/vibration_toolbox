@@ -33,3 +33,6 @@ Untitled*.ipynb
 *.*~
 __pycache__
 .idea/
+/.cache/
+.cache/
+vibration_toolbox/.cache/

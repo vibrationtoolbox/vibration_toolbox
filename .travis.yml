@@ -30,7 +30,5 @@ before_script: # configure a headless display to test plot generation
 #  - sleep 3 # give xvfb some time to start
 #  - python -c 'import matplotlib;matplotlib.use('Agg');import matplotlib.pyplot'
 
-script:
-#  - nosetests --with-doctest --doctest-tests --doctest-options=+ELLIPSIS,+NORMALIZE_WHITESPACE
-#  - cd $HOME/build/my/package
-  - python tests.py
+script: pytest
+
