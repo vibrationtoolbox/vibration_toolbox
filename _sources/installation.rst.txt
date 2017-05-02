@@ -16,11 +16,11 @@ To install::
 
 where ``--user`` isn't necessary if you are using a locally installed version of Python such as `Anaconda <https://www.continuum.io/downloads>`_.
 
-To run, I recommend you open a `Jupyter <https://jupyter.org>`_ notebook by using ``jupyter notebook`` and then type::
+To run, I recommend you open a `Jupyter`_ notebook by using ``jupyter notebook`` and then type::
 
   import vibration_toolbox as vtb
 
-For examples, see the `example ipynb notebooks <https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/docs/tutorial>`_. Some of these have interactive capabilities that are only apparent when you load them with `Jupyter <jupyter.org>`_ instead of just looking at them on github.
+For examples, see the `example ipynb notebooks <https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/docs/tutorial>`_. Some of these have interactive capabilities that are only apparent when you load them with `Jupyter`_ instead of just looking at them on github.
 
 Installation of current development version
 ___________________________________________
@@ -37,3 +37,5 @@ Then, type::
 Where you see ``0.5.b9`` above, you will likely need to insert the correct version. We don't increment versions for each minor edit, so you may have to force upgrade.
 
 That should be it. Please note issues on the `issues tab <https://github.com/vibrationtoolbox/vibration_toolbox>`_ on github.
+
+.. _Jupyter: jupyter.org
