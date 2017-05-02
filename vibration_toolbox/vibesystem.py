@@ -3,6 +3,7 @@ import scipy.linalg as la
 from scipy import signal
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+np.set_printoptions(precision=2, suppress=True)
 
 __all__ = ['VibeSystem']
 
@@ -76,9 +77,9 @@ class VibeSystem(object):
     ...               [-k2, k2+k3]])
     >>> sys = VibeSystem(M, C, K)
     >>> sys.wn
-    array([ 5.03292121,  8.71727525])
+    array([ 5.03,  8.72])
     >>> sys.wd
-    array([ 5.03229206,  8.71400566])
+    array([ 5.03,  8.71])
     """
     def __init__(self, M, C, K, name=None):
         self._M = M
@@ -166,11 +167,11 @@ class VibeSystem(object):
         >>> K = np.array([[k1+k2, -k2],
         ...               [-k2, k2+k3]])
         >>> sys = VibeSystem(M, C, K) # create the system    
-        >>> print(np.array_str(sys.A(), precision=2, suppress_small=True))
-        [[    0.     0.     1.     0.]
-         [    0.     0.     0.     1.]
-         [-2000.  1000.    -2.     1.]
-         [ 1000. -2000.     1.    -2.]]
+        >>> sys.A()
+        array([[    0.,     0.,     1.,     0.],
+               [    0.,     0.,     0.,     1.],
+               [-2000.,  1000.,    -2.,     1.],
+               [ 1000., -2000.,     1.,    -2.]])
         """
 
         Z = np.zeros((self.n, self.n))
@@ -290,11 +291,11 @@ class VibeSystem(object):
         >>> F2[:, 1] = 1000*np.sin(40*t) # force applied on m2
         >>> t, yout, xout = sys.time_response(F2, t)
         >>> # response on m1
-        >>> print(np.array_str(yout[:5, 0], precision=3)) 
-        [ 0.     0.003  0.07   0.32   0.607]
+        >>> yout[:5, 0]
+        array([ 0.  ,  0.  ,  0.07,  0.32,  0.61])
         >>> # response on m2 
-        >>> print(np.array_str(yout[:5, 1], precision=3))
-        [ 0.     0.082  0.464  0.789  0.478]
+        >>> yout[:5, 1]
+        array([ 0.  ,  0.08,  0.46,  0.79,  0.48])
         """
         if ic is not None:
             return signal.lsim(self.H, F, t, ic)
