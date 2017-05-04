@@ -36,3 +36,4 @@ __pycache__
 /.cache/
 .cache/
 vibration_toolbox/.cache/
+/.eggs/

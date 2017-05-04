@@ -18,7 +18,7 @@ before_install:
 install:
   - pip install ipython
   - pip install jupyter
-  - pip install .
+ # - pip install .
 
 cache:
   directories:
@@ -30,5 +30,6 @@ before_script: # configure a headless display to test plot generation
 #  - sleep 3 # give xvfb some time to start
 #  - python -c 'import matplotlib;matplotlib.use('Agg');import matplotlib.pyplot'
 
-script: pytest
+script:
+  python setup.py test
 
