@@ -1,6 +1,4 @@
 # numpy, sympy not whitelisted by travis; need sudo
-sudo: true
-
 language: python
 
 python:
