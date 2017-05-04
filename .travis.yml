@@ -9,11 +9,12 @@ before_install:
 
 install:
   - pip install -r requirements.txt
+  - pip install .
 
 cache:
   directories:
     - $HOME/.cache/matplotlib
 
 script:
-  python setup.py test
+  pytest
 
