@@ -23,8 +23,13 @@ __copyright__ = 'Copyright 1991-2017 Joseph C. Slater'
 __all__ = ['sdof', 'mdof', 'ema', 'vibesystem', 'continuous_systems',
            '__version__']
 
-import scipy as sp
-import matplotlib.pyplot as plt
+import os
+import sys
+import matplotlib as mpl
+
+if str(sys.argv[0])[-6:] == 'pytest':
+    print('setting backend to agg')
+    mpl.use('agg')
 
 from .sdof import *
 from .mdof import *
