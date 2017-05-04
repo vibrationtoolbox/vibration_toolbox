@@ -16,7 +16,6 @@ cache:
     - $HOME/.cache/matplotlib
 
 script:
-  - cd $HOME/build/vibrationtoolbox
-  - python tests.py
+  - python $HOME/build/vibrationtoolbox tests.py
   - pytest
 
