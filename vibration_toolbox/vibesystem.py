@@ -348,8 +348,8 @@ class VibeSystem(object):
         >>> phase[1, 1, :4] 
         array([...0.  , -0.  , -0.01, -0.01])
         """
-        rows = self.H.inputs  # inputs (mag and phase)
-        cols = self.H.inputs  # outputs
+        rows = self.H.inputs   # inputs (mag and phase)
+        cols = self.H.outputs  # outputs
 
         B = self.H.B
         C = self.H.C
@@ -450,6 +450,7 @@ class VibeSystem(object):
         >>> sys.plot_freq_response(0, 0)
         (<matplotlib.axes._...
         """
+        # TODO add modes as an optional argument
         if ax0 is None or ax1 is None:
             fig, ax = plt.subplots(2)
             if ax0 is not None:
