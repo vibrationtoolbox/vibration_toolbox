@@ -65,7 +65,7 @@ class VibeSystem(object):
     the following matrices:
 
     >>> m1, m2 = 1, 1
-    >>> c1, c2, c3 = 1, 1, 1
+    >>> c1, c2, c3 = 5, 5, 5
     >>> k1, k2, k3 = 1e3, 1e3, 1e3
 
     >>> M = np.array([[m1, 0],
@@ -76,9 +76,9 @@ class VibeSystem(object):
     ...               [-k2, k2+k3]])
     >>> sys = VibeSystem(M, C, K)
     >>> sys.wn
-    array([ 5.03292121,  8.71727525])
+    array([ 5.03,  8.72])
     >>> sys.wd
-    array([ 5.03229206,  8.71400566])
+    array([ 5.02,  8.64])
     """
     def __init__(self, M, C, K, name=None):
         self._M = M
@@ -166,11 +166,11 @@ class VibeSystem(object):
         >>> K = np.array([[k1+k2, -k2],
         ...               [-k2, k2+k3]])
         >>> sys = VibeSystem(M, C, K) # create the system    
-        >>> print(np.array_str(sys.A(), precision=2, suppress_small=True))
-        [[    0.     0.     1.     0.]
-         [    0.     0.     0.     1.]
-         [-2000.  1000.    -2.     1.]
-         [ 1000. -2000.     1.    -2.]]
+        >>> sys.A()
+        array([[    0.,     0.,     1.,     0.],
+               [    0.,     0.,     0.,     1.],
+               [-2000.,  1000.,    -2.,     1.],
+               [ 1000., -2000.,     1.,    -2.]])
         """
 
         Z = np.zeros((self.n, self.n))
@@ -290,11 +290,11 @@ class VibeSystem(object):
         >>> F2[:, 1] = 1000*np.sin(40*t) # force applied on m2
         >>> t, yout, xout = sys.time_response(F2, t)
         >>> # response on m1
-        >>> print(np.array_str(yout[:5, 0], precision=3)) 
-        [ 0.     0.003  0.07   0.32   0.607]
+        >>> yout[:5, 0] 
+        array([ 0.  ,  0.  ,  0.07,  0.32,  0.61])
         >>> # response on m2 
-        >>> print(np.array_str(yout[:5, 1], precision=3))
-        [ 0.     0.082  0.464  0.789  0.478]
+        >>> yout[:5, 1]
+        array([ 0.  ,  0.08,  0.46,  0.79,  0.48])
         """
         if ic is not None:
             return signal.lsim(self.H, F, t, ic)
@@ -342,11 +342,11 @@ class VibeSystem(object):
         >>> sys = VibeSystem(M, C, K) # create the system
         >>> omega, magdb, phase = sys.freq_response()
         >>> # magnitude for output on 0 and input on 1.
-        >>> print(np.array_str(magdb[0, 1, :4], precision=2)) 
-        [-69.54 -69.54 -69.54 -69.54]
+        >>> magdb[0, 1, :4] 
+        array([-69.54, -69.54, -69.54, -69.54])
         >>> # phase for output on 1 and input on 1.
-        >>> print(np.array_str(phase[1, 1, :4], precision=5, suppress_small=True)) 
-        [...0.      -0.00471 -0.00942 -0.01413] 
+        >>> phase[1, 1, :4] 
+        array([...0.  , -0.  , -0.01, -0.01])
         """
         rows = self.H.inputs  # inputs (mag and phase)
         cols = self.H.inputs  # outputs
