@@ -277,12 +277,12 @@ def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
         The step size.
 
     Returns
-    ----------
+    -------
     t, x, v: array
         Time, displacement, and velocity
 
-    Examples:
-    ----------
+    Examples
+    --------
     >>> euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
     (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.  ,  0.  ],
            [ 1.  , -0.05],
@@ -326,12 +326,12 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
         The step size.
 
     Returns
-    ----------
+    -------
     t, x, v: array
         Time, displacement, and velocity
 
-    Examples:
-    ----------
+    Examples
+    --------
     >>> rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
     (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.  ,  0.  ],
            [ 1.  , -0.05],
@@ -456,11 +456,12 @@ def forced_analytical(m=10, k=100, x0=1, v0=0,
         End time
 
     Returns
-    ----------
+    -------
     t, x: array
         Time and displacement
 
-    Examples:
+    Examples
+    --------
     >>> forced_analytical(m=10, k=100, x0=1, v0=0, wdr=0.5, F0=10, tf=100)
     (array([   0.,    0.,    0., ...,  100.,  100.,  100.]), array([ 1.  ,  1.  ,  1.  , ..., -0.33, -0.33, -0.33]))
     """
@@ -498,11 +499,12 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
         End time
 
     Returns
-    ----------
+    -------
     t, x, y: array
         Time, displacement and velocity
 
-    Examples:
+    Examples
+    --------
     >>> f = forced_response(m=10, c=0, k=100, x0=1, v0=0, wdr=0.5, F0=10, max_time=100)
     >>> f[0][0]
     0.0"""
@@ -531,7 +533,7 @@ def steady_state_response(zs, rmin, rmax):
         Minimum and maximum frequency ratio
 
     Returns
-    ----------
+    -------
     r: Array
         Array containing the values for the frequency ratio
     A: Array
@@ -539,7 +541,8 @@ def steady_state_response(zs, rmin, rmax):
 
         Plot with steady state magnitude and phase
 
-    Examples:
+    Examples
+    --------
     >>> r, A = steady_state_response([0.1, 0.3, 0.8], 0, 2)
     >>> A[10]
     (0.98423159842039087-0.15988334018879749j)
@@ -600,7 +603,8 @@ def transmissibility(zs, rmin, rmax):
         Plot with Displacement transmissibility ratio
         and force transmissibility ratio
 
-    Examples:
+    Examples
+    --------
     >>> r, D, F = transmissibility([0.01, 0.05, 0.1, 0.25, 0.5, 0.7], 0, 2)
     >>> D[10]
     1.0100027508815634
@@ -663,7 +667,7 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
         If true, the displacement is normalized (m*X/(m0*e))
 
     Returns
-    ----------
+    -------
     r: Array
         Array containing the values for the frequency ratio
     Xn: Array
@@ -672,7 +676,8 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
         Plot with Displacement displacement and phase
         for a system with rotating unbalance.
 
-    Examples:
+    Examples
+    --------
     >>> r, Xn = rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1, 0.25, 0.707, 1], rmin=0, rmax=3.5, normalized=True)
     >>> Xn[1][10]
     (0.10104614704226758-0.0051182602098315527j)
@@ -728,7 +733,7 @@ def impulse_response(m, c, k, Fo, max_time):
         End time
 
     Returns
-    ----------
+    -------
     t: Array
         Array containing the values for the time
     x: Array
@@ -737,7 +742,8 @@ def impulse_response(m, c, k, Fo, max_time):
         Plot with the response of the system to an
         impulse of magnitude Fo (N.s).
 
-    Examples:
+    Examples
+    --------
     >>> t, x = impulse_response(m=100, c=20, k=2000, Fo=10, max_time=100)
     >>> x[10]
     0.0039629845398805623
@@ -779,7 +785,7 @@ def step_response(m, c, k, Fo, max_time):
         End time
 
     Returns
-    ----------
+    -------
     t: Array
         Array containing the values for the time
     x: Array
@@ -788,7 +794,8 @@ def step_response(m, c, k, Fo, max_time):
         Plot with the response of the system to an
         step of magnitude Fo.
 
-    Examples:
+    Examples
+    --------
     >>> t, x = step_response(m=100, c=20, k=2000, Fo=10, max_time=100)
     >>> x[10]
     7.9581008173000833e-05
@@ -850,12 +857,13 @@ def fourier_series(dat, t, n):
         Fourier series.
 
     Returns
-    ----------
+    -------
     a, b: tuple
         Tuple containing arrays with the Fourier coefficients.
         The function also produces a plot of the approximation.
 
-    Examples:
+    Examples
+    --------
     >>> f = np.hstack((np.arange(-1, 1, .04), np.arange(1, -1, -.04)))
     >>> f += 1
     >>> t = np.arange(0, len(f))/len(f)
@@ -902,11 +910,13 @@ def response_spectrum(f):
         Natural frequency.
 
     Returns
-    ----------
+    -------
     t, rs: tuple
         Tuple with time and response arrays. It also returns
         a plot with the response spectrum.
-    Examples:
+        
+    Examples
+    --------
     >>> t, rs = response_spectrum(10)
     >>> rs[10]
     1.6285602401720802
@@ -953,11 +963,13 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
         bn Fourier coefficient for n even
 
     Returns
-    ----------
+    -------
     t, F: tuple
         Tuple with time and F(t). It also returns
         a plot with the Fourier approximation.
-    Examples:
+
+    Examples
+    --------
     >>> # Square wave
     >>> t, F = fourier_approximation(-1, 0, 0, '-3*(-1+(-1)**n)/n/pi', '-3*(-1+(-1)**n)/n/pi', 20, 2)
     >>> F[10]
