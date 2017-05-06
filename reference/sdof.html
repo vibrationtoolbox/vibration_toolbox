@@ -220,6 +220,19 @@ For information on variables see <cite>free_response</cite></p>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">euler</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="go">(array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.  ,  0.  ],</span>
+<span class="go">       [ 1.  , -0.05],</span>
+<span class="go">       [ 1.  , -0.1 ],</span>
+<span class="go">       [ 0.99, -0.15],</span>
+<span class="go">       [ 0.99, -0.2 ],</span>
+<span class="go">       [ 0.98, -0.25],</span>
+<span class="go">       [ 0.96, -0.29],</span>
+<span class="go">       [ 0.95, -0.34],</span>
+<span class="go">       [ 0.93, -0.39]]))</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -256,21 +269,19 @@ frequency <span class="math">\(\omega_{dr}\)</span>.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">t, x, y: array</p>
-<blockquote>
+<blockquote class="last">
 <div><p>Time, displacement and velocity</p>
 </div></blockquote>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">forced_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">wdr</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">F0</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-</div>
-<p class="last">0.0</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">forced_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">wdr</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">F0</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -302,23 +313,21 @@ of freedom damped system.</p>
 <div><p>Array containing the values for displacement</p>
 </div></blockquote>
 <p>F: Array</p>
-<blockquote>
+<blockquote class="last">
 <div><p>Array containing the values for force</p>
 <p>Plot with Displacement transmissibility ratio
 and force transmissibility ratio</p>
 </div></blockquote>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">transmissibility</span><span class="p">([</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">D</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-<p class="last">1.0100027508815634</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">transmissibility</span><span class="p">([</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">D</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">1.0100027508815634</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -357,23 +366,21 @@ unbalance.</p>
 <div><p>Array containing the values for the frequency ratio</p>
 </div></blockquote>
 <p>Xn: Array</p>
-<blockquote>
+<blockquote class="last">
 <div><p>Array containing the values for displacement</p>
 <p>Plot with Displacement displacement and phase
 for a system with rotating unbalance.</p>
 </div></blockquote>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span> <span class="n">Xn</span> <span class="o">=</span> <span class="n">rotating_unbalance</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">m0</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">zs</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">rmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Xn</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-<p class="last">(0.10104614704226758-0.0051182602098315527j)</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span> <span class="n">Xn</span> <span class="o">=</span> <span class="n">rotating_unbalance</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">m0</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">zs</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">rmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Xn</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">(0.10104614704226758-0.0051182602098315527j)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -404,23 +411,21 @@ impulse of magnitude Fo (N.s).</p>
 <div><p>Array containing the values for the time</p>
 </div></blockquote>
 <p>x: Array</p>
-<blockquote>
+<blockquote class="last">
 <div><p>Array containing the values for displacement</p>
 <p>Plot with the response of the system to an
 impulse of magnitude Fo (N.s).</p>
 </div></blockquote>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">impulse_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">Fo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-<p class="last">0.0039629845398805623</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">impulse_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">Fo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">0.0039629845398805623</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -451,23 +456,21 @@ step of magnitude Fo.</p>
 <div><p>Array containing the values for the time</p>
 </div></blockquote>
 <p>x: Array</p>
-<blockquote>
+<blockquote class="last">
 <div><p>Array containing the values for displacement</p>
 <p>Plot with the response of the system to an
 step of magnitude Fo.</p>
 </div></blockquote>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">step_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">Fo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-<p class="last">7.9581008173000833e-05</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">step_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">Fo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">7.9581008173000833e-05</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -497,31 +500,23 @@ Fourier series.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a, b: tuple</p>
-<blockquote>
+<blockquote class="last">
 <div><p>Tuple containing arrays with the Fourier coefficients.
 The function also produces a plot of the approximation.</p>
 </div></blockquote>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">04</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-.</span><span class="mi">04</span><span class="p">)))</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">+=</span> <span class="mi">1</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">fourier_series</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-</div>
-<p class="last">2.0</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">04</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-.</span><span class="mi">04</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">fourier_series</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">2.0</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -556,35 +551,25 @@ N is the number of terms.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">t, F: tuple</p>
-<blockquote>
+<blockquote class="last">
 <div><p>Tuple with time and F(t). It also returns
 a plot with the Fourier approximation.</p>
 </div></blockquote>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Square wave</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">fourier_approximation</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;-3*(-1+(-1)**n)/n/pi&#39;</span><span class="p">,</span> <span class="s1">&#39;-3*(-1+(-1)**n)/n/pi&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>1.2697210294282535</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Triangular wave</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">fourier_approximation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;-8/pi**2/n**2&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-<p class="last">-0.90234928911935097</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Square wave</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">fourier_approximation</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;-3*(-1+(-1)**n)/n/pi&#39;</span><span class="p">,</span> <span class="s1">&#39;-3*(-1+(-1)**n)/n/pi&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">1.2697210294282535</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Triangular wave</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">fourier_approximation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;-8/pi**2/n**2&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">-0.90234928911935097</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -604,22 +589,20 @@ f (in Hz) and no damping.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">t, rs: tuple</p>
-<blockquote>
+<blockquote class="last">
 <div><p>Tuple with time and response arrays. It also returns
 a plot with the response spectrum.</p>
 </div></blockquote>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">response_spectrum</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-<p class="last">1.6285602401720802</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">response_spectrum</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">1.6285602401720802</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>

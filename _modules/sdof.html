@@ -322,12 +322,12 @@
 <span class="sd">        The step size.</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    t, x, v: array</span>
 <span class="sd">        Time, displacement, and velocity</span>
 
-<span class="sd">    Examples:</span>
-<span class="sd">    ----------</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)</span>
 <span class="sd">    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.  ,  0.  ],</span>
 <span class="sd">           [ 1.  , -0.05],</span>
@@ -371,12 +371,12 @@
 <span class="sd">        The step size.</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    t, x, v: array</span>
 <span class="sd">        Time, displacement, and velocity</span>
 
-<span class="sd">    Examples:</span>
-<span class="sd">    ----------</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)</span>
 <span class="sd">    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.  ,  0.  ],</span>
 <span class="sd">           [ 1.  , -0.05],</span>
@@ -501,11 +501,12 @@
 <span class="sd">        End time</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    t, x: array</span>
 <span class="sd">        Time and displacement</span>
 
-<span class="sd">    Examples:</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; forced_analytical(m=10, k=100, x0=1, v0=0, wdr=0.5, F0=10, tf=100)</span>
 <span class="sd">    (array([   0.,    0.,    0., ...,  100.,  100.,  100.]), array([ 1.  ,  1.  ,  1.  , ..., -0.33, -0.33, -0.33]))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -543,11 +544,12 @@
 <span class="sd">        End time</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    t, x, y: array</span>
 <span class="sd">        Time, displacement and velocity</span>
 
-<span class="sd">    Examples:</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; f = forced_response(m=10, c=0, k=100, x0=1, v0=0, wdr=0.5, F0=10, max_time=100)</span>
 <span class="sd">    &gt;&gt;&gt; f[0][0]</span>
 <span class="sd">    0.0&quot;&quot;&quot;</span>
@@ -576,7 +578,7 @@
 <span class="sd">        Minimum and maximum frequency ratio</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    r: Array</span>
 <span class="sd">        Array containing the values for the frequency ratio</span>
 <span class="sd">    A: Array</span>
@@ -584,7 +586,8 @@
 
 <span class="sd">        Plot with steady state magnitude and phase</span>
 
-<span class="sd">    Examples:</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; r, A = steady_state_response([0.1, 0.3, 0.8], 0, 2)</span>
 <span class="sd">    &gt;&gt;&gt; A[10]</span>
 <span class="sd">    (0.98423159842039087-0.15988334018879749j)</span>
@@ -645,7 +648,8 @@
 <span class="sd">        Plot with Displacement transmissibility ratio</span>
 <span class="sd">        and force transmissibility ratio</span>
 
-<span class="sd">    Examples:</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; r, D, F = transmissibility([0.01, 0.05, 0.1, 0.25, 0.5, 0.7], 0, 2)</span>
 <span class="sd">    &gt;&gt;&gt; D[10]</span>
 <span class="sd">    1.0100027508815634</span>
@@ -708,7 +712,7 @@
 <span class="sd">        If true, the displacement is normalized (m*X/(m0*e))</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    r: Array</span>
 <span class="sd">        Array containing the values for the frequency ratio</span>
 <span class="sd">    Xn: Array</span>
@@ -717,7 +721,8 @@
 <span class="sd">        Plot with Displacement displacement and phase</span>
 <span class="sd">        for a system with rotating unbalance.</span>
 
-<span class="sd">    Examples:</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; r, Xn = rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1, 0.25, 0.707, 1], rmin=0, rmax=3.5, normalized=True)</span>
 <span class="sd">    &gt;&gt;&gt; Xn[1][10]</span>
 <span class="sd">    (0.10104614704226758-0.0051182602098315527j)</span>
@@ -773,7 +778,7 @@
 <span class="sd">        End time</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    t: Array</span>
 <span class="sd">        Array containing the values for the time</span>
 <span class="sd">    x: Array</span>
@@ -782,7 +787,8 @@
 <span class="sd">        Plot with the response of the system to an</span>
 <span class="sd">        impulse of magnitude Fo (N.s).</span>
 
-<span class="sd">    Examples:</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; t, x = impulse_response(m=100, c=20, k=2000, Fo=10, max_time=100)</span>
 <span class="sd">    &gt;&gt;&gt; x[10]</span>
 <span class="sd">    0.0039629845398805623</span>
@@ -824,7 +830,7 @@
 <span class="sd">        End time</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    t: Array</span>
 <span class="sd">        Array containing the values for the time</span>
 <span class="sd">    x: Array</span>
@@ -833,7 +839,8 @@
 <span class="sd">        Plot with the response of the system to an</span>
 <span class="sd">        step of magnitude Fo.</span>
 
-<span class="sd">    Examples:</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; t, x = step_response(m=100, c=20, k=2000, Fo=10, max_time=100)</span>
 <span class="sd">    &gt;&gt;&gt; x[10]</span>
 <span class="sd">    7.9581008173000833e-05</span>
@@ -895,12 +902,13 @@
 <span class="sd">        Fourier series.</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    a, b: tuple</span>
 <span class="sd">        Tuple containing arrays with the Fourier coefficients.</span>
 <span class="sd">        The function also produces a plot of the approximation.</span>
 
-<span class="sd">    Examples:</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; f = np.hstack((np.arange(-1, 1, .04), np.arange(1, -1, -.04)))</span>
 <span class="sd">    &gt;&gt;&gt; f += 1</span>
 <span class="sd">    &gt;&gt;&gt; t = np.arange(0, len(f))/len(f)</span>
@@ -947,11 +955,13 @@
 <span class="sd">        Natural frequency.</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    t, rs: tuple</span>
 <span class="sd">        Tuple with time and response arrays. It also returns</span>
 <span class="sd">        a plot with the response spectrum.</span>
-<span class="sd">    Examples:</span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; t, rs = response_spectrum(10)</span>
 <span class="sd">    &gt;&gt;&gt; rs[10]</span>
 <span class="sd">    1.6285602401720802</span>
@@ -998,11 +1008,13 @@
 <span class="sd">        bn Fourier coefficient for n even</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    t, F: tuple</span>
 <span class="sd">        Tuple with time and F(t). It also returns</span>
 <span class="sd">        a plot with the Fourier approximation.</span>
-<span class="sd">    Examples:</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; # Square wave</span>
 <span class="sd">    &gt;&gt;&gt; t, F = fourier_approximation(-1, 0, 0, &#39;-3*(-1+(-1)**n)/n/pi&#39;, &#39;-3*(-1+(-1)**n)/n/pi&#39;, 20, 2)</span>
 <span class="sd">    &gt;&gt;&gt; F[10]</span>

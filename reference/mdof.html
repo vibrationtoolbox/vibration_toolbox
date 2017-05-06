@@ -171,7 +171,7 @@ matrix S^-1(takes x -&gt; r(modal coordinates) for an undamped system.</p>
 <blockquote>
 <div><p>The modal transformation matrix S^-1(takes x -&gt; r(modal coordinates))</p>
 </div></blockquote>
-<p>Examples:</p>
+<p>Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 </pre></div>
 </div>
@@ -245,75 +245,55 @@ the same numbered DOF.</p>
 <div><p>System response.</p>
 </div></blockquote>
 <p><strong>xout</strong> : array</p>
-<blockquote>
-<div><p>Time evolution of the state vector.</p>
-</div></blockquote>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-</pre></div>
-</div>
-<p>...               [0, 1]])</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">27</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">],</span>
-</pre></div>
-</div>
-<p>...               [-3, 3]])</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">K</span><span class="o">/</span><span class="mi">10</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="mi">0</span><span class="o">*</span><span class="n">t</span><span class="p">,</span>
-</pre></div>
-</div>
-<p>...                3*np.cos(2*t)])</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tou</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">response_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tou</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>array([ 0.  ,  0.1 ,  0.2 ,  0.3 ,  0.4 ,  0.51,  0.61,  0.71,  0.81,  0.91])</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>array([[ 0.  ,  1.  ,  1.  ,  0.  ],</p>
-<blockquote>
-<div><p>[ 0.1 ,  1.  ,  0.99,  0.04],
-[ 0.2 ,  1.01,  0.95,  0.1 ],
-[ 0.29,  1.02,  0.88,  0.15],
-[ 0.38,  1.04,  0.79,  0.19],
-[ 0.45,  1.06,  0.68,  0.2 ],
-[ 0.51,  1.08,  0.55,  0.17],
-[ 0.56,  1.09,  0.41,  0.09],
-[ 0.59,  1.09,  0.26, -0.04],
-[ 0.61,  1.08,  0.11, -0.22]])</p>
-</div></blockquote>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">xout</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>array([[ 0.  ,  1.  ,  1.  ,  0.  ],</p>
 <blockquote class="last">
-<div><p>[ 0.1 ,  1.  ,  0.99,  0.04],
-[ 0.2 ,  1.01,  0.95,  0.1 ],
-[ 0.29,  1.02,  0.88,  0.15],
-[ 0.38,  1.04,  0.79,  0.19],
-[ 0.45,  1.06,  0.68,  0.2 ],
-[ 0.51,  1.08,  0.55,  0.17],
-[ 0.56,  1.09,  0.41,  0.09],
-[ 0.59,  1.09,  0.26, -0.04],
-[ 0.61,  1.08,  0.11, -0.22]])</p>
+<div><p>Time evolution of the state vector.</p>
 </div></blockquote>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">27</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">K</span><span class="o">/</span><span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="mi">0</span><span class="o">*</span><span class="n">t</span><span class="p">,</span>
+<span class="gp">... </span>               <span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">t</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tou</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">response_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tou</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">array([ 0.  ,  0.1 ,  0.2 ,  0.3 ,  0.4 ,  0.51,  0.61,  0.71,  0.81,  0.91])</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">array([[ 0.  ,  1.  ,  1.  ,  0.  ],</span>
+<span class="go">       [ 0.1 ,  1.  ,  0.99,  0.04],</span>
+<span class="go">       [ 0.2 ,  1.01,  0.95,  0.1 ],</span>
+<span class="go">       [ 0.29,  1.02,  0.88,  0.15],</span>
+<span class="go">       [ 0.38,  1.04,  0.79,  0.19],</span>
+<span class="go">       [ 0.45,  1.06,  0.68,  0.2 ],</span>
+<span class="go">       [ 0.51,  1.08,  0.55,  0.17],</span>
+<span class="go">       [ 0.56,  1.09,  0.41,  0.09],</span>
+<span class="go">       [ 0.59,  1.09,  0.26, -0.04],</span>
+<span class="go">       [ 0.61,  1.08,  0.11, -0.22]])</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">xout</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">array([[ 0.  ,  1.  ,  1.  ,  0.  ],</span>
+<span class="go">       [ 0.1 ,  1.  ,  0.99,  0.04],</span>
+<span class="go">       [ 0.2 ,  1.01,  0.95,  0.1 ],</span>
+<span class="go">       [ 0.29,  1.02,  0.88,  0.15],</span>
+<span class="go">       [ 0.38,  1.04,  0.79,  0.19],</span>
+<span class="go">       [ 0.45,  1.06,  0.68,  0.2 ],</span>
+<span class="go">       [ 0.51,  1.08,  0.55,  0.17],</span>
+<span class="go">       [ 0.56,  1.09,  0.41,  0.09],</span>
+<span class="go">       [ 0.59,  1.09,  0.26, -0.04],</span>
+<span class="go">       [ 0.61,  1.08,  0.11, -0.22]])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -355,42 +335,28 @@ The time array is also returned.</p>
 <div><p>Array with the time</p>
 </div></blockquote>
 <p>X: array</p>
-<blockquote>
+<blockquote class="last">
 <div><p>The state-space vector for each time</p>
 </div></blockquote>
-<p>Examples:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-</pre></div>
-</div>
-<p>...               [0, 4]])</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">12</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span>
-</pre></div>
-</div>
-<p>...               [-2, 12]])</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">max_time</span> <span class="o">=</span> <span class="mi">10</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">response_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">max_time</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># first column is the initial conditions [x1, x2, v1, v2]</span>
-</pre></div>
-</div>
-<p>array([ 1.,  1.,  0.,  0.])</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># displacement and velocities after delta t</span>
-</pre></div>
-</div>
-<p class="last">array([ 1.  ,  1.  , -0.04, -0.01])</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">12</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">max_time</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">response_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">max_time</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># first column is the initial conditions [x1, x2, v1, v2]</span>
+<span class="go">array([ 1.,  1.,  0.,  0.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># displacement and velocities after delta t</span>
+<span class="go">array([ 1.  ,  1.  , -0.04, -0.01])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
