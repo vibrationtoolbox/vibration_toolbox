@@ -110,35 +110,27 @@ wd and zeta will be none and X and Y will be equal.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">modes_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
 <span class="go">Damping is non-proportional, eigenvectors are complex.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wn</span>
-<span class="go">array([ 0.5206175 ,  4.76729024,  0.5206175 ,  4.76729024])</span>
+<span class="go">array([ 0.52,  4.77,  0.52,  4.77])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wd</span>
-<span class="go">array([ 0.50825856,  4.76531454, -0.50825856, -4.76531454])</span>
+<span class="go">array([ 0.51,  4.77, -0.51, -4.77])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zeta</span>
-<span class="go">array([ 0.21659744,  0.02878692,  0.21659744,  0.02878692])</span>
+<span class="go">array([ 0.22,  0.03,  0.22,  0.03])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
-<span class="go">array([[ 0.83593587+0.j        ,  0.13536177-0.00208189j,</span>
-<span class="go">         0.83593587-0.j        ,  0.13536177+0.00208189j],</span>
-<span class="go">       [ 0.00811744-0.29648107j,  0.00444279+0.15426956j,</span>
-<span class="go">         0.00811744+0.29648107j,  0.00444279-0.15426956j],</span>
-<span class="go">       [-0.09426382+0.42487157j, -0.00865558+0.6453271j ,</span>
-<span class="go">        -0.09426382-0.42487157j, -0.00865558-0.6453271j ],</span>
-<span class="go">       [ 0.14977369+0.03755828j, -0.73575270+0.j        ,</span>
-<span class="go">         0.14977369-0.03755828j, -0.73575270-0.j        ]])</span>
+<span class="go">array([[ 0.84+0.j  ,  0.14-0.j  ,  0.84-0.j  ,  0.14+0.j  ],</span>
+<span class="go">       [ 0.01-0.3j ,  0.00+0.15j,  0.01+0.3j ,  0.00-0.15j],</span>
+<span class="go">       [-0.09+0.42j, -0.01+0.65j, -0.09-0.42j, -0.01-0.65j],</span>
+<span class="go">       [ 0.15+0.04j, -0.74+0.j  ,  0.15-0.04j, -0.74-0.j  ]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span>
-<span class="go">array([[ 0.57880640-0.04653746j,  0.12020049-0.05551985j,</span>
-<span class="go">         0.57880640+0.04653746j,  0.12020049+0.05551985j],</span>
-<span class="go">       [ 0.01204879+1.25620685j, -0.06167340-0.8279964j ,</span>
-<span class="go">         0.01204879-1.25620685j, -0.06167340+0.8279964j ],</span>
-<span class="go">       [-0.00101305-0.3004544j ,  0.01513120-0.57704216j,</span>
-<span class="go">        -0.00101305+0.3004544j ,  0.01513120+0.57704216j],</span>
-<span class="go">       [ 0.10657189+0.0025583j , -0.65801243-0.00842571j,</span>
-<span class="go">         0.10657189-0.0025583j , -0.65801243+0.00842571j]])</span>
+<span class="go">array([[ 0.58-0.05j,  0.12-0.06j,  0.58+0.05j,  0.12+0.06j],</span>
+<span class="go">       [ 0.01+1.26j, -0.06-0.83j,  0.01-1.26j, -0.06+0.83j],</span>
+<span class="go">       [-0.00-0.3j ,  0.02-0.58j, -0.00+0.3j ,  0.02+0.58j],</span>
+<span class="go">       [ 0.11+0.j  , -0.66-0.01j,  0.11-0.j  , -0.66+0.01j]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">K</span><span class="o">*</span><span class="mi">2</span> <span class="c1"># with proportional damping</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">modes_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
 <span class="go">Damping is proportional or zero, eigenvectors are real</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
-<span class="go">array([[-0.99677405,  0.08025891],</span>
-<span class="go">       [ 0.08025891, -0.99677405]])</span>
+<span class="go">array([[-1.  ,  0.08],</span>
+<span class="go">       [ 0.08, -1.  ]])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -196,7 +188,7 @@ matrix S^-1(takes x -&gt; r(modal coordinates) for an undamped system.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">w</span>
 </pre></div>
 </div>
-<p class="last">array([ 0.44504187,  1.2469796 ,  1.80193774])</p>
+<p class="last">array([ 0.45,  1.25,  1.8 ])</p>
 </td>
 </tr>
 </tbody>
@@ -287,39 +279,36 @@ the same numbered DOF.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tou</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>array([ 0.        ,  0.1010101 ,  0.2020202 ,  0.3030303 ,  0.4040404 ,</p>
-<blockquote>
-<div><p>0.50505051,  0.60606061,  0.70707071,  0.80808081,  0.90909091])</p>
-</div></blockquote>
+<p>array([ 0.  ,  0.1 ,  0.2 ,  0.3 ,  0.4 ,  0.51,  0.61,  0.71,  0.81,  0.91])</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>array([[ 0.        ,  1.        ,  1.        ,  0.        ],</p>
+<p>array([[ 0.  ,  1.  ,  1.  ,  0.  ],</p>
 <blockquote>
-<div><p>[ 0.1006699 ,  1.0019166 ,  0.9882704 ,  0.04164362],
-[ 0.19867119,  1.00889664,  0.94748001,  0.09763215],
-[ 0.29117815,  1.02159599,  0.87992707,  0.15230092],
-[ 0.37563287,  1.03911711,  0.78859082,  0.19072496],
-[ 0.44980625,  1.05913319,  0.67697613,  0.19968169],
-[ 0.5118431 ,  1.07810368,  0.54895551,  0.16848849],
-[ 0.56029149,  1.09156627,  0.40861572,  0.08967373],
-[ 0.59411703,  1.09448692,  0.26011522, -0.04055038],
-[ 0.61270358,  1.08164667,  0.10755703, -0.22203433]])</p>
+<div><p>[ 0.1 ,  1.  ,  0.99,  0.04],
+[ 0.2 ,  1.01,  0.95,  0.1 ],
+[ 0.29,  1.02,  0.88,  0.15],
+[ 0.38,  1.04,  0.79,  0.19],
+[ 0.45,  1.06,  0.68,  0.2 ],
+[ 0.51,  1.08,  0.55,  0.17],
+[ 0.56,  1.09,  0.41,  0.09],
+[ 0.59,  1.09,  0.26, -0.04],
+[ 0.61,  1.08,  0.11, -0.22]])</p>
 </div></blockquote>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">xout</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>array([[ 0.        ,  1.        ,  1.        ,  0.        ],</p>
+<p>array([[ 0.  ,  1.  ,  1.  ,  0.  ],</p>
 <blockquote class="last">
-<div><p>[ 0.1006699 ,  1.0019166 ,  0.9882704 ,  0.04164362],
-[ 0.19867119,  1.00889664,  0.94748001,  0.09763215],
-[ 0.29117815,  1.02159599,  0.87992707,  0.15230092],
-[ 0.37563287,  1.03911711,  0.78859082,  0.19072496],
-[ 0.44980625,  1.05913319,  0.67697613,  0.19968169],
-[ 0.5118431 ,  1.07810368,  0.54895551,  0.16848849],
-[ 0.56029149,  1.09156627,  0.40861572,  0.08967373],
-[ 0.59411703,  1.09448692,  0.26011522, -0.04055038],
-[ 0.61270358,  1.08164667,  0.10755703, -0.22203433]])</p>
+<div><p>[ 0.1 ,  1.  ,  0.99,  0.04],
+[ 0.2 ,  1.01,  0.95,  0.1 ],
+[ 0.29,  1.02,  0.88,  0.15],
+[ 0.38,  1.04,  0.79,  0.19],
+[ 0.45,  1.06,  0.68,  0.2 ],
+[ 0.51,  1.08,  0.55,  0.17],
+[ 0.56,  1.09,  0.41,  0.09],
+[ 0.59,  1.09,  0.26, -0.04],
+[ 0.61,  1.08,  0.11, -0.22]])</p>
 </div></blockquote>
 </td>
 </tr>
@@ -397,7 +386,7 @@ The time array is also returned.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># displacement and velocities after delta t</span>
 </pre></div>
 </div>
-<p class="last">array([ 0.99991994,  0.99997998, -0.04001478, -0.01000397])</p>
+<p class="last">array([ 1.  ,  1.  , -0.04, -0.01])</p>
 </td>
 </tr>
 </tbody>

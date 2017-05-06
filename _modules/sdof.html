@@ -105,11 +105,12 @@
 <span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
 <span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
 <span class="sd">    &gt;&gt;&gt; vtb.free_response()[1][:5] # get the first five values of x</span>
-<span class="sd">    array([[ 1.        ],</span>
-<span class="sd">           [ 0.99591926],</span>
-<span class="sd">           [ 0.9916807 ],</span>
-<span class="sd">           [ 0.98728508],</span>
-<span class="sd">           [ 0.98273317]])</span>
+<span class="sd">    array([[ 1.  ],</span>
+<span class="sd">           [ 1.  ],</span>
+<span class="sd">           [ 0.99],</span>
+<span class="sd">           [ 0.99],</span>
+<span class="sd">           [ 0.98]])</span>
+
 <span class="sd">    &gt;&gt;&gt; t, x, *_ = vtb.free_response() # *_ ignores all other returns</span>
 <span class="sd">    &gt;&gt;&gt; plt.plot(t,x)</span>
 <span class="sd">    [&lt;matplotlib.lines.Line2D object at ...&gt;]</span>
@@ -236,6 +237,7 @@
 <div class="viewcode-block" id="time_plot_i"><a class="viewcode-back" href="../reference/sdof.html#sdof.time_plot_i">[docs]</a><span class="k">def</span> <span class="nf">time_plot_i</span><span class="p">(</span><span class="n">max_time</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">x0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">v0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
                 <span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)):</span>
     <span class="sd">&#39;&#39;&#39;Interactive single degree of freedom free reponse plot in iPython</span>
+
 <span class="sd">    ``time_plot_i`` is only functional in a</span>
 <span class="sd">    `Jupyter notebook &lt;http://jupyter.org&gt;`_.</span>
 
@@ -304,9 +306,9 @@
 
 
 <div class="viewcode-block" id="euler"><a class="viewcode-back" href="../reference/sdof.html#sdof.euler">[docs]</a><span class="k">def</span> <span class="nf">euler</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns free response of a second order linear ordinary differential equation</span>
-<span class="sd">    using the Euler method for integration.</span>
+    <span class="sd">&quot;&quot;&quot;Euler method free response of a SDOF system.</span>
+
+<span class="sd">    Free response using Euler&#39;s method to perform numerical integration.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -327,16 +329,15 @@
 <span class="sd">    Examples:</span>
 <span class="sd">    ----------</span>
 <span class="sd">    &gt;&gt;&gt; euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)</span>
-<span class="sd">    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.        ,  0.        ],</span>
-<span class="sd">           [ 1.        , -0.05      ],</span>
-<span class="sd">           [ 0.9975    , -0.09975   ],</span>
-<span class="sd">           [ 0.9925125 , -0.14912625],</span>
-<span class="sd">           [ 0.98505619, -0.19800624],</span>
-<span class="sd">           [ 0.97515588, -0.24626902],</span>
-<span class="sd">           [ 0.96284242, -0.29379547],</span>
-<span class="sd">           [ 0.94815265, -0.34046861],</span>
-<span class="sd">           [ 0.93112922, -0.3861739 ]]))</span>
-
+<span class="sd">    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.  ,  0.  ],</span>
+<span class="sd">           [ 1.  , -0.05],</span>
+<span class="sd">           [ 1.  , -0.1 ],</span>
+<span class="sd">           [ 0.99, -0.15],</span>
+<span class="sd">           [ 0.99, -0.2 ],</span>
+<span class="sd">           [ 0.98, -0.25],</span>
+<span class="sd">           [ 0.96, -0.29],</span>
+<span class="sd">           [ 0.95, -0.34],</span>
+<span class="sd">           [ 0.93, -0.39]]))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># creates the state space matrix</span>
@@ -377,15 +378,15 @@
 <span class="sd">    Examples:</span>
 <span class="sd">    ----------</span>
 <span class="sd">    &gt;&gt;&gt; rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)</span>
-<span class="sd">    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.        ,  0.        ],</span>
-<span class="sd">           [ 0.99875234, -0.04985443],</span>
-<span class="sd">           [ 0.99502078, -0.0993359 ],</span>
-<span class="sd">           [ 0.98882699, -0.14832292],</span>
-<span class="sd">           [ 0.98019872, -0.19669582],</span>
-<span class="sd">           [ 0.96916961, -0.24433704],</span>
-<span class="sd">           [ 0.95577913, -0.29113145],</span>
-<span class="sd">           [ 0.94007246, -0.33696662],</span>
-<span class="sd">           [ 0.92210029, -0.38173305]]))</span>
+<span class="sd">    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.  ,  0.  ],</span>
+<span class="sd">           [ 1.  , -0.05],</span>
+<span class="sd">           [ 1.  , -0.1 ],</span>
+<span class="sd">           [ 0.99, -0.15],</span>
+<span class="sd">           [ 0.98, -0.2 ],</span>
+<span class="sd">           [ 0.97, -0.24],</span>
+<span class="sd">           [ 0.96, -0.29],</span>
+<span class="sd">           [ 0.94, -0.34],</span>
+<span class="sd">           [ 0.92, -0.38]]))</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -450,11 +451,11 @@
 
 <span class="sd">    :Example:</span>
 <span class="sd">    &gt;&gt;&gt; free_response()[1][:5] # get the first five values of x</span>
-<span class="sd">    array([[ 1.        ],</span>
-<span class="sd">           [ 0.99591926],</span>
-<span class="sd">           [ 0.9916807 ],</span>
-<span class="sd">           [ 0.98728508],</span>
-<span class="sd">           [ 0.98273317]])</span>
+<span class="sd">    array([[ 1.  ],</span>
+<span class="sd">           [ 1.  ],</span>
+<span class="sd">           [ 0.99],</span>
+<span class="sd">           [ 0.99],</span>
+<span class="sd">           [ 0.98]])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="n">m</span><span class="p">)</span>
@@ -506,9 +507,8 @@
 
 <span class="sd">    Examples:</span>
 <span class="sd">    &gt;&gt;&gt; forced_analytical(m=10, k=100, x0=1, v0=0, wdr=0.5, F0=10, tf=100)</span>
-<span class="sd">    (array([  0.00000000e+00,   1.25000156e-04,   2.50000313e-04, ...,</span>
-<span class="sd">             9.99997500e+01,   9.99998750e+01,   1.00000000e+02]), array([ 1.        ,  0.99999993,  0.99999972, ..., -0.32885349,</span>
-<span class="sd">           -0.32916361, -0.32947367]))&quot;&quot;&quot;</span>
+<span class="sd">    (array([   0.,    0.,    0., ...,  100.,  100.,  100.]), array([ 1.  ,  1.  ,  1.  , ..., -0.33, -0.33, -0.33]))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tf</span><span class="p">,</span> <span class="n">tf</span><span class="o">/</span><span class="mf">0.000125</span><span class="p">)</span>
 
@@ -523,15 +523,16 @@
 
 <div class="viewcode-block" id="forced_response"><a class="viewcode-back" href="../reference/sdof.html#sdof.forced_response">[docs]</a><span class="k">def</span> <span class="nf">forced_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                     <span class="n">wdr</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">F0</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Harmonic response of SDOF system.</span>
+
 <span class="sd">    Returns the the response of an underdamped single degree of</span>
 <span class="sd">    freedom system to a sinusoidal input with amplitude F0 and</span>
-<span class="sd">    frequency wdr.</span>
+<span class="sd">    frequency :math:`\omega_{dr}`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    m, c, k: float, optional</span>
-<span class="sd">        Mass and stiffness</span>
+<span class="sd">        Mass Damping, and stiffness</span>
 <span class="sd">    x0, v0: float, optional</span>
 <span class="sd">        Initial conditions</span>
 <span class="sd">    wdr: float, optional</span>
@@ -565,15 +566,13 @@
 
 
 <span class="k">def</span> <span class="nf">steady_state_response</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">rmin</span><span class="p">,</span> <span class="n">rmax</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns a plot with the steady state response of a</span>
-<span class="sd">    single degree of freedom damped system.</span>
+    <span class="sd">&quot;&quot;&quot;Plot steady state response SDOF damped system.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    zs: array</span>
 <span class="sd">        Array with the damping values</span>
-<span class="sd">    rmin, rmax: float</span>
+<span class="sd">    rmin, rmax: floats</span>
 <span class="sd">        Minimum and maximum frequency ratio</span>
 
 <span class="sd">    Returns</span>
@@ -635,7 +634,7 @@
 <span class="sd">        Minimum and maximum frequency ratio</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    r: Array</span>
 <span class="sd">        Array containing the values for the frequency ratio</span>
 <span class="sd">    D: Array</span>
