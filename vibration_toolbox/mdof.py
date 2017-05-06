@@ -31,13 +31,14 @@ def eigen(A, B=None):
         Default is None, identity matrix is assumed.
 
     Returns
-    ----------
+    -------
     evalues: array
         Sorted eigenvalues
     evectors: array
         Sorted eigenvalues
 
-    Examples:
+    Examples
+    --------
     >>> L = np.array([[2, -1, 0],
     ...               [-4, 8, -4],
     ...               [0, -4, 4]])
@@ -82,11 +83,12 @@ def normalize(X, Y):
         A complex or real matrix to be normalized
 
     Returns
-    ----------
+    -------
     Yn: array
         Normalized matrix
 
-    Examples:
+    Examples
+    --------
     >>> X = np.array([[ 0.84+0.j  ,  0.14-0.j  ,  0.84-0.j  ,  0.14+0.j  ],
     ...               [ 0.01-0.3j ,  0.00+0.15j,  0.01+0.3j ,  0.00-0.15j],
     ...               [-0.09+0.42j, -0.01+0.65j, -0.09-0.42j, -0.01-0.65j],
