@@ -192,6 +192,7 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
 def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
                 m=(1.0, 100.0), c=(0.0, 100.0), k=(1.0, 100.0)):
     '''Interactive single degree of freedom free reponse plot in iPython
+
     ``time_plot_i`` is only functional in a
     `Jupyter notebook <http://jupyter.org>`_.
 
@@ -260,9 +261,9 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
 
 def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
-    """
-    Returns free response of a second order linear ordinary differential equation
-    using the Euler method for integration.
+    """Euler method free response of a SDOF system.
+
+    Free response using Euler's method to perform numerical integration.
 
     Parameters
     ----------
@@ -477,15 +478,16 @@ def forced_analytical(m=10, k=100, x0=1, v0=0,
 
 def forced_response(m=10, c=0, k=100, x0=1, v0=0,
                     wdr=0.5, F0=10, max_time=100):
-    """
+    """Harmonic response of SDOF system.
+
     Returns the the response of an underdamped single degree of
     freedom system to a sinusoidal input with amplitude F0 and
-    frequency wdr.
+    frequency :math:`\omega_{dr}`.
 
     Parameters
     ----------
     m, c, k: float, optional
-        Mass and stiffness
+        Mass Damping, and stiffness
     x0, v0: float, optional
         Initial conditions
     wdr: float, optional
@@ -519,15 +521,13 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
 
 
 def steady_state_response(zs, rmin, rmax):
-    """
-    Returns a plot with the steady state response of a
-    single degree of freedom damped system.
+    """Plot steady state response SDOF damped system.
 
     Parameters
     ----------
     zs: array
         Array with the damping values
-    rmin, rmax: float
+    rmin, rmax: floats
         Minimum and maximum frequency ratio
 
     Returns
@@ -589,7 +589,7 @@ def transmissibility(zs, rmin, rmax):
         Minimum and maximum frequency ratio
 
     Returns
-    ----------
+    -------
     r: Array
         Array containing the values for the frequency ratio
     D: Array
