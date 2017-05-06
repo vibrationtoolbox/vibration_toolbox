@@ -16,7 +16,7 @@ all toolbox functions in the name space
 """
 
 __title__ = 'vibration_toolbox'
-__version__ = '0.5b12'
+__version__ = '0.5b13'
 __author__ = u'Joseph C. Slater and Raphael Timbó'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 1991-2017 Joseph C. Slater'
