@@ -131,7 +131,7 @@ def modes_system_undamped(M, K):
         Stiffness matrix
 
     Returns
-    ----------
+    -------
     w: array
         The natural frequencies of the system
     P: array
@@ -141,7 +141,7 @@ def modes_system_undamped(M, K):
     Sinv: array
         The modal transformation matrix S^-1(takes x -> r(modal coordinates))
 
-    Examples:
+    Examples
     >>> M = np.array([[4, 0, 0],
     ...               [0, 4, 0],
     ...               [0, 0, 4]])
@@ -290,13 +290,14 @@ def response_system_undamped(M, K, x0, v0, max_time):
         End time
 
     Returns
-    ----------
+    -------
     t: array
         Array with the time
     X: array
         The state-space vector for each time
 
-    Examples:
+    Examples
+    --------
     >>> M = np.array([[1, 0],
     ...               [0, 4]])
     >>> K = np.array([[12, -2],
@@ -362,7 +363,7 @@ def response_system(M, C, K, F, x0, v0, t):
         Array withe evenly spaced times
 
     Returns
-    ----------
+    -------
     T : array
         Time values for the output.
     yout : array
@@ -370,7 +371,8 @@ def response_system(M, C, K, F, x0, v0, t):
     xout : array
         Time evolution of the state vector.
 
-    Examples:
+    Examples
+    --------
     >>> M = np.array([[9, 0],
     ...               [0, 1]])
     >>> K = np.array([[27, -3],
