@@ -43,8 +43,7 @@ cover: clean
 	nosetests $(TEST_ARGS) --with-cov --cov $(NAME) $(NAME)
 	coverage annotate
 
-release: clean, docs
-	atom vibration_toolbox/__init__.py
+release: clean
 	pip install --user readme_renderer
 	#python setup.py check -r -s
 	pytest
