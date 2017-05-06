@@ -16,25 +16,38 @@ export VERSION=`python -c "import $(NAME); print($(NAME).__version__)"`
 #	python setup.py install
 
 #----------------------------------------------------
+
+help:
+	@echo "Please use \`make <target>' where <target> is one of"
+	@echo "  clean      to clear build files"
+	@echo "  test    		to test all docstring examples"
+	@echo "  cover      to test coverage (not working yet)"
+	@echo "  release    to edit version, build docs and release"
+	@echo "  wheel      build wheel file (for local use)"
+	@echo "  wheel-dist build wheel and push to github"
+	@echo "  docs       build docs using sphin"
+	@echo "  html       alias for docs"
+	@echo "  gh-pages   build and release docs"
+
 clean:
 	rm -rf build
 	rm -rf dist
 	find . -name "*.pyc" -o -name "*.py,cover"| xargs rm -f
 #	killall -9 nosetests; true
 
-test: clean
-	python setup.py build
-	export PYTHONWARNINGS="all"; cd build; nosetests $(TEST_ARGS) $(NAME)
-	make clean
+test:
+	pytest
 
 cover: clean
 	pip install nose-cov
 	nosetests $(TEST_ARGS) --with-cov --cov $(NAME) $(NAME)
 	coverage annotate
 
-release: clean
+release: clean, docs
+	atom vibration_toolbox/__init__.py
 	pip install --user readme_renderer
-	python setup.py check -r -s
+	#python setup.py check -r -s
+	pytest
 	#python setup.py register
 	rm -rf dist
 	python setup.py sdist bdist_wheel
@@ -47,7 +60,7 @@ release: clean
 	twine upload dist/*
 	shasum -a 256 dist/*.tar.gz
 
-wheel: 
+wheel:
 	rm -rf dist
 	python setup.py sdist bdist_wheel
 
