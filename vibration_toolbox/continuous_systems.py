@@ -45,7 +45,7 @@ def euler_beam_modes(n=10, bctype=2, npoints=2001,
         bctype = 5 clamped-clamped
         bctype = 6 pinned-pinned
     beamparams: numpy array
-        E, I, rho, A, L
+        E, I, rho, A, L,
         Young's modulus, second moment of area, density, cross section area,
         length of beam
     npoints: int
@@ -223,7 +223,7 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
         bctype = 5 clamped-clamped
         bctype = 6 pinned-pinned
     beamparams: numpy array
-        E, I, rho, A, L
+        E, I, rho, A, L,
         Young's modulus, second moment of area, density, cross section area,
         length of beam
     npoints: int
@@ -241,7 +241,7 @@ def euler_beam_frf(xin=0.22, xout=0.22, fmin=0.0, fmax=1000.0, zeta=0.02,
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
     >>> _, _ = vtb.euler_beam_frf()
-    
+
     """
 
     E = beamparams[0]
