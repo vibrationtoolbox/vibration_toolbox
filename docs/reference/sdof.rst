@@ -30,8 +30,6 @@ _________________________________________________
 
 .. autofunction:: forced_response
 
-.. autofunction:: forced_response
-
 .. autofunction:: transmissibility
 
 .. autofunction:: rotating_unbalance

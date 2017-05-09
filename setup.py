@@ -33,13 +33,14 @@ setup(name='vibration_toolbox',
       author=u'Joseph C. Slater and Raphael Timbó',
       author_email='joseph.c.slater@gmail.com',
       url='https://github.com/vibrationtoolbox/vibration_toolbox',
-#      download_url=download_url,
       packages=['vibration_toolbox'],
       package_data={'vibration_toolbox': ['../readme.rst', 'data/*.mat'],
                     '': ['readme.rst']},
       long_description=read('readme.rst'),
       keywords=['vibration', 'mechanical engineering'],
-      install_requires=['numpy', 'scipy', 'matplotlib']
+      install_requires=['numpy', 'scipy', 'matplotlib'],
+      setup_requires=['pytest-runner'],
+      tests_require=['pytest']
       )
 
 # https://docs.python.org/3/distutils/setupscript.html#additional-meta-data
