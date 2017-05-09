@@ -1,3 +1,17 @@
+This is the folder for building the complete documentation for the Vibration Toolbox. The actual documentation is hosted via `githubpages <http://vibrationtoolbox.github.io/vibration_toolbox/>`_.
+
+The remainder of this document contains notes for developers.
+
+To make the doc, in the `docs` folder type::
+
+  make docs
+
+To serve the pages, move to the `docs/_build/html` folder and type::
+
+  python -m http.server
+
+
+
 ===============
  Title
 ===============
@@ -21,7 +35,7 @@ Subsubsubsubection Title
 We shouldn't ever need this many.
 
 
-All documentation will be built with via `sphinx <http://sphinx-doc.org>`_ using ``make html`` in the ``docs`` directory. Updating on ``github`` is documented 
+All documentation will be built with via `sphinx <http://sphinx-doc.org>`_ using ``make html`` in the ``docs`` directory. Updating on ``github`` is documented
 in the ``developers.rst`` file at the top of the repository.
 
 Documentation of functions help (uses `autodoc <http://www.sphinx-doc.org/en/stable/ext/autodoc.html>`_):

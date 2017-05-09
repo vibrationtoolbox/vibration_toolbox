@@ -7,24 +7,32 @@
 .. image:: https://badge.fury.io/py/vibration_toolbox.png/
     :target: http://badge.fury.io/py/vibration_toolbox
 
+.. image:: https://travis-ci.org/vibrationtoolbox/vibration_toolbox.svg?branch=master
+    :target: https://travis-ci.org/vibrationtoolbox/vibration_toolbox
+
+.. image:: https://img.shields.io/pypi/v/vibration_toolbox.svg
+    :target: https://img.shields.io/pypi/v/vibration_toolbox
+
 .. #image:: https://coveralls.io/repos/vibrationtoolbox/vibration_toolbox/badge.png?branch=master
 ..  #:target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
 
 
 Joseph C. Slater and Raphael Timbó
 
-Welcome to `Engineering Vibration Toolbox <https://vibrationtoolbox.github.io>`_,
-originally written for `Matlab <http://www.mathworks.com>`_\®, but with extra features only for
-`Python <http://python.org>`_. This is an *educational* set of codes intended for
+Welcome to `Engineering Vibration Toolbox <http://vibrationtoolbox.github.io/vibration_toolbox/>`_.
+Originally written for `Matlab <http://www.mathworks.com>`_\®, this `Python <http://python.org>`_ version is a completely new design build for modern education. This is an *educational* set of codes intended primarily for
 demonstration of concepts. You may find them useful for application, but that
-isn't the intent. If you have professional level needs, please `contact the authors <mailto:joseph.c.slater@gmail.com>`_.
+isn't the intent. If you have professional-level needs please `contact the authors <mailto:joseph.c.slater@gmail.com>`_.
 
 For more information, please see the `documentation for the Python version <http://vibrationtoolbox.github.io/vibration_toolbox/>`_ but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox so this is taking some time. We don't need feedback at this time, but we will take assistance in improving documentation and code.
 
 
 Installation
 ------------
-Installation is made easy with ``pip``, with releases as we have time while we try
+
+If you aren't familiar at all with Python, please see  `Installing Python <https://github.com/vibrationtoolbox/vibration_toolbox/blob/master/docs/Installing_Python.rst>`_.
+
+Installation is made easy with ``pip`` (or ``pip3``), with releases as we have time while we try
 to create a full first release. Much of it works already, but we certainly need
 issue reports (on `github <http://github.com/vibrationtoolbox/vibration_toolbox>`_).
 
@@ -34,11 +42,11 @@ To install::
 
 where ``--user`` isn't necessary if you are using a locally installed version of Python such as `Anaconda <https://www.continuum.io/downloads>`_.
 
-To run, I recommend you open a `jupyter <https://jupyter.org>`_ notebook and type::
+To run, I recommend you open a `Jupyter <https://jupyter.org>`_ notebook by using ``jupyter notebook`` and then type::
 
   import vibration_toolbox as vtb
 
-For examples, see the `JupyterNotebooks folder <https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/JupyterNotebooks>`_. Some of these have interactive capabilities that are only apparent when you run them yourself instead of just looking at them on github.
+For examples, see the `JupyterNotebooks folder <https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/docs/tutorial>`_. Some of these have interactive capabilities that are only apparent when you run them yourself instead of just looking at them on github. Unfortunately our organization of these still leaves a little to be desired. 
 
 Installation of current code
 ____________________________

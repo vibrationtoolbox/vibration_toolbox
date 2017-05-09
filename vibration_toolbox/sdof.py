@@ -60,11 +60,12 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
     >>> vtb.free_response()[1][:5] # get the first five values of x
-    array([[ 1.        ],
-           [ 0.99591926],
-           [ 0.9916807 ],
-           [ 0.98728508],
-           [ 0.98273317]])
+    array([[ 1.  ],
+           [ 1.  ],
+           [ 0.99],
+           [ 0.99],
+           [ 0.98]])
+
     >>> t, x, *_ = vtb.free_response() # *_ ignores all other returns
     >>> plt.plot(t,x)
     [<matplotlib.lines.Line2D object at ...>]
@@ -191,6 +192,7 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
 def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
                 m=(1.0, 100.0), c=(0.0, 100.0), k=(1.0, 100.0)):
     '''Interactive single degree of freedom free reponse plot in iPython
+
     ``time_plot_i`` is only functional in a
     `Jupyter notebook <http://jupyter.org>`_.
 
@@ -259,9 +261,9 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
 
 def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
-    """
-    Returns free response of a second order linear ordinary differential equation
-    using the Euler method for integration.
+    """Euler method free response of a SDOF system.
+
+    Free response using Euler's method to perform numerical integration.
 
     Parameters
     ----------
@@ -275,23 +277,22 @@ def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
         The step size.
 
     Returns
-    ----------
+    -------
     t, x, v: array
         Time, displacement, and velocity
 
-    Examples:
-    ----------
+    Examples
+    --------
     >>> euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
-    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.        ,  0.        ],
-           [ 1.        , -0.05      ],
-           [ 0.9975    , -0.09975   ],
-           [ 0.9925125 , -0.14912625],
-           [ 0.98505619, -0.19800624],
-           [ 0.97515588, -0.24626902],
-           [ 0.96284242, -0.29379547],
-           [ 0.94815265, -0.34046861],
-           [ 0.93112922, -0.3861739 ]]))
-
+    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.  ,  0.  ],
+           [ 1.  , -0.05],
+           [ 1.  , -0.1 ],
+           [ 0.99, -0.15],
+           [ 0.99, -0.2 ],
+           [ 0.98, -0.25],
+           [ 0.96, -0.29],
+           [ 0.95, -0.34],
+           [ 0.93, -0.39]]))
     """
 
     # creates the state space matrix
@@ -325,22 +326,22 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
         The step size.
 
     Returns
-    ----------
+    -------
     t, x, v: array
         Time, displacement, and velocity
 
-    Examples:
-    ----------
+    Examples
+    --------
     >>> rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
-    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.        ,  0.        ],
-           [ 0.99875234, -0.04985443],
-           [ 0.99502078, -0.0993359 ],
-           [ 0.98882699, -0.14832292],
-           [ 0.98019872, -0.19669582],
-           [ 0.96916961, -0.24433704],
-           [ 0.95577913, -0.29113145],
-           [ 0.94007246, -0.33696662],
-           [ 0.92210029, -0.38173305]]))
+    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.  ,  0.  ],
+           [ 1.  , -0.05],
+           [ 1.  , -0.1 ],
+           [ 0.99, -0.15],
+           [ 0.98, -0.2 ],
+           [ 0.97, -0.24],
+           [ 0.96, -0.29],
+           [ 0.94, -0.34],
+           [ 0.92, -0.38]]))
     """
 
     t = np.linspace(0, n * dt, n + 1)
@@ -405,11 +406,11 @@ def response(xdd, f, t, x0, v0):
 
     :Example:
     >>> free_response()[1][:5] # get the first five values of x
-    array([[ 1.        ],
-           [ 0.99591926],
-           [ 0.9916807 ],
-           [ 0.98728508],
-           [ 0.98273317]])
+    array([[ 1.  ],
+           [ 1.  ],
+           [ 0.99],
+           [ 0.99],
+           [ 0.98]])
     """
 
     omega = np.sqrt(k / m)
@@ -455,15 +456,15 @@ def forced_analytical(m=10, k=100, x0=1, v0=0,
         End time
 
     Returns
-    ----------
+    -------
     t, x: array
         Time and displacement
 
-    Examples:
+    Examples
+    --------
     >>> forced_analytical(m=10, k=100, x0=1, v0=0, wdr=0.5, F0=10, tf=100)
-    (array([  0.00000000e+00,   1.25000156e-04,   2.50000313e-04, ...,
-             9.99997500e+01,   9.99998750e+01,   1.00000000e+02]), array([ 1.        ,  0.99999993,  0.99999972, ..., -0.32885349,
-           -0.32916361, -0.32947367]))"""
+    (array([   0.,    0.,    0., ...,  100.,  100.,  100.]), array([ 1.  ,  1.  ,  1.  , ..., -0.33, -0.33, -0.33]))
+    """
 
     t = np.linspace(0, tf, tf/0.000125)
 
@@ -478,15 +479,16 @@ def forced_analytical(m=10, k=100, x0=1, v0=0,
 
 def forced_response(m=10, c=0, k=100, x0=1, v0=0,
                     wdr=0.5, F0=10, max_time=100):
-    """
+    """Harmonic response of SDOF system.
+
     Returns the the response of an underdamped single degree of
     freedom system to a sinusoidal input with amplitude F0 and
-    frequency wdr.
+    frequency :math:`\omega_{dr}`.
 
     Parameters
     ----------
     m, c, k: float, optional
-        Mass and stiffness
+        Mass Damping, and stiffness
     x0, v0: float, optional
         Initial conditions
     wdr: float, optional
@@ -497,11 +499,12 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
         End time
 
     Returns
-    ----------
+    -------
     t, x, y: array
         Time, displacement and velocity
 
-    Examples:
+    Examples
+    --------
     >>> f = forced_response(m=10, c=0, k=100, x0=1, v0=0, wdr=0.5, F0=10, max_time=100)
     >>> f[0][0]
     0.0"""
@@ -520,19 +523,17 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
 
 
 def steady_state_response(zs, rmin, rmax):
-    """
-    Returns a plot with the steady state response of a
-    single degree of freedom damped system.
+    """Plot steady state response SDOF damped system.
 
     Parameters
     ----------
     zs: array
         Array with the damping values
-    rmin, rmax: float
+    rmin, rmax: floats
         Minimum and maximum frequency ratio
 
     Returns
-    ----------
+    -------
     r: Array
         Array containing the values for the frequency ratio
     A: Array
@@ -540,7 +541,8 @@ def steady_state_response(zs, rmin, rmax):
 
         Plot with steady state magnitude and phase
 
-    Examples:
+    Examples
+    --------
     >>> r, A = steady_state_response([0.1, 0.3, 0.8], 0, 2)
     >>> A[10]
     (0.98423159842039087-0.15988334018879749j)
@@ -590,7 +592,7 @@ def transmissibility(zs, rmin, rmax):
         Minimum and maximum frequency ratio
 
     Returns
-    ----------
+    -------
     r: Array
         Array containing the values for the frequency ratio
     D: Array
@@ -601,7 +603,8 @@ def transmissibility(zs, rmin, rmax):
         Plot with Displacement transmissibility ratio
         and force transmissibility ratio
 
-    Examples:
+    Examples
+    --------
     >>> r, D, F = transmissibility([0.01, 0.05, 0.1, 0.25, 0.5, 0.7], 0, 2)
     >>> D[10]
     1.0100027508815634
@@ -664,7 +667,7 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
         If true, the displacement is normalized (m*X/(m0*e))
 
     Returns
-    ----------
+    -------
     r: Array
         Array containing the values for the frequency ratio
     Xn: Array
@@ -673,7 +676,8 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
         Plot with Displacement displacement and phase
         for a system with rotating unbalance.
 
-    Examples:
+    Examples
+    --------
     >>> r, Xn = rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1, 0.25, 0.707, 1], rmin=0, rmax=3.5, normalized=True)
     >>> Xn[1][10]
     (0.10104614704226758-0.0051182602098315527j)
@@ -729,7 +733,7 @@ def impulse_response(m, c, k, Fo, max_time):
         End time
 
     Returns
-    ----------
+    -------
     t: Array
         Array containing the values for the time
     x: Array
@@ -738,7 +742,8 @@ def impulse_response(m, c, k, Fo, max_time):
         Plot with the response of the system to an
         impulse of magnitude Fo (N.s).
 
-    Examples:
+    Examples
+    --------
     >>> t, x = impulse_response(m=100, c=20, k=2000, Fo=10, max_time=100)
     >>> x[10]
     0.0039629845398805623
@@ -780,7 +785,7 @@ def step_response(m, c, k, Fo, max_time):
         End time
 
     Returns
-    ----------
+    -------
     t: Array
         Array containing the values for the time
     x: Array
@@ -789,7 +794,8 @@ def step_response(m, c, k, Fo, max_time):
         Plot with the response of the system to an
         step of magnitude Fo.
 
-    Examples:
+    Examples
+    --------
     >>> t, x = step_response(m=100, c=20, k=2000, Fo=10, max_time=100)
     >>> x[10]
     7.9581008173000833e-05
@@ -851,12 +857,13 @@ def fourier_series(dat, t, n):
         Fourier series.
 
     Returns
-    ----------
+    -------
     a, b: tuple
         Tuple containing arrays with the Fourier coefficients.
         The function also produces a plot of the approximation.
 
-    Examples:
+    Examples
+    --------
     >>> f = np.hstack((np.arange(-1, 1, .04), np.arange(1, -1, -.04)))
     >>> f += 1
     >>> t = np.arange(0, len(f))/len(f)
@@ -903,11 +910,13 @@ def response_spectrum(f):
         Natural frequency.
 
     Returns
-    ----------
+    -------
     t, rs: tuple
         Tuple with time and response arrays. It also returns
         a plot with the response spectrum.
-    Examples:
+        
+    Examples
+    --------
     >>> t, rs = response_spectrum(10)
     >>> rs[10]
     1.6285602401720802
@@ -954,11 +963,13 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
         bn Fourier coefficient for n even
 
     Returns
-    ----------
+    -------
     t, F: tuple
         Tuple with time and F(t). It also returns
         a plot with the Fourier approximation.
-    Examples:
+
+    Examples
+    --------
     >>> # Square wave
     >>> t, F = fourier_approximation(-1, 0, 0, '-3*(-1+(-1)**n)/n/pi', '-3*(-1+(-1)**n)/n/pi', 20, 2)
     >>> F[10]

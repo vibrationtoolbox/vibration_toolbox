@@ -16,18 +16,30 @@ all toolbox functions in the name space
 """
 
 __title__ = 'vibration_toolbox'
-__version__ = '0.5b11'
+__version__ = '0.5b13'
 __author__ = u'Joseph C. Slater and Raphael Timbó'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 1991-2017 Joseph C. Slater'
 __all__ = ['sdof', 'mdof', 'ema', 'vibesystem', 'continuous_systems',
            '__version__']
 
-import scipy as sp
-import matplotlib.pyplot as plt
+import sys
+import matplotlib as mpl
+
+if str(sys.argv[0])[-6:] == 'pytest':
+    print('Setting backend to agg to run tests')
+    mpl.use('agg')
 
 from .sdof import *
 from .mdof import *
 from .ema import *
 from .vibesystem import *
 from .continuous_systems import *
+
+# print options were change inside modules to produce better
+# outputs at examples. Here we set the print options to the
+# default values after importing the modules to avoid changing
+# np default print options when importing the toolbox.
+np.set_printoptions(edgeitems=3, infstr='inf', linewidth=75,
+                    nanstr='nan', precision=8, suppress=False,
+                    threshold=1000, formatter=None)

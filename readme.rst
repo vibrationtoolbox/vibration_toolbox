@@ -19,12 +19,14 @@
 
 Joseph C. Slater and Raphael Timbó
 
+This is the software repository for the Vibration Toolbox, not the `online manual <http://vibrationtoolbox.github.io/vibration_toolbox/>`_. 
+
 Welcome to `Engineering Vibration Toolbox <http://vibrationtoolbox.github.io/vibration_toolbox/>`_.
 Originally written for `Matlab <http://www.mathworks.com>`_\®, this `Python <http://python.org>`_ version is a completely new design build for modern education. This is an *educational* set of codes intended primarily for
 demonstration of concepts. You may find them useful for application, but that
 isn't the intent. If you have professional-level needs please `contact the authors <mailto:joseph.c.slater@gmail.com>`_.
 
-For more information, please see the `documentation for the Python version <http://vibrationtoolbox.github.io/vibration_toolbox/>`_ but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox so this is taking some time. We don't need feedback at this time, but we will take assistance in improving documentation and code.
+For more information, please see the `documentation for the Python version <http://vibrationtoolbox.github.io/vibration_toolbox/>`_ but please excuse that it is all still under development. Such documentation has never existed for the other ports of the toolbox so this is taking some time. We don't need feedback at this time, but we will take assistance in improving documentation and code. *Please* clone the repository and support use by submitting pull requests fixing typos and clarifying documentation. 
 
 
 Installation
@@ -42,11 +44,11 @@ To install::
 
 where ``--user`` isn't necessary if you are using a locally installed version of Python such as `Anaconda <https://www.continuum.io/downloads>`_.
 
-To run, I recommend you open a `jupyter <https://jupyter.org>`_ notebook by using ``jupyter notebook`` and then type::
+To run, I recommend you open a `Jupyter <https://jupyter.org>`_ notebook by using ``jupyter notebook`` and then type::
 
   import vibration_toolbox as vtb
 
-For examples, see the `JupyterNotebooks folder <https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/JupyterNotebooks>`_. Some of these have interactive capabilities that are only apparent when you run them yourself instead of just looking at them on github.
+For examples, see the `JupyterNotebooks folder <https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/docs/tutorial>`_. Some of these have interactive capabilities that are only apparent when you run them yourself instead of just looking at them on github. Unfortunately our organization of these still leaves a little to be desired. 
 
 Installation of current code
 ____________________________

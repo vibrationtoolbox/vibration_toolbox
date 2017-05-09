@@ -45,12 +45,11 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
         bctype = 5 clamped-clamped
         bctype = 6 pinned-pinned
     beamparams: numpy array
-        E, I, rho, A, L
+        E, I, rho, A, L,
         Young's modulus, second moment of area, density, cross section area,
         length of beam
     npoints: int
         number of points for returned mode shape array
-
 
     Returns
     -------
@@ -60,7 +59,6 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
         x coordinate
     U: numpy array
         mass normalized mode shape
-
 
     Examples
     --------
@@ -77,6 +75,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     >>> plt.title('Mode 1')
     <matplotlib.text.Text object at ...>
     """
+
     E = beamparams[0]
     I = beamparams[1]
     rho = beamparams[2]
@@ -203,7 +202,9 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
                    beamparams=np.array([7.31e10, 1 / 12 * 0.03 * .015 ** 3,
                                         2747.0, .015 * 0.03, 0.4])):
     """Frequency response function fo Euler-Bernoulli beam.
+
     See working notebook for working code
+
     Parameters
     ----------
     xin: float
@@ -224,7 +225,7 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
         bctype = 5 clamped-clamped
         bctype = 6 pinned-pinned
     beamparams: numpy array
-        E, I, rho, A, L
+        E, I, rho, A, L,
         Young's modulus, second moment of area, density, cross section area,
         length of beam
     npoints: int
@@ -232,7 +233,6 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
 
     Returns
     -------
-
     fout: numpy array
         array of driving frequencies (Hz)
     H: numpy array
@@ -243,8 +243,9 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
     >>> _, _ = vtb.euler_beam_frf()
+
     """
-    
+
     E = beamparams[0]
     I = beamparams[1]
     rho = beamparams[2]
@@ -262,24 +263,14 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     f = sp.empty(100)
 
     while wn[-1] < 1.3 * (fmax * 2 * sp.pi):
-
         i = i + 1
-# legtext[i + 1]=[char('Contribution of mode '),num2str_(i)]
         wn, xx, U = euler_beam_modes(n=i, bctype=bctype,
                                      beamparams=beamparams, npoints=5000)
         spl = UnivariateSpline(xx, U[:, i - 1])
         Uin = spl(xin)
         Uout = spl(xout)
-        # Uin=spline_(xx,U,xin)
-        # Uout=spline_(xx,U,xout)
-
-        # print(wn[-1])
-        # print(w)
         a[:, i - 1] = rho * A * Uin * Uout / \
             (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * sp.sqrt(-1))
-        # print(a[0:10,i])
-        # plt.plot(sp.log10(sp.absolute(a[:,i])))
-
         f[i] = wn[-1] / 2 / sp.pi
     a = a[:, 0:i]
     plt.figure()
@@ -298,7 +289,6 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     plt.subplot(212)
     plt.plot(w / 2 / sp.pi, sp.unwrap(sp.angle(sp.sum(a, axis=1))) /
              sp.pi * 180, '-')
-    # plt.hold('on')
     plt.plot(w / 2 / sp.pi, sp.unwrap(sp.angle(a)) / sp.pi * 180, '-')
     plt.grid('on')
     plt.xlabel('Frequency (Hz)')
@@ -422,6 +412,7 @@ if __name__ == "__main__":
     # doctest.run_docstring_examples(asd,globals(),
     # optionflags=doctest.ELLIPSIS)
     """ What this does.
+
     python (name of this file)  -v
     will test all of the examples in the help.
 
