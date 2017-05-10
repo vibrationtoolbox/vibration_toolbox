@@ -15,7 +15,7 @@ VibrationToolbox.egg-info
 ehthumbs.db
 Thumbs.db
 
-
+.cache/
 docs/_build
 .ipynb_check*
 .ipynb*check*/*
