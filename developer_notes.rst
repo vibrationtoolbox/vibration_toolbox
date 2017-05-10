@@ -1,4 +1,16 @@
+Running doctests
+----------------
+To run the doctests `<pytest https://docs.pytest.org/en/latest/>`_ is needed.
+To run the tests from the shell you can access the project directory and type:
+.. code-block:: shell
+    $ pytest
+
+To run the tests from pycharm you can do:
+Run -> Edit Configurations -> Add -> python tests -> pytest
+Then just set the path to the project directory.
+
 To make distribution.
+---------------------
 
 1) Edit the version number in ``vibration_toolbox/__init__.py``
 2) Use the Makefile, ``make release``
