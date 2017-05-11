@@ -50,7 +50,8 @@ Then just set the path to the project directory.
 4. If the tests are passing, make a git pull to assure that your code is up to date with the master branch and that the code has no conflicts. After that, push your branch to github and then open a pull request.
 
 
-**Instructions bellow are directed to main developers**
+Instructions bellow are directed to main developers
+===================================================
 
 To make distribution.
 ---------------------
@@ -71,3 +72,26 @@ To test before release::
 See ``create_distro.rst`` for explicit ``pypi`` commands that may not be necessary.
 
 See `twine notes <https://packaging.python.org/distributing/#working-in-development-mode>`_ on modern pypi connectivity.
+
+What I need to do to get this to install properly with pip
+https://www.codementor.io/python/tutorial/host-your-python-package-using-github-on-pypi
+
+http://peterdowns.com/posts/first-time-with-pypi.html
+
+To test release
+--------------------
+python setup.py register -r pypitest
+python setup.py sdist upload -r pypitest
+
+look at https://testpypi.python.org/pypi
+
+To release
+----------------
+
+.. code-block:: python
+
+  python setup.py register -r pypi
+  python setup.py sdist upload -r pypi
+
+
+https://pypi.python.org/pypi/wheel
