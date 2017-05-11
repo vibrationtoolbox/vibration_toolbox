@@ -7,34 +7,35 @@ Contributing code
 -----------------
 To contribute code we recommend you follow these steps:
 
-#. Clone the repository:
+1. Clone the repository:
 
 .. code-block:: console
     $ git clone https://github.com/vibrationtoolbox/vibration_toolbox
 
-#. Create a new branch and add your code. If a new function is added,
+2. Create a new branch and add your code. If a new function is added,
 please provide docstrings following the
 `Numpy standards for docstrings <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`_.
 The docstrings should contain examples to be tested.
-Specifically note:
 
-1. Parameters should be listed similarly to:
+    Specifically note:
 
-|    filename : str
-|    copy : bool
-|    dtype : data-type
-|    iterable : iterable object
-|    shape : int or tuple of int
-|    files : list of str
-|    time : array_like
+    1. Parameters should be listed similarly to:
 
-2. First line should be inline with the ``"""`` and brief enough to fit on one line.
+    |    filename : str
+    |    copy : bool
+    |    dtype : data-type
+    |    iterable : iterable object
+    |    shape : int or tuple of int
+    |    files : list of str
+    |    time : array_like
 
-3. There must be a blank line after the first line.
+    2. First line should be inline with the ``"""`` and brief enough to fit on one line.
 
-This is not exhaustive. It just highlights some consistent errors made.
+    3. There must be a blank line after the first line.
 
-#. Run the doctests
+    This is not exhaustive. It just highlights some consistent errors made.
+
+3. Run the doctests
 
 To run the doctests `<pytest https://docs.pytest.org/en/latest/>`_ is needed.
 To run the tests from the shell you can access the project directory and type:
@@ -46,7 +47,9 @@ To run the tests from pycharm you can do:
 Run -> Edit Configurations -> Add -> python tests -> pytest
 Then just set the path to the project directory.
 
-#. If the tests are passing, push your branch to github and then open a pull request.
+4. If the tests are passing, push your branch to github and then open a pull request.
+
+*Instructions bellow are directed to main developers*
 
 To make distribution.
 ---------------------
