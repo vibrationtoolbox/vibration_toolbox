@@ -103,7 +103,8 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 
 def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     '''Phase plot of free response of single degree of freedom system.
-    For information on variables see `free_response`
+
+    For information on variables see `free_response`.
 
     Parameters
     ----------
@@ -437,7 +438,6 @@ def response(xdd, f, t, x0, v0):
 
 def forced_analytical(m=10, k=100, x0=1, v0=0,
                       wdr=0.5, F0=10, tf=100):
-
     """
     Returns the response of an undamped single degree of freedom system
     to a sinusoidal input with amplitude F0 and frequency wdr.
@@ -507,7 +507,8 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
     --------
     >>> f = forced_response(m=10, c=0, k=100, x0=1, v0=0, wdr=0.5, F0=10, max_time=100)
     >>> f[0][0]
-    0.0"""
+    0.0
+    """
 
     def sdofs_deriv(x_xd, t, m=m, c=c, k=k):
         x, xd = x_xd
@@ -914,7 +915,7 @@ def response_spectrum(f):
     t, rs: tuple
         Tuple with time and response arrays. It also returns
         a plot with the response spectrum.
-        
+
     Examples
     --------
     >>> t, rs = response_spectrum(10)
