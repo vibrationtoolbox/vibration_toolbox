@@ -90,7 +90,6 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     # len=[0:(1/(npoints-1)):1]';  %Normalized length of the beam
     len = np.linspace(0, 1, npoints)
     x = len * L
-    print(x)
     # Determine natural frequencies and mode shapes depending on the
     # boundary condition.
     # Mass simplification. The following was arange_(1,length_(n)).reshape(-1)
