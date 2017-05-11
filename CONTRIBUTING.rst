@@ -9,7 +9,6 @@ To contribute code we recommend you follow these steps:
 
 1. Clone the repository:
 
-.. code-block:: console
     $ git clone https://github.com/vibrationtoolbox/vibration_toolbox
 
 2. Create a new branch and add your code. If a new function is added,
@@ -28,6 +27,7 @@ The docstrings should contain examples to be tested.
     |    shape : int or tuple of int
     |    files : list of str
     |    time : array_like
+    
 
     2. First line should be inline with the ``"""`` and brief enough to fit on one line.
 
@@ -40,7 +40,6 @@ The docstrings should contain examples to be tested.
 To run the doctests `<pytest https://docs.pytest.org/en/latest/>`_ is needed.
 To run the tests from the shell you can access the project directory and type:
 
-.. code-block:: console
     $ pytest
 
 To run the tests from pycharm you can do:
@@ -49,7 +48,8 @@ Then just set the path to the project directory.
 
 4. If the tests are passing, push your branch to github and then open a pull request.
 
-*Instructions bellow are directed to main developers*
+
+**Instructions bellow are directed to main developers**
 
 To make distribution.
 ---------------------
