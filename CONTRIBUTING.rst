@@ -1,6 +1,6 @@
 Reporting bugs
 --------------
-If you find a bug, please open an issue on the `<Github issues tracker https://github.com/vibrationtoolbox/vibration_toolbox/issues>`_.
+If you find a bug, please open an issue on the `Github issues tracker <https://github.com/vibrationtoolbox/vibration_toolbox/issues>`_.
 Please provide some code that reproduces the error and versions of the packages installed.
 
 Contributing code
@@ -47,7 +47,7 @@ To run the tests from pycharm you can do:
 Run -> Edit Configurations -> Add -> python tests -> pytest
 Then just set the path to the project directory.
 
-4. If the tests are passing, push your branch to github and then open a pull request.
+4. If the tests are passing, make a git pull to assure that your code is up to date with the master branch and that the code has no conflicts. After that, push your branch to github and then open a pull request.
 
 
 **Instructions bellow are directed to main developers**
