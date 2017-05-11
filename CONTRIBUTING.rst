@@ -27,6 +27,7 @@ The docstrings should contain examples to be tested.
     |    shape : int or tuple of int
     |    files : list of str
     |    time : array_like
+    |
     
 
     2. First line should be inline with the ``"""`` and brief enough to fit on one line.
