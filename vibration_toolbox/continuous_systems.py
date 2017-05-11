@@ -66,6 +66,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     >>> import vibration_toolbox as vtb
     >>> omega_n, x, U = vtb.euler_beam_modes(n=1)
     >>> plt.figure()
+    <matplotlib.figure...>
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
@@ -344,6 +345,7 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
     >>> import vibration_toolbox as vtb
     >>> omega_n, x, U = vtb.uniform_bar_modes(n=3)
     >>> plt.figure()
+    <matplotlib.figure...>
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
