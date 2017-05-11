@@ -66,6 +66,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     >>> import vibration_toolbox as vtb
     >>> omega_n, x, U = vtb.euler_beam_modes(n=1)
     >>> plt.figure()
+    <matplotlib.figure...>
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
@@ -90,7 +91,6 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     # len=[0:(1/(npoints-1)):1]';  %Normalized length of the beam
     len = np.linspace(0, 1, npoints)
     x = len * L
-    print(x)
     # Determine natural frequencies and mode shapes depending on the
     # boundary condition.
     # Mass simplification. The following was arange_(1,length_(n)).reshape(-1)
@@ -345,6 +345,7 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
     >>> import vibration_toolbox as vtb
     >>> omega_n, x, U = vtb.uniform_bar_modes(n=3)
     >>> plt.figure()
+    <matplotlib.figure...>
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
