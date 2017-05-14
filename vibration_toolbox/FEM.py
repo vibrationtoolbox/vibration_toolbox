@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import numpy as np
 import matplotlib.pyplot as plt
 import time
@@ -287,6 +286,3 @@ answer=input("Save configuration file (Else all will have been in vain)? (y/n) "
 
 #if answer == 'y':
     # Create .con file in Pyton
-=======
-
->>>>>>> 9b15cbf448a8373c24a3df9dcd3306d826adab28
