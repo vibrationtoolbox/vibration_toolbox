@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy import fft
 import matplotlib as mpl
-from scipy.interpolate import UnivariateSpline
 from scipy import integrate
 
 try:
@@ -85,10 +84,6 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     omega_d = omega * np.sqrt(1 - zeta ** 2)
     A = np.sqrt(x0 ** 2 + (v0 + omega * zeta * x0) ** 2 / omega_d ** 2)
 
-    #    print('The natural frequency is ', omega, 'rad/s.');
-    #    print('The damping ratio is ', zeta);
-    #    print('The damped natural frequency is ', omega_d);
-
     def sdofs_deriv(x_xd, t0, m=m, c=c, k=k):
         x, xd = x_xd
         return [xd, -c / m * xd - k / m * x]
@@ -104,7 +99,7 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 
 
 def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
-    '''Phase plot of free response of single degree of freedom system.
+    """Phase plot of free response of single degree of freedom system.
 
     For information on variables see `free_response`.
 
@@ -122,8 +117,7 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
     >>> vtb.phase_plot() # *_ ignores all other returns
-
-    '''
+    """
     t, x, v, zeta, omega, omega_d, A = free_response(
         m, c, k, x0, v0, max_time)
     fig = plt.figure()
@@ -138,7 +132,7 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
                  m=(1.0, 100.0, 1.0),
                  c=(0.0, 1.0, 0.1), x0=(-100, 100, 1), k=(1.0, 100.0, 1.0)):
-    '''Interactive phase plot of free response of single degree of freedom system.
+    """Interactive phase plot of free response of single degree of freedom system.
     ``phase_plot_i`` is only functional in a
     `Jupyter notebook <http://jupyter.org>`_.
 
@@ -151,7 +145,7 @@ def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
     max_time: float, optional
         end time for :math:`x(t)`
 
-    '''
+    """
     if in_ipynb():
         w = interactive(phase_plot, max_time=max_time, v0=v0, m=m,
                         c=c, x0=x0, k=k)
@@ -171,30 +165,33 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
     ax.grid('on')
     ax.plot(t, x)
     if zeta < 1:
-        ax.plot(t, A * np.exp(-zeta * omega * t), '--', t, -A *
-                np.exp(-zeta * omega * t), '--g', linewidth=1)
+        ax.plot(t, A * np.exp(-zeta * omega * t), '--g',
+                linewidth=1)
+        ax.plot(t, -A * np.exp(-zeta * omega * t), '--g',
+                linewidth=1, label='$A e^{- \zeta \omega t}$')
         tmin, tmax, xmin, xmax = ax.axis()
-        ax.text(.75 * tmax, .95 * (xmax - xmin) + xmin,
+        ax.text(.85 * tmax, .90 * (xmax - xmin) + xmin,
                 '$\omega$ = %0.2f rad/sec' % (omega))
-        ax.text(.75 * tmax, .90 * (xmax - xmin) +
+        ax.text(.85 * tmax, .85 * (xmax - xmin) +
                 xmin, '$\zeta$ = %0.2f' % (zeta))
-        ax.text(.75 * tmax, .85 * (xmax - xmin) + xmin,
+        ax.text(.85 * tmax, .80 * (xmax - xmin) + xmin,
                 '$\omega_d$ = %0.2f rad/sec' % (omega_d))
     else:
         tmin, tmax, xmin, xmax = ax.axis()
-        ax.text(.75 * tmax, .95 * (xmax - xmin) +
+        ax.text(.85 * tmax, .90 * (xmax - xmin) +
                 xmin, '$\zeta$ = %0.2f' % (zeta))
-        ax.text(.75 * tmax, .90 * (xmax - xmin) + xmin,
+        ax.text(.85 * tmax, .85 * (xmax - xmin) + xmin,
                 '$\lambda_1$ = %0.2f' %
                 (zeta * omega - omega * (zeta ** 2 - 1)))
-        ax.text(.75 * tmax, .85 * (xmax - xmin) + xmin,
+        ax.text(.85 * tmax, .80 * (xmax - xmin) + xmin,
                 '$\lambda_2$ = %0.2f' %
                 (zeta * omega + omega * (zeta ** 2 - 1)))
+    ax.legend()
 
 
 def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
                 m=(1.0, 100.0), c=(0.0, 100.0), k=(1.0, 100.0)):
-    '''Interactive single degree of freedom free reponse plot in iPython
+    """Interactive single degree of freedom free reponse plot in iPython
 
     ``time_plot_i`` is only functional in a
     `Jupyter notebook <http://jupyter.org>`_.
@@ -208,7 +205,7 @@ def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
     max_time: float, optional
         end time for :math:`x(t)`
 
-    '''
+    """
     if in_ipynb():
         w = interactive(time_plot, max_time=max_time, v0=v0, m=m,
                         c=c, x0=x0, k=k)
@@ -576,8 +573,6 @@ def steady_state_response(zs, rmin, rmax):
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
 
-    _ = plt.show()
-
     return r, A
 
 
@@ -645,8 +640,6 @@ def transmissibility(zs, rmin, rmax):
         ax2.plot(r, F)
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
-
-    _ = plt.show()
 
     return r, D, F
 
@@ -716,8 +709,6 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
 
-    _ = plt.show()
-
     return r, Xn
 
 
@@ -767,8 +758,6 @@ def impulse_response(m, c, k, Fo, max_time):
     ax1.set_ylabel('Displacement')
     ax1.set_title('Displacement vs Time')
     ax1.plot(t, x)
-
-    _ = plt.show()
 
     return t, x
 
@@ -837,8 +826,6 @@ def step_response(m, c, k, Fo, max_time):
     ax1.set_title('Displacement vs Time')
     ax1.plot(t, x)
 
-    _ = plt.show()
-
     return t, x
 
 
@@ -896,8 +883,6 @@ def fourier_series(dat, t, n):
 
     ax1.plot(t, dataapprox)
 
-    _ = plt.show()
-
     return a, b
 
 
@@ -941,8 +926,6 @@ def response_spectrum(f):
     ax1.set_ylabel('Dimensionless maximum response - (xk/Fo)max')
     ax1.set_title('Response spectrum of a SDOF system with f = %s Hz' % f)
     ax1.plot(t, rs)
-
-    _ = plt.show()
 
     return t, rs
 
@@ -1004,8 +987,6 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     ax1.set_xlabel('Time, t')
     ax1.set_ylabel('F(t)')
     ax1.plot(t, F)
-
-    _ = plt.show()
 
     return t, F
 
