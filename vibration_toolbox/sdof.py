@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy import fft
 import matplotlib as mpl
-from scipy.interpolate import UnivariateSpline
 from scipy import integrate
 
 try:
