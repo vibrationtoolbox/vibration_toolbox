@@ -64,16 +64,16 @@ class VibeSystem(object):
     to each other and both connected to a wall we have
     the following matrices:
 
-    >>> m1, m2 = 1, 1
-    >>> c1, c2, c3 = 5, 5, 5
-    >>> k1, k2, k3 = 1e3, 1e3, 1e3
+    >>> m0, m1 = 1, 1
+    >>> c0, c1, c2 = 5, 5, 5
+    >>> k0, k1, k2 = 1e3, 1e3, 1e3
 
-    >>> M = np.array([[m1, 0],
-    ...               [0, m2]])
-    >>> C = np.array([[c1+c2, -c2],
-    ...               [-c2, c2+c3]])
-    >>> K = np.array([[k1+k2, -k2],
-    ...               [-k2, k2+k3]])
+    >>> M = np.array([[m0, 0],
+    ...               [0, m1]])
+    >>> C = np.array([[c0+c1, -c2],
+    ...               [-c1, c2+c2]])
+    >>> K = np.array([[k0+k1, -k2],
+    ...               [-k1, k2+k2]])
     >>> sys = VibeSystem(M, C, K)
     >>> sys.wn
     array([ 5.03,  8.72])
@@ -155,16 +155,16 @@ class VibeSystem(object):
 
         Examples
         --------
-        >>> m1, m2 = 1, 1
-        >>> c1, c2, c3 = 1, 1, 1
-        >>> k1, k2, k3 = 1e3, 1e3, 1e3
+        >>> m0, m1 = 1, 1
+        >>> c0, c1, c2 = 1, 1, 1
+        >>> k0, k1, k2 = 1e3, 1e3, 1e3
 
-        >>> M = np.array([[m1, 0],
-        ...               [0, m2]])
-        >>> C = np.array([[c1+c2, -c2],
-        ...               [-c2, c2+c3]])
-        >>> K = np.array([[k1+k2, -k2],
-        ...               [-k2, k2+k3]])
+        >>> M = np.array([[m0, 0],
+        ...               [0, m1]])
+        >>> C = np.array([[c0+c1, -c2],
+        ...               [-c1, c2+c2]])
+        >>> K = np.array([[k0+k1, -k2],
+        ...               [-k1, k2+k2]])
         >>> sys = VibeSystem(M, C, K) # create the system    
         >>> sys.A()
         array([[    0.,     0.,     1.,     0.],
@@ -274,25 +274,25 @@ class VibeSystem(object):
 
         Examples
         --------
-        >>> m1, m2 = 1, 1
-        >>> c1, c2, c3 = 1, 1, 1
-        >>> k1, k2, k3 = 1e3, 1e3, 1e3
+        >>> m0, m1 = 1, 1
+        >>> c0, c1, c2 = 1, 1, 1
+        >>> k0, k1, k2 = 1e3, 1e3, 1e3
 
-        >>> M = np.array([[m1, 0],
-        ...               [0, m2]])
-        >>> C = np.array([[c1+c2, -c2],
-        ...               [-c2, c2+c3]])
-        >>> K = np.array([[k1+k2, -k2],
-        ...               [-k2, k2+k3]])
+        >>> M = np.array([[m0, 0],
+        ...               [0, m1]])
+        >>> C = np.array([[c0+c1, -c2],
+        ...               [-c1, c2+c2]])
+        >>> K = np.array([[k0+k1, -k2],
+        ...               [-k1, k2+k2]])
         >>> sys = VibeSystem(M, C, K) # create the system
         >>> t = np.linspace(0, 25, 1000) # time array
         >>> F2 = np.zeros((len(t), 2))
-        >>> F2[:, 1] = 1000*np.sin(40*t) # force applied on m2
+        >>> F2[:, 1] = 1000*np.sin(40*t) # force applied on m1
         >>> t, yout, xout = sys.time_response(F2, t)
-        >>> # response on m1
+        >>> # response on m0
         >>> yout[:5, 0] 
         array([ 0.  ,  0.  ,  0.07,  0.32,  0.61])
-        >>> # response on m2 
+        >>> # response on m1 
         >>> yout[:5, 1]
         array([ 0.  ,  0.08,  0.46,  0.79,  0.48])
         """
@@ -329,16 +329,16 @@ class VibeSystem(object):
 
         Examples
         --------
-        >>> m1, m2 = 1, 1
-        >>> c1, c2, c3 = 1, 1, 1
-        >>> k1, k2, k3 = 1e3, 1e3, 1e3
+        >>> m0, m1 = 1, 1
+        >>> c0, c1, c2 = 1, 1, 1
+        >>> k0, k1, k2 = 1e3, 1e3, 1e3
 
-        >>> M = np.array([[m1, 0],
-        ...               [0, m2]])
-        >>> C = np.array([[c1+c2, -c2],
-        ...               [-c2, c2+c3]])
-        >>> K = np.array([[k1+k2, -k2],
-        ...               [-k2, k2+k3]])
+        >>> M = np.array([[m0, 0],
+        ...               [0, m1]])
+        >>> C = np.array([[c0+c1, -c2],
+        ...               [-c1, c2+c2]])
+        >>> K = np.array([[k0+k1, -k2],
+        ...               [-k1, k2+k2]])
         >>> sys = VibeSystem(M, C, K) # create the system
         >>> omega, magdb, phase = sys.freq_response()
         >>> # magnitude for output on 0 and input on 1.
@@ -441,18 +441,18 @@ class VibeSystem(object):
             
         Examples
         --------
-        >>> m1, m2 = 1, 1
-        >>> c1, c2, c3 = 1, 1, 1
-        >>> k1, k2, k3 = 1e3, 1e3, 1e3
+        >>> m0, m1 = 1, 1
+        >>> c0, c1, c2 = 1, 1, 1
+        >>> k0, k1, k2 = 1e3, 1e3, 1e3
 
-        >>> M = np.array([[m1, 0],
-        ...               [0, m2]])
-        >>> C = np.array([[c1+c2, -c2],
-        ...               [-c2, c2+c3]])
-        >>> K = np.array([[k1+k2, -k2],
-        ...               [-k2, k2+k3]])
+        >>> M = np.array([[m0, 0],
+        ...               [0, m1]])
+        >>> C = np.array([[c0+c1, -c2],
+        ...               [-c1, c2+c2]])
+        >>> K = np.array([[k0+k1, -k2],
+        ...               [-k1, k2+k2]])
         >>> sys = VibeSystem(M, C, K) # create the system
-        >>> # plot frequency response for input and output at m1
+        >>> # plot frequency response for input and output at m0
         >>> sys.plot_freq_response(0, 0)
         (<matplotlib.axes._...
         """
@@ -516,16 +516,16 @@ class VibeSystem(object):
            
         Examples
         --------
-        >>> m1, m2 = 1, 1
-        >>> c1, c2, c3 = 1, 1, 1
-        >>> k1, k2, k3 = 1e3, 1e3, 1e3
+        >>> m0, m1 = 1, 1
+        >>> c0, c1, c2 = 1, 1, 1
+        >>> k0, k1, k2 = 1e3, 1e3, 1e3
 
-        >>> M = np.array([[m1, 0],
-        ...               [0, m2]])
-        >>> C = np.array([[c1+c2, -c2],
-        ...               [-c2, c2+c3]])
-        >>> K = np.array([[k1+k2, -k2],
-        ...               [-k2, k2+k3]])
+        >>> M = np.array([[m0, 0],
+        ...               [0, m1]])
+        >>> C = np.array([[c0+c1, -c2],
+        ...               [-c1, c2+c2]])
+        >>> K = np.array([[k0+k1, -k2],
+        ...               [-k1, k2+k2]])
         >>> sys = VibeSystem(M, C, K) # create the system
         >>> # plot frequency response for inputs at [0, 1]
         >>> # and outputs at [0, 1] 
