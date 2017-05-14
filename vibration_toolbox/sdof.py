@@ -573,8 +573,6 @@ def steady_state_response(zs, rmin, rmax):
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
 
-    _ = plt.show()
-
     return r, A
 
 
@@ -642,8 +640,6 @@ def transmissibility(zs, rmin, rmax):
         ax2.plot(r, F)
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
-
-    _ = plt.show()
 
     return r, D, F
 
@@ -713,8 +709,6 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
 
-    _ = plt.show()
-
     return r, Xn
 
 
@@ -764,8 +758,6 @@ def impulse_response(m, c, k, Fo, max_time):
     ax1.set_ylabel('Displacement')
     ax1.set_title('Displacement vs Time')
     ax1.plot(t, x)
-
-    _ = plt.show()
 
     return t, x
 
@@ -834,8 +826,6 @@ def step_response(m, c, k, Fo, max_time):
     ax1.set_title('Displacement vs Time')
     ax1.plot(t, x)
 
-    _ = plt.show()
-
     return t, x
 
 
@@ -893,8 +883,6 @@ def fourier_series(dat, t, n):
 
     ax1.plot(t, dataapprox)
 
-    _ = plt.show()
-
     return a, b
 
 
@@ -938,8 +926,6 @@ def response_spectrum(f):
     ax1.set_ylabel('Dimensionless maximum response - (xk/Fo)max')
     ax1.set_title('Response spectrum of a SDOF system with f = %s Hz' % f)
     ax1.plot(t, rs)
-
-    _ = plt.show()
 
     return t, rs
 
@@ -1001,8 +987,6 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     ax1.set_xlabel('Time, t')
     ax1.set_ylabel('F(t)')
     ax1.plot(t, F)
-
-    _ = plt.show()
 
     return t, F
 
