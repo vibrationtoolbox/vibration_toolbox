@@ -576,6 +576,37 @@ def steady_state_response(zs, rmin, rmax):
     return r, A
 
 
+def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=0, rmax=2.0):
+    """Interactive phase plot of steady state response of
+     single degree of freedom system.
+    ``steady_state_response`` is only functional in a
+    `Jupyter notebook <http://jupyter.org>`_.
+
+
+    Parameters
+    ----------
+    zs: array
+        Array with the damping values
+    rmin, rmax: floats
+        Minimum and maximum frequency ratio
+
+    Returns
+    -------
+    r: Array
+        Array containing the values for the frequency ratio
+    A: Array
+        Array containing the values for anmplitude
+
+        Plot with steady state magnitude and phase
+    """
+    if in_ipynb():
+        w = interactive(steady_state_response, zs=zs,
+                        rmin=rmin, rmax=rmax)
+        display(w)
+    else:
+        print('steady_state_response can only be used in an iPython notebook.')
+
+
 def transmissibility(zs, rmin, rmax):
     """
     Returns a plot Displacement transmissibility ratio
