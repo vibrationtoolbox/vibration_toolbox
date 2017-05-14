@@ -99,7 +99,7 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 
 
 def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
-    '''Phase plot of free response of single degree of freedom system.
+    """Phase plot of free response of single degree of freedom system.
 
     For information on variables see `free_response`.
 
@@ -117,8 +117,7 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
     >>> vtb.phase_plot() # *_ ignores all other returns
-
-    '''
+    """
     t, x, v, zeta, omega, omega_d, A = free_response(
         m, c, k, x0, v0, max_time)
     fig = plt.figure()
