@@ -84,10 +84,6 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     omega_d = omega * np.sqrt(1 - zeta ** 2)
     A = np.sqrt(x0 ** 2 + (v0 + omega * zeta * x0) ** 2 / omega_d ** 2)
 
-    #    print('The natural frequency is ', omega, 'rad/s.');
-    #    print('The damping ratio is ', zeta);
-    #    print('The damped natural frequency is ', omega_d);
-
     def sdofs_deriv(x_xd, t0, m=m, c=c, k=k):
         x, xd = x_xd
         return [xd, -c / m * xd - k / m * x]
