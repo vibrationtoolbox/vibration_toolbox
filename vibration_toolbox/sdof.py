@@ -132,7 +132,7 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
                  m=(1.0, 100.0, 1.0),
                  c=(0.0, 1.0, 0.1), x0=(-100, 100, 1), k=(1.0, 100.0, 1.0)):
-    '''Interactive phase plot of free response of single degree of freedom system.
+    """Interactive phase plot of free response of single degree of freedom system.
     ``phase_plot_i`` is only functional in a
     `Jupyter notebook <http://jupyter.org>`_.
 
@@ -145,7 +145,7 @@ def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
     max_time: float, optional
         end time for :math:`x(t)`
 
-    '''
+    """
     if in_ipynb():
         w = interactive(phase_plot, max_time=max_time, v0=v0, m=m,
                         c=c, x0=x0, k=k)
@@ -191,7 +191,7 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
 
 def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
                 m=(1.0, 100.0), c=(0.0, 100.0), k=(1.0, 100.0)):
-    '''Interactive single degree of freedom free reponse plot in iPython
+    """Interactive single degree of freedom free reponse plot in iPython
 
     ``time_plot_i`` is only functional in a
     `Jupyter notebook <http://jupyter.org>`_.
@@ -205,7 +205,7 @@ def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
     max_time: float, optional
         end time for :math:`x(t)`
 
-    '''
+    """
     if in_ipynb():
         w = interactive(time_plot, max_time=max_time, v0=v0, m=m,
                         c=c, x0=x0, k=k)
