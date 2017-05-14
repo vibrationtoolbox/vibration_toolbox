@@ -406,7 +406,7 @@ class VibeSystem(object):
 
         return omega, magdb, phase
 
-    def plot_freq_response(self, out, inp, ax0=None, ax1=None):
+    def plot_freq_response(self, out, inp, modes=None, ax0=None, ax1=None, **kwargs):
         """Plot frequency response.
         
         This method plots the frequency response given
@@ -418,13 +418,19 @@ class VibeSystem(object):
             Output.
         input : int
             Input.
-        
+        modes : list, optional
+            Modes that will be used to calculate the frequency response
+            (all modes will be used if a list is not given).
+       
         ax0 : matplotlib.axes, optional
             Matplotlib axes where the amplitude will be plotted.
             If None creates a new.
         ax1 : matplotlib.axes, optional
             Matplotlib axes where the phase will be plotted.
             If None creates a new.
+        kwargs : optional
+            Additional key word arguments can be passed to change
+            the plot (e.g. linestyle='--')
 
         Returns
         -------
@@ -460,10 +466,10 @@ class VibeSystem(object):
             else:
                 ax0, ax1 = ax
 
-        omega, magdb, phase = self.freq_response()
+        omega, magdb, phase = self.freq_response(modes=modes)
 
-        ax0.plot(omega, magdb[out, inp, :])
-        ax1.plot(omega, phase[out, inp, :])
+        ax0.plot(omega, magdb[out, inp, :], **kwargs)
+        ax1.plot(omega, phase[out, inp, :], **kwargs)
         for ax in [ax0, ax1]:
             ax.set_xlim(0, max(omega))
             ax.yaxis.set_major_locator(
@@ -484,7 +490,7 @@ class VibeSystem(object):
 
         return ax0, ax1
 
-    def plot_freq_response_grid(self, outs, inps, ax=None):
+    def plot_freq_response_grid(self, outs, inps, modes=None, ax=None):
         """Plot frequency response.
         
         This method plots the frequency response given
@@ -496,6 +502,9 @@ class VibeSystem(object):
             List with the desired outputs.
         inps : list
             List with the desired outputs.        
+        modes : list
+            List with the modes that will be used to construct
+            the frequency response plot.
         
         ax : array with matplotlib.axes, optional
             Matplotlib axes array created with plt.subplots.
@@ -534,12 +543,14 @@ class VibeSystem(object):
             for i, out in enumerate(outs):
                 for j, inp in enumerate(inps):
                     self.plot_freq_response(out, inp,
-                                            ax[2*i, j],
-                                            ax[2*i + 1, j])
+                                            modes=modes,
+                                            ax0=ax[2*i, j],
+                                            ax1=ax[2*i + 1, j])
         else:
             for i, inp in enumerate(inps):
                 self.plot_freq_response(outs[0], inp,
-                                        ax[2*i],
-                                        ax[2*i + 1])
+                                        modes=modes,
+                                        ax0=ax[2*i],
+                                        ax1=ax[2*i + 1])
 
         return ax
