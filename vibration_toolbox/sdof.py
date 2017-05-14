@@ -604,7 +604,7 @@ def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=0, rmax=2.0):
                         rmin=rmin, rmax=rmax)
         display(w)
     else:
-        print('steady_state_response can only be used in an iPython notebook.')
+        print('steady_state_response_i can only be used in an iPython notebook.')
 
 
 def transmissibility(zs, rmin, rmax):
