@@ -456,7 +456,6 @@ class VibeSystem(object):
         >>> sys.plot_freq_response(0, 0)
         (<matplotlib.axes._...
         """
-        # TODO add modes as an optional argument
         if ax0 is None or ax1 is None:
             fig, ax = plt.subplots(2)
             if ax0 is not None:
