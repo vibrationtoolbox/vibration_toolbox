@@ -15,13 +15,15 @@ except ImportError:
 
 def in_ipynb():
     try:
-        cfg = get_ipython().config
-        if cfg['IPKernelApp']['parent_appname'] == 'ipython-notebook':
+        shell = get_ipython().__class__.__name__
+        if shell == 'ZMQInteractiveShell':  # Jupyter notebook or qtconsole?
             return True
-        else:
+        elif shell == 'TerminalInteractiveShell':  # Terminal running IPython?
             return False
+        else:
+            return False  # Other type (?)
     except NameError:
-        return False
+        return False      # Probably standard Python interpreter
 
 
 mpl.rcParams['lines.linewidth'] = 2
