@@ -36,7 +36,7 @@ The docstrings should contain examples to be tested.
 
     This is not exhaustive. It just highlights some consistent errors made.
 
-3. Run the doctests
+3. Run the doctests regularly when you make edits.
 
 To run the doctests `<pytest https://docs.pytest.org/en/latest/>`_ is needed.
 To run the tests from the shell you can access the project directory and type:
@@ -49,7 +49,9 @@ Then just set the path to the project directory.
 
 4. Commit and check `travis-ci <https://travis-ci.org/vibrationtoolbox/vibration_toolbox>`_ tests regularly. Having a great number of changes before a commit can make tracing errors very hard. Make sure you are looking at your branch when assessing whether it's working. 
 
-5. If the tests are passing, make a git pull to assure that your code is up to date with the master branch and that the code has no conflicts. After that, push your branch to github and then open a pull request.
+5. Update from the main repository before submitting a pull request. This assures that you can check how your code works with the current repository. If it doesn't work, the pull will (should) be denied. 
+
+6. If the tests are passing, make a git pull to assure that your code is up to date with the master branch and that the code has no conflicts. After that, push your branch to github and then open a pull request.
 
 
 Instructions bellow are directed to main developers
