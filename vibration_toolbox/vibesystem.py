@@ -553,3 +553,81 @@ class VibeSystem(object):
                                         ax1=ax[2*i + 1])
 
         return ax
+
+    def plot_time_response(self, F, t, ic=None, out=None, ax=None):
+        r"""Plot the time response for a mdof system.
+
+        This method returns the time response for a mdof system
+        given a force, time and initial conditions.
+
+        Parameters
+        ----------
+        F : array
+            Force array (needs to have the same length as time array).
+        t : array
+            Time array.
+        ic : array, optional
+            The initial conditions on the state vector (zero by default).
+        out : list
+            Desired output for which the time response will be plotted.
+        ax : array with matplotlib.axes, optional
+            Matplotlib axes array created with plt.subplots.
+            It needs to have a shape of (2*inputs, outputs).
+
+        Returns
+        -------
+        ax : array with matplotlib.axes, optional
+            Matplotlib axes array created with plt.subplots.
+        t : array
+            Time values for the output.
+        yout : array
+            System response.
+        xout : array
+            Time evolution of the state vector.
+
+        Examples
+        --------
+        >>> m0, m1 = 1, 1
+        >>> c0, c1, c2 = 1, 1, 1
+        >>> k0, k1, k2 = 1e3, 1e3, 1e3
+
+        >>> M = np.array([[m0, 0],
+        ...               [0, m1]])
+        >>> C = np.array([[c0+c1, -c2],
+        ...               [-c1, c2+c2]])
+        >>> K = np.array([[k0+k1, -k2],
+        ...               [-k1, k2+k2]])
+        >>> sys = VibeSystem(M, C, K) # create the system
+        >>> t = np.linspace(0, 25, 1000) # time array
+        >>> F1 = np.zeros((len(t), 2))
+        >>> F1[:, 1] = 1000*np.sin(40*t) # force applied on m1
+        >>> sys.plot_time_response(F1, t)
+        """
+        if ax is None:
+            fig, axs = plt.subplots(self.H.outputs, 1, sharex=True)
+
+            fig.suptitle('Time response ' + self.name, fontsize=12)
+            #plt.subplots_adjust(hspace=0.01)
+
+        if out is not None:
+            raise NotImplementedError('Not implemented yet for specific outputs.')
+
+        t, yout, xout = self.time_response(F, t)
+
+        for i, ax in enumerate(axs):
+            ax.plot(t, yout[:, i])
+
+        # set the same y limits
+        min_ = min([ax.get_ylim()[0] for ax in axs])
+        max_ = max([ax.get_ylim()[1] for ax in axs])
+        lim = max(abs(min_), max_)
+
+        for i, ax in enumerate(axs):
+            ax.set_ylim([-lim, lim])
+            ax.set_xlim(t[0], t[-1])
+            ax.set_ylabel('Amp. output %s (m)' % i, fontsize=8)
+
+        axs[-1].set_xlabel('Time (s)')
+
+        return axs
+
