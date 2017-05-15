@@ -602,6 +602,7 @@ class VibeSystem(object):
         >>> F1 = np.zeros((len(t), 2))
         >>> F1[:, 1] = 1000*np.sin(40*t) # force applied on m1
         >>> sys.plot_time_response(F1, t)
+        array([<matplotlib.axes...
         """
         if ax is None:
             fig, axs = plt.subplots(self.H.outputs, 1, sharex=True)
@@ -612,7 +613,7 @@ class VibeSystem(object):
         if out is not None:
             raise NotImplementedError('Not implemented yet for specific outputs.')
 
-        t, yout, xout = self.time_response(F, t)
+        t, yout, xout = self.time_response(F, t, ic=ic)
 
         for i, ax in enumerate(axs):
             ax.plot(t, yout[:, i])
