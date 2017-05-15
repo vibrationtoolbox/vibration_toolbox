@@ -53,45 +53,42 @@ Then just set the path to the project directory.
 Instructions bellow are directed to main developers
 ===================================================
 
-To make distribution.
----------------------
+To make distribution and release
+--------------------------------
 
 1) Edit the version number in ``vibration_toolbox/__init__.py``
 2) Use the Makefile, ``make release``
 
 The ``conf.py`` file for the documentation pulls the version from ``__init__.py``
 
-To make a wheel file to test before deployment::
+To make a distribition (for testing or posting to github)
+-----------------------------------------------------------
 
-  >>> make wheel
+.. code-block:: bash
 
-To test before release::
+  >> make wheel
 
-  >>> pip install --force-reinstall --upgrade --no-deps dist/vibration_toolbox-0.5b9-py3-none-any.whl
+To test before release
+----------------------
 
-See ``create_distro.rst`` for explicit ``pypi`` commands that may not be necessary.
+.. code-block:: bash
+
+  >> pip install --force-reinstall --upgrade --no-deps dist/vibration_toolbox-0.5b9-py3-none-any.whl
 
 See `twine notes <https://packaging.python.org/distributing/#working-in-development-mode>`_ on modern pypi connectivity.
 
-What I need to do to get this to install properly with pip
-https://www.codementor.io/python/tutorial/host-your-python-package-using-github-on-pypi
-
-http://peterdowns.com/posts/first-time-with-pypi.html
-
 To test release
 --------------------
+Note: these are out of date. 
+
 python setup.py register -r pypitest
 python setup.py sdist upload -r pypitest
 
 look at https://testpypi.python.org/pypi
 
-To release
-----------------
+Other information sites
+------------------------
 
-.. code-block:: python
-
-  python setup.py register -r pypi
-  python setup.py sdist upload -r pypi
-
+`twine notes <https://packaging.python.org/distributing/#working-in-development-mode>`_ 
 
 https://pypi.python.org/pypi/wheel
