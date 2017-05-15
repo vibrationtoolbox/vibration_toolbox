@@ -80,7 +80,7 @@ class VibeSystem(object):
     >>> sys.wd
     array([ 5.02,  8.64])
     """
-    def __init__(self, M, C, K, name=None):
+    def __init__(self, M, C, K, name=''):
         self._M = M
         self._C = C
         self._K = K
