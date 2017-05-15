@@ -47,7 +47,7 @@ To run the tests from pycharm you can do:
 Run -> Edit Configurations -> Add -> python tests -> pytest
 Then just set the path to the project directory.
 
-4. Commit and check `travis-ci <https://travis-ci.org/vibrationtoolbox/vibration_toolbox>`_ tests regularly. Having a great number of changes before a commit can make tracing errors very hard. You may need to set up travis-ci for your cloned repository. I don't know. 
+4. Commit and check `travis-ci <https://travis-ci.org/vibrationtoolbox/vibration_toolbox>`_ tests regularly. Having a great number of changes before a commit can make tracing errors very hard. Make sure you are looking at your branch when assessing whether it's working. 
 
 5. If the tests are passing, make a git pull to assure that your code is up to date with the master branch and that the code has no conflicts. After that, push your branch to github and then open a pull request.
 
