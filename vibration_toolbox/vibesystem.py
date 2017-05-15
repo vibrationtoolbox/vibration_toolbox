@@ -286,9 +286,9 @@ class VibeSystem(object):
         ...               [-k1, k2+k2]])
         >>> sys = VibeSystem(M, C, K) # create the system
         >>> t = np.linspace(0, 25, 1000) # time array
-        >>> F2 = np.zeros((len(t), 2))
-        >>> F2[:, 1] = 1000*np.sin(40*t) # force applied on m1
-        >>> t, yout, xout = sys.time_response(F2, t)
+        >>> F1 = np.zeros((len(t), 2))
+        >>> F1[:, 1] = 1000*np.sin(40*t) # force applied on m1
+        >>> t, yout, xout = sys.time_response(F1, t)
         >>> # response on m0
         >>> yout[:5, 0] 
         array([ 0.  ,  0.  ,  0.07,  0.32,  0.61])
@@ -607,7 +607,7 @@ class VibeSystem(object):
             fig, axs = plt.subplots(self.H.outputs, 1, sharex=True)
 
             fig.suptitle('Time response ' + self.name, fontsize=12)
-            #plt.subplots_adjust(hspace=0.01)
+            plt.subplots_adjust(hspace=0.01)
 
         if out is not None:
             raise NotImplementedError('Not implemented yet for specific outputs.')
