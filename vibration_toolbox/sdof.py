@@ -170,20 +170,20 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
         ax.plot(t, -A * np.exp(-zeta * omega * t), '--g',
                 linewidth=1, label='$A e^{- \zeta \omega t}$')
         tmin, tmax, xmin, xmax = ax.axis()
-        ax.text(.85 * tmax, .90 * (xmax - xmin) + xmin,
+        ax.text(.75 * tmax, .85 * (xmax - xmin) + xmin,
                 '$\omega$ = %0.2f rad/sec' % (omega))
-        ax.text(.85 * tmax, .85 * (xmax - xmin) +
+        ax.text(.75 * tmax, .80 * (xmax - xmin) +
                 xmin, '$\zeta$ = %0.2f' % (zeta))
-        ax.text(.85 * tmax, .80 * (xmax - xmin) + xmin,
+        ax.text(.75 * tmax, .75 * (xmax - xmin) + xmin,
                 '$\omega_d$ = %0.2f rad/sec' % (omega_d))
     else:
         tmin, tmax, xmin, xmax = ax.axis()
-        ax.text(.85 * tmax, .90 * (xmax - xmin) +
+        ax.text(.75 * tmax, .85 * (xmax - xmin) +
                 xmin, '$\zeta$ = %0.2f' % (zeta))
-        ax.text(.85 * tmax, .85 * (xmax - xmin) + xmin,
+        ax.text(.75 * tmax, .80 * (xmax - xmin) + xmin,
                 '$\lambda_1$ = %0.2f' %
                 (zeta * omega - omega * (zeta ** 2 - 1)))
-        ax.text(.85 * tmax, .80 * (xmax - xmin) + xmin,
+        ax.text(.75 * tmax, .75 * (xmax - xmin) + xmin,
                 '$\lambda_2$ = %0.2f' %
                 (zeta * omega + omega * (zeta ** 2 - 1)))
     ax.legend()

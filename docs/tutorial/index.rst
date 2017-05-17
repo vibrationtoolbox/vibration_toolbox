@@ -9,7 +9,7 @@ Tutorials with worked examples and background information for the Vibration Tool
 .. toctree::
    :maxdepth: 2
 
-   sdof
+   sdofnotebook.ipynb
    Beats.ipynb
    Vibration_System.ipynb
    working_notebook.ipynb
