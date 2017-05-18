@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Continuous Systems (continuous_systems) &#8212; Vibration Toolbox 0.5b10 documentation</title>
+    <title>Continuous Systems (continuous_systems) &#8212; Vibration Toolbox 0.5b13 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.5b10',
+        VERSION:     '0.5b13',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -48,7 +48,7 @@
 <span id="continuous-systems-continuous-systems"></span><h1>Continuous Systems (<a class="reference internal" href="#module-continuous_systems" title="continuous_systems: Continuous Systems"><code class="xref py py-mod docutils literal"><span class="pre">continuous_systems</span></code></a>)<a class="headerlink" href="#module-continuous_systems" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="continuous_systems.euler_beam_modes">
-<code class="descclassname">continuous_systems.</code><code class="descname">euler_beam_modes</code><span class="sig-paren">(</span><em>n=10</em>, <em>bctype=2</em>, <em>npoints=2001</em>, <em>beamparams=array([  7.31000000e+10</em>, <em>8.43750000e-09</em>, <em>2.74700000e+03</em>, <em>4.50000000e-04</em>, <em>4.00000000e-01])</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/continuous_systems.html#euler_beam_modes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#continuous_systems.euler_beam_modes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">continuous_systems.</code><code class="descname">euler_beam_modes</code><span class="sig-paren">(</span><em>n=10</em>, <em>bctype=3</em>, <em>npoints=2001</em>, <em>beamparams=array([  7.31000000e+10</em>, <em>8.43750000e-09</em>, <em>2.74700000e+03</em>, <em>4.50000000e-04</em>, <em>4.00000000e-01])</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/continuous_systems.html#euler_beam_modes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#continuous_systems.euler_beam_modes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mode shapes and natural frequencies of Euler-Bernoulli beam.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -69,7 +69,7 @@ bctype = 6 pinned-pinned</p>
 </div></blockquote>
 <p><strong>beamparams: numpy array</strong></p>
 <blockquote>
-<div><p>E, I, rho, A, L
+<div><p>E, I, rho, A, L,
 Young&#8217;s modulus, second moment of area, density, cross section area,
 length of beam</p>
 </div></blockquote>
@@ -104,7 +104,7 @@ length of beam</p>
 
 <dl class="function">
 <dt id="continuous_systems.euler_beam_frf">
-<code class="descclassname">continuous_systems.</code><code class="descname">euler_beam_frf</code><span class="sig-paren">(</span><em>xin=0.22</em>, <em>xout=0.22</em>, <em>fmin=0.0</em>, <em>fmax=1000.0</em>, <em>zeta=0.02</em>, <em>bctype=2</em>, <em>npoints=2001</em>, <em>beamparams=array([  7.31000000e+10</em>, <em>8.43750000e-09</em>, <em>2.74700000e+03</em>, <em>4.50000000e-04</em>, <em>4.00000000e-01])</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/continuous_systems.html#euler_beam_frf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#continuous_systems.euler_beam_frf" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">continuous_systems.</code><code class="descname">euler_beam_frf</code><span class="sig-paren">(</span><em>xin=0.22</em>, <em>xout=0.32</em>, <em>fmin=0.0</em>, <em>fmax=1000.0</em>, <em>zeta=0.02</em>, <em>bctype=2</em>, <em>npoints=2001</em>, <em>beamparams=array([  7.31000000e+10</em>, <em>8.43750000e-09</em>, <em>2.74700000e+03</em>, <em>4.50000000e-04</em>, <em>4.00000000e-01])</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/continuous_systems.html#euler_beam_frf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#continuous_systems.euler_beam_frf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Frequency response function fo Euler-Bernoulli beam.</p>
 <p>See working notebook for working code</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -142,7 +142,7 @@ bctype = 6 pinned-pinned</p>
 </div></blockquote>
 <p><strong>beamparams: numpy array</strong></p>
 <blockquote>
-<div><p>E, I, rho, A, L
+<div><p>E, I, rho, A, L,
 Young&#8217;s modulus, second moment of area, density, cross section area,
 length of beam</p>
 </div></blockquote>

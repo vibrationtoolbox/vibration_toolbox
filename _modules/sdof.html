@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>sdof &#8212; Vibration Toolbox 0.5b10 documentation</title>
+    <title>sdof &#8212; Vibration Toolbox 0.5b13 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.5b10',
+        VERSION:     '0.5b13',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -47,7 +47,6 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">fft</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">UnivariateSpline</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">integrate</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -60,13 +59,15 @@
 
 <span class="k">def</span> <span class="nf">in_ipynb</span><span class="p">():</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">cfg</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">config</span>
-        <span class="k">if</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;IPKernelApp&#39;</span><span class="p">][</span><span class="s1">&#39;parent_appname&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ipython-notebook&#39;</span><span class="p">:</span>
+        <span class="n">shell</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="n">shell</span> <span class="o">==</span> <span class="s1">&#39;ZMQInteractiveShell&#39;</span><span class="p">:</span>  <span class="c1"># Jupyter notebook or qtconsole?</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">shell</span> <span class="o">==</span> <span class="s1">&#39;TerminalInteractiveShell&#39;</span><span class="p">:</span>  <span class="c1"># Terminal running IPython?</span>
             <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># Other type (?)</span>
     <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">False</span>      <span class="c1"># Probably standard Python interpreter</span>
 
 
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;lines.linewidth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
@@ -128,10 +129,6 @@
     <span class="n">omega_d</span> <span class="o">=</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">zeta</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x0</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">v0</span> <span class="o">+</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">zeta</span> <span class="o">*</span> <span class="n">x0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">omega_d</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 
-    <span class="c1">#    print(&#39;The natural frequency is &#39;, omega, &#39;rad/s.&#39;);</span>
-    <span class="c1">#    print(&#39;The damping ratio is &#39;, zeta);</span>
-    <span class="c1">#    print(&#39;The damped natural frequency is &#39;, omega_d);</span>
-
     <span class="k">def</span> <span class="nf">sdofs_deriv</span><span class="p">(</span><span class="n">x_xd</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">):</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">xd</span> <span class="o">=</span> <span class="n">x_xd</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">xd</span><span class="p">,</span> <span class="o">-</span><span class="n">c</span> <span class="o">/</span> <span class="n">m</span> <span class="o">*</span> <span class="n">xd</span> <span class="o">-</span> <span class="n">k</span> <span class="o">/</span> <span class="n">m</span> <span class="o">*</span> <span class="n">x</span><span class="p">]</span>
@@ -147,8 +144,9 @@
 
 
 <div class="viewcode-block" id="phase_plot"><a class="viewcode-back" href="../reference/sdof.html#sdof.phase_plot">[docs]</a><span class="k">def</span> <span class="nf">phase_plot</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Phase plot of free response of single degree of freedom system.</span>
-<span class="sd">    For information on variables see `free_response`</span>
+    <span class="sd">&quot;&quot;&quot;Phase plot of free response of single degree of freedom system.</span>
+
+<span class="sd">    For information on variables see `free_response`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -164,8 +162,7 @@
 <span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
 <span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
 <span class="sd">    &gt;&gt;&gt; vtb.phase_plot() # *_ ignores all other returns</span>
-
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">omega_d</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">free_response</span><span class="p">(</span>
         <span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">max_time</span><span class="p">)</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
@@ -180,7 +177,7 @@
 <div class="viewcode-block" id="phase_plot_i"><a class="viewcode-back" href="../reference/sdof.html#sdof.phase_plot_i">[docs]</a><span class="k">def</span> <span class="nf">phase_plot_i</span><span class="p">(</span><span class="n">max_time</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">),</span> <span class="n">v0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
                  <span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
                  <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">x0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)):</span>
-    <span class="sd">&#39;&#39;&#39;Interactive phase plot of free response of single degree of freedom system.</span>
+    <span class="sd">&quot;&quot;&quot;Interactive phase plot of free response of single degree of freedom system.</span>
 <span class="sd">    ``phase_plot_i`` is only functional in a</span>
 <span class="sd">    `Jupyter notebook &lt;http://jupyter.org&gt;`_.</span>
 
@@ -193,7 +190,7 @@
 <span class="sd">    max_time: float, optional</span>
 <span class="sd">        end time for :math:`x(t)`</span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">in_ipynb</span><span class="p">():</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">phase_plot</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="n">max_time</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="n">v0</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
                         <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
@@ -213,30 +210,33 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">zeta</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="o">-</span><span class="n">A</span> <span class="o">*</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span> <span class="s1">&#39;--g&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span> <span class="s1">&#39;--g&#39;</span><span class="p">,</span>
+                <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="o">-</span><span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span> <span class="s1">&#39;--g&#39;</span><span class="p">,</span>
+                <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$A e^{- \zeta \omega t}$&#39;</span><span class="p">)</span>
         <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">()</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">95</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span> <span class="n">xmin</span><span class="p">,</span>
-                <span class="s1">&#39;$\omega$ = </span><span class="si">%0.2f</span><span class="s1"> rad/sec&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">omega</span><span class="p">))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">90</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span>
-                <span class="n">xmin</span><span class="p">,</span> <span class="s1">&#39;$\zeta$ = </span><span class="si">%0.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">zeta</span><span class="p">))</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">85</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span> <span class="n">xmin</span><span class="p">,</span>
+                <span class="s1">&#39;$\omega$ = </span><span class="si">%0.2f</span><span class="s1"> rad/sec&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">omega</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">80</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span>
+                <span class="n">xmin</span><span class="p">,</span> <span class="s1">&#39;$\zeta$ = </span><span class="si">%0.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">zeta</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span> <span class="n">xmin</span><span class="p">,</span>
                 <span class="s1">&#39;$\omega_d$ = </span><span class="si">%0.2f</span><span class="s1"> rad/sec&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">omega_d</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">()</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">95</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">85</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span>
                 <span class="n">xmin</span><span class="p">,</span> <span class="s1">&#39;$\zeta$ = </span><span class="si">%0.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">zeta</span><span class="p">))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">90</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span> <span class="n">xmin</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">80</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span> <span class="n">xmin</span><span class="p">,</span>
                 <span class="s1">&#39;$\lambda_1$ = </span><span class="si">%0.2f</span><span class="s1">&#39;</span> <span class="o">%</span>
                 <span class="p">(</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">-</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span><span class="n">zeta</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">85</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span> <span class="n">xmin</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="n">tmax</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span> <span class="o">*</span> <span class="p">(</span><span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span><span class="p">)</span> <span class="o">+</span> <span class="n">xmin</span><span class="p">,</span>
                 <span class="s1">&#39;$\lambda_2$ = </span><span class="si">%0.2f</span><span class="s1">&#39;</span> <span class="o">%</span>
                 <span class="p">(</span><span class="n">zeta</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">+</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span><span class="n">zeta</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="time_plot_i"><a class="viewcode-back" href="../reference/sdof.html#sdof.time_plot_i">[docs]</a><span class="k">def</span> <span class="nf">time_plot_i</span><span class="p">(</span><span class="n">max_time</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">x0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">v0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
                 <span class="n">m</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">k</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)):</span>
-    <span class="sd">&#39;&#39;&#39;Interactive single degree of freedom free reponse plot in iPython</span>
+    <span class="sd">&quot;&quot;&quot;Interactive single degree of freedom free reponse plot in iPython</span>
 
 <span class="sd">    ``time_plot_i`` is only functional in a</span>
 <span class="sd">    `Jupyter notebook &lt;http://jupyter.org&gt;`_.</span>
@@ -250,7 +250,7 @@
 <span class="sd">    max_time: float, optional</span>
 <span class="sd">        end time for :math:`x(t)`</span>
 
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">in_ipynb</span><span class="p">():</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">time_plot</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="n">max_time</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="n">v0</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
                         <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
@@ -482,7 +482,6 @@
 
 <span class="k">def</span> <span class="nf">forced_analytical</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                       <span class="n">wdr</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">F0</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">tf</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
-
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the response of an undamped single degree of freedom system</span>
 <span class="sd">    to a sinusoidal input with amplitude F0 and frequency wdr.</span>
@@ -552,7 +551,8 @@
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; f = forced_response(m=10, c=0, k=100, x0=1, v0=0, wdr=0.5, F0=10, max_time=100)</span>
 <span class="sd">    &gt;&gt;&gt; f[0][0]</span>
-<span class="sd">    0.0&quot;&quot;&quot;</span>
+<span class="sd">    0.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">sdofs_deriv</span><span class="p">(</span><span class="n">x_xd</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">):</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">xd</span> <span class="o">=</span> <span class="n">x_xd</span>
@@ -618,9 +618,38 @@
 
     <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(([</span><span class="s1">&#39;$\zeta$ = &#39;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">zs</span><span class="p">]))</span>
 
-    <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
     <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">A</span>
+
+
+<span class="k">def</span> <span class="nf">steady_state_response_i</span><span class="p">(</span><span class="n">zs</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">rmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Interactive phase plot of steady state response of</span>
+<span class="sd">     single degree of freedom system.</span>
+<span class="sd">    ``steady_state_response`` is only functional in a</span>
+<span class="sd">    `Jupyter notebook &lt;http://jupyter.org&gt;`_.</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    zs: array</span>
+<span class="sd">        Array with the damping values</span>
+<span class="sd">    rmin, rmax: floats</span>
+<span class="sd">        Minimum and maximum frequency ratio</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    r: Array</span>
+<span class="sd">        Array containing the values for the frequency ratio</span>
+<span class="sd">    A: Array</span>
+<span class="sd">        Array containing the values for anmplitude</span>
+
+<span class="sd">        Plot with steady state magnitude and phase</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">in_ipynb</span><span class="p">():</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">steady_state_response</span><span class="p">,</span> <span class="n">zs</span><span class="o">=</span><span class="n">zs</span><span class="p">,</span>
+                        <span class="n">rmin</span><span class="o">=</span><span class="n">rmin</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="n">rmax</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;steady_state_response_i can only be used in an iPython notebook.&#39;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="transmissibility"><a class="viewcode-back" href="../reference/sdof.html#sdof.transmissibility">[docs]</a><span class="k">def</span> <span class="nf">transmissibility</span><span class="p">(</span><span class="n">zs</span><span class="p">,</span> <span class="n">rmin</span><span class="p">,</span> <span class="n">rmax</span><span class="p">):</span>
@@ -687,8 +716,6 @@
         <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span>
 
     <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(([</span><span class="s1">&#39;$\zeta$ = &#39;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">zs</span><span class="p">]))</span>
-
-    <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">F</span></div>
 
@@ -758,8 +785,6 @@
 
     <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(([</span><span class="s1">&#39;$\zeta$ = &#39;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">zs</span><span class="p">]))</span>
 
-    <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
     <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">Xn</span></div>
 
 
@@ -809,8 +834,6 @@
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Displacement&#39;</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Displacement vs Time&#39;</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-
-    <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span></div>
 
@@ -879,8 +902,6 @@
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Displacement vs Time&#39;</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
-    <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span></div>
 
 
@@ -938,8 +959,6 @@
 
     <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">dataapprox</span><span class="p">)</span>
 
-    <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
     <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span></div>
 
 
@@ -959,7 +978,7 @@
 <span class="sd">    t, rs: tuple</span>
 <span class="sd">        Tuple with time and response arrays. It also returns</span>
 <span class="sd">        a plot with the response spectrum.</span>
-<span class="sd">        </span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; t, rs = response_spectrum(10)</span>
@@ -983,8 +1002,6 @@
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Dimensionless maximum response - (xk/Fo)max&#39;</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Response spectrum of a SDOF system with f = </span><span class="si">%s</span><span class="s1"> Hz&#39;</span> <span class="o">%</span> <span class="n">f</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">rs</span><span class="p">)</span>
-
-    <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">rs</span></div>
 
@@ -1046,8 +1063,6 @@
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time, t&#39;</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;F(t)&#39;</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span>
-
-    <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">F</span></div>
 
