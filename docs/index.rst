@@ -39,8 +39,10 @@ Table of Contents
    installation
    tutorial/index
    reference/index
-   download_tutorial
 
+Download Tutorial Notebooks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   :download:`Single Degree of Freedom </tutorial/sdofnotebook.ipynb>`
 
 Indices and tables
 __________________
