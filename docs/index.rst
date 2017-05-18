@@ -39,8 +39,7 @@ Table of Contents
    installation
    tutorial/index
    reference/index
-
-.. .. include:: ../readme.rst
+   download_tutorial
 
 
 Indices and tables
