@@ -40,8 +40,9 @@ Table of Contents
    tutorial/index
    reference/index
 
-.. .. include:: ../readme.rst
-
+Download Tutorial Notebooks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   :download:`Single Degree of Freedom </tutorial/sdofnotebook.ipynb>`
 
 Indices and tables
 __________________
