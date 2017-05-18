@@ -10,6 +10,7 @@ Tutorials with worked examples and background information for the Vibration Tool
    :maxdepth: 2
 
    sdof_notebook.ipynb
+   mdof_notebook.ipynb
    Beats.ipynb
    Vibration_System.ipynb
    working_notebook.ipynb
