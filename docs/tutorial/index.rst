@@ -11,6 +11,7 @@ Tutorials with worked examples and background information for the Vibration Tool
 
    sdof_notebook.ipynb
    mdof_notebook.ipynb
+   continuous_systems_notebook.ipynb
    Beats.ipynb
    Vibration_System.ipynb
    working_notebook.ipynb
