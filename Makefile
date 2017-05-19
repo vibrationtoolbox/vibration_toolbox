@@ -18,7 +18,7 @@ export VERSION=`python -c "import $(NAME); print($(NAME).__version__)"`
 #----------------------------------------------------
 
 help:
-	@echo "Please use \`make <target>' where <target> is one of"
+	@echo "Please use \`make <target>' where <target> is one of:"
 	@echo "  clean      to clear build files"
 	@echo "  test    		to test all docstring examples"
 	@echo "  cover      to test coverage (not working yet)"
