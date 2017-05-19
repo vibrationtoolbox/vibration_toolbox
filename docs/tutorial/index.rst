@@ -9,14 +9,8 @@ Tutorials with worked examples and background information for the Vibration Tool
 .. toctree::
    :maxdepth: 2
 
-   sdofnotebook.ipynb
-   Beats.ipynb
-   Vibration_System.ipynb
-   working_notebook.ipynb
+   sdof_notebook.ipynb
+   mdof_notebook.ipynb
+   continuous_systems_notebook.ipynb
+   vibesystem_notebook.ipynb
 
-..   Beats
-
-..   ../../JupyterNotebooks/temp
-..   working_notebook.ipynb
-
-.. .. include:: ../../JupyterNotebooks/temp
