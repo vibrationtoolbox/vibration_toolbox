@@ -11,7 +11,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "[Download This Notebook](http://vibrationtoolbox.github.io/vibration_toolbox/_downloads/sdofnotebook.ipynb)"
+    "[Download This Notebook](http://vibrationtoolbox.github.io/vibration_toolbox/_downloads/sdof_notebook.ipynb)"
    ]
   },
   {

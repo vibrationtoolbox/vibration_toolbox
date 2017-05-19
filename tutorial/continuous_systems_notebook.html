@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Beat phenomenon &#8212; Vibration Toolbox 0.5b13 documentation</title>
+    <title>Continuous Systems &#8212; Vibration Toolbox 0.5b13 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -27,8 +27,8 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Vibration System Objects" href="Vibration_System.html" />
-    <link rel="prev" title="Single Degree of Freedom" href="sdofnotebook.html" />
+    <link rel="next" title="Vibration System Objects" href="vibesystem_notebook.html" />
+    <link rel="prev" title="Multiple Degree of Freedom" href="mdof_notebook.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -206,74 +206,19 @@ div.nboutput div.output_area.stderr {
 
 .ansi-bold { font-weight: bold; }
 </style>
-<div class="section" id="Beat-phenomenon">
-<h1>Beat phenomenon<a class="headerlink" href="#Beat-phenomenon" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Continuous-Systems">
+<h1>Continuous Systems<a class="headerlink" href="#Continuous-Systems" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://vibrationtoolbox.github.io/vibration_toolbox/_downloads/continuous_systems_notebook.ipynb">Download This
+Notebook</a></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [1]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="kn">as</span> <span class="nn">sp</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">widgets</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Audio</span><span class="p">,</span> <span class="n">display</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="kn">as</span> <span class="nn">vt</span>
-<span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
+<span></span>
 </pre></div>
 </div>
-</div>
-<p>In this notebook we will investigate a phenomena that occurs when the
-driving frequency becomes close to the system’s natural frequency.</p>
-<p>For zero initial conditions, the response is given by the equation:</p>
-<p>Since <span class="math">\((\omega_n - \omega)\)</span> is small, <span class="math">\((\omega_n + \omega)\)</span>
-is large in comparison and <span class="math">\(sin[(\omega_n - \omega)/2]t\)</span>
-oscillates with a longer period than
-<span class="math">\(sin[(\omega_n + \omega)/2]t\)</span>. The result is a rapid oscillation
-with slowly varying amplitude that is called a <strong>beat</strong>.</p>
-<p>The system defined in the function bellow has a a natural frequency
-<span class="math">\(\omega_n = 1000 \ rad/s\)</span>.</p>
-<p>You can change the excitation frequency moving the slide &#8216;wdr&#8217; and hear
-the resulting sound.</p>
-<p>When you get close to the natural frequency you will be able to
-recognize the beats.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [17]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="c1">#@interact(wdr=widgets.FloatSlider(min=900.1, max=1100.1, step=1, value=1100))</span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">wdr</span><span class="p">):</span>
-    <span class="n">t</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">vt</span><span class="o">.</span><span class="n">forced_analytical</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">wdr</span><span class="o">=</span><span class="n">wdr</span><span class="p">,</span> <span class="n">F0</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">tf</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-    <span class="c1">#fig1 = plt.figure()</span>
-    <span class="c1">#ax1 = fig1.add_subplot(111)</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">Audio</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mf">0.000125</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    <span class="c1">#ax1.set_xlim([0, 1])</span>
-    <span class="c1">#ax1.set_ylim([-0.1, 0.1])</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [18]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">w</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">wdr</span> <span class="o">=</span> <span class="p">(</span><span class="mf">900.1</span><span class="p">,</span><span class="mf">1100.1</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span>
-<span class="n">display</span><span class="p">(</span><span class="n">w</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c27cbdb6508044a98b3d571d0e2670de"}</script></div>
 </div>
 </div>
 
@@ -298,13 +243,16 @@ recognize the beats.</p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorial</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="sdofnotebook.html">Single Degree of Freedom</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Beat phenomenon</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Vibration_System.html">Vibration System Objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="working_notebook.html">Working Notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdof_notebook.html">Single Degree of Freedom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mdof_notebook.html">Multiple Degree of Freedom</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Continuous Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vibesystem_notebook.html">Vibration System Objects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
 </ul>
 
 
@@ -321,7 +269,7 @@ recognize the beats.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/tutorial/Beats.ipynb.txt"
+      <li><a href="../_sources/tutorial/continuous_systems_notebook.ipynb.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -337,7 +285,7 @@ recognize the beats.</p>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/tutorial/Beats.ipynb.txt"
+      <a href="../_sources/tutorial/continuous_systems_notebook.ipynb.txt"
           rel="nofollow">Page source</a>
     </div>
 
