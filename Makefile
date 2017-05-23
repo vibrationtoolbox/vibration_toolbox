@@ -49,7 +49,7 @@ release: clean
 	pytest
 	#python setup.py register
 	rm -rf dist
-	python setup.py sdist bdist_wheel
+	python setup.py bdist_wheel
 	# python setup.py sdist
 	git tag v$(VERSION)
 	git push origin --all
@@ -61,11 +61,11 @@ release: clean
 
 wheel:
 	rm -rf dist
-	python setup.py sdist bdist_wheel
+	python setup.py bdist_wheel
 
 wheel-dist: gh-pages
 	rm -rf dist
-	python setup.py sdist bdist_wheel
+	python setup.py bdist_wheel
 
 docs:
 	# Warnings become errors and stop build
