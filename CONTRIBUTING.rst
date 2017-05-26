@@ -9,9 +9,11 @@ To contribute code we recommend you follow these steps:
 
 1. Clone the repository:
 
-    $ git clone https://github.com/vibrationtoolbox/vibration_toolbox
+.. code-block:: bash
 
-2. Create a new branch and add your code. If a new function is added,
+    >> git clone https://github.com/vibrationtoolbox/vibration_toolbox
+
+2. Create a new branch and add your code. If a new function is added
 please provide docstrings following the
 `Numpy standards for docstrings <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`_.
 The docstrings should contain examples to be tested.
@@ -27,16 +29,14 @@ The docstrings should contain examples to be tested.
     |    shape : int or tuple of int
     |    files : list of str
     |    time : array_like
-    |
     
-
     2. First line should be inline with the ``"""`` and brief enough to fit on one line.
 
     3. There must be a blank line after the first line.
 
     This is not exhaustive. It just highlights some consistent errors made.
 
-3. Run the doctests
+3. Run the doctests regularly when you make edits.
 
 To run the doctests `<pytest https://docs.pytest.org/en/latest/>`_ is needed.
 To run the tests from the shell you can access the project directory and type:
@@ -47,51 +47,52 @@ To run the tests from pycharm you can do:
 Run -> Edit Configurations -> Add -> python tests -> pytest
 Then just set the path to the project directory.
 
-4. If the tests are passing, make a git pull to assure that your code is up to date with the master branch and that the code has no conflicts. After that, push your branch to github and then open a pull request.
+4. Commit and check `travis-ci <https://travis-ci.org/vibrationtoolbox/vibration_toolbox>`_ tests regularly. Having a great number of changes before a commit can make tracing errors very hard. Make sure you are looking at your branch when assessing whether it's working. 
+
+5. Update from the main repository before submitting a pull request. This assures that you can check how your code works with the current repository. If it doesn't work, the pull will (should) be denied. 
+
+6. If the tests are passing, make a git pull to assure that your code is up to date with the master branch and that the code has no conflicts. After that, push your branch to github and then open a pull request.
 
 
 Instructions bellow are directed to main developers
 ===================================================
 
-To make distribution.
----------------------
+To make distribution and release
+--------------------------------
 
 1) Edit the version number in ``vibration_toolbox/__init__.py``
 2) Use the Makefile, ``make release``
 
 The ``conf.py`` file for the documentation pulls the version from ``__init__.py``
 
-To make a wheel file to test before deployment::
+To make a distribition (for testing or posting to github)
+-----------------------------------------------------------
 
-  >>> make wheel
+.. code-block:: bash
 
-To test before release::
+  >> make wheel
 
-  >>> pip install --force-reinstall --upgrade --no-deps dist/vibration_toolbox-0.5b9-py3-none-any.whl
+To test before release
+----------------------
 
-See ``create_distro.rst`` for explicit ``pypi`` commands that may not be necessary.
+.. code-block:: bash
 
-See `twine notes <https://packaging.python.org/distributing/#working-in-development-mode>`_ on modern pypi connectivity.
+  >> pip install --force-reinstall --upgrade --no-deps dist/vibration_toolbox-0.5b9-py3-none-any.whl
 
-What I need to do to get this to install properly with pip
-https://www.codementor.io/python/tutorial/host-your-python-package-using-github-on-pypi
+See `notes <https://packaging.python.org/distributing/#working-in-development-mode>`_ on working in development mode.
 
-http://peterdowns.com/posts/first-time-with-pypi.html
+To test distribution installabilty
+-----------------------------------
+Note: these are out of date. 
 
-To test release
---------------------
 python setup.py register -r pypitest
 python setup.py sdist upload -r pypitest
 
 look at https://testpypi.python.org/pypi
 
-To release
-----------------
+Other information sites
+------------------------
 
-.. code-block:: python
-
-  python setup.py register -r pypi
-  python setup.py sdist upload -r pypi
-
+`twine notes <https://packaging.python.org/distributing/#working-in-development-mode>`_ 
 
 https://pypi.python.org/pypi/wheel

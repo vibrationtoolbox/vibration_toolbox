@@ -303,16 +303,21 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     H = a
     return fout, H
 
+
 def ebf(xin, xout, fmin, fmax, zeta):
+    """Shortcut call to `euler_beam_frf`."""
     _, _ = euler_beam_frf(xin, xout, fmin, fmax, zeta)
     return
 
+
 def ebf1(xin, xout):
+    """Shortcut call to `euler_beam_frf`."""
     _, _ = euler_beam_frf(xin, xout)
     return
 
+
 def uniform_bar_modes(n=10, bctype=3, npoints=2001,
-                     barparams=np.array([7.31e10, 2747.0, 0.4])):
+                      barparams=np.array([7.31e10, 2747.0, 0.4])):
     """Mode shapes and natural frequencies of Uniform bar/rod.
 
     Parameters
@@ -323,7 +328,7 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
         bctype = 1 free-free
         bctype = 2 fixed-free
         bctype = 3 fixed-fixed
-     
+
     barparams: numpy array
         E, rho, L
         Young's modulus, density, length of bar
