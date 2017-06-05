@@ -1,11 +1,8 @@
-"""
-The Vibration Toolbox, Python Edition
+"""The Vibration Toolbox, Python Edition."""
 
+"""
 Joseph C. Slater and Raphael Timbó
-"""
 
-
-"""
 With this, `import vibration_toolbox as vtb` will import
 all toolbox functions in the name space
 
@@ -16,17 +13,26 @@ all toolbox functions in the name space
 """
 
 __title__ = 'vibration_toolbox'
-__version__ = '0.5b13'
+__version__ = '0.5'
 __author__ = u'Joseph C. Slater and Raphael Timbó'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 1991-2017 Joseph C. Slater'
 __all__ = ['sdof', 'mdof', 'ema', 'vibesystem', 'continuous_systems',
            '__version__']
 
+"""
+If the __all__ above is commented out, this code will then execute to
+completion, as the default behaviour of import * is to import all symbols
+that do not begin with an underscore, from the given namespace.
+
+Reference:
+https://docs.python.org/3.5/tutorial/modules.html#importing-from-a-package
+"""
+
 import sys
 import matplotlib as mpl
 
-if str(sys.argv[0])[-6:] == 'pytest':
+if 'pytest' in sys.argv[0]:
     print('Setting backend to agg to run tests')
     mpl.use('agg')
 
