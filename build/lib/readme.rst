@@ -19,8 +19,6 @@
 
 Joseph C. Slater and Raphael Timbó
 
-This is the software repository for the Vibration Toolbox, not the `online manual <http://vibrationtoolbox.github.io/vibration_toolbox/>`_.
-
 Welcome to `Engineering Vibration Toolbox <http://vibrationtoolbox.github.io/vibration_toolbox/>`_.
 Originally written for `Matlab <http://www.mathworks.com>`_\®, this `Python <http://python.org>`_ version is a completely new design build for modern education. This is an *educational* set of codes intended primarily for
 demonstration of concepts. You may find them useful for application, but that
