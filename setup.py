@@ -23,7 +23,7 @@ with open('vibration_toolbox/__init__.py', 'rb') as fid:
             break
 
 download_url = ('https://github.com/vibrationtoolbox/vibration_toolbox/\
-                blob/master/dist/vibration_toolbox-' + version + '.tar.gz')
+                blob/master/dist/vibration_toolbox-' + version + '.whl')
 
 
 setup(name='vibration_toolbox',
