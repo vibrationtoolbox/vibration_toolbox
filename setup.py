@@ -29,7 +29,7 @@ download_url = ('https://github.com/vibrationtoolbox/vibration_toolbox/\
 setup(name='vibration_toolbox',
       version=version,
       description=('Educational code illustrating fundamentals of vibration \
-                   for mechanical engineers.'),
+                   for engineers.'),
       author=u'Joseph C. Slater and Raphael Timbó',
       author_email='joseph.c.slater@gmail.com',
       url='https://github.com/vibrationtoolbox/vibration_toolbox',
@@ -37,7 +37,7 @@ setup(name='vibration_toolbox',
       package_data={'vibration_toolbox': ['../readme.rst', 'data/*.mat'],
                     '': ['readme.rst']},
       long_description=read('readme.rst'),
-      keywords=['vibration', 'mechanical engineering'],
+      keywords=['vibration', 'mechanical engineering', 'civil engineering'],
       install_requires=['numpy', 'scipy', 'matplotlib'],
       setup_requires=['pytest-runner'],
       tests_require=['pytest']
