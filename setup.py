@@ -5,7 +5,7 @@ from setuptools import setup
 import os
 import sys
 
-if sys.version_info < (3,5):
+if sys.version_info < (3, 5):
     sys.exit('Sorry, Python < 3.5 is not supported.')
 # Utility function to read the README file.
 # Used for the long_description.  It's nice, because now 1) we have a top level
@@ -13,7 +13,6 @@ if sys.version_info < (3,5):
 # string in below ...
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
-
 
 with open('vibration_toolbox/__init__.py', 'rb') as fid:
     for line in fid:
