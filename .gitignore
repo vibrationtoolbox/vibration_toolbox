@@ -25,7 +25,7 @@ docs/_build
 .ipynb*
 .#vtoolbox.py
 *.pdf
-
+.eggs
 
 Untitled*.ipynb
 
