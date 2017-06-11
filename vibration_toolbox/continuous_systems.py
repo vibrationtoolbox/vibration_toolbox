@@ -89,8 +89,8 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
         ln = len(n)
 
     # len=[0:(1/(npoints-1)):1]';  %Normalized length of the beam
-    len = np.linspace(0, 1, npoints)
-    x = len * L
+    x_normed = np.linspace(0, 1, npoints, endpoint = True)
+    x = x_normed * L
     # Determine natural frequencies and mode shapes depending on the
     # boundary condition.
     # Mass simplification. The following was arange_(1,length_(n)).reshape(-1)
@@ -111,15 +111,15 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
         for i in mode_num_range:
             if n[i] == 1:
                 w[i] = 0
-                U[:, i] = 1 + len * 0
+                U[:, i] = 1 + x_normed * 0
             elif n[i] == 2:
                 w[i] = 0
-                U[:, i] = len - 0.5
+                U[:, i] = x_normed - 0.5
             else:
                 sig = (np.cosh(Bnl[i]) - np.cos(Bnl[i])) / \
                       (np.sinh(Bnl[i]) - np.sin(Bnl[i]))
                 w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-                b = Bnl[i] * len
+                b = Bnl[i] * x_normed
                 U[:, i] = np.cosh(b) + np.cos(b) - sig * \
                     (np.sinh(b) + np.sin(b))
     elif bctype == 2:
@@ -135,7 +135,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
             sig = (np.sinh(Bnl[i]) - np.sin(Bnl[i])) / \
                   (np.cosh(Bnl[i]) - np.cos(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            b = Bnl[i] * len
+            b = Bnl[i] * x_normed
             # plt.plot(x,(sp.cosh(b) - sp.cos(b) -
             # sig * (sp.sinh(b) - sp.sin(b))))
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
@@ -152,7 +152,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
             sig = (np.cosh(Bnl[i]) - np.cos(Bnl[i])) / \
                   (np.sinh(Bnl[i]) - np.sin(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            b = Bnl[i] * len
+            b = Bnl[i] * x_normed
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
     elif bctype == 4:
         desc = 'Clamped-Sliding '
@@ -166,7 +166,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
             sig = (np.sinh(Bnl[i]) + np.sin(Bnl[i])) / \
                   (np.cosh(Bnl[i]) - np.cos(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            b = Bnl[i] * len
+            b = Bnl[i] * x_normed
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
     elif bctype == 5:
         desc = 'Clamped-Clamped '
@@ -180,14 +180,14 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
             sig = (np.cosh(Bnl[i]) - np.cos(Bnl[i])) / \
                   (np.sinh(Bnl[i]) - np.sin(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            b = Bnl[i] * len
+            b = Bnl[i] * x_normed
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
     elif bctype == 6:
         desc = 'Pinned-Pinned '
         for i in mode_num_range:
             Bnl[i] = n[i] * np.pi
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            U[:, i] = np.sin(Bnl[i] * len)
+            U[:, i] = np.sin(Bnl[i] * x_normed)
 
     # Mass Normalization of mode shapes
     for i in mode_num_range:
@@ -202,8 +202,6 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
                    beamparams=np.array([7.31e10, 1 / 12 * 0.03 * .015 ** 3,
                                         2747.0, .015 * 0.03, 0.4])):
     """Frequency response function fo Euler-Bernoulli beam.
-
-    See working notebook for working code
 
     Parameters
     ----------
