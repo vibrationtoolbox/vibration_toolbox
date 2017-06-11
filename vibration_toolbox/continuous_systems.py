@@ -347,6 +347,14 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
     U: numpy array
         mass normalized mode shape
 
+    Notes
+    -----
+    For most situations the cross sectional area cancels out and has no effect. It only matters in
+    the last two cases: and end spring or and mass, and is included with the parameters special to
+    those cases.
+
+
+
     Examples
     --------
     >>> import matplotlib.pyplot as plt
@@ -428,24 +436,3 @@ def ebf(xin, xout, fmin, fmax, zeta):
     _, _ = uniform_bar_frf(xin, xout, fmin, fmax, zeta)
     return
 """
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod(optionflags=doctest.ELLIPSIS |
-                    doctest.NORMALIZE_WHITESPACE)
-    # import vibration_toolbox as vtb
-    # doctest.run_docstring_examples(frfest,globals(),
-    # optionflags=doctest.ELLIPSIS)
-    # doctest.run_docstring_examples(asd,globals(),
-    # optionflags=doctest.ELLIPSIS)
-    """ What this does.
-
-    python (name of this file)  -v
-    will test all of the examples in the help.
-
-    Leaving off -v will run the tests without any output. Success will return
-    nothing.
-
-    See the doctest section of the python manual.
-    https://docs.python.org/3.5/library/doctest.html
-    """
