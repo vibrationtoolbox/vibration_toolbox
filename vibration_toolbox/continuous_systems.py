@@ -90,9 +90,9 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
         ln = len(n)
 
     # len=[0:(1/(npoints-1)):1]';  %Normalized length of the beam
-    lenth = np.linspace(0, 1, npoints)
-    x = lenth * L
-    # Determine natural frequencies and mode shapes depending on the
+    x_normed = np.linspace(0, 1, npoints, endpoint = True)
+    x = x_normed * L
+     # Determine natural frequencies and mode shapes depending on the
     # boundary condition.
     # Mass simplification. The following was arange_(1,length_(n)).reshape(-1)
     mode_num_range = np.arange(0, ln)
@@ -112,15 +112,15 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
         for i in mode_num_range:
             if n[i] == 1:
                 w[i] = 0
-                U[:, i] = 1 + lenth * 0
+                U[:, i] = 1 + x_normed * 0
             elif n[i] == 2:
                 w[i] = 0
-                U[:, i] = lenth - 0.5
+                U[:, i] = x_normed - 0.5
             else:
                 sig = (np.cosh(Bnl[i]) - np.cos(Bnl[i])) / \
                       (np.sinh(Bnl[i]) - np.sin(Bnl[i]))
                 w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-                b = Bnl[i] * lenth
+                b = Bnl[i] * x_normed
                 U[:, i] = np.cosh(b) + np.cos(b) - sig * \
                     (np.sinh(b) + np.sin(b))
     elif bctype == 2:
@@ -136,7 +136,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
             sig = (np.sinh(Bnl[i]) - np.sin(Bnl[i])) / \
                   (np.cosh(Bnl[i]) - np.cos(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            b = Bnl[i] * lenth
+            b = Bnl[i] * x_normed
             # plt.plot(x,(sp.cosh(b) - sp.cos(b) -
             # sig * (sp.sinh(b) - sp.sin(b))))
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
@@ -153,7 +153,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
             sig = (np.cosh(Bnl[i]) - np.cos(Bnl[i])) / \
                   (np.sinh(Bnl[i]) - np.sin(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            b = Bnl[i] * lenth
+            b = Bnl[i] * x_normed
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
     elif bctype == 4:
         desc = 'Clamped-Sliding '
@@ -167,7 +167,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
             sig = (np.sinh(Bnl[i]) + np.sin(Bnl[i])) / \
                   (np.cosh(Bnl[i]) - np.cos(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            b = Bnl[i] * lenth
+            b = Bnl[i] * x_normed
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
     elif bctype == 5:
         desc = 'Clamped-Clamped '
@@ -181,14 +181,14 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
             sig = (np.cosh(Bnl[i]) - np.cos(Bnl[i])) / \
                   (np.sinh(Bnl[i]) - np.sin(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            b = Bnl[i] * lenth
+            b = Bnl[i] * x_normed
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
     elif bctype == 6:
         desc = 'Pinned-Pinned '
         for i in mode_num_range:
             Bnl[i] = n[i] * np.pi
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            U[:, i] = np.sin(Bnl[i] * lenth)
+            U[:, i] = np.sin(Bnl[i] * x_normed)
 
     # Mass Normalization of mode shapes
     for i in mode_num_range:
@@ -203,8 +203,6 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
                    beamparams=np.array([7.31e10, 1 / 12 * 0.03 * .015 ** 3,
                                         2747.0, .015 * 0.03, 0.4])):
     """Frequency response function fo Euler-Bernoulli beam.
-
-    See working notebook for working code
 
     Parameters
     ----------
@@ -335,7 +333,6 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
     npoints: int
         number of points for returned mode shape array
 
-
     Returns
     -------
     omega_n: numpy array
@@ -344,7 +341,6 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
         x coordinate
     U: numpy array
         mass normalized mode shape
-
 
     Examples
     --------
@@ -372,12 +368,12 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
         ln = len(n)
 
     # len=[0:(1/(npoints-1)):1]';  %Normalized length of the bar
-    len = np.linspace(0, 1, npoints)
-    x = len * L
+    x_normed = np.linspace(0, 1, npoints, endpoint = True)
+    x = x_normed * L
     # Determine natural frequencies and mode shapes depending on the
     # boundary condition.
     # Mass simplification. The following was arange_(1,length_(n)).reshape(-1)
-    mode_num_range = np.arange(0, ln)
+    mode_num_range = np.arange(1, ln)
     w = np.empty(ln)
     U = np.empty([npoints, ln])
 
@@ -385,18 +381,17 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
         desc = 'Free-Free '
         for i in mode_num_range:
             w[i] = i * np.pi * np.sqrt(E/rho) / L
-            U[:, i] = np.cos(i * np.pi * len / L)
+            U[:, i] = np.cos(i * np.pi * x_normed)
     elif bctype == 2:
         desc = 'Fixed-Free '
         for i in mode_num_range:
             w[i] = (2*i-1) * np.pi * np.sqrt(E/rho) / (2 * L)
-            U[:, i] = np.sin((2*i-1) * np.pi * len / (2 * L))
+            U[:, i] = np.sin((2*i-1) * np.pi * x_normed / 2)
     elif bctype == 3:
         desc = 'Fixed-Fixed '
         for i in mode_num_range:
             w[i] = i * np.pi * np.sqrt(E/rho) / L
-            U[:, i] = np.sin(i * np.pi * len / (2 * L))
-
+            U[:, i] = np.sin((i) * np.pi * x_normed)
     # Mass Normalization of mode shapes
     for i in mode_num_range:
         U[:, i] = U[:, i] / np.sqrt(np.dot(U[:, i], U[:, i]) * rho * L)
@@ -404,11 +399,11 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
     omega_n = w
     return omega_n, x, U
 
-
+"""
 def ebf(xin, xout, fmin, fmax, zeta):
     _, _ = uniform_bar_frf(xin, xout, fmin, fmax, zeta)
     return
-
+"""
 
 def uniform_bar_modes(n=10, bctype=3, npoints=2001,
                       barparams=np.array([7.31e10, 2747.0, 0.4])):

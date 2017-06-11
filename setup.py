@@ -5,7 +5,7 @@ from setuptools import setup
 import os
 import sys
 
-if sys.version_info < (3,5):
+if sys.version_info < (3, 5):
     sys.exit('Sorry, Python < 3.5 is not supported.')
 # Utility function to read the README file.
 # Used for the long_description.  It's nice, because now 1) we have a top level
@@ -13,7 +13,6 @@ if sys.version_info < (3,5):
 # string in below ...
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
-
 
 with open('vibration_toolbox/__init__.py', 'rb') as fid:
     for line in fid:
@@ -23,13 +22,13 @@ with open('vibration_toolbox/__init__.py', 'rb') as fid:
             break
 
 download_url = ('https://github.com/vibrationtoolbox/vibration_toolbox/\
-                blob/master/dist/vibration_toolbox-' + version + '.tar.gz')
+                blob/master/dist/vibration_toolbox-' + version + '.whl')
 
 
 setup(name='vibration_toolbox',
       version=version,
       description=('Educational code illustrating fundamentals of vibration \
-                   for mechanical engineers.'),
+                   for engineers.'),
       author=u'Joseph C. Slater and Raphael Timbó',
       author_email='joseph.c.slater@gmail.com',
       url='https://github.com/vibrationtoolbox/vibration_toolbox',
@@ -37,7 +36,7 @@ setup(name='vibration_toolbox',
       package_data={'vibration_toolbox': ['../readme.rst', 'data/*.mat'],
                     '': ['readme.rst']},
       long_description=read('readme.rst'),
-      keywords=['vibration', 'mechanical engineering'],
+      keywords=['vibration', 'mechanical engineering', 'civil engineering'],
       install_requires=['numpy', 'scipy', 'matplotlib'],
       setup_requires=['pytest-runner'],
       tests_require=['pytest']
