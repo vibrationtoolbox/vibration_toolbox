@@ -407,16 +407,14 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
             U[:, i] = np.sin((i) * np.pi * x_normed)
     elif bctype == 4:
         desc = 'Fixed-Spring'
-        def func(lam):
-            return lam + np.tan(lam)* kl_over_EA
+        def func(lam): return lam + np.tan(lam)* kl_over_EA
         for i in mode_num_range:
             lam = newton_krylov(func, (0.25+i/2)*np.pi)
             w[i] = lam * np.sqrt(E/rho) / L
             U[:, i] = np.sin(lam * x_normed)
     elif bctype == 5:
         desc = 'Fixed-Mass'
-        def func(lam):
-            return np.tan(lam)-1/lam/m_over_rhoAL
+        def func(lam): return np.tan(lam)-1/lam/m_over_rhoAL
         for i in mode_num_range:
             lam = newton_krylov(func, 0.25+i*np.pi)
             w[i] = lam * np.sqrt(E/rho) / L
