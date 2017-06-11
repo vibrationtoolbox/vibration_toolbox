@@ -3,7 +3,7 @@ import numpy as np
 import scipy as sp
 import matplotlib as mpl
 from scipy.interpolate import UnivariateSpline
-
+from scipy.optimize import newton_krylov
 
 try:
     from IPython.display import clear_output, display, HTML
@@ -313,7 +313,8 @@ def ebf1(xin, xout):
 
 
 def uniform_bar_modes(n=10, bctype=3, npoints=2001,
-                      barparams=np.array([7.31e10, 2747.0, 0.4])):
+                      barparams=np.array([7.31e10, 2747.0, 0.4]),
+                      kl_over_EA = 1000, m_over_rhoAL = 1000):
     """Mode shapes and natural frequencies of Uniform bar/rod.
 
     Parameters
@@ -324,12 +325,18 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
         bctype = 1 free-free
         bctype = 2 fixed-free
         bctype = 3 fixed-fixed
-
+        bctype = 4 fixed-spring
+        bctype = 5 fixed-mass
     barparams: numpy array
         E, rho, L
         Young's modulus, density, length of bar
     npoints: int
         number of points for returned mode shape array
+    kl_over_EA: float
+        spring stiffness times rod length divided by EA. (for clamped-spring
+        condition)
+    m_over_rhoAL: float
+        end mass divided by rho A L of rod. (for end mass condition)
 
     Returns
     -------
@@ -390,6 +397,25 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
         for i in mode_num_range:
             w[i] = i * np.pi * np.sqrt(E/rho) / L
             U[:, i] = np.sin((i) * np.pi * x_normed)
+    elif bctype == 4:
+        desc = 'Fixed-Spring'
+        def func(lam):
+            return lam + np.tan(lam)* kl_over_EA
+        for i in mode_num_range:
+            lam = newton_krylov(func, (0.25+i/2)*np.pi)
+            w[i] = lam * np.sqrt(E/rho) / L
+            U[:, i] = np.sin(lam * x_normed)
+    elif bctype == 5:
+        desc = 'Fixed-Mass'
+        def func(lam):
+            return np.tan(lam)-1/lam/m_over_rhoAL
+        for i in mode_num_range:
+            lam = newton_krylov(func, 0.25+i*np.pi)
+            w[i] = lam * np.sqrt(E/rho) / L
+            U[:, i] = np.sin(lam * x_normed)
+
+
+
     # Mass Normalization of mode shapes
     for i in mode_num_range:
         U[:, i] = U[:, i] / np.sqrt(np.dot(U[:, i], U[:, i]) * rho * L)
