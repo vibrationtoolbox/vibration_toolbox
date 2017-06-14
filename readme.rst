@@ -17,7 +17,7 @@
 ..  #:target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
 
 
-Joseph C. Slater and Raphael Timbó
+Joseph C. Slatter and Raphael  Timbó
 
 Welcome to `Engineering Vibration Toolbox <http://vibrationtoolbox.github.io/vibration_toolbox/>`_.
 Originally written for `Matlab <http://www.mathworks.com>`_\®, this `Python <http://python.org>`_ version is a completely new design build for modern education. This is an *educational* set of codes intended primarily for
