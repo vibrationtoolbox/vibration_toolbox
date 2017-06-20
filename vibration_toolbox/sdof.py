@@ -675,6 +675,40 @@ def transmissibility(zs, rmin, rmax):
     return r, D, F
 
 
+def transmissibility_i(zs=(0, 1.0, 0.1), rmin=0, rmax=2.0):
+    """Interactive phase plot of transmissibility of
+     single degree of freedom system.
+    ``transmissibility_i`` is only functional in a
+    `Jupyter notebook <http://jupyter.org>`_.
+
+    Parameters
+    ----------
+    zs: array
+        Array with the damping values
+    rmin, rmax: float
+        Minimum and maximum frequency ratio
+
+    Returns
+    -------
+    r: Array
+        Array containing the values for the frequency ratio
+    D: Array
+        Array containing the values for displacement
+    F: Array
+        Array containing the values for force
+
+        Plot with Displacement transmissibility ratio
+        and force transmissibility ratio
+
+    """
+    if in_ipynb():
+        w = interactive(transmissibility, zs=zs,
+                        rmin=rmin, rmax=rmax)
+        display(w)
+    else:
+        print('transmissibility_i can only be used in an iPython notebook.')
+
+
 def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
     """
     Returns a plot Displacement of a system with rotating
