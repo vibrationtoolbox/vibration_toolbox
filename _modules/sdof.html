@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>sdof &#8212; Vibration Toolbox 0.5b13 documentation</title>
+    <title>sdof &#8212; Vibration Toolbox 0.5.3 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.5b13',
+        VERSION:     '0.5.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -718,6 +718,40 @@
     <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(([</span><span class="s1">&#39;$\zeta$ = &#39;</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">zs</span><span class="p">]))</span>
 
     <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">F</span></div>
+
+
+<span class="k">def</span> <span class="nf">transmissibility_i</span><span class="p">(</span><span class="n">zs</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">rmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Interactive phase plot of transmissibility of</span>
+<span class="sd">     single degree of freedom system.</span>
+<span class="sd">    ``transmissibility_i`` is only functional in a</span>
+<span class="sd">    `Jupyter notebook &lt;http://jupyter.org&gt;`_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    zs: array</span>
+<span class="sd">        Array with the damping values</span>
+<span class="sd">    rmin, rmax: float</span>
+<span class="sd">        Minimum and maximum frequency ratio</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    r: Array</span>
+<span class="sd">        Array containing the values for the frequency ratio</span>
+<span class="sd">    D: Array</span>
+<span class="sd">        Array containing the values for displacement</span>
+<span class="sd">    F: Array</span>
+<span class="sd">        Array containing the values for force</span>
+
+<span class="sd">        Plot with Displacement transmissibility ratio</span>
+<span class="sd">        and force transmissibility ratio</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">in_ipynb</span><span class="p">():</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">transmissibility</span><span class="p">,</span> <span class="n">zs</span><span class="o">=</span><span class="n">zs</span><span class="p">,</span>
+                        <span class="n">rmin</span><span class="o">=</span><span class="n">rmin</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="n">rmax</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;transmissibility_i can only be used in an iPython notebook.&#39;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="rotating_unbalance"><a class="viewcode-back" href="../reference/sdof.html#sdof.rotating_unbalance">[docs]</a><span class="k">def</span> <span class="nf">rotating_unbalance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">m0</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">zs</span><span class="p">,</span> <span class="n">rmin</span><span class="p">,</span> <span class="n">rmax</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>

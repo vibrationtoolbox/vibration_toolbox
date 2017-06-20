@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>continuous_systems &#8212; Vibration Toolbox 0.5b13 documentation</title>
+    <title>continuous_systems &#8212; Vibration Toolbox 0.5.3 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.5b13',
+        VERSION:     '0.5.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -48,7 +48,7 @@
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">UnivariateSpline</span>
-
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="k">import</span> <span class="n">newton_krylov</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
@@ -134,8 +134,8 @@
         <span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
     <span class="c1"># len=[0:(1/(npoints-1)):1]&#39;;  %Normalized length of the beam</span>
-    <span class="nb">len</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">npoints</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="nb">len</span> <span class="o">*</span> <span class="n">L</span>
+    <span class="n">x_normed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">npoints</span><span class="p">,</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x_normed</span> <span class="o">*</span> <span class="n">L</span>
     <span class="c1"># Determine natural frequencies and mode shapes depending on the</span>
     <span class="c1"># boundary condition.</span>
     <span class="c1"># Mass simplification. The following was arange_(1,length_(n)).reshape(-1)</span>
@@ -156,15 +156,15 @@
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">len</span> <span class="o">*</span> <span class="mi">0</span>
+                <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">x_normed</span> <span class="o">*</span> <span class="mi">0</span>
             <span class="k">elif</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span> <span class="o">-</span> <span class="mf">0.5</span>
+                <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_normed</span> <span class="o">-</span> <span class="mf">0.5</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">sig</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">/</span> \
                       <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
                 <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span> <span class="o">**</span> <span class="mi">4</span><span class="p">))</span>
-                <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span>
+                <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">x_normed</span>
                 <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> \
                     <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
     <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
@@ -180,7 +180,7 @@
             <span class="n">sig</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">/</span> \
                   <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
             <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span> <span class="o">**</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">x_normed</span>
             <span class="c1"># plt.plot(x,(sp.cosh(b) - sp.cos(b) -</span>
             <span class="c1"># sig * (sp.sinh(b) - sp.sin(b))))</span>
             <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
@@ -197,7 +197,7 @@
             <span class="n">sig</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">/</span> \
                   <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
             <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span> <span class="o">**</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">x_normed</span>
             <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
     <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
         <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Clamped-Sliding &#39;</span>
@@ -211,7 +211,7 @@
             <span class="n">sig</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">/</span> \
                   <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
             <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span> <span class="o">**</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">x_normed</span>
             <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
     <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
         <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Clamped-Clamped &#39;</span>
@@ -225,14 +225,14 @@
             <span class="n">sig</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="o">/</span> \
                   <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
             <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span> <span class="o">**</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">x_normed</span>
             <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
     <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
         <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Pinned-Pinned &#39;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
             <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
             <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">L</span> <span class="o">**</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">)</span>
+            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">x_normed</span><span class="p">)</span>
 
     <span class="c1"># Mass Normalization of mode shapes</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
@@ -247,8 +247,6 @@
                    <span class="n">beamparams</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">12</span> <span class="o">*</span> <span class="mf">0.03</span> <span class="o">*</span> <span class="o">.</span><span class="mi">015</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,</span>
                                         <span class="mf">2747.0</span><span class="p">,</span> <span class="o">.</span><span class="mi">015</span> <span class="o">*</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])):</span>
     <span class="sd">&quot;&quot;&quot;Frequency response function fo Euler-Bernoulli beam.</span>
-
-<span class="sd">    See working notebook for working code</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -360,7 +358,8 @@
 
 
 <span class="k">def</span> <span class="nf">uniform_bar_modes</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bctype</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">2001</span><span class="p">,</span>
-                      <span class="n">barparams</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mf">2747.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])):</span>
+                      <span class="n">barparams</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mf">2747.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">]),</span>
+                      <span class="n">kl_over_EA</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">m_over_rhoAL</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Mode shapes and natural frequencies of Uniform bar/rod.</span>
 
 <span class="sd">    Parameters</span>
@@ -371,13 +370,18 @@
 <span class="sd">        bctype = 1 free-free</span>
 <span class="sd">        bctype = 2 fixed-free</span>
 <span class="sd">        bctype = 3 fixed-fixed</span>
-
+<span class="sd">        bctype = 4 fixed-spring</span>
+<span class="sd">        bctype = 5 fixed-mass</span>
 <span class="sd">    barparams: numpy array</span>
 <span class="sd">        E, rho, L</span>
 <span class="sd">        Young&#39;s modulus, density, length of bar</span>
 <span class="sd">    npoints: int</span>
 <span class="sd">        number of points for returned mode shape array</span>
-
+<span class="sd">    kl_over_EA: float</span>
+<span class="sd">        spring stiffness times rod length divided by EA. (for clamped-spring</span>
+<span class="sd">        condition)</span>
+<span class="sd">    m_over_rhoAL: float</span>
+<span class="sd">        end mass divided by rho A L of rod. (for end mass condition)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -387,6 +391,13 @@
 <span class="sd">        x coordinate</span>
 <span class="sd">    U: numpy array</span>
 <span class="sd">        mass normalized mode shape</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    For most situations the cross sectional area cancels out and has no effect. It only matters in</span>
+<span class="sd">    the last two cases: and end spring or and mass, and is included with the parameters special to</span>
+<span class="sd">    those cases.</span>
+
 
 
 <span class="sd">    Examples</span>
@@ -415,12 +426,12 @@
         <span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
     <span class="c1"># len=[0:(1/(npoints-1)):1]&#39;;  %Normalized length of the bar</span>
-    <span class="nb">len</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">npoints</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="nb">len</span> <span class="o">*</span> <span class="n">L</span>
+    <span class="n">x_normed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">npoints</span><span class="p">,</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x_normed</span> <span class="o">*</span> <span class="n">L</span>
     <span class="c1"># Determine natural frequencies and mode shapes depending on the</span>
     <span class="c1"># boundary condition.</span>
     <span class="c1"># Mass simplification. The following was arange_(1,length_(n)).reshape(-1)</span>
-    <span class="n">mode_num_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ln</span><span class="p">)</span>
+    <span class="n">mode_num_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ln</span><span class="p">)</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">ln</span><span class="p">)</span>
     <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">npoints</span><span class="p">,</span> <span class="n">ln</span><span class="p">])</span>
 
@@ -428,17 +439,35 @@
         <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Free-Free &#39;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
             <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span><span class="o">/</span><span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="n">L</span>
-            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="nb">len</span> <span class="o">/</span> <span class="n">L</span><span class="p">)</span>
+            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x_normed</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
         <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Fixed-Free &#39;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
             <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span><span class="o">/</span><span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
-            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="nb">len</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L</span><span class="p">))</span>
+            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x_normed</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
         <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Fixed-Fixed &#39;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
             <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span><span class="o">/</span><span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="n">L</span>
-            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="nb">len</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L</span><span class="p">))</span>
+            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x_normed</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Fixed-Spring&#39;</span>
+        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">lam</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">lam</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span><span class="o">*</span> <span class="n">kl_over_EA</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
+            <span class="n">lam</span> <span class="o">=</span> <span class="n">newton_krylov</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.25</span><span class="o">+</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lam</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span><span class="o">/</span><span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="n">L</span>
+            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lam</span> <span class="o">*</span> <span class="n">x_normed</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Fixed-Mass&#39;</span>
+        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">lam</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">lam</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">lam</span><span class="o">/</span><span class="n">m_over_rhoAL</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
+            <span class="n">lam</span> <span class="o">=</span> <span class="n">newton_krylov</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="mf">0.25</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lam</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span><span class="o">/</span><span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="n">L</span>
+            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lam</span> <span class="o">*</span> <span class="n">x_normed</span><span class="p">)</span>
+
+
 
     <span class="c1"># Mass Normalization of mode shapes</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
@@ -447,32 +476,11 @@
     <span class="n">omega_n</span> <span class="o">=</span> <span class="n">w</span>
     <span class="k">return</span> <span class="n">omega_n</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">U</span>
 
-
-<span class="k">def</span> <span class="nf">ebf</span><span class="p">(</span><span class="n">xin</span><span class="p">,</span> <span class="n">xout</span><span class="p">,</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">,</span> <span class="n">zeta</span><span class="p">):</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">uniform_bar_frf</span><span class="p">(</span><span class="n">xin</span><span class="p">,</span> <span class="n">xout</span><span class="p">,</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">,</span> <span class="n">zeta</span><span class="p">)</span>
-    <span class="k">return</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">doctest</span>
-    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">(</span><span class="n">optionflags</span><span class="o">=</span><span class="n">doctest</span><span class="o">.</span><span class="n">ELLIPSIS</span> <span class="o">|</span>
-                    <span class="n">doctest</span><span class="o">.</span><span class="n">NORMALIZE_WHITESPACE</span><span class="p">)</span>
-    <span class="c1"># import vibration_toolbox as vtb</span>
-    <span class="c1"># doctest.run_docstring_examples(frfest,globals(),</span>
-    <span class="c1"># optionflags=doctest.ELLIPSIS)</span>
-    <span class="c1"># doctest.run_docstring_examples(asd,globals(),</span>
-    <span class="c1"># optionflags=doctest.ELLIPSIS)</span>
-    <span class="sd">&quot;&quot;&quot; What this does.</span>
-
-<span class="sd">    python (name of this file)  -v</span>
-<span class="sd">    will test all of the examples in the help.</span>
-
-<span class="sd">    Leaving off -v will run the tests without any output. Success will return</span>
-<span class="sd">    nothing.</span>
-
-<span class="sd">    See the doctest section of the python manual.</span>
-<span class="sd">    https://docs.python.org/3.5/library/doctest.html</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">def ebf(xin, xout, fmin, fmax, zeta):</span>
+<span class="sd">    _, _ = uniform_bar_frf(xin, xout, fmin, fmax, zeta)</span>
+<span class="sd">    return</span>
+<span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 
           </div>
