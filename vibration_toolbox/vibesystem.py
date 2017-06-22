@@ -464,7 +464,7 @@ class VibeSystem(object):
                 ax0, _ = ax
             else:
                 ax0, ax1 = ax
-
+        #  TODO add option to select plot units
         omega, magdb, phase = self.freq_response(modes=modes)
 
         ax0.plot(omega, magdb[out, inp, :], **kwargs)
