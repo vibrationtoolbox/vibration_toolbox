@@ -7,6 +7,7 @@ Single Degree of Freedom Systems (:mod:`vibration_toolbox.sdof`)
 
 The :mod:`vibration_toolbox.sdof`
 
+.. (:mod:`vibration_toolbox.mdof`)
 
 .. .. literalinclude:: examples/4-1
 
