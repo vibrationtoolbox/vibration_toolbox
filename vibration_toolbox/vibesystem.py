@@ -55,6 +55,8 @@ class VibeSystem(object):
         System's natural frequencies in Hz.
     wd : array
         System's damped natural frequencies in Hz.
+    damping_factor : array
+        System's damping factor for each mode.
     H : scipy.signal.lti
         Continuous-time linear time invariant system
 
@@ -140,6 +142,7 @@ class VibeSystem(object):
         self.evalues, self.evectors = self._eigen()
         self.wn = (np.absolute(self.evalues)/(2*np.pi))[:self.n]
         self.wd = (np.imag(self.evalues)/(2*np.pi))[:self.n]
+        self.damping_factor = (-np.real(self.evalues)/np.absolute(self.evalues))[:self.n]
         self.H = self._H()
 
     def A(self):
