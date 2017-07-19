@@ -142,7 +142,8 @@ class VibeSystem(object):
         self.evalues, self.evectors = self._eigen()
         self.wn = (np.absolute(self.evalues)/(2*np.pi))[:self.n]
         self.wd = (np.imag(self.evalues)/(2*np.pi))[:self.n]
-        self.damping_factor = (-np.real(self.evalues)/np.absolute(self.evalues))[:self.n]
+        self.damping_ratio = (-np.real(self.evalues) /
+                              np.absolute(self.evalues))[:self.n]
         self.H = self._H()
 
     def A(self):
