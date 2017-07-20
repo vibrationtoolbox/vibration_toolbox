@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-__all__= ["frf"]
+__all__ = ['frf', 'plot_fft']
 
 
 def frf(x, f, dt):
@@ -101,16 +101,48 @@ def frf(x, f, dt):
     return freq, mag, ang, coh
 
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod(optionflags=doctest.ELLIPSIS| doctest.NORMALIZE_WHITESPACE|doctest.REPORT_NDIFF)
-
-    """ What this does.
-    python (name of this file)  -v
-    will test all of the examples in the help.
-
-    Leaving off -v will run the tests without any output. Success will return nothing.
-
-    See the doctest section of the python manual.
-    https://docs.python.org/3.5/library/doctest.html
+def plot_fft(t, time_response, ax=None):
     """
+    This function will plot the fft given a time vector
+    and the system time response.
+
+    Parameters
+    ----------
+    t : array
+        Time array.
+    time_response : array
+        Array with the system's time response.
+
+    Returns
+    ----------
+    ax : array with matplotlib.axes, optional
+        Matplotlib axes array created with plt.subplots.
+        Plot has frequency in rad/s and magnitude in meters peak to peak.
+
+    Examples
+    --------
+    >>> t = np.linspace(0, 10, 1000)
+    >>> time_response = 2 * np.sin(40*t)
+    >>> plot_fft(t, time_response)
+    <matplotlib.axes...
+    """
+    if ax is None:
+        fig, ax = plt.subplots()
+
+    Ts = t[1] - t[0]  # sampling interval
+    Fs = 1 / Ts  # sampling rate
+
+    n = len(time_response)  # length of the signal
+    k = np.arange(n)
+    T = n / Fs
+    freq_range = (k / T)[:(n // 2)] * 2 * np.pi  # one side frequency range
+    y = np.fft.fft(time_response) * 4 / n  # * 4 / n to normalize to pk-pk
+    y = y[:(n // 2)]
+    ax.plot(freq_range, abs(y))
+    ax.set_xlabel('Freq (rad/s)')
+    ax.set_ylabel('Amplitude (m - pk-pk)')
+
+    return ax
+
+
+
