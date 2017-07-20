@@ -1,4 +1,4 @@
-import scipy as sp
+import numpy as np
 import matplotlib.pyplot as plt
 
 __all__= ["frf"]
@@ -53,31 +53,31 @@ def frf(x, f, dt):
     1.018394853080...
     """
 
-    w = sp.sin(sp.pi*sp.arange(len(f))/len(f))**2 # window
+    w = np.sin(np.pi*np.arange(len(f))/len(f))**2  # window
     # apply window
     xw = x*w
     fw = f*w
     # take ffts
-    FX = sp.fft(xw)
-    FF = sp.fft(fw)
+    FX = np.fft.fft(xw)
+    FF = np.fft.fft(fw)
     # calculate the spectral densities
-    SXF = FF*sp.conj(FX)
-    SXX = FX*sp.conj(FX)
-    SFF = FF*sp.conj(FF)
-    SFX = FX*sp.conj(FF)
+    SXF = FF*np.conj(FX)
+    SXX = FX*np.conj(FX)
+    SFF = FF*np.conj(FF)
+    SFX = FX*np.conj(FF)
     # calculate the transfer functions
     TXF = SXX/SXF
     TXF2 = SFX/SFF
 
     lt = len(TXF)//2
-    freq = sp.arange(lt)/(2*lt*dt)
+    freq = np.arange(lt)/(2*lt*dt)
 
     TXF = TXF[:lt]
-    mag = sp.absolute(TXF)
-    ang = sp.angle(TXF)*180/sp.pi
+    mag = np.absolute(TXF)
+    ang = np.angle(TXF)*180/np.pi
 
-    coh = (sp.absolute(SXF)**2)/(SXX*SFF)
-    coh = sp.real(coh)
+    coh = (np.absolute(SXF)**2)/(SXX*SFF)
+    coh = np.real(coh)
 
     # plot H(w)
     fig = plt.figure(figsize=(8,6))
@@ -90,7 +90,7 @@ def frf(x, f, dt):
     ax2.set_title('$H(\omega)$ - Phase')
     ax3.set_title('$H(\omega)$ - Coherence')
     ax3.set_xlabel('Frequency (Hz)')
-    ax3.set_ylim(0,2)
+    ax3.set_ylim(0, 2)
 
     ax1.semilogy(freq, mag)
     ax2.plot(freq, ang)
