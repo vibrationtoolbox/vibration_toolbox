@@ -19,12 +19,6 @@ Then update everything else with::
 
   conda update --all
 
-Then,
-
-.. code-block:: bash
-
-  conda install jupyter
-
 To use `Jupyter`_ (the notebook), launch a terminal on Mac or Linux, or the Anaconda Terminal on Windows (or similar name) and type:
 
 .. code-block:: bash
