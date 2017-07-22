@@ -127,6 +127,7 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     ax.set_ylabel('Velocity')
     ax.grid('on')
     ax.plot(x, v)
+    plt.show()
 
 
 def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
@@ -187,6 +188,7 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
                 '$\lambda_2$ = %0.2f' %
                 (zeta * omega + omega * (zeta ** 2 - 1)))
     ax.legend()
+    plt.show()
 
 
 def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
