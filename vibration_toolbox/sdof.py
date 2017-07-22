@@ -150,6 +150,7 @@ def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
     if in_ipynb():
         w = interactive(phase_plot, max_time=max_time, v0=v0, m=m,
                         c=c, x0=x0, k=k)
+        plt.show()
         display(w)
     else:
         print('phase_plot_i can only be used in an iPython notebook.')
@@ -524,7 +525,7 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
     return t, x, y
 
 
-def steady_state_response(zs, rmin, rmax):
+def steady_state_response(zs=0.1, rmin=0.0, rmax=2.0):
     """Plot steady state response SDOF damped system.
 
     Parameters
@@ -574,11 +575,11 @@ def steady_state_response(zs, rmin, rmax):
         ax2.plot(r, -np.angle(A)/np.pi*180)
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
-
+    plt.show()
     return r, A
 
 
-def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=0, rmax=2.0):
+def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=(0,1,.1), rmax=(1.,2.0,0.1)):
     """Interactive phase plot of steady state response of
      single degree of freedom system.
     ``steady_state_response`` is only functional in a
@@ -673,7 +674,7 @@ def transmissibility(zs, rmin, rmax):
         ax2.plot(r, F)
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
-
+    plt.show()
     return r, D, F
 
 
