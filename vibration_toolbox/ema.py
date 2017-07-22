@@ -112,6 +112,9 @@ def plot_fft(t, time_response, ax=None):
         Time array.
     time_response : array
         Array with the system's time response.
+    ax : matplotlib.axes, optional
+        Matplotlib axes where the amplitude will be plotted.
+        If None creates a new.
 
     Returns
     ----------
