@@ -139,6 +139,7 @@ def plot_fft(t, time_response, ax=None):
     y = np.fft.fft(time_response) * 4 / n  # * 4 / n to normalize to pk-pk
     y = y[:(n // 2)]
     ax.plot(freq_range, abs(y))
+    ax.set_xlim(freq_range[0], freq_range[-1])
     ax.set_xlabel('Freq (rad/s)')
     ax.set_ylabel('Amplitude (m - pk-pk)')
 
