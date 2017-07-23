@@ -59,7 +59,8 @@ extensions = ['sphinx.ext.autodoc',
               'nbsphinx',
               'sphinx.ext.mathjax',
               'IPython.sphinxext.ipython_console_highlighting',
-              'sphinx.ext.autosummary']
+              'sphinx.ext.autosummary',
+              'jupyter_sphinx.embed_widgets']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
