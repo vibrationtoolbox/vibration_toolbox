@@ -1028,11 +1028,11 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     Examples
     --------
     >>> # Square wave
-    >>> t, F = fourier_approximation(-1, 0, 0, '-3*(-1+(-1)**n)/n/pi', '-3*(-1+(-1)**n)/n/pi', 20, 2)
+    >>> t, F = fourier_approximation(-1, 0, 0, '-3*(-1+(-1)**n)/n/np.pi', '-3*(-1+(-1)**n)/n/np.pi', 20, 2)
     >>> F[10]
     1.2697210294282535
     >>> # Triangular wave
-    >>> t, F = fourier_approximation(0,'-8/pi**2/n**2',0,0,0,20,10)
+    >>> t, F = fourier_approximation(0,'-8/np.pi**2/n**2',0,0,0,20,10)
     >>> F[10]
     -0.90234928911935097
     """
