@@ -579,7 +579,8 @@ def steady_state_response(zs=0.1, rmin=0.0, rmax=2.0):
     return r, A
 
 
-def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=(0,1,.1), rmax=(1.,2.0,0.1)):
+def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=(0, 1, .1),
+                            rmax=(1., 2.0, 0.1)):
     """Interactive phase plot of steady state response of
      single degree of freedom system.
     ``steady_state_response`` is only functional in a
@@ -607,7 +608,8 @@ def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=(0,1,.1), rmax=(1.,2.0,0.1)):
                         rmin=rmin, rmax=rmax)
         display(w)
     else:
-        print('steady_state_response_i can only be used in an iPython notebook.')
+        print('steady_state_response_i can only be used in an iPython\
+              notebook.')
 
 
 def transmissibility(zs, rmin, rmax):
@@ -759,7 +761,7 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
     ax2 = fig.add_subplot(212, sharex=ax1)
     plt.tight_layout()
 
-    if normalized==False:
+    if normalized is False:
         Xn = Xn * (m0 * e / m)
         ax1.set_ylabel('Displacement Magnitude')
         ax1.set_title('Displacement Magnitude vs Frequency Ratio')
@@ -872,7 +874,8 @@ def step_response(m, c, k, Fo, max_time):
         phi = np.arctan(zeta / np.sqrt(1 - zeta**2))
 
     if 0 < zeta < 1:
-        x = fo / wn**2 * (1 - wn / wd*np.exp(-zeta * wn * t)*np.cos(wd * t - phi))
+        x = fo / wn**2 * (1 - wn / wd * np.exp(-zeta * wn * t) *
+                          np.cos(wd * t - phi))
     elif zeta == 1:
         lam = -wn
         A1 = -fo / wn**2
@@ -1033,13 +1036,12 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     >>> F[10]
     -0.90234928911935097
     """
-    args = [str(arg) for arg in [a0, aodd, aeven, bodd, beven]] # change to str
+    args = [str(arg) for arg in [a0, aodd, aeven, bodd, beven]]  # chng to str
     a0, aodd, aeven, bodd, beven = args
 
     dt = min(T/400, T/10*N)
     t = np.arange(0, T*3, dt)
     F = 0*t + eval(a0)/2
-    pi = np.pi
 
     for n in range(1, N):
         if n % 2 == 0:
@@ -1061,17 +1063,17 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
 
 if __name__ == "__main__":
     import doctest
-    doctest.testmod(optionflags=doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)
-    #import vibration_toolbox as vtb
-
-
+    doctest.testmod(optionflags=doctest.ELLIPSIS |
+                    doctest.NORMALIZE_WHITESPACE)
+    # import vibration_toolbox as vtb
     # doctest.run_docstring_examples(frfest,globals(),optionflags=doctest.ELLIPSIS)
     # doctest.run_docstring_examples(asd,globals(),optionflags=doctest.ELLIPSIS)
     """ What this does.
     python (name of this file)  -v
     will test all of the examples in the help.
 
-    Leaving off -v will run the tests without any output. Success will return nothing.
+    Leaving off -v will run the tests without any output. Success will return
+    nothing.
 
     See the doctest section of the python manual.
     https://docs.python.org/3.5/library/doctest.html
