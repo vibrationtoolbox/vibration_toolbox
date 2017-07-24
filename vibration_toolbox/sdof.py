@@ -105,7 +105,7 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 
     Parameters
     ----------
-    m, c, k :  floats, optional
+    m, c, k:  floats, optional
         mass, damping coefficient, stiffness
     x0, v0:  floats, optional
         initial displacement, initial velocity
@@ -139,7 +139,7 @@ def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
 
     Parameters
     ----------
-    m, c, k :  floats, optional
+    m, c, k:  floats, optional
         mass, damping coefficient, stiffness
     x0, v0:  floats, optional
         initial displacement, initial velocity
@@ -201,7 +201,7 @@ def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
 
     Parameters
     ----------
-    m, c, k :  floats, optional
+    m, c, k:  floats, optional
         mass, damping coefficient, stiffness
     x0, v0:  floats, optional
         initial displacement, initial velocity
@@ -391,8 +391,8 @@ def frfplot(f, H):
 
 
 def response(xdd, f, t, x0, v0):
-    """
-    returns t, x, v
+    """returns t, x, v
+
     :math:`\ddot{x} = g(x,v) + f(t)`
     given initial conditions :math:`x_0` and :math:`\dot{x}_0 = v_0` for the time `t`
 
@@ -526,7 +526,7 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
 
 
 def steady_state_response(zs=0.1, rmin=0.0, rmax=2.0):
-    """Plot steady state response SDOF damped system.
+    """Plot steady state response of SDOF damped system.
 
     Parameters
     ----------
