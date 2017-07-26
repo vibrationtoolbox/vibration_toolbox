@@ -13,13 +13,13 @@ To contribute code we recommend you follow these steps:
 
 #. Set up travis-ci for your branch. This is actually pretty quick and easy:
 
-  a. Go to settings on github for your fork.
+  #. Go to settings on github for your fork.
 
-  b. Select ``Integration & Services``
+  #. Select ``Integration & Services``
 
-  c. Click ``Add service`` and select ``Travis CI``.
+  #. Click ``Add service`` and select ``Travis CI``.
 
-#. Clone the repository to your favorite location on your drive where you want to work on it.
+4. Clone the repository to your favorite location on your drive where you want to work on it.
 
 #. To work in `developer mode <https://packaging.python.org/distributing/#working-in-development-mode>`_, at the top level directory inside the ``vibration toolbox`` type::
 
