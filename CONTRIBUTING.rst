@@ -19,6 +19,8 @@ To contribute code we recommend you follow these steps:
 
   c. Click ``Add service`` and select ``Travis CI``.
 
+4. Clone the repository to your favorite location on your drive where you want to work on it.
+
 4. To work in `developer mode <https://packaging.python.org/distributing/#working-in-development-mode>`_, at the top level directory inside the ``vibration toolbox`` type::
 
     $ pip install -e .
@@ -64,8 +66,7 @@ To contribute code we recommend you follow these steps:
 
 5. Update from the main repository before submitting a pull request. This assures that you can check how your code works with the current repository. If it doesn't work, the pull will (should) be denied.
 
-6. If the tests are passing, make a git pull to assure that your code is up to date with the master branch and that the code has no conflicts. After that, push your branch to github and then open a pull request.
-
+6. If the tests are passing, make a git pull (in your GitHub app) to assure that your code is up to date with the master branch and that your code has no conflicts with the current base. Doing this regularly ensures that your accumulated edits won't be massively in conflict with the existing code base. After that, push your branch to github and then open a pull request.
 
 Instructions bellow are directed to main developers
 ===================================================
@@ -92,7 +93,7 @@ Check the Travis CI logs. They are more comprehensive.
 
 To test distribution installabilty
 -----------------------------------
-Note: these are out of date and saved only for historical reasons. 
+Note: these are out of date and saved only for historical reasons.
 
 python setup.py register -r pypitest
 python setup.py sdist upload -r pypitest
