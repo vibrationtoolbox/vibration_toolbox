@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy.linalg as la
+
 
 __all__ = ['frf', 'plot_fft']
 
@@ -149,4 +151,214 @@ def plot_fft(t, time_response, ax=None):
     return ax
 
 
+def sdof_cf(f,TF,Fmin=None,Fmax=None):
+    """
+    Curve fit to a single degree of freedom FRF.
+    
+    f is the frequency vector in Hz. It does not have to start at 0 Hz.
+    TF is the complex transfer function.
+    z and nf are the damping ratio and natural frequency (Hz)
+    a is the numerator of the identified transfer function.
+    Only one peak may exist in the segment of the FRF passed to sdofcf. No
+    zeros may exist within this segment. If so, curve fitting becomes
+    unreliable. 
+    Fmin is the minimum frequency to be used for curve fitting in the FRF
+    Fmax is the maximum frequency to be used for curve fitting in the FRF
+    If Fmin and Fmax are not entered, the min and max values in are used.
+    
+    Parameters
+    ----------
+    f: array
+        The frequency vector in Hz. Does not have to start at 0 Hz.
+    TF: array
+        The complex transfer function
+    Fmin: int
+        The minimum frequency to be used for curve fitting in the FRF
+    Fmax: int
+        The maximum frequency to be used for curve fitting in the FRF
+        
+    Returns
+    -------
+    z: double
+        The damping ratio
+    nf: double
+        Natural frequency (Hz)
+    a: double
+        The numerator of the identified transfer functions
+    
+        Plot of the FRF magnitude and phase.
+    
+    Examples
+    --------
+    >>> # First we need to load the sampled data which is in a .mat file
+    >>> import vibration_toolbox as vt
+    >>> import scipy.io as sio
+    >>> data = sio.loadmat(vt.__path__[0] + '/data/case1.mat')
+    >>> #print(data)
+    >>> # Data is imported as arrays. We need to modify then to fit our function
+    >>> TF = data['Hf_chan_2']
+    >>> f = data['Freq_domain']
+    >>> # Now we are able to call the function
+    >>> z, nf, a = sdof_cf(f,TF,500,1000)
+    >>> nf[0]
+    1.018394853080...    
+    """
+    
+    #check fmin fmax existance
+    if Fmin is None:
+        inlow = 0
+    else:
+        inlow = Fmin
+    
+    if Fmax is None:
+        inhigh = np.size(f)
+    else:
+        inhigh = Fmax
+    
+    if f[inlow] == 0:
+        inlow = 1
+    
+    f = f[inlow:inhigh,:]
+    TF = TF[inlow:inhigh,:]
+    
+    R = TF
+    y = np.amax(np.abs(TF))
+    cin = np.argmax(np.abs(TF))
+    
+    #works
+    
+    ll = np.size(f)
+    
+    w = f*2*np.pi*1j
+    
+    w2 = w*0
+    R3 = R*0
+    
+    for i in range(1, ll+1):
+        R3[i-1] = np.conj(R[ll-i])
+        w2[i-1] = np.conj(w[ll-i])
+#    for i in range(0, ll):
+#        print(i)
+#        R3[i] = np.conj(R[ll-i])
+#        w2[i] = np.conj(w[ll-i])
 
+    w = np.vstack((w2,w))
+    R = np.vstack((R3,R))
+    
+    
+    N = 2
+    x, y = np.meshgrid(np.arange(0,N+1),R)
+    x, w2d = np.meshgrid(np.arange(0,N+1),w)
+    c = -1*w**N*R
+#    c = np.ndarray.flatten(c)
+
+#    print(w2d.shape)
+#    input()
+#    print(w2d[:,np.arange(0,N+1)].shape)
+#    print(x[:,np.arange(0,N+1)].shape)
+#    input()
+    aa1 = w2d[:,np.arange(0,N)] \
+              **x[:,np.arange(0,N)] \
+              *y[:,np.arange(0,N)]
+    aa2 = -w2d[:,np.arange(0,N+1)] \
+              **x[:,np.arange(0,N+1)]
+    aa = np.hstack((aa1,aa2))
+    
+    aa = np.reshape(aa,[-1,5])
+#    c = np.mat(c).T
+    
+    #np.linalg.division()
+#    scalef = np.abs(np.min(aa)-np.max(aa))
+    b,_,_,_ = la.lstsq(aa,c)
+
+    #temporary
+#    b = np.array([[1.7914*10**6+4.5242*10**-1*1j],[-.1668+.0003*1j],[.0000+.0000*1j],[-1.0038*10**4-8.8731*10**-3*1j],[14.8662-.0000*1j]])
+#    print(b.shape)
+#    input() 
+#    sel = np.arange(N-1,-1,-1)
+#    print(sel)
+#    print(np.vstack((1,b[sel])))
+#    print(np.vstack(([1],b[np.arange(N-1,-1,-1)])))
+#    print(np.ndim(np.ndarray.flatten(np.vstack(([1],b[np.arange(N-1,-1,-1)])))))
+#    input()
+
+
+#   Due to numpy adding an invisible extra dimension when vstacking I had to
+#   flatten the array.
+#   THE FOLLOWING LINE IS HORRIBLE HACKER CODE. KILL IT WITH FIRE.
+    rs = np.roots(np.ndarray.flatten(np.vstack(([1],b[np.arange(N-1,-1,-1)]))))
+#    print(rs)
+#    input()
+
+#    irs = np.argsort(np.abs(np.imag(rs)))
+#    print(irs)
+#    input()
+    
+#    rs = rs[irs]
+#    print(rs)
+#    input()
+    omega = np.abs(rs[1])
+    z = -1*np.real(rs[1])/np.abs(rs[1])
+    nf = omega/2/np.pi
+
+    XoF1 = np.hstack(([1/(w-rs[0]), 1/(w-rs[1])]))
+    XoF2 = 1/(w**0)
+    XoF3 = 1/w**2
+#    print(XoF1)
+#    print(XoF2)
+#    print(XoF3)
+#    input()
+    XoF = np.hstack((XoF1, XoF2, XoF3))
+    
+    #check if extra _ needed
+
+    a,_,_,_ = la.lstsq(XoF,R)
+ #   a = np.array([[-7.8133*10**2+9.7895j*10**2],[-7.8023*10**2-9.7861j*10**2],[-1.7281-.0003j],[2.7703*10**2+3.2313j*10**-3]])
+    XoF = XoF[np.arange(ll,2*ll),:].dot(a)
+#    print(a)
+#    print(ll)
+#    print(XoF)
+#    input()
+    a = np.sqrt(-2*np.imag(a[0])*np.imag(rs[0])-2*np.real(a[0])*np.real(rs[0]))
+    Fmin = np.min(f)
+    Fmax = np.max(f)
+    phase = np.unwrap(np.angle(TF),np.pi,0)*180/np.pi
+    phase2 = np.unwrap(np.angle(XoF),np.pi,0)*180/np.pi
+#    phase3 = np.angle(TF)*180/np.pi
+    
+#    print(TF)
+#    print(np.angle(TF))
+#    print(np.unwrap(np.angle(TF)))
+#    print(phase2)
+#    input()    
+    while phase2[cin] > 50:
+        phase2 = phase2 - 360
+    phased = phase2[cin]-phase[cin]
+    phase = phase+np.round(phased/360)*360
+   
+    #plot stuff
+    fig = plt.figure()
+    ax1 = fig.add_subplot(2,1,1)
+    ax2 = fig.add_subplot(2,1,2)
+    fig.tight_layout()
+    
+#    ax1.set_legend('Identified FRF','Experimental FRF')
+    ax1.set_xlabel('Frequency (Hz)')
+    ax1.set_ylabel('Magnitude (dB)')
+    ax1.plot(f,20*np.log10(np.abs(XoF)), label="Identified FRF")
+    ax1.plot(f,20*np.log10(np.abs(TF)), label="Experimental FRF")
+    ax1.legend()
+#    ax1.grid()
+
+    ax2.set_xlabel('Frequency (Hz)')
+    ax2.set_ylabel('Phase (deg)')
+    ax2.plot(f,phase2, label="Identified FRF")
+    ax2.plot(f,phase, label="Experimental FRF")
+    ax2.legend()
+#    ax2.plot(f,phase)
+#    ax2.grid()
+    
+    _ = plt.show()
+    
+    a = a[0]**2/(2*np.pi*nf)**2
+    return z, nf, a
