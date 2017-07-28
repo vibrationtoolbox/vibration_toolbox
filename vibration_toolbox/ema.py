@@ -362,3 +362,201 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     
     a = a[0]**2/(2*np.pi*nf)**2
     return z, nf, a
+
+def mdof_cf(f,TF,Fmin=None,Fmax=None):
+    """
+    Curve fit to multiple degree of freedom FRF
+    
+    f is the frequency vector in Hz. 
+
+    FRF are columns comprised of the FRFs presuming single input, multiple
+    output z and nf are the damping ratio and natural frequency (Hz) u is the
+    mode shape. Only one peak may exist in the segment of the FRF passed to 
+    sdofcf. No zeros may exist withing this segment. If so, curve fitting
+    becomes unreliable. 
+    
+    If called without outputs, i.e. mdofcf(f,FRF,Fmin,Fmax) The FRFs and the
+    fit to them will be plotted instead of output being returned. 
+    
+    If Fmin and Fmax are not entered, the min and max values in f are used.
+    
+    If the first column of TF is a collocated (input and output location are
+    the same), then the mode shape returned is the mass normalized mode shape
+    
+    This can then be used to generate an identified mass, damping, and
+    stiffness matrix as shown in the following example.
+
+    Parameters
+    ----------
+    f: array
+        The frequency vector in Hz. Does not have to start at 0 Hz.
+    TF: array
+        The complex transfer function
+    Fmin: int
+        The minimum frequency to be used for curve fitting in the FRF
+    Fmax: int
+        The maximum frequency to be used for curve fitting in the FRF        
+
+    Returns
+    -------
+    z: double
+        The damping ratio
+    nf: double
+        Natural frequency (Hz)
+    u: array
+        The mode shape
+        
+    Examples
+    --------
+    >>> # First we need to load the sampled data which is in a .mat file
+    >>> import vibration_toolbox as vt
+    >>> import scipy.io as sio
+    >>> data = sio.loadmat(vt.__path__[0] + '/data/case1.mat')
+    >>> #print(data)
+    >>> # Data is imported as arrays. We need to modify then to fit our function
+    >>> TF = data['Hf_chan_2']
+    >>> f = data['Freq_domain']
+    >>> # Now we are able to call the function
+    >>> z, nf, a = mdof_cf(f,TF)
+    >>> nf[0]
+    1.018394853080...  
+    """
+    
+    #check fmin fmax existance
+    if Fmin is None:
+        inlow = 0
+    else:
+        inlow = Fmin
+    
+    if Fmax is None:
+        inhigh = np.size(f)
+    else:
+        inhigh = Fmax
+        
+    if f[inlow] == 0:
+        inlow = 1
+
+    f = f[inlow:inhigh,:]
+    TF = TF[inlow:inhigh,:]
+
+    R = TF.T
+
+    U, s, v = np.linalg.svd(R)
+    T = U[:,0]
+    Hp = np.transpose(T).dot(R)
+    R = np.transpose(Hp)
+    
+    ll = np.size(f)
+    w = f*2*np.pi*1j
+    
+    w2 =w*0
+    R3 = R*0
+    TF2 = TF*0
+    for i in range(1, ll+1):
+        R3[i-1] = np.conj(R[ll-i])
+        w2[i-1] = np.conj(w[ll-i])
+        TF2[i-1,:] = np.conj(TF[ll-i,:])
+        
+        
+    w = np.vstack((w2,w))
+    R = np.hstack((R3,R))
+     
+    
+    N = 2
+    x, y = np.meshgrid(np.arange(0,N+1),R)
+    
+    
+    x, w2d = np.meshgrid(np.arange(0,N+1),w)
+
+    R = np.ndarray.flatten(R)
+    w = np.ndarray.flatten(w)
+    c = -1*w**N*R
+
+    
+    aa1 = w2d[:,np.arange(0,N)] \
+              **x[:,np.arange(0,N)] \
+              *y[:,np.arange(0,N)]
+    aa2 = -w2d[:,np.arange(0,N+1)] \
+              **x[:,np.arange(0,N+1)]
+    aa = np.hstack((aa1,aa2))
+    
+#    b = la.pinv(aa).dot(c)
+#    print(np.shape(b))
+#    print(b)
+#    input()
+#
+    b = np.mat(la.pinv2(aa).dot(c)).T
+    print(np.shape(b))
+    print(np.rank(b))
+    print(np.ndim(b))
+    print(b)
+    input()
+    
+    b = np.array([[1.4653*10**6+5.9440*10**-2*1j],[.3220+.0003*1j],[-.7349+.0000*1j],[-7.2824*10**3-4.7231*10**-3*1j],[46.8541-.0000*1j]])
+    #rs = np.roots([1,b[]])
+    print(np.shape(b))
+    print(np.rank(b))
+    print(np.ndim(b))
+    print(b)
+    input()
+    
+    temp = np.reshape(np.vstack(([1],b[np.arange(N-1,-1,-1)])),[1,-1])
+    print(np.rank(temp))
+    print(np.ndim(temp))
+    print(temp)
+    input()
+    rs = np.roots(np.ndarray.flatten(np.vstack(([1],b[np.arange(N-1,-1,-1)]))))
+    irs = np.argsort(np.abs(np.imag(rs)))
+    #rs = rs[irs]
+    
+    omega = np.abs(rs[1])
+    z = -1*np.real(rs[1])/np.abs(rs[1])
+    nf = omega/2/np.pi
+    
+    
+    print('w')
+    print(np.shape(w))
+    print(w)    
+    print('rs')
+    print(np.shape(rs))
+    print(rs)
+    
+    XoF1 = 1/((rs[0]-w)*(rs[1]-w))
+    
+    print('XoF1')
+    print(np.shape(XoF1))
+    print(XoF1)    
+    
+    XoF2 = 1/(w**0)
+    XoF3 = 1/w**2
+    
+    XoF = np.vstack((XoF1, XoF2, XoF3)).T
+    TF3 = np.vstack((TF2,TF))
+    
+    print('XoF')
+    print(np.shape(XoF))
+    print(XoF)    
+    print('TF3')
+    print(np.shape(TF3))
+    print(TF3)
+    
+    a = la.pinv2(XoF).dot(TF3)
+    #a = np.array([[-.0038+.0000j],[1.0856*10**2+1.3323j*10**-4],[1.1160*10**3+9.6690j*10**-4]])
+    print('a')
+    print(np.shape(a))
+    print(a)     
+    
+    u = np.transpose(a[0,:])
+    print('u')
+    print(np.shape(u))
+    print(u)
+    
+    u = u/np.sqrt(np.abs(a[0,0]))
+    print('u')
+    print(np.shape(u))
+    print(u)
+#    input()
+    
+    #plot stuff?
+    
+    return z, nf, u
