@@ -7,25 +7,27 @@ Contributing code
 -----------------
 To contribute code we recommend you follow these steps:
 
-1. Fork the repository on github
+#. Fork the repository on github
 
-2. Create a new branch and add your code/make your modifications, committing to your branch.
+#. Create a new branch and add your code/make your modifications, committing to your branch.
 
-3. Set up travis-ci for your branch. This is actually pretty quick and easy:
+#. Set up travis-ci for your branch. This is actually pretty quick and easy:
 
-  a. Go to settings on github for your fork.
+  #. Go to settings on github for your fork.
 
-  b. Select ``Integration & Services``
+  #. Select ``Integration & Services``
 
-  c. Click ``Add service`` and select ``Travis CI``.
+  #. Click ``Add service`` and select ``Travis CI``.
 
-4. To work in `developer mode <https://packaging.python.org/distributing/#working-in-development-mode>`_, at the top level directory inside the ``vibration toolbox`` type::
+4. Clone the repository to your favorite location on your drive where you want to work on it.
+
+#. To work in `developer mode <https://packaging.python.org/distributing/#working-in-development-mode>`_, at the top level directory inside the ``vibration toolbox`` type::
 
     $ pip install -e .
 
    This will allow you to edit the code while having it pretend to be installed. Keep in mind, if you have actually installed the ``vibration toolbox`` you may have a conflict. You must uninstall it and install your development version with the command above.
 
-4. If a new function is added
+#. If a new function is added
    please provide docstrings following the `Numpy standards for docstrings <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`_.
    The docstrings should contain examples to be tested.
 
@@ -47,11 +49,11 @@ To contribute code we recommend you follow these steps:
 
    This is not exhaustive. It just highlights some consistent errors made.
 
-3. Run the doctests regularly when you make edits.
+#. Run the doctests regularly when you make edits.
 
    To run the doctests `<pytest https://docs.pytest.org/en/latest/>`_ is needed and can be installed with ``pip install -U pytest``.
 
-   To run the tests from the shell you can access the project directory and type::
+   To run the tests from the shell you can `cd` to the project's root directory and type::
 
      $ pytest
 
@@ -60,12 +62,11 @@ To contribute code we recommend you follow these steps:
 
     2. To run the tests from ``spyder`` see `spyder-unittest <https://github.com/spyder-ide/spyder-unittest`_.
 
-4. Commit and check `travis-ci <https://travis-ci.org/vibrationtoolbox/vibration_toolbox>`_ tests regularly. Having a great number of changes before a commit can make tracing errors very hard. Make sure you are looking at your branch when assessing whether it's working.
+#. Commit and check `travis-ci <https://travis-ci.org/vibrationtoolbox/vibration_toolbox>`_ tests regularly. Having a great number of changes before a commit can make tracing errors very hard. Make sure you are looking at your branch when assessing whether it's working.
 
-5. Update from the main repository before submitting a pull request. This assures that you can check how your code works with the current repository. If it doesn't work, the pull will (should) be denied.
+#. Update from the main repository before submitting a pull request. This assures that you can check how your code works with the current repository. If it doesn't work, the pull will (should) be denied.
 
-6. If the tests are passing, make a git pull to assure that your code is up to date with the master branch and that the code has no conflicts. After that, push your branch to github and then open a pull request.
-
+#. If the tests are passing, make a git pull (in your GitHub app) to assure that your code is up to date with the master branch and that your code has no conflicts with the current base. Doing this regularly ensures that your accumulated edits won't be massively in conflict with the existing code base. After that, push your branch to github and then open a pull request.
 
 Instructions bellow are directed to main developers
 ===================================================
@@ -92,7 +93,7 @@ Check the Travis CI logs. They are more comprehensive.
 
 To test distribution installabilty
 -----------------------------------
-Note: these are out of date and saved only for historical reasons. 
+Note: these are out of date and saved only for historical reasons.
 
 python setup.py register -r pypitest
 python setup.py sdist upload -r pypitest
