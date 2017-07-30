@@ -486,19 +486,19 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
 #    input()
 #
     b,_,_,_ = la.lstsq(aa,c)
-    print(np.shape(b))
-    print(np.rank(b))
-    print(np.ndim(b))
-    print(b)
-    input()
+#    print(np.shape(b))
+#    print(np.rank(b))
+#    print(np.ndim(b))
+#    print(b)
+#    input()
     
-    b = np.array([[1.4653*10**6+5.9440*10**-2*1j],[.3220+.0003*1j],[-.7349+.0000*1j],[-7.2824*10**3-4.7231*10**-3*1j],[46.8541-.0000*1j]])
-    #rs = np.roots([1,b[]])
-    print(np.shape(b))
-    print(np.rank(b))
-    print(np.ndim(b))
-    print(b)
-    input()
+#    b = np.array([[1.4653*10**6+5.9440*10**-2*1j],[.3220+.0003*1j],[-.7349+.0000*1j],[-7.2824*10**3-4.7231*10**-3*1j],[46.8541-.0000*1j]])
+#    #rs = np.roots([1,b[]])
+#    print(np.shape(b))
+#    print(np.rank(b))
+#    print(np.ndim(b))
+#    print(b)
+#    input()
     
     temp = np.reshape(np.vstack(([1],b[np.arange(N-1,-1,-1)])),[1,-1])
     print(np.rank(temp))
@@ -514,18 +514,18 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     nf = omega/2/np.pi
     
     
-    print('w')
-    print(np.shape(w))
-    print(w)    
-    print('rs')
-    print(np.shape(rs))
-    print(rs)
+#    print('w')
+#    print(np.shape(w))
+#    print(w)    
+#    print('rs')
+#    print(np.shape(rs))
+#    print(rs)
     
     XoF1 = 1/((rs[0]-w)*(rs[1]-w))
     
-    print('XoF1')
-    print(np.shape(XoF1))
-    print(XoF1)    
+#    print('XoF1')
+#    print(np.shape(XoF1))
+#    print(XoF1)    
     
     XoF2 = 1/(w**0)
     XoF3 = 1/w**2
@@ -533,28 +533,28 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     XoF = np.vstack((XoF1, XoF2, XoF3)).T
     TF3 = np.vstack((TF2,TF))
     
-    print('XoF')
-    print(np.shape(XoF))
-    print(XoF)    
-    print('TF3')
-    print(np.shape(TF3))
-    print(TF3)
+#    print('XoF')
+#    print(np.shape(XoF))
+#    print(XoF)    
+#    print('TF3')
+#    print(np.shape(TF3))
+#    print(TF3)
     
     a,_,_,_ = la.lstsq(XoF,TF3)
     #a = np.array([[-.0038+.0000j],[1.0856*10**2+1.3323j*10**-4],[1.1160*10**3+9.6690j*10**-4]])
-    print('a')
-    print(np.shape(a))
-    print(a)     
+#    print('a')
+#    print(np.shape(a))
+#    print(a)     
     
     u = np.transpose(a[0,:])
-    print('u')
-    print(np.shape(u))
-    print(u)
+#    print('u')
+#    print(np.shape(u))
+#    print(u)
     
     u = u/np.sqrt(np.abs(a[0,0]))
-    print('u')
-    print(np.shape(u))
-    print(u)
+#    print('u')
+#    print(np.shape(u))
+#    print(u)
 #    input()
     
     #plot stuff?
