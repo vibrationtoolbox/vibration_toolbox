@@ -411,7 +411,7 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     >>> # First we need to load the sampled data which is in a .mat file
     >>> import vibration_toolbox as vt
     >>> import scipy.io as sio
-    >>> data = sio.loadmat(vt.__path__[0] + '/data/case1.mat')
+    >>> data = sio.loadmat(vt.__path__[0] + '/data/case2.mat')
     >>> #print(data)
     >>> # Data is imported as arrays. We need to modify then to fit our function
     >>> TF = data['Hf_chan_2']
