@@ -485,7 +485,7 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
 #    print(b)
 #    input()
 #
-    b = np.mat(la.pinv2(aa).dot(c)).T
+    b,_,_,_ = la.lstsq(aa,c)
     print(np.shape(b))
     print(np.rank(b))
     print(np.ndim(b))
@@ -540,7 +540,7 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     print(np.shape(TF3))
     print(TF3)
     
-    a = la.pinv2(XoF).dot(TF3)
+    a,_,_,_ = la.lstsq(XoF,TF3)
     #a = np.array([[-.0038+.0000j],[1.0856*10**2+1.3323j*10**-4],[1.1160*10**3+9.6690j*10**-4]])
     print('a')
     print(np.shape(a))
