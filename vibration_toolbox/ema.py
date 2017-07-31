@@ -200,8 +200,8 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     >>> f = data['Freq_domain']
     >>> # Now we are able to call the function
     >>> z, nf, a = sdof_cf(f,TF,500,1000)
-    >>> nf[0]
-    1.018394853080...    
+    >>> nf
+    212.092530551...    
     """
     
     #check fmin fmax existance
@@ -417,9 +417,9 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     >>> TF = data['Hf_chan_2']
     >>> f = data['Freq_domain']
     >>> # Now we are able to call the function
-    >>> z, nf, a = mdof_cf(f,TF)
-    >>> nf[0]
-    1.018394853080...  
+    >>> z, nf, a = mdof_cf(f,TF,500,1000)
+    >>> nf
+    192.59382330...  
     """
     
     #check fmin fmax existance
@@ -486,11 +486,11 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
 #    input()
 #
     b,_,_,_ = la.lstsq(aa,c)
-    print(np.shape(b))
-    print(np.rank(b))
-    print(np.ndim(b))
-    print(b)
-    input()
+#    print(np.shape(b))
+#    print(np.rank(b))
+#    print(np.ndim(b))
+#    print(b)
+#    input()
     
 #    b = np.array([[1.4653*10**6+5.9440*10**-2*1j],[.3220+.0003*1j],[-.7349+.0000*1j],[-7.2824*10**3-4.7231*10**-3*1j],[46.8541-.0000*1j]])
 #    #rs = np.roots([1,b[]])
@@ -503,10 +503,10 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     temp = np.hstack(([1],b[np.arange(N-1,-1,-1)]))
 #    print([1])
 #    print(b[np.arange(N-1,-1,-1)])
-    print(np.rank(temp))
-    print(np.ndim(temp))
-    print(temp)
-    input()
+#    print(np.rank(temp))
+#    print(np.ndim(temp))
+#    print(temp)
+#    input()
     
     rs = np.roots(np.ndarray.flatten(np.hstack(([1],b[np.arange(N-1,-1,-1)]))))
     irs = np.argsort(np.abs(np.imag(rs)))
