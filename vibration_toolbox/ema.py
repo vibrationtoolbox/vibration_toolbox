@@ -485,7 +485,7 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
 #    print(b)
 #    input()
 #
-    b,_,_,_ = la.lstsq(aa,c)
+    b,_,_,_ = la.lstsq(aa,c).T
 #    print(np.shape(b))
 #    print(np.rank(b))
 #    print(np.ndim(b))
@@ -501,10 +501,10 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
 #    input()
     
     temp = np.reshape(np.vstack(([1],b[np.arange(N-1,-1,-1)])),[1,-1])
-    print(np.rank(temp))
-    print(np.ndim(temp))
-    print(temp)
-    input()
+#    print(np.rank(temp))
+#    print(np.ndim(temp))
+#    print(temp)
+#    input()
     rs = np.roots(np.ndarray.flatten(np.vstack(([1],b[np.arange(N-1,-1,-1)]))))
     irs = np.argsort(np.abs(np.imag(rs)))
     #rs = rs[irs]
