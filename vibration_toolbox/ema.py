@@ -155,16 +155,11 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     """
     Curve fit to a single degree of freedom FRF.
     
-    f is the frequency vector in Hz. It does not have to start at 0 Hz.
-    TF is the complex transfer function.
-    z and nf are the damping ratio and natural frequency (Hz)
-    a is the numerator of the identified transfer function.
     Only one peak may exist in the segment of the FRF passed to sdofcf. No
     zeros may exist within this segment. If so, curve fitting becomes
     unreliable. 
-    Fmin is the minimum frequency to be used for curve fitting in the FRF
-    Fmax is the maximum frequency to be used for curve fitting in the FRF
-    If Fmin and Fmax are not entered, the min and max values in are used.
+ 
+    If Fmin and Fmax are not entered, the first and last elements of TF are used.
     
     Parameters
     ----------
@@ -363,26 +358,15 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     a = a[0]**2/(2*np.pi*nf)**2
     return z, nf, a
 
+
 def mdof_cf(f,TF,Fmin=None,Fmax=None):
     """
-    Curve fit to multiple degree of freedom FRF
+    Curve fit to multiple degree of freedom FRF 
     
-    f is the frequency vector in Hz. 
-
-    FRF are columns comprised of the FRFs presuming single input, multiple
-    output z and nf are the damping ratio and natural frequency (Hz) u is the
-    mode shape. Only one peak may exist in the segment of the FRF passed to 
-    sdofcf. No zeros may exist withing this segment. If so, curve fitting
-    becomes unreliable. 
-    
-    If called without outputs, i.e. mdofcf(f,FRF,Fmin,Fmax) The FRFs and the
-    fit to them will be plotted instead of output being returned. 
-    
-    If Fmin and Fmax are not entered, the min and max values in f are used.
+    If Fmin and Fmax are not entered, the first and last elements of TF are used.
     
     If the first column of TF is a collocated (input and output location are
-    the same), then the mode shape returned is the mass normalized mode shape
-    
+    the same), then the mode shape returned is the mass normalized mode shape.
     This can then be used to generate an identified mass, damping, and
     stiffness matrix as shown in the following example.
 
@@ -406,6 +390,14 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     u: array
         The mode shape
         
+    Notes
+    -----
+    FRF are columns comprised of the FRFs presuming single input, multiple
+    output z and nf are the damping ratio and natural frequency (Hz) u is the
+    mode shape. Only one peak may exist in the segment of the FRF passed to 
+    sdofcf. No zeros may exist within this segment. If so, curve fitting
+    becomes unreliable. 
+    
     Examples
     --------
     >>> # First we need to load the sampled data which is in a .mat file
