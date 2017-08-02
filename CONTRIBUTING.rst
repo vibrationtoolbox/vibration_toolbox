@@ -19,7 +19,7 @@ To contribute code we recommend you follow these steps:
 
   #. Click ``Add service`` and select ``Travis CI``.
 
-#. Clone the repository to your favorite location on your drive where you want to work on it.
+4. Clone the repository to your favorite location on your drive where you want to work on it.
 
 #. Before installing in developer mode, please be sure to ``pip uninstall vibration_toolbox`` if it is already installed. 
 
