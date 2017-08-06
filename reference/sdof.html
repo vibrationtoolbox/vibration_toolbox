@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -10,6 +10,7 @@
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -24,7 +25,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://unpkg.com/jupyter-js-widgets@^2.0.13/dist/embed.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Multiple Degree of Freedom Systems (vibration_toolbox.mdof)" href="mdof.html" />
@@ -36,7 +38,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -48,7 +50,7 @@
 <h1>Single Degree of Freedom Systems (<code class="xref py py-mod docutils literal"><span class="pre">vibration_toolbox.sdof</span></code>)<a class="headerlink" href="#single-degree-of-freedom-systems-vibration-toolbox-sdof" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="xref py py-mod docutils literal"><span class="pre">vibration_toolbox.sdof</span></code></p>
 <div class="section" id="module-sdof">
-<span id="sdof-single-degree-of-freedom-functions"></span><h2><a class="reference internal" href="#module-sdof" title="sdof: Single Degree of Freedom Systems"><code class="xref py py-mod docutils literal"><span class="pre">sdof</span></code></a> &#8211; Single Degree of Freedom Functions<a class="headerlink" href="#module-sdof" title="Permalink to this headline">¶</a></h2>
+<span id="sdof-single-degree-of-freedom-functions"></span><h2><a class="reference internal" href="#module-sdof" title="sdof: Single Degree of Freedom Systems"><code class="xref py py-mod docutils literal"><span class="pre">sdof</span></code></a> – Single Degree of Freedom Functions<a class="headerlink" href="#module-sdof" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="sdof.free_response">
 <code class="descclassname">sdof.</code><code class="descname">free_response</code><span class="sig-paren">(</span><em>m=10</em>, <em>c=1</em>, <em>k=100</em>, <em>x0=1</em>, <em>v0=-1</em>, <em>max_time=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#free_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.free_response" title="Permalink to this definition">¶</a></dt>
@@ -106,7 +108,7 @@ Amplitude</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k</strong> :  floats, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k:  floats, optional</strong></p>
 <blockquote>
 <div><p>mass, damping coefficient, stiffness</p>
 </div></blockquote>
@@ -139,7 +141,7 @@ Amplitude</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k</strong> :  floats, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k:  floats, optional</strong></p>
 <blockquote>
 <div><p>mass, damping coefficient, stiffness</p>
 </div></blockquote>
@@ -167,7 +169,7 @@ Amplitude</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k</strong> :  floats, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k:  floats, optional</strong></p>
 <blockquote>
 <div><p>mass, damping coefficient, stiffness</p>
 </div></blockquote>
@@ -189,7 +191,7 @@ Amplitude</p>
 <dt id="sdof.euler">
 <code class="descclassname">sdof.</code><code class="descname">euler</code><span class="sig-paren">(</span><em>m=1</em>, <em>c=0.1</em>, <em>k=1</em>, <em>x0=1</em>, <em>v0=0</em>, <em>n=8</em>, <em>dt=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#euler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.euler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Euler method free response of a SDOF system.</p>
-<p>Free response using Euler&#8217;s method to perform numerical integration.</p>
+<p>Free response using Euler’s method to perform numerical integration.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -561,11 +563,11 @@ a plot with the Fourier approximation.</p>
 </table>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Square wave</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">fourier_approximation</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;-3*(-1+(-1)**n)/n/pi&#39;</span><span class="p">,</span> <span class="s1">&#39;-3*(-1+(-1)**n)/n/pi&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">fourier_approximation</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;-3*(-1+(-1)**n)/n/np.pi&#39;</span><span class="p">,</span> <span class="s1">&#39;-3*(-1+(-1)**n)/n/np.pi&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
 <span class="go">1.2697210294282535</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Triangular wave</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">fourier_approximation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;-8/pi**2/n**2&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">fourier_approximation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;-8/np.pi**2/n**2&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
 <span class="go">-0.90234928911935097</span>
 </pre></div>
@@ -629,9 +631,10 @@ a plot with the response spectrum.</p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download Tutorial Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Single Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.sdof</span></code>)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-sdof"><code class="docutils literal"><span class="pre">sdof</span></code> &#8211; Single Degree of Freedom Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sdof"><code class="docutils literal"><span class="pre">sdof</span></code> – Single Degree of Freedom Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
@@ -639,6 +642,7 @@ a plot with the response spectrum.</p>
 <li class="toctree-l2"><a class="reference internal" href="vibe_system.html">Vibration Systems (<code class="docutils literal"><span class="pre">vibesystem.py</span></code>)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
@@ -670,7 +674,7 @@ a plot with the response spectrum.</p>
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

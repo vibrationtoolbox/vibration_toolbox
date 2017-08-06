@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -10,6 +10,7 @@
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -24,7 +25,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://unpkg.com/jupyter-js-widgets@^2.0.13/dist/embed.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
@@ -34,7 +36,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -220,14 +222,46 @@ div.nboutput div.output_area.stderr {
 </div>
 <p>From Inman Eq.1.94 we can see that a sdof can be described by two
 coupled first order differential equation:</p>
-<p>These equations can be written in matrix form:</p>
-<p>Now the Euler method can be applied:</p>
-<p>This is implemented in the function sdof_euler (you can see the
+<div class="math">
+\begin{equation}
+m\ddot{x}(t) + c\dot{x}(t) + kx(t) = 0\\
+\downarrow\\
+\dot{x}_1(t) = x_2(t)\\
+\dot{x}_2(t) = -\frac{c}{m}\ x_2(t) - \frac{k}{m}\ x_1(t)
+\end{equation}</div><p>These equations can be written in matrix form:</p>
+<div class="math">
+\begin{equation}
+{\bf A} =
+\left[ \matrix{
+0 &amp; 1 \\
+-\frac{k}{m} &amp; -\frac{c}{m}  \\
+} \right]
+{\bf x}(t) =
+\left[ \matrix{
+x_1(t) \\
+x_2(t) \\
+} \right]
+\\
+\dot{\bf x}(t) = A{\bf x}(t)
+\end{equation}</div><p>Now the Euler method can be applied:</p>
+<div class="math">
+\begin{equation}
+{\bf x}(t_{i+1}) = {\bf x}(t_i) + \Delta tA{\bf x}(t_i)\\
+\end{equation}</div><p>This is implemented in the function sdof_euler (you can see the
 implementation using sdof_euler?? in the notebook)</p>
 <p>A more accurate procedure is the Runge-Kutta method, described by Eq.
 1.92:</p>
-<p>where:</p>
-<p>The Runge-Kutta method is implemented in the function sdof_rk4.</p>
+<div class="math">
+\begin{equation}
+x_{n+1} = x_n + \frac{\Delta t}{6}(k_{n1} + 2k_{n2} + 2k_{n3} + k_{n4}) \\
+\end{equation}</div><p>where:</p>
+<div class="math">
+\begin{equation}
+k_{n1} = f(x_n,t_n)\\
+k_{n2} = f\Big(x_n + \frac{\Delta t}{2}k_{n1}, t_n + \frac{\Delta t}{2}\Big)\\
+k_{n3} = f\Big(x_n + \frac{\Delta t}{2}k_{n2}, t_n + \frac{\Delta t}{2}\Big)\\
+k_{n4} = f(x_n + {\Delta t}k_{n3}, t_n + {\Delta t})
+\end{equation}</div><p>The Runge-Kutta method is implemented in the function sdof_rk4.</p>
 <p>Below we have a comparison between the analytical response, the Euler
 and the Runge-Kutta method (dt is the step size).</p>
 <div class="nbinput docutils container">
@@ -427,7 +461,9 @@ phi = 1.52077546999
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download Tutorial Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Examples</a></li>
@@ -459,7 +495,7 @@ phi = 1.52077546999
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -10,6 +10,7 @@
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -24,10 +25,11 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://unpkg.com/jupyter-js-widgets@^2.0.13/dist/embed.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Examples" href="../examples/index.html" />
+    <link rel="next" title="Contributors" href="../contributors.html" />
     <link rel="prev" title="Continuous Systems (continuous_systems)" href="continuous.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -36,7 +38,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -48,7 +50,7 @@
 <h1>Vibration Systems (<code class="xref py py-mod docutils literal"><span class="pre">vibesystem.py</span></code>)<a class="headerlink" href="#vibration-systems-vibesystem-py" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="vibration_toolbox.vibesystem.VibeSystem">
-<em class="property">class </em><code class="descclassname">vibration_toolbox.vibesystem.</code><code class="descname">VibeSystem</code><span class="sig-paren">(</span><em>M</em>, <em>C</em>, <em>K</em>, <em>name=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">vibration_toolbox.vibesystem.</code><code class="descname">VibeSystem</code><span class="sig-paren">(</span><em>M</em>, <em>C</em>, <em>K</em>, <em>name=”</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>A multiple degrees of freedom system.</p>
 <p>This class will create a multiple degree of
 freedom system given M, C and K matrices.</p>
@@ -93,31 +95,34 @@ the following matrices:</p>
 <span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="n">k1</span><span class="p">,</span> <span class="n">k2</span><span class="o">+</span><span class="n">k2</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span> <span class="o">=</span> <span class="n">VibeSystem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">wn</span>
-<span class="go">array([ 5.03,  8.72])</span>
+<span class="go">array([ 31.62,  54.77])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">wd</span>
-<span class="go">array([ 5.02,  8.64])</span>
+<span class="go">array([ 31.52,  54.26])</span>
 </pre></div>
 </div>
 <p class="rubric">Attributes</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="11%" />
-<col width="89%" />
+<col width="17%" />
+<col width="83%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>evalues</td>
-<td>(array) System&#8217;s eigenvalues.</td>
+<td>(array) System’s eigenvalues.</td>
 </tr>
 <tr class="row-even"><td>evectors</td>
-<td>(array) System&#8217;s eigenvectors.</td>
+<td>(array) System’s eigenvectors.</td>
 </tr>
 <tr class="row-odd"><td>wn</td>
-<td>(array) System&#8217;s natural frequencies in Hz.</td>
+<td>(array) System’s natural frequencies in rad/s.</td>
 </tr>
 <tr class="row-even"><td>wd</td>
-<td>(array) System&#8217;s damped natural frequencies in Hz.</td>
+<td>(array) System’s damped natural frequencies in rad/s.</td>
 </tr>
-<tr class="row-odd"><td>H</td>
+<tr class="row-odd"><td>damping_ratio</td>
+<td>(array) System’s damping factor for each mode.</td>
+</tr>
+<tr class="row-even"><td>H</td>
 <td>(scipy.signal.lti) Continuous-time linear time invariant system</td>
 </tr>
 </tbody>
@@ -134,7 +139,7 @@ of the system.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>A</strong> : array</p>
 <blockquote class="last">
-<div><p>System&#8217;s state space matrix.</p>
+<div><p>System’s state space matrix.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -265,7 +270,7 @@ If None creates a new.</p>
 <p><strong>kwargs</strong> : optional</p>
 <blockquote>
 <div><p>Additional key word arguments can be passed to change
-the plot (e.g. linestyle=&#8217;&#8211;&#8217;)</p>
+the plot (e.g. linestyle=’–’)</p>
 </div></blockquote>
 </td>
 </tr>
@@ -527,6 +532,7 @@ given a force, time and initial conditions.</p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download Tutorial Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
@@ -534,6 +540,7 @@ given a force, time and initial conditions.</p>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Vibration Systems (<code class="docutils literal"><span class="pre">vibesystem.py</span></code>)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
@@ -565,7 +572,7 @@ given a force, time and initial conditions.</p>
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

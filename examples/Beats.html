@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -10,6 +10,7 @@
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -24,7 +25,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://unpkg.com/jupyter-js-widgets@^2.0.13/dist/embed.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Working Notebook" href="working_notebook.html" />
@@ -36,7 +38,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -228,14 +230,17 @@ div.nboutput div.output_area.stderr {
 <p>In this notebook we will investigate a phenomena that occurs when the
 driving frequency becomes close to the system’s natural frequency.</p>
 <p>For zero initial conditions, the response is given by the equation:</p>
-<p>Since <span class="math">\((\omega_n - \omega)\)</span> is small, <span class="math">\((\omega_n + \omega)\)</span>
+<div class="math">
+\begin{equation}
+x(t) = \frac{2f_0}{\omega^2_n - \omega^2} sin\Big(\frac{\omega_n - \omega}{2} t\Big) sin\Big(\frac{\omega_n + \omega}{2}t\Big)
+\end{equation}</div><p>Since <span class="math">\((\omega_n - \omega)\)</span> is small, <span class="math">\((\omega_n + \omega)\)</span>
 is large in comparison and <span class="math">\(sin[(\omega_n - \omega)/2]t\)</span>
 oscillates with a longer period than
 <span class="math">\(sin[(\omega_n + \omega)/2]t\)</span>. The result is a rapid oscillation
 with slowly varying amplitude that is called a <strong>beat</strong>.</p>
 <p>The system defined in the function bellow has a a natural frequency
 <span class="math">\(\omega_n = 1000 \ rad/s\)</span>.</p>
-<p>You can change the excitation frequency moving the slide &#8216;wdr&#8217; and hear
+<p>You can change the excitation frequency moving the slide ‘wdr’ and hear
 the resulting sound.</p>
 <p>When you get close to the natural frequency you will be able to
 recognize the beats.</p>
@@ -298,7 +303,9 @@ recognize the beats.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download Tutorial Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a></li>
@@ -330,7 +337,7 @@ recognize the beats.</p>
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

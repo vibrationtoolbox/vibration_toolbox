@@ -1,6 +1,6 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -10,6 +10,7 @@
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -24,7 +25,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://unpkg.com/jupyter-js-widgets@^2.0.13/dist/embed.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Continuous Systems (continuous_systems)" href="continuous.html" />
@@ -36,7 +38,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -47,7 +49,7 @@
   <div class="section" id="multiple-degree-of-freedom-systems-vibration-toolbox-mdof">
 <h1>Multiple Degree of Freedom Systems (<code class="xref py py-mod docutils literal"><span class="pre">vibration_toolbox.mdof</span></code>)<a class="headerlink" href="#multiple-degree-of-freedom-systems-vibration-toolbox-mdof" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="mdof-multiple-degree-of-freedom-functions">
-<h2><a class="reference internal" href="#module-mdof" title="mdof"><code class="xref py py-mod docutils literal"><span class="pre">mdof</span></code></a> &#8211; Multiple Degree of Freedom Functions<a class="headerlink" href="#mdof-multiple-degree-of-freedom-functions" title="Permalink to this headline">¶</a></h2>
+<h2><a class="reference internal" href="#module-mdof" title="mdof"><code class="xref py py-mod docutils literal"><span class="pre">mdof</span></code></a> – Multiple Degree of Freedom Functions<a class="headerlink" href="#mdof-multiple-degree-of-freedom-functions" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-mdof"></span><dl class="function">
 <dt id="mdof.modes_system">
 <code class="descclassname">mdof.</code><code class="descname">modes_system</code><span class="sig-paren">(</span><em>M</em>, <em>K</em>, <em>C=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#modes_system"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.modes_system" title="Permalink to this definition">¶</a></dt>
@@ -56,7 +58,7 @@ This function will return the natural frequencies (wn), the
 damped natural frequencies (wd), the damping ratios (zeta),
 the right eigenvectors (X) and the left eigenvectors (Y) for a
 system defined by M, K and C.
-If the dampind matrix &#8216;C&#8217; is none or if the damping is proportional,
+If the dampind matrix ‘C’ is none or if the damping is proportional,
 wd and zeta will be none and X and Y will be equal.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -175,13 +177,13 @@ matrix S^-1(takes x -&gt; r(modal coordinates) for an undamped system.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 </pre></div>
 </div>
-<p>...               [0, 4, 0],</p>
-<p>...               [0, 0, 4]])</p>
+<p>…               [0, 4, 0],</p>
+<p>…               [0, 0, 4]])</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 </pre></div>
 </div>
-<p>...               [-4, 8, -4],</p>
-<p>...               [0, -4, 4]])</p>
+<p>…               [-4, 8, -4],</p>
+<p>…               [0, -4, 4]])</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">w</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Sinv</span> <span class="o">=</span> <span class="n">modes_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -199,9 +201,9 @@ matrix S^-1(takes x -&gt; r(modal coordinates) for an undamped system.</p>
 <dt id="mdof.response_system">
 <code class="descclassname">mdof.</code><code class="descname">response_system</code><span class="sig-paren">(</span><em>M</em>, <em>C</em>, <em>K</em>, <em>F</em>, <em>x0</em>, <em>v0</em>, <em>t</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#response_system"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.response_system" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function solves the system given the initial
-displacement vector &#8216;X0&#8217;, initial velocity vector &#8216;V0&#8217;,
-the mass matrix &#8216;M&#8217;, the stiffness matrix &#8216;M&#8217;, and the damping
-matrix &#8216;C&#8217; and force &#8216;F&#8217;.
+displacement vector ‘X0’, initial velocity vector ‘V0’,
+the mass matrix ‘M’, the stiffness matrix ‘M’, and the damping
+matrix ‘C’ and force ‘F’.
 T is a row vector of evenly spaced times.
 F is a matrix of forces over time, each column corresponding
 to the corresponding column of T, each row corresponding to
@@ -383,16 +385,18 @@ The time array is also returned.</p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download Tutorial Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Multiple Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.mdof</span></code>)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mdof-multiple-degree-of-freedom-functions"><code class="docutils literal"><span class="pre">mdof</span></code> &#8211; Multiple Degree of Freedom Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mdof-multiple-degree-of-freedom-functions"><code class="docutils literal"><span class="pre">mdof</span></code> – Multiple Degree of Freedom Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous.html">Continuous Systems (<code class="docutils literal"><span class="pre">continuous_systems</span></code>)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vibe_system.html">Vibration Systems (<code class="docutils literal"><span class="pre">vibesystem.py</span></code>)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
@@ -424,7 +428,7 @@ The time array is also returned.</p>
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
