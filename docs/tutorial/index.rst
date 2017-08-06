@@ -1,5 +1,5 @@
 Tutorial
---------
+________
 
 
 Tutorials with worked examples and background information for the Vibration Toolbox.
@@ -13,4 +13,3 @@ Tutorials with worked examples and background information for the Vibration Tool
    mdof_notebook.ipynb
    continuous_systems_notebook.ipynb
    vibesystem_notebook.ipynb
-
