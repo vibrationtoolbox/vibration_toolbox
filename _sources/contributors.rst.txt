@@ -7,3 +7,4 @@ Other contributors
 ~~~~~~~~~~~~~~~~~~
 
 | Gabriel Loranger
+| Anusha Anisetti
