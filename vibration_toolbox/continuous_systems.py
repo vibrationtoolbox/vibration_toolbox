@@ -90,9 +90,9 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
         ln = len(n)
 
     # len=[0:(1/(npoints-1)):1]';  %Normalized length of the beam
-    x_normed = np.linspace(0, 1, npoints, endpoint = True)
+    x_normed = np.linspace(0, 1, npoints, endpoint=True)
     x = x_normed * L
-     # Determine natural frequencies and mode shapes depending on the
+    # Determine natural frequencies and mode shapes depending on the
     # boundary condition.
     # Mass simplification. The following was arange_(1,length_(n)).reshape(-1)
     mode_num_range = np.arange(0, ln)
@@ -440,7 +440,7 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
     >>> omega_n, x, U, *_ = vtb.uniform_bar_modes(n=1)
-    >>> 
+    >>>
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
@@ -498,7 +498,7 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
     """Mode shapes and natural frequencies of Torsional bar.
 
     Parameters
-    ---------- 
+    ----------
     n: int, numpy array
         highest mode number or array of mode numbers to return
     bctype: int
@@ -507,7 +507,7 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
         bctype = 3 fixed-fixed
     tbarparams: numpy array
         G, J, rho, L
-        Shear modulus, Polar moment of area, density, 
+        Shear modulus, Polar moment of area, density,
         length of bar
     npoints: int
         number of points for returned mode shape array
@@ -534,7 +534,7 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
     >>> omega_n, x, U,*_ = vtb.torsional_bar_modes(n=1)
-    >>> 
+    >>>
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
@@ -593,8 +593,8 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
     if bctype == 1:
         desc = 'Free-Free '
         for i in mode_num_range:
-             w[i] = (i * np.pi * c) / L
-             U[:, i] = np.cos(i * np.pi * x / L)
+            w[i] = (i * np.pi * c) / L
+            U[:, i] = np.cos(i * np.pi * x / L)
     elif bctype == 2:
         desc = 'Fixed-Free '
         for i in mode_num_range:
@@ -613,24 +613,3 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
     omega_n = w
     return omega_n, x, U
 
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod(optionflags=doctest.ELLIPSIS |
-                    doctest.NORMALIZE_WHITESPACE)
-    # import vibration_toolbox as vtb
-    # doctest.run_docstring_examples(frfest,globals(),
-    # optionflags=doctest.ELLIPSIS)
-    # doctest.run_docstring_examples(asd,globals(),
-    # optionflags=doctest.ELLIPSIS)
-    """ What this does.
-
-    python (name of this file)  -v
-    will test all of the examples in the help.
-
-    Leaving off -v will run the tests without any output. Success will return
-    nothing.
-
-    See the doctest section of the python manual.
-    https://docs.python.org/3.5/library/doctest.html
-    """
