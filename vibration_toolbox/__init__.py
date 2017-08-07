@@ -43,7 +43,6 @@ from .mdof import *
 from .ema import *
 from .vibesystem import *
 from .continuous_systems import *
-from .FEM import *
 
 # print options were change inside modules to produce better
 # outputs at examples. Here we set the print options to the
