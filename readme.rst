@@ -46,8 +46,8 @@ To run, I recommend you open a `Jupyter <https://jupyter.org>`_ notebook by usin
 
 For examples, see the `JupyterNotebooks folder <https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/docs/tutorial>`_. Some of these have interactive capabilities that are only apparent when you run them yourself instead of just looking at them on GitHub. Unfortunately our organization of these still leaves a little to be desired. Help accepted!
 
-Installation of current code/working with on development
-________________________________________________________
+Installation of current code/contributing
+_________________________________________
 
 The usage documentation is far behind the current code, while the reference is way ahead of the released code due to the `autodoc <http://www.sphinx-doc.org/en/stable/ext/autodoc.html>`_ capability of `Sphinx <http://www.sphinx-doc.org/en/stable/>`_. Especially as of 2017, the code is still in rapid development. So is the documentation. Releases to `pypi <https://pypi.python.org/pypi>`_.
 

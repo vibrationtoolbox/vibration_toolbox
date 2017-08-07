@@ -21,6 +21,8 @@ To contribute code we recommend you follow these steps:
 
 4. Clone the repository to your favorite location on your drive where you want to work on it.
 
+#. Before installing in developer mode, please be sure to ``pip uninstall vibration_toolbox`` if it is already installed. 
+
 #. To work in `developer mode <https://packaging.python.org/distributing/#working-in-development-mode>`_, at the top level directory inside the ``vibration toolbox`` type::
 
     $ pip install -e .
