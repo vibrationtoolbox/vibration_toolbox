@@ -3,9 +3,6 @@ import matplotlib.pyplot as plt
 import scipy.linalg as la
 
 
-#__all__ = ['frf', 'plot_fft']
-
-
 def frf(x, f, dt):
     """
     This function will return the frequency response
@@ -42,7 +39,7 @@ def frf(x, f, dt):
     >>> import scipy.io as sio
     >>> data = sio.loadmat(vtb.__path__[0] + '/data/frf_data1.mat')
     >>> #print(data)
-    >>> # Data is imported as arrays. We need to modify then to fit our function
+    >>> # Data is imported as arrays. Modify then to fit our function
     >>> x = data['x']
     >>> x = x.reshape(len(x))
     >>> f = data['f']
@@ -55,34 +52,32 @@ def frf(x, f, dt):
     1.018394853080...
     """
 
-    w = np.sin(np.pi*np.arange(len(f))/len(f))**2  # window
+    w = np.sin(np.pi * np.arange(len(f)) / len(f))**2  # window
     # apply window
-    xw = x*w
-    fw = f*w
+    xw = x * w
+    fw = f * w
     # take ffts
     FX = np.fft.fft(xw)
     FF = np.fft.fft(fw)
     # calculate the spectral densities
-    SXF = FF*np.conj(FX)
-    SXX = FX*np.conj(FX)
-    SFF = FF*np.conj(FF)
-    SFX = FX*np.conj(FF)
-    # calculate the transfer functions
-    TXF = SXX/SXF
-    TXF2 = SFX/SFF
+    SXF = FF * np.conj(FX)
+    SXX = FX * np.conj(FX)
+    SFF = FF * np.conj(FF)
+    # calculate the frequency response functions
+    TXF = SXX / SXF
 
-    lt = len(TXF)//2
-    freq = np.arange(lt)/(2*lt*dt)
+    lt = len(TXF) // 2
+    freq = np.arange(lt) / (2 * lt * dt)
 
     TXF = TXF[:lt]
     mag = np.absolute(TXF)
-    ang = np.angle(TXF)*180/np.pi
+    ang = np.angle(TXF) * 180 / np.pi
 
-    coh = (np.absolute(SXF)**2)/(SXX*SFF)
+    coh = (np.absolute(SXF)**2) / (SXX * SFF)
     coh = np.real(coh)
 
     # plot H(w)
-    fig = plt.figure(figsize=(8,6))
+    fig = plt.figure(figsize=(8, 6))
     ax1 = fig.add_subplot(311)
     ax2 = fig.add_subplot(312, sharex=ax1)
     ax3 = fig.add_subplot(313, sharex=ax2)
@@ -133,7 +128,7 @@ def plot_fft(t, time_response, ax=None):
     <matplotlib.axes...
     """
     if ax is None:
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
 
     Ts = t[1] - t[0]  # sampling interval
     Fs = 1 / Ts  # sampling rate
@@ -152,7 +147,7 @@ def plot_fft(t, time_response, ax=None):
     return ax
 
 
-def sdof_cf(f,TF,Fmin=None,Fmax=None):
+def sdof_cf(f, TF, Fmin=None, Fmax=None):
     """
     Curve fit to a single degree of freedom FRF.
 
@@ -160,7 +155,8 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     zeros may exist within this segment. If so, curve fitting becomes
     unreliable.
 
-    If Fmin and Fmax are not entered, the first and last elements of TF are used.
+    If Fmin and Fmax are not entered, the first and last elements of TF are
+    used.
 
     Parameters
     ----------
@@ -191,7 +187,7 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     >>> import scipy.io as sio
     >>> data = sio.loadmat(vtb.__path__[0] + '/data/case1.mat')
     >>> #print(data)
-    >>> # Data is imported as arrays. We need to modify then to fit our function
+    >>> # Data is imported as arrays. Modify then to fit our function.
     >>> TF = data['Hf_chan_2']
     >>> f = data['Freq_domain']
     >>> # Now we are able to call the function
@@ -200,7 +196,7 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     212.092530551...
     """
 
-    #check fmin fmax existance
+    # check fmin fmax existance
     if Fmin is None:
         inlow = 0
     else:
@@ -214,153 +210,99 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     if f[inlow] == 0:
         inlow = 1
 
-    f = f[inlow:inhigh,:]
-    TF = TF[inlow:inhigh,:]
+    f = f[inlow:inhigh, :]
+    TF = TF[inlow:inhigh, :]
 
     R = TF
     y = np.amax(np.abs(TF))
     cin = np.argmax(np.abs(TF))
 
-    #works
-
     ll = np.size(f)
 
-    w = f*2*np.pi*1j
+    w = f * 2 * np.pi * 1j
 
-    w2 = w*0
-    R3 = R*0
+    w2 = w * 0
+    R3 = R * 0
 
-    for i in range(1, ll+1):
-        R3[i-1] = np.conj(R[ll-i])
-        w2[i-1] = np.conj(w[ll-i])
-#    for i in range(0, ll):
-#        print(i)
-#        R3[i] = np.conj(R[ll-i])
-#        w2[i] = np.conj(w[ll-i])
+    for i in range(1, ll + 1):
+        R3[i - 1] = np.conj(R[ll - i])
+        w2[i - 1] = np.conj(w[ll - i])
 
-    w = np.vstack((w2,w))
-    R = np.vstack((R3,R))
-
+    w = np.vstack((w2, w))
+    R = np.vstack((R3, R))
 
     N = 2
-    x, y = np.meshgrid(np.arange(0,N+1),R)
-    x, w2d = np.meshgrid(np.arange(0,N+1),w)
-    c = -1*w**N*R
-#    c = np.ndarray.flatten(c)
+    x, y = np.meshgrid(np.arange(0, N + 1), R)
+    x, w2d = np.meshgrid(np.arange(0, N + 1), w)
+    c = -1 * w**N * R
 
-#    print(w2d.shape)
-#    input()
-#    print(w2d[:,np.arange(0,N+1)].shape)
-#    print(x[:,np.arange(0,N+1)].shape)
-#    input()
-    aa1 = w2d[:,np.arange(0,N)] \
-              **x[:,np.arange(0,N)] \
-              *y[:,np.arange(0,N)]
-    aa2 = -w2d[:,np.arange(0,N+1)] \
-              **x[:,np.arange(0,N+1)]
-    aa = np.hstack((aa1,aa2))
+    aa1 = w2d[:, np.arange(0, N)] \
+        ** x[:, np.arange(0, N)] \
+        * y[:, np.arange(0, N)]
+    aa2 = -w2d[:, np.arange(0, N + 1)] \
+        ** x[:, np.arange(0, N + 1)]
+    aa = np.hstack((aa1, aa2))
 
-    aa = np.reshape(aa,[-1,5])
-#    c = np.mat(c).T
+    aa = np.reshape(aa, [-1, 5])
 
-    #np.linalg.division()
-#    scalef = np.abs(np.min(aa)-np.max(aa))
-    b,_,_,_ = la.lstsq(aa,c)
-
-    #temporary
-#    b = np.array([[1.7914*10**6+4.5242*10**-1*1j],[-.1668+.0003*1j],[.0000+.0000*1j],[-1.0038*10**4-8.8731*10**-3*1j],[14.8662-.0000*1j]])
-#    print(b.shape)
-#    input()
-#    sel = np.arange(N-1,-1,-1)
-#    print(sel)
-#    print(np.vstack((1,b[sel])))
-#    print(np.vstack(([1],b[np.arange(N-1,-1,-1)])))
-#    print(np.ndim(np.ndarray.flatten(np.vstack(([1],b[np.arange(N-1,-1,-1)])))))
-#    input()
-
+    b, _, _, _ = la.lstsq(aa, c)
 
 #   Due to numpy adding an invisible extra dimension when vstacking I had to
 #   flatten the array.
 #   THE FOLLOWING LINE IS HORRIBLE HACKER CODE. KILL IT WITH FIRE.
-    rs = np.roots(np.ndarray.flatten(np.vstack(([1],b[np.arange(N-1,-1,-1)]))))
-#    print(rs)
-#    input()
+    rs = np.roots(np.ndarray.flatten(
+        np.vstack(([1], b[np.arange(N - 1, -1, -1)]))))
 
-#    irs = np.argsort(np.abs(np.imag(rs)))
-#    print(irs)
-#    input()
-
-#    rs = rs[irs]
-#    print(rs)
-#    input()
     omega = np.abs(rs[1])
-    z = -1*np.real(rs[1])/np.abs(rs[1])
-    nf = omega/2/np.pi
+    z = -1 * np.real(rs[1]) / np.abs(rs[1])
+    nf = omega / 2 / np.pi
 
-    XoF1 = np.hstack(([1/(w-rs[0]), 1/(w-rs[1])]))
-    XoF2 = 1/(w**0)
-    XoF3 = 1/w**2
-#    print(XoF1)
-#    print(XoF2)
-#    print(XoF3)
-#    input()
+    XoF1 = np.hstack(([1 / (w - rs[0]), 1 / (w - rs[1])]))
+    XoF2 = 1 / (w**0)
+    XoF3 = 1 / w**2
     XoF = np.hstack((XoF1, XoF2, XoF3))
 
-    #check if extra _ needed
+    # check if extra _ needed
 
-    a,_,_,_ = la.lstsq(XoF,R)
- #   a = np.array([[-7.8133*10**2+9.7895j*10**2],[-7.8023*10**2-9.7861j*10**2],[-1.7281-.0003j],[2.7703*10**2+3.2313j*10**-3]])
-    XoF = XoF[np.arange(ll,2*ll),:].dot(a)
-#    print(a)
-#    print(ll)
-#    print(XoF)
-#    input()
-    a = np.sqrt(-2*np.imag(a[0])*np.imag(rs[0])-2*np.real(a[0])*np.real(rs[0]))
+    a, _, _, _ = la.lstsq(XoF, R)
+    XoF = XoF[np.arange(ll, 2 * ll), :].dot(a)
+
+    a = np.sqrt(-2 * np.imag(a[0]) * np.imag(rs[0]) -
+                2 * np.real(a[0]) * np.real(rs[0]))
     Fmin = np.min(f)
     Fmax = np.max(f)
-    phase = np.unwrap(np.angle(TF),np.pi,0)*180/np.pi
-    phase2 = np.unwrap(np.angle(XoF),np.pi,0)*180/np.pi
-#    phase3 = np.angle(TF)*180/np.pi
-
-#    print(TF)
-#    print(np.angle(TF))
-#    print(np.unwrap(np.angle(TF)))
-#    print(phase2)
-#    input()
+    phase = np.unwrap(np.angle(TF), np.pi, 0) * 180 / np.pi
+    phase2 = np.unwrap(np.angle(XoF), np.pi, 0) * 180 / np.pi
     while phase2[cin] > 50:
         phase2 = phase2 - 360
-    phased = phase2[cin]-phase[cin]
-    phase = phase+np.round(phased/360)*360
+    phased = phase2[cin] - phase[cin]
+    phase = phase + np.round(phased / 360) * 360
 
-    #plot stuff
+    # plot stuff
     fig = plt.figure()
-    ax1 = fig.add_subplot(2,1,1)
-    ax2 = fig.add_subplot(2,1,2)
+    ax1 = fig.add_subplot(2, 1, 1)
+    ax2 = fig.add_subplot(2, 1, 2)
     fig.tight_layout()
 
-#    ax1.set_legend('Identified FRF','Experimental FRF')
     ax1.set_xlabel('Frequency (Hz)')
     ax1.set_ylabel('Magnitude (dB)')
-    ax1.plot(f,20*np.log10(np.abs(XoF)), label="Identified FRF")
-    ax1.plot(f,20*np.log10(np.abs(TF)), label="Experimental FRF")
+    ax1.plot(f, 20 * np.log10(np.abs(XoF)), label="Identified FRF")
+    ax1.plot(f, 20 * np.log10(np.abs(TF)), label="Experimental FRF")
     ax1.legend()
-#    ax1.grid()
 
     ax2.set_xlabel('Frequency (Hz)')
     ax2.set_ylabel('Phase (deg)')
-    ax2.plot(f,phase2, label="Identified FRF")
-    ax2.plot(f,phase, label="Experimental FRF")
+    ax2.plot(f, phase2, label="Identified FRF")
+    ax2.plot(f, phase, label="Experimental FRF")
     ax2.legend()
-#    ax2.plot(f,phase)
-#    ax2.grid()
 
     _ = plt.show()
 
-    a = a[0]**2/(2*np.pi*nf)**2
+    a = a[0]**2 / (2 * np.pi * nf)**2
     return z, nf, a
 
 
-def mdof_cf(f,TF,Fmin=None,Fmax=None):
+def mdof_cf(f, TF, Fmin=None, Fmax=None):
     """
     Curve fit to multiple degree of freedom FRF
 
@@ -415,7 +357,7 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     192.59382330...
     """
 
-    #check fmin fmax existance
+    # check fmin fmax existance
     if Fmin is None:
         inlow = 0
     else:
@@ -429,130 +371,68 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     if f[inlow] == 0:
         inlow = 1
 
-    f = f[inlow:inhigh,:]
-    TF = TF[inlow:inhigh,:]
+    f = f[inlow:inhigh, :]
+    TF = TF[inlow:inhigh, :]
 
     R = TF.T
 
-    U, s, v = np.linalg.svd(R)
-    T = U[:,0]
+    U, _, _ = np.linalg.svd(R)
+    T = U[:, 0]
     Hp = np.transpose(T).dot(R)
     R = np.transpose(Hp)
 
     ll = np.size(f)
-    w = f*2*np.pi*1j
+    w = f * 2 * np.pi * 1j
 
-    w2 =w*0
-    R3 = R*0
-    TF2 = TF*0
-    for i in range(1, ll+1):
-        R3[i-1] = np.conj(R[ll-i])
-        w2[i-1] = np.conj(w[ll-i])
-        TF2[i-1,:] = np.conj(TF[ll-i,:])
+    w2 = w * 0
+    R3 = R * 0
+    TF2 = TF * 0
+    for i in range(1, ll + 1):
+        R3[i - 1] = np.conj(R[ll - i])
+        w2[i - 1] = np.conj(w[ll - i])
+        TF2[i - 1, :] = np.conj(TF[ll - i, :])
 
-
-    w = np.vstack((w2,w))
-    R = np.hstack((R3,R))
-
+    w = np.vstack((w2, w))
+    R = np.hstack((R3, R))
 
     N = 2
-    x, y = np.meshgrid(np.arange(0,N+1),R)
+    x, y = np.meshgrid(np.arange(0, N + 1), R)
 
-
-    x, w2d = np.meshgrid(np.arange(0,N+1),w)
+    x, w2d = np.meshgrid(np.arange(0, N + 1), w)
 
     R = np.ndarray.flatten(R)
     w = np.ndarray.flatten(w)
-    c = -1*w**N*R
+    c = -1 * w**N * R
 
+    aa1 = w2d[:, np.arange(0, N)] \
+        ** x[:, np.arange(0, N)] \
+        * y[:, np.arange(0, N)]
+    aa2 = -w2d[:, np.arange(0, N + 1)] \
+        ** x[:, np.arange(0, N + 1)]
+    aa = np.hstack((aa1, aa2))
 
-    aa1 = w2d[:,np.arange(0,N)] \
-              **x[:,np.arange(0,N)] \
-              *y[:,np.arange(0,N)]
-    aa2 = -w2d[:,np.arange(0,N+1)] \
-              **x[:,np.arange(0,N+1)]
-    aa = np.hstack((aa1,aa2))
+    b, _, _, _ = la.lstsq(aa, c)
 
-#    b = la.pinv(aa).dot(c)
-#    print(np.shape(b))
-#    print(b)
-#    input()
-#
-    b,_,_,_ = la.lstsq(aa,c)
-#    print(np.shape(b))
-#    print(np.rank(b))
-#    print(np.ndim(b))
-#    print(b)
-#    input()
-
-#    b = np.array([[1.4653*10**6+5.9440*10**-2*1j],[.3220+.0003*1j],[-.7349+.0000*1j],[-7.2824*10**3-4.7231*10**-3*1j],[46.8541-.0000*1j]])
-#    #rs = np.roots([1,b[]])
-#    print(np.shape(b))
-#    print(np.rank(b))
-#    print(np.ndim(b))
-#    print(b)
-#    input()
-
-    temp = np.hstack(([1],b[np.arange(N-1,-1,-1)]))
-#    print([1])
-#    print(b[np.arange(N-1,-1,-1)])
-#    print(np.rank(temp))
-#    print(np.ndim(temp))
-#    print(temp)
-#    input()
-
-    rs = np.roots(np.ndarray.flatten(np.hstack(([1],b[np.arange(N-1,-1,-1)]))))
-    irs = np.argsort(np.abs(np.imag(rs)))
-    #rs = rs[irs]
+    rs = np.roots(np.ndarray.flatten(
+        np.hstack(([1], b[np.arange(N - 1, -1, -1)]))))
+    # irs = np.argsort(np.abs(np.imag(rs))) # necessary?
 
     omega = np.abs(rs[1])
-    z = -1*np.real(rs[1])/np.abs(rs[1])
-    nf = omega/2/np.pi
+    z = -1 * np.real(rs[1]) / np.abs(rs[1])
+    nf = omega / 2 / np.pi
 
+    XoF1 = 1 / ((rs[0] - w) * (rs[1] - w))
 
-#    print('w')
-#    print(np.shape(w))
-#    print(w)
-#    print('rs')
-#    print(np.shape(rs))
-#    print(rs)
-
-    XoF1 = 1/((rs[0]-w)*(rs[1]-w))
-
-#    print('XoF1')
-#    print(np.shape(XoF1))
-#    print(XoF1)
-
-    XoF2 = 1/(w**0)
-    XoF3 = 1/w**2
+    XoF2 = 1 / (w**0)
+    XoF3 = 1 / w**2
 
     XoF = np.vstack((XoF1, XoF2, XoF3)).T
-    TF3 = np.vstack((TF2,TF))
+    TF3 = np.vstack((TF2, TF))
 
-#    print('XoF')
-#    print(np.shape(XoF))
-#    print(XoF)
-#    print('TF3')
-#    print(np.shape(TF3))
-#    print(TF3)
+    a, _, _, _ = la.lstsq(XoF, TF3)
 
-    a,_,_,_ = la.lstsq(XoF,TF3)
-    #a = np.array([[-.0038+.0000j],[1.0856*10**2+1.3323j*10**-4],[1.1160*10**3+9.6690j*10**-4]])
-#    print('a')
-#    print(np.shape(a))
-#    print(a)
+    u = np.transpose(a[0, :])
 
-    u = np.transpose(a[0,:])
-#    print('u')
-#    print(np.shape(u))
-#    print(u)
-
-    u = u/np.sqrt(np.abs(a[0,0]))
-#    print('u')
-#    print(np.shape(u))
-#    print(u)
-#    input()
-
-    #plot stuff?
+    u = u / np.sqrt(np.abs(a[0, 0]))
 
     return z, nf, u
