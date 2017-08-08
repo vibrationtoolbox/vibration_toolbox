@@ -38,7 +38,7 @@ def _eigen(A, B=None):
     >>> L = np.array([[2, -1, 0],
     ...               [-4, 8, -4],
     ...               [0, -4, 4]])
-    >>> lam, P = vtb._eigen(L)
+    >>> lam, P = vtb.mdof._eigen(L)
     >>> lam
     array([  0.56+0.j,   2.63+0.j,  10.81+0.j])
 
@@ -152,9 +152,10 @@ def modes_system_undamped(M, K):
 
     L = la.cholesky(M)
     Linv = la.inv(L)
-    lam, P = _eigen(Linv @ K @ Linv.T)
+    # lam, P = _eigen(Linv @ K @ Linv.T)
+    lam, P = _eigen(la.solve(L, K) @ Linv.T)
     w = np.real(np.sqrt(lam))
-    S = Linv @ P
+    S = la.solve(L, P)# Linv @ P
     Sinv = P.T @ Linv
 
     return w, P, S, Sinv
