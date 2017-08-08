@@ -93,7 +93,7 @@ def frf(x, f, dt):
     ax2.plot(freq, ang)
     ax3.plot(freq, coh[:lt])
 
-    _ = plt.show()
+    plt.show()
 
     return freq, mag, ang, coh
 
@@ -247,13 +247,9 @@ def sdof_cf(f, TF, Fmin=None, Fmax=None):
 
     b, _, _, _ = la.lstsq(aa, c)
 
-    print(b)
-#   Due to numpy adding an invisible extra dimension when vstacking I had to
-#   flatten the array.
-#   THE FOLLOWING LINE IS HORRIBLE HACKER CODE. KILL IT WITH FIRE.
-    rs = np.roots(np.ndarray.flatten(
-        np.vstack(([1], b[np.arange(N - 1, -1, -1)]))))
-
+    rs = np.roots(np.array([1,
+                            b[1],
+                            b[0]]))
     omega = np.abs(rs[1])
     z = -1 * np.real(rs[1]) / np.abs(rs[1])
     nf = omega / 2 / np.pi
@@ -306,7 +302,8 @@ def mdof_cf(f, TF, Fmin=None, Fmax=None):
     """
     Curve fit to multiple degree of freedom FRF
 
-    If Fmin and Fmax are not entered, the first and last elements of TF are used.
+    If Fmin and Fmax are not entered, the first and last elements of TF are
+    used.
 
     If the first column of TF is a collocated (input and output location are
     the same), then the mode shape returned is the mass normalized mode shape.
@@ -348,7 +345,7 @@ def mdof_cf(f, TF, Fmin=None, Fmax=None):
     >>> import scipy.io as sio
     >>> data = sio.loadmat(vtb.__path__[0] + '/data/case2.mat')
     >>> #print(data)
-    >>> # Data is imported as arrays. We need to modify then to fit our function
+    >>> # Data is imported as arrays. Modify then to fit our function
     >>> TF = data['Hf_chan_2']
     >>> f = data['Freq_domain']
     >>> # Now we are able to call the function
@@ -413,9 +410,10 @@ def mdof_cf(f, TF, Fmin=None, Fmax=None):
 
     b, _, _, _ = la.lstsq(aa, c)
 
-    # weird stacking put in by Loranger.
-    rs = np.roots(np.ndarray.flatten(
-        np.hstack(([1], b[np.arange(N - 1, -1, -1)]))))
+    rs = np.roots(np.array([1,
+                            b[1],
+                            b[0]]))
+
     # irs = np.argsort(np.abs(np.imag(rs))) # necessary?
 
     omega = np.abs(rs[1])
