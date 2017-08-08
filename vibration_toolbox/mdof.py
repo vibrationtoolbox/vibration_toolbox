@@ -6,15 +6,10 @@ import matplotlib as mpl
 mpl.rcParams['lines.linewidth'] = 2
 mpl.rcParams['figure.figsize'] = (10, 6)
 
-__all__ = ["modes_system",
-           "modes_system_undamped",
-           "response_system",
-           "response_system_undamped"]
 
+def _eigen(A, B=None):
+    """Sorted eigenvector/eigenvalue pairs in order of increasing eigenvalues.
 
-def eigen(A, B=None):
-    """
-    This function is used to sort eigenvalues and eigenvectors
     e.g. for a given system linalg.eig will return eingenvalues as:
     (array([ 0. +89.4j,  0. -89.4j,  0. +89.4j,  0. -89.4j,  0.+983.2j,  0.-983.2j,  0. +40.7j,  0. -40.7j])
     This function will sort this eigenvalues as:
@@ -39,10 +34,11 @@ def eigen(A, B=None):
 
     Examples
     --------
+    >>> import vibration_toolbox as vtb
     >>> L = np.array([[2, -1, 0],
     ...               [-4, 8, -4],
     ...               [0, -4, 4]])
-    >>> lam, P = eigen(L)
+    >>> lam, P = vtb._eigen(L)
     >>> lam
     array([  0.56+0.j,   2.63+0.j,  10.81+0.j])
 
@@ -69,7 +65,7 @@ def eigen(A, B=None):
     return evalues[idx], evectors[:, idx]
 
 
-def normalize(X, Y):
+def _normalize(X, Y):
     """
     This function is used to normalize vectors of the matrix
     Y with respect to X so that Y.T @ X = I (identity).
@@ -97,7 +93,7 @@ def normalize(X, Y):
     ...            [ 0.88+0.j  ,  0.68+0.j  ,  0.88-0.j  ,  0.68-0.j  ],
     ...            [-0.21-0.j  ,  0.47+0.05j, -0.21+0.j  ,  0.47-0.05j],
     ...            [ 0.00-0.08j,  0.05-0.54j,  0.00+0.08j,  0.05+0.54j]])
-    >>> Yn = normalize(X, Y)
+    >>> Yn = _normalize(X, Y)
     >>> Yn
     array([[ 0.58-0.05j,  0.12-0.06j,  0.58+0.05j,  0.12+0.06j],
            [ 0.01+1.24j, -0.07-0.82j,  0.01-1.24j, -0.07+0.82j],
@@ -156,7 +152,7 @@ def modes_system_undamped(M, K):
 
     L = la.cholesky(M)
     Linv = la.inv(L)
-    lam, P = eigen(Linv @ K @ Linv.T)
+    lam, P = _eigen(Linv @ K @ Linv.T)
     w = np.real(np.sqrt(lam))
     S = Linv @ P
     Sinv = P.T @ Linv
@@ -254,14 +250,14 @@ def modes_system(M, K, C=None):
     A = np.vstack([np.hstack([Z, I]),
                    np.hstack([-la.pinv(M) @ K, -la.pinv(M) @ C])])
 
-    w, X = eigen(A)
-    _, Y = eigen(A.T)
+    w, X = _eigen(A)
+    _, Y = _eigen(A.T)
 
     wd = np.imag(w)
     wn = np.absolute(w)
     zeta = (-np.real(w)/np.absolute(w))
 
-    Y = normalize(X, Y)
+    Y = _normalize(X, Y)
 
     print('Damping is non-proportional, eigenvectors are complex.')
 
@@ -432,21 +428,3 @@ def response_system(M, C, K, F, x0, v0, t):
     T, yout, xout = signal.lsim(sys, F, t, IC)
 
     return T, yout, xout
-
-
-if __name__ == "__main__":
-    import doctest
-
-    doctest.testmod(optionflags=doctest.ELLIPSIS)
-    # doctest.run_docstring_examples(frfest,globals(),optionflags=doctest.ELLIPSIS)
-    # doctest.run_docstring_examples(asd,globals(),optionflags=doctest.ELLIPSIS)
-    """ What this does.
-    python (name of this file)  -v
-    will test all of the examples in the help.
-
-    Leaving off -v will run the tests without any output. Success will return
-    nothing.
-
-    See the doctest section of the python manual.
-    https://docs.python.org/3.5/library/doctest.html
-    """
