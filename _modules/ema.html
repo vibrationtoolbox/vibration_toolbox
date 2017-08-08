@@ -1,0 +1,559 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ema &#8212; Vibration Toolbox 0.5.3 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.5.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jupyter-js-widgets@^2.0.13/dist/embed.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ema</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
+
+
+<div class="viewcode-block" id="frf"><a class="viewcode-back" href="../reference/ema.html#ema.frf">[docs]</a><span class="k">def</span> <span class="nf">frf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function will return the frequency response</span>
+<span class="sd">    function (H(iw)) of the sampled data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x: array</span>
+<span class="sd">        Array with the displacement data</span>
+<span class="sd">    f: array</span>
+<span class="sd">        Array with the force data</span>
+<span class="sd">    dt: float</span>
+<span class="sd">        Time step of the sampled data</span>
+<span class="sd">    n: int</span>
+<span class="sd">        Number of points in the fft</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    freq: array</span>
+<span class="sd">        Driving frequencies</span>
+<span class="sd">    mag: array</span>
+<span class="sd">        Magnitude of the frequency response function</span>
+<span class="sd">    ang: array</span>
+<span class="sd">        Phase of the frequency response function</span>
+<span class="sd">    coh: array</span>
+<span class="sd">        Coherence function</span>
+
+<span class="sd">        Plot with the frf magnitude, phase and</span>
+<span class="sd">        coherence.</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; # First we need to load the sampled data which in a .mat file</span>
+<span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
+<span class="sd">    &gt;&gt;&gt; import scipy.io as sio</span>
+<span class="sd">    &gt;&gt;&gt; data = sio.loadmat(vtb.__path__[0] + &#39;/data/frf_data1.mat&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; #print(data)</span>
+<span class="sd">    &gt;&gt;&gt; # Data is imported as arrays. Modify then to fit our function</span>
+<span class="sd">    &gt;&gt;&gt; x = data[&#39;x&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; x = x.reshape(len(x))</span>
+<span class="sd">    &gt;&gt;&gt; f = data[&#39;f&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; f = f.reshape(len(f))</span>
+<span class="sd">    &gt;&gt;&gt; dt = data[&#39;dt&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; dt = float(dt)</span>
+<span class="sd">    &gt;&gt;&gt; # Now we are able to call the function</span>
+<span class="sd">    &gt;&gt;&gt; freq, mag, ang, coh = vtb.frf(x, f, dt)</span>
+<span class="sd">    &gt;&gt;&gt; mag[10]</span>
+<span class="sd">    1.018394853080...</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># window</span>
+    <span class="c1"># apply window</span>
+    <span class="n">xw</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">w</span>
+    <span class="n">fw</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">w</span>
+    <span class="c1"># take ffts</span>
+    <span class="n">FX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">xw</span><span class="p">)</span>
+    <span class="n">FF</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">fw</span><span class="p">)</span>
+    <span class="c1"># calculate the spectral densities</span>
+    <span class="n">SXF</span> <span class="o">=</span> <span class="n">FF</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">FX</span><span class="p">)</span>
+    <span class="n">SXX</span> <span class="o">=</span> <span class="n">FX</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">FX</span><span class="p">)</span>
+    <span class="n">SFF</span> <span class="o">=</span> <span class="n">FF</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">FF</span><span class="p">)</span>
+    <span class="c1"># calculate the frequency response functions</span>
+    <span class="n">TXF</span> <span class="o">=</span> <span class="n">SXX</span> <span class="o">/</span> <span class="n">SXF</span>
+
+    <span class="n">lt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">TXF</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lt</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">lt</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>
+
+    <span class="n">TXF</span> <span class="o">=</span> <span class="n">TXF</span><span class="p">[:</span><span class="n">lt</span><span class="p">]</span>
+    <span class="n">mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">TXF</span><span class="p">)</span>
+    <span class="n">ang</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">TXF</span><span class="p">)</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+    <span class="n">coh</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">SXF</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">SXX</span> <span class="o">*</span> <span class="n">SFF</span><span class="p">)</span>
+    <span class="n">coh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">coh</span><span class="p">)</span>
+
+    <span class="c1"># plot H(w)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+    <span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$H(\omega)$ - Magnitude&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$H(\omega)$ - Phase&#39;</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$H(\omega)$ - Coherence&#39;</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">mag</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">ang</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">coh</span><span class="p">[:</span><span class="n">lt</span><span class="p">])</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">freq</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">ang</span><span class="p">,</span> <span class="n">coh</span></div>
+
+
+<div class="viewcode-block" id="plot_fft"><a class="viewcode-back" href="../reference/ema.html#ema.plot_fft">[docs]</a><span class="k">def</span> <span class="nf">plot_fft</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">time_response</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function will plot the fft given a time vector</span>
+<span class="sd">    and the system time response.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : array</span>
+<span class="sd">        Time array.</span>
+<span class="sd">    time_response : array</span>
+<span class="sd">        Array with the system&#39;s time response.</span>
+<span class="sd">    ax : matplotlib.axes, optional</span>
+<span class="sd">        Matplotlib axes where the amplitude will be plotted.</span>
+<span class="sd">        If None creates a new.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ax : array with matplotlib.axes, optional</span>
+<span class="sd">        Matplotlib axes array created with plt.subplots.</span>
+<span class="sd">        Plot has frequency in rad/s and magnitude in meters peak to peak.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
+<span class="sd">    &gt;&gt;&gt; t = np.linspace(0, 10, 1000)</span>
+<span class="sd">    &gt;&gt;&gt; time_response = 2 * np.sin(40*t)</span>
+<span class="sd">    &gt;&gt;&gt; vtb.plot_fft(t, time_response)</span>
+<span class="sd">    &lt;matplotlib.axes...</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+    <span class="n">Ts</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># sampling interval</span>
+    <span class="n">Fs</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">Ts</span>  <span class="c1"># sampling rate</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_response</span><span class="p">)</span>  <span class="c1"># length of the signal</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">n</span> <span class="o">/</span> <span class="n">Fs</span>
+    <span class="n">freq_range</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="n">T</span><span class="p">)[:(</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>  <span class="c1"># one side frequency range</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">time_response</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">/</span> <span class="n">n</span>  <span class="c1"># * 4 / n to normalize to pk-pk</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:(</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq_range</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">freq_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">freq_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Freq (rad/s)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude (m - pk-pk)&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ax</span></div>
+
+
+<div class="viewcode-block" id="sdof_cf"><a class="viewcode-back" href="../reference/ema.html#ema.sdof_cf">[docs]</a><span class="k">def</span> <span class="nf">sdof_cf</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">TF</span><span class="p">,</span> <span class="n">Fmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Fmax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Curve fit to a single degree of freedom FRF.</span>
+
+<span class="sd">    Only one peak may exist in the segment of the FRF passed to sdofcf. No</span>
+<span class="sd">    zeros may exist within this segment. If so, curve fitting becomes</span>
+<span class="sd">    unreliable.</span>
+
+<span class="sd">    If Fmin and Fmax are not entered, the first and last elements of TF are</span>
+<span class="sd">    used.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    f: array</span>
+<span class="sd">        The frequency vector in Hz. Does not have to start at 0 Hz.</span>
+<span class="sd">    TF: array</span>
+<span class="sd">        The complex transfer function</span>
+<span class="sd">    Fmin: int</span>
+<span class="sd">        The minimum frequency to be used for curve fitting in the FRF</span>
+<span class="sd">    Fmax: int</span>
+<span class="sd">        The maximum frequency to be used for curve fitting in the FRF</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    z: double</span>
+<span class="sd">        The damping ratio</span>
+<span class="sd">    nf: double</span>
+<span class="sd">        Natural frequency (Hz)</span>
+<span class="sd">    a: double</span>
+<span class="sd">        The numerator of the identified transfer functions</span>
+
+<span class="sd">        Plot of the FRF magnitude and phase.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; # First we need to load the sampled data which is in a .mat file</span>
+<span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
+<span class="sd">    &gt;&gt;&gt; import scipy.io as sio</span>
+<span class="sd">    &gt;&gt;&gt; data = sio.loadmat(vtb.__path__[0] + &#39;/data/case1.mat&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; #print(data)</span>
+<span class="sd">    &gt;&gt;&gt; # Data is imported as arrays. Modify then to fit our function.</span>
+<span class="sd">    &gt;&gt;&gt; TF = data[&#39;Hf_chan_2&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; f = data[&#39;Freq_domain&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; # Now we are able to call the function</span>
+<span class="sd">    &gt;&gt;&gt; z, nf, a = vtb.sdof_cf(f,TF,500,1000)</span>
+<span class="sd">    &gt;&gt;&gt; nf</span>
+<span class="sd">    212.092530551...</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># check fmin fmax existance</span>
+    <span class="k">if</span> <span class="n">Fmin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">inlow</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inlow</span> <span class="o">=</span> <span class="n">Fmin</span>
+
+    <span class="k">if</span> <span class="n">Fmax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">inhigh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inhigh</span> <span class="o">=</span> <span class="n">Fmax</span>
+
+    <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="n">inlow</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">inlow</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">inlow</span><span class="p">:</span><span class="n">inhigh</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">TF</span> <span class="o">=</span> <span class="n">TF</span><span class="p">[</span><span class="n">inlow</span><span class="p">:</span><span class="n">inhigh</span><span class="p">,</span> <span class="p">:]</span>
+
+    <span class="n">R</span> <span class="o">=</span> <span class="n">TF</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">TF</span><span class="p">))</span>
+    <span class="n">cin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">TF</span><span class="p">))</span>
+
+    <span class="n">ll</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span>
+
+    <span class="n">w2</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="mi">0</span>
+    <span class="n">R3</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ll</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">R3</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">ll</span> <span class="o">-</span> <span class="n">i</span><span class="p">])</span>
+        <span class="n">w2</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">ll</span> <span class="o">-</span> <span class="n">i</span><span class="p">])</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">w2</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">R3</span><span class="p">,</span> <span class="n">R</span><span class="p">))</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">R</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">w2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">w</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">w</span><span class="o">**</span><span class="n">N</span> <span class="o">*</span> <span class="n">R</span>
+
+    <span class="n">aa1</span> <span class="o">=</span> <span class="n">w2d</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)]</span> \
+        <span class="o">**</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)]</span> \
+        <span class="o">*</span> <span class="n">y</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)]</span>
+    <span class="n">aa2</span> <span class="o">=</span> <span class="o">-</span><span class="n">w2d</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> \
+        <span class="o">**</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="n">aa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">aa1</span><span class="p">,</span> <span class="n">aa2</span><span class="p">))</span>
+
+    <span class="n">aa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+
+    <span class="n">b</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+    <span class="n">rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span>
+                            <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                            <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span>
+    <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">nf</span> <span class="o">=</span> <span class="n">omega</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+    <span class="n">XoF1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">])]))</span>
+    <span class="n">XoF2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">w</span><span class="o">**</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">XoF3</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">XoF</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">XoF1</span><span class="p">,</span> <span class="n">XoF2</span><span class="p">,</span> <span class="n">XoF3</span><span class="p">))</span>
+
+    <span class="c1"># check if extra _ needed</span>
+
+    <span class="n">a</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">XoF</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+    <span class="n">XoF</span> <span class="o">=</span> <span class="n">XoF</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">ll</span><span class="p">),</span> <span class="p">:]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span>
+                <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">Fmin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">Fmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">phase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">TF</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">phase2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">XoF</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    <span class="k">while</span> <span class="n">phase2</span><span class="p">[</span><span class="n">cin</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+        <span class="n">phase2</span> <span class="o">=</span> <span class="n">phase2</span> <span class="o">-</span> <span class="mi">360</span>
+    <span class="n">phased</span> <span class="o">=</span> <span class="n">phase2</span><span class="p">[</span><span class="n">cin</span><span class="p">]</span> <span class="o">-</span> <span class="n">phase</span><span class="p">[</span><span class="n">cin</span><span class="p">]</span>
+    <span class="n">phase</span> <span class="o">=</span> <span class="n">phase</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">phased</span> <span class="o">/</span> <span class="mi">360</span><span class="p">)</span> <span class="o">*</span> <span class="mi">360</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Magnitude (dB)&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">XoF</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Identified FRF&quot;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">TF</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Experimental FRF&quot;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Phase (deg)&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">phase2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Identified FRF&quot;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Experimental FRF&quot;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">nf</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">z</span><span class="p">,</span> <span class="n">nf</span><span class="p">,</span> <span class="n">a</span></div>
+
+
+<div class="viewcode-block" id="mdof_cf"><a class="viewcode-back" href="../reference/ema.html#ema.mdof_cf">[docs]</a><span class="k">def</span> <span class="nf">mdof_cf</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">TF</span><span class="p">,</span> <span class="n">Fmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Fmax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Curve fit to multiple degree of freedom FRF</span>
+
+<span class="sd">    If Fmin and Fmax are not entered, the first and last elements of TF are</span>
+<span class="sd">    used.</span>
+
+<span class="sd">    If the first column of TF is a collocated (input and output location are</span>
+<span class="sd">    the same), then the mode shape returned is the mass normalized mode shape.</span>
+<span class="sd">    This can then be used to generate an identified mass, damping, and</span>
+<span class="sd">    stiffness matrix as shown in the following example.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    f: array</span>
+<span class="sd">        The frequency vector in Hz. Does not have to start at 0 Hz.</span>
+<span class="sd">    TF: array</span>
+<span class="sd">        The complex transfer function</span>
+<span class="sd">    Fmin: int</span>
+<span class="sd">        The minimum frequency to be used for curve fitting in the FRF</span>
+<span class="sd">    Fmax: int</span>
+<span class="sd">        The maximum frequency to be used for curve fitting in the FRF</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    z: double</span>
+<span class="sd">        The damping ratio</span>
+<span class="sd">    nf: double</span>
+<span class="sd">        Natural frequency (Hz)</span>
+<span class="sd">    u: array</span>
+<span class="sd">        The mode shape</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    FRF are columns comprised of the FRFs presuming single input, multiple</span>
+<span class="sd">    output z and nf are the damping ratio and natural frequency (Hz) u is the</span>
+<span class="sd">    mode shape. Only one peak may exist in the segment of the FRF passed to</span>
+<span class="sd">    sdofcf. No zeros may exist within this segment. If so, curve fitting</span>
+<span class="sd">    becomes unreliable.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; # First we need to load the sampled data which is in a .mat file</span>
+<span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
+<span class="sd">    &gt;&gt;&gt; import scipy.io as sio</span>
+<span class="sd">    &gt;&gt;&gt; data = sio.loadmat(vtb.__path__[0] + &#39;/data/case2.mat&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; #print(data)</span>
+<span class="sd">    &gt;&gt;&gt; # Data is imported as arrays. Modify then to fit our function</span>
+<span class="sd">    &gt;&gt;&gt; TF = data[&#39;Hf_chan_2&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; f = data[&#39;Freq_domain&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; # Now we are able to call the function</span>
+<span class="sd">    &gt;&gt;&gt; z, nf, a = vtb.mdof_cf(f,TF,500,1000)</span>
+<span class="sd">    &gt;&gt;&gt; nf</span>
+<span class="sd">    192.59382330...</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># check fmin fmax existance</span>
+    <span class="k">if</span> <span class="n">Fmin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">inlow</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inlow</span> <span class="o">=</span> <span class="n">Fmin</span>
+
+    <span class="k">if</span> <span class="n">Fmax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">inhigh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inhigh</span> <span class="o">=</span> <span class="n">Fmax</span>
+
+    <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="n">inlow</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">inlow</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">inlow</span><span class="p">:</span><span class="n">inhigh</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">TF</span> <span class="o">=</span> <span class="n">TF</span><span class="p">[</span><span class="n">inlow</span><span class="p">:</span><span class="n">inhigh</span><span class="p">,</span> <span class="p">:]</span>
+
+    <span class="n">R</span> <span class="o">=</span> <span class="n">TF</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="n">U</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">Hp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Hp</span><span class="p">)</span>
+
+    <span class="n">ll</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span>
+
+    <span class="n">w2</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="mi">0</span>
+    <span class="n">R3</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="mi">0</span>
+    <span class="n">TF2</span> <span class="o">=</span> <span class="n">TF</span> <span class="o">*</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ll</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">R3</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">ll</span> <span class="o">-</span> <span class="n">i</span><span class="p">])</span>
+        <span class="n">w2</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">ll</span> <span class="o">-</span> <span class="n">i</span><span class="p">])</span>
+        <span class="n">TF2</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">TF</span><span class="p">[</span><span class="n">ll</span> <span class="o">-</span> <span class="n">i</span><span class="p">,</span> <span class="p">:])</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">w2</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">R3</span><span class="p">,</span> <span class="n">R</span><span class="p">))</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">R</span><span class="p">)</span>
+
+    <span class="n">x</span><span class="p">,</span> <span class="n">w2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">w</span><span class="p">)</span>
+
+    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">w</span><span class="o">**</span><span class="n">N</span> <span class="o">*</span> <span class="n">R</span>
+
+    <span class="n">aa1</span> <span class="o">=</span> <span class="n">w2d</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)]</span> \
+        <span class="o">**</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)]</span> \
+        <span class="o">*</span> <span class="n">y</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)]</span>
+    <span class="n">aa2</span> <span class="o">=</span> <span class="o">-</span><span class="n">w2d</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> \
+        <span class="o">**</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="n">aa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">aa1</span><span class="p">,</span> <span class="n">aa2</span><span class="p">))</span>
+
+    <span class="n">b</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+    <span class="n">rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span>
+                            <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                            <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span>
+
+    <span class="c1"># irs = np.argsort(np.abs(np.imag(rs))) # necessary?</span>
+
+    <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">nf</span> <span class="o">=</span> <span class="n">omega</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+    <span class="n">XoF1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">((</span><span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">w</span><span class="p">))</span>
+
+    <span class="n">XoF2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">w</span><span class="o">**</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">XoF3</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="n">XoF</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">XoF1</span><span class="p">,</span> <span class="n">XoF2</span><span class="p">,</span> <span class="n">XoF3</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">TF3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">TF2</span><span class="p">,</span> <span class="n">TF</span><span class="p">))</span>
+
+    <span class="n">a</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">XoF</span><span class="p">,</span> <span class="n">TF3</span><span class="p">)</span>
+
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
+
+    <span class="n">u</span> <span class="o">=</span> <span class="n">u</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+
+    <span class="k">return</span> <span class="n">z</span><span class="p">,</span> <span class="n">nf</span><span class="p">,</span> <span class="n">u</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Vibration Toolbox</a></h1>
+
+
+
+<p class="blurb">Vibration Education in a Modern Environment</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download Tutorial Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Joseph C. Slater and Raphael Timbó.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-62100376-4']);
+      _gaq.push(['_setDomainName', 'none']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    
+  </body>
+</html>

@@ -8,3 +8,4 @@ _________
   mdof
   continuous
   vibe_system
+  ema
