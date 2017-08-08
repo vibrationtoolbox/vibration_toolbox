@@ -247,6 +247,7 @@ def sdof_cf(f, TF, Fmin=None, Fmax=None):
 
     b, _, _, _ = la.lstsq(aa, c)
 
+    print(b)
 #   Due to numpy adding an invisible extra dimension when vstacking I had to
 #   flatten the array.
 #   THE FOLLOWING LINE IS HORRIBLE HACKER CODE. KILL IT WITH FIRE.
@@ -278,7 +279,6 @@ def sdof_cf(f, TF, Fmin=None, Fmax=None):
     phased = phase2[cin] - phase[cin]
     phase = phase + np.round(phased / 360) * 360
 
-    # plot stuff
     fig = plt.figure()
     ax1 = fig.add_subplot(2, 1, 1)
     ax2 = fig.add_subplot(2, 1, 2)
@@ -296,7 +296,7 @@ def sdof_cf(f, TF, Fmin=None, Fmax=None):
     ax2.plot(f, phase, label="Experimental FRF")
     ax2.legend()
 
-    _ = plt.show()
+    plt.show()
 
     a = a[0]**2 / (2 * np.pi * nf)**2
     return z, nf, a
@@ -413,6 +413,7 @@ def mdof_cf(f, TF, Fmin=None, Fmax=None):
 
     b, _, _, _ = la.lstsq(aa, c)
 
+    # weird stacking put in by Loranger.
     rs = np.roots(np.ndarray.flatten(
         np.hstack(([1], b[np.arange(N - 1, -1, -1)]))))
     # irs = np.argsort(np.abs(np.imag(rs))) # necessary?
