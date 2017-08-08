@@ -25,16 +25,9 @@ For examples, see the `example ipynb notebooks <https://github.com/vibrationtool
 Installation of current development version
 ___________________________________________
 
-The usage documentation is far behind the current code, while the reference is way ahead of the released code due to the `autodoc <http://www.sphinx-doc.org/en/stable/ext/autodoc.html>`_ capability of `Sphinx <http://www.sphinx-doc.org/en/stable/>`_. Especially as of early 2017, the code is in rapid development. So is the documentation. Releases to `pypi <https://pypi.python.org/pypi>`_ are far behind current status as stopping to deploy would cost more time that it is worth. We have the objective of releasing a first non-beta version at the end of May, but even this cannot be promised.
+The usage documentation is far behind the current code, while the reference is way ahead of the released code due to the `autodoc <http://www.sphinx-doc.org/en/stable/ext/autodoc.html>`_ capability of `Sphinx <http://www.sphinx-doc.org/en/stable/>`_. Especially as of early 2017, the code is in rapid development. So is the documentation. Releases to `pypi <https://pypi.python.org/pypi>`_ are far behind current status as stopping to deploy would cost more time that it is worth.
 
-If you wish to install the current version of the software, download the newest ``wheel`` file from
-``https://github.com/vibrationtoolbox/vibration_toolbox/tree/master/dist``. This should be easy to understand, outside of what a ``wheel file`` is. Don't fret that. It's the full package as it currently stands (at lease the last time someone made a `wheel`).
-
-Then, type::
-
-  pip install --force-reinstall --upgrade --user dist/vibration_toolbox-0.5b9-py3-none-any.whl
-
-Where you see ``0.5.b9`` above, you will likely need to insert the correct version. We don't increment versions for each minor edit, so you may have to force upgrade.
+If you wish to install the current version of the software please see `CONTRIBUTING.rst <https://github.com/vibrationtoolbox/vibration_toolbox/blob/master/CONTRIBUTING.rst>`_.
 
 That should be it. Please note issues on the `issues tab <https://github.com/vibrationtoolbox/vibration_toolbox>`_ on github.
 
