@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import scipy.linalg as la
 
 
-__all__ = ['frf', 'plot_fft']
+#__all__ = ['frf', 'plot_fft']
 
 
 def frf(x, f, dt):
@@ -38,9 +38,9 @@ def frf(x, f, dt):
     Examples
     --------
     >>> # First we need to load the sampled data which in a .mat file
-    >>> import vibration_toolbox as vt
+    >>> import vibration_toolbox as vtb
     >>> import scipy.io as sio
-    >>> data = sio.loadmat(vt.__path__[0] + '/data/frf_data1.mat')
+    >>> data = sio.loadmat(vtb.__path__[0] + '/data/frf_data1.mat')
     >>> #print(data)
     >>> # Data is imported as arrays. We need to modify then to fit our function
     >>> x = data['x']
@@ -50,7 +50,7 @@ def frf(x, f, dt):
     >>> dt = data['dt']
     >>> dt = float(dt)
     >>> # Now we are able to call the function
-    >>> freq, mag, ang, coh = vt.frf(x, f, dt)
+    >>> freq, mag, ang, coh = vtb.frf(x, f, dt)
     >>> mag[10]
     1.018394853080...
     """
@@ -126,10 +126,10 @@ def plot_fft(t, time_response, ax=None):
 
     Examples
     --------
-    >>> import vibration_toolbox as vt
+    >>> import vibration_toolbox as vtb
     >>> t = np.linspace(0, 10, 1000)
     >>> time_response = 2 * np.sin(40*t)
-    >>> vt.plot_fft(t, time_response)
+    >>> vtb.plot_fft(t, time_response)
     <matplotlib.axes...
     """
     if ax is None:
@@ -187,15 +187,15 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     Examples
     --------
     >>> # First we need to load the sampled data which is in a .mat file
-    >>> import vibration_toolbox as vt
+    >>> import vibration_toolbox as vtb
     >>> import scipy.io as sio
-    >>> data = sio.loadmat(vt.__path__[0] + '/data/case1.mat')
+    >>> data = sio.loadmat(vtb.__path__[0] + '/data/case1.mat')
     >>> #print(data)
     >>> # Data is imported as arrays. We need to modify then to fit our function
     >>> TF = data['Hf_chan_2']
     >>> f = data['Freq_domain']
     >>> # Now we are able to call the function
-    >>> z, nf, a = vt.sdof_cf(f,TF,500,1000)
+    >>> z, nf, a = vtb.sdof_cf(f,TF,500,1000)
     >>> nf
     212.092530551...
     """
@@ -402,15 +402,15 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     Examples
     --------
     >>> # First we need to load the sampled data which is in a .mat file
-    >>> import vibration_toolbox as vt
+    >>> import vibration_toolbox as vtb
     >>> import scipy.io as sio
-    >>> data = sio.loadmat(vt.__path__[0] + '/data/case2.mat')
+    >>> data = sio.loadmat(vtb.__path__[0] + '/data/case2.mat')
     >>> #print(data)
     >>> # Data is imported as arrays. We need to modify then to fit our function
     >>> TF = data['Hf_chan_2']
     >>> f = data['Freq_domain']
     >>> # Now we are able to call the function
-    >>> z, nf, a = vt.mdof_cf(f,TF,500,1000)
+    >>> z, nf, a = vtb.mdof_cf(f,TF,500,1000)
     >>> nf
     192.59382330...
     """
