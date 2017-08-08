@@ -11,3 +11,4 @@ plt.ylabel('Displacement (m)')
 # <matplotlib.text.Text object at ...>
 plt.title('Mode 1')
 # <matplotlib.text.Text object at ...>
+plt.grid('on')

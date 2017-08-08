@@ -122,6 +122,7 @@
 <span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
 <span class="sd">    &gt;&gt;&gt; plt.title(&#39;Mode 1&#39;)</span>
 <span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    &gt;&gt;&gt; plt.grid(&#39;on&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">E</span> <span class="o">=</span> <span class="n">beamparams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -136,7 +137,7 @@
         <span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
     <span class="c1"># len=[0:(1/(npoints-1)):1]&#39;;  %Normalized length of the beam</span>
-    <span class="n">x_normed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">npoints</span><span class="p">,</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">x_normed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">npoints</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x_normed</span> <span class="o">*</span> <span class="n">L</span>
     <span class="c1"># Determine natural frequencies and mode shapes depending on the</span>
     <span class="c1"># boundary condition.</span>
@@ -341,6 +342,7 @@
     <span class="n">axlim</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">()</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">axlim</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
                                <span class="mf">0.1</span> <span class="o">*</span> <span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">])]))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="n">fout</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span>
     <span class="n">H</span> <span class="o">=</span> <span class="n">a</span>
@@ -483,6 +485,215 @@
 <span class="sd">    _, _ = uniform_bar_frf(xin, xout, fmin, fmax, zeta)</span>
 <span class="sd">    return</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="k">def</span> <span class="nf">uniform_bar_modes</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bctype</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">2001</span><span class="p">,</span>
+                      <span class="n">barparams</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mf">2747.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])):</span>
+    <span class="sd">&quot;&quot;&quot;Mode shapes and natural frequencies of Uniform bar/rod.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n: int, numpy array</span>
+<span class="sd">        highest mode number or array of mode numbers to return</span>
+<span class="sd">    bctype: int</span>
+<span class="sd">        bctype = 1 free-free</span>
+<span class="sd">        bctype = 2 fixed-free</span>
+<span class="sd">        bctype = 3 fixed-fixed</span>
+
+<span class="sd">    barparams: numpy array</span>
+<span class="sd">        E, rho, L</span>
+<span class="sd">        Young&#39;s modulus, density, length of bar</span>
+<span class="sd">    npoints: int</span>
+<span class="sd">        number of points for returned mode shape array</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    omega_n: numpy array</span>
+<span class="sd">        array of natural frequencies</span>
+<span class="sd">    x: numpy array</span>
+<span class="sd">        x coordinate</span>
+<span class="sd">    U: numpy array</span>
+<span class="sd">        mass normalized mode shape</span>
+
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
+<span class="sd">    &gt;&gt;&gt; omega_n, x, U, *_ = vtb.uniform_bar_modes(n=1)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; plt.plot(x,U)</span>
+<span class="sd">    [&lt;matplotlib.lines.Line2D object at ...&gt;]</span>
+<span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;x (m)&#39;)</span>
+<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;Displacement (m)&#39;)</span>
+<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    &gt;&gt;&gt; plt.title(&#39;Mode 1&#39;)</span>
+<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    &gt;&gt;&gt; plt.show()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="n">barparams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rho</span> <span class="o">=</span> <span class="n">barparams</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">barparams</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">ln</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="c1"># len=[0:(1/(npoints-1)):1]&#39;;  %Normalized length of the bar</span>
+    <span class="n">lenth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">npoints</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">lenth</span> <span class="o">*</span> <span class="n">L</span>
+    <span class="c1"># Determine natural frequencies and mode shapes depending on the</span>
+    <span class="c1"># boundary condition.</span>
+    <span class="c1"># Mass simplification. The following was arange_(1,length_(n)).reshape(-1)</span>
+    <span class="n">mode_num_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ln</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">ln</span><span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">npoints</span><span class="p">,</span> <span class="n">ln</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Free-Free &#39;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">/</span> <span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="n">L</span>
+            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">lenth</span> <span class="o">/</span> <span class="n">L</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Fixed-Free &#39;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">/</span> <span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
+            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">lenth</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Fixed-Fixed &#39;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">E</span> <span class="o">/</span> <span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="n">L</span>
+            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">lenth</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L</span><span class="p">))</span>
+            <span class="c1"># Mass Normalization of mode shapes</span>
+            <span class="c1"># for i in mode_num_range:</span>
+            <span class="c1"># U[:, i] = U[:, i] / np.sqrt(np.dot(U[:, i], U[:, i]) * rho * L)</span>
+
+    <span class="n">omega_n</span> <span class="o">=</span> <span class="n">w</span>
+    <span class="k">return</span> <span class="n">omega_n</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">U</span>
+
+<span class="k">def</span> <span class="nf">torsional_bar_modes</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bctype</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cstype</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">2001</span><span class="p">,</span>
+                     <span class="n">tbarparams</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">7.8e9</span><span class="p">,</span> <span class="mf">8.4375e-09</span><span class="p">,</span>
+                                          <span class="mf">2747.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">]),</span> <span class="n">cspar</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span><span class="o">.</span><span class="mi">2</span><span class="p">])):</span>
+    <span class="sd">&quot;&quot;&quot;Mode shapes and natural frequencies of Torsional bar.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n: int, numpy array</span>
+<span class="sd">        highest mode number or array of mode numbers to return</span>
+<span class="sd">    bctype: int</span>
+<span class="sd">        bctype = 1 free-free</span>
+<span class="sd">        bctype = 2 fixed-free</span>
+<span class="sd">        bctype = 3 fixed-fixed</span>
+<span class="sd">    tbarparams: numpy array</span>
+<span class="sd">        G, J, rho, L</span>
+<span class="sd">        Shear modulus, Polar moment of area, density,</span>
+<span class="sd">        length of bar</span>
+<span class="sd">    npoints: int</span>
+<span class="sd">        number of points for returned mode shape array</span>
+<span class="sd">    cspar: float</span>
+<span class="sd">        Cross-section parameters</span>
+<span class="sd">    cstype: numpy array</span>
+<span class="sd">        Cross-section type</span>
+<span class="sd">        cstype =1 is a circular shaft and cspar = R.</span>
+<span class="sd">        cstype = 2 is a hollow circular shaft and cspar = [R1 R2]</span>
+<span class="sd">        cstype = 3 is a square shaft and cspar = a</span>
+<span class="sd">        cstype = 4 is a hollow rectangular shaft and cspar = [a b A B]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    omega_n: numpy array</span>
+<span class="sd">        array of natural frequencies</span>
+<span class="sd">    x: numpy array</span>
+<span class="sd">        x coordinate</span>
+<span class="sd">    U: numpy array</span>
+<span class="sd">        mass normalized mode shape</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; import vibration_toolbox as vtb</span>
+<span class="sd">    &gt;&gt;&gt; omega_n, x, U,*_ = vtb.torsional_bar_modes(n=1)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; plt.plot(x,U)</span>
+<span class="sd">    [&lt;matplotlib.lines.Line2D object at ...&gt;]</span>
+<span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;x (m)&#39;)</span>
+<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;Displacement (m)&#39;)</span>
+<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    &gt;&gt;&gt; plt.title(&#39;Mode 1&#39;)</span>
+<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    &gt;&gt;&gt; plt.grid(&#39;on&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">G</span> <span class="o">=</span> <span class="n">tbarparams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">J</span> <span class="o">=</span> <span class="n">tbarparams</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">rho</span> <span class="o">=</span> <span class="n">tbarparams</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">tbarparams</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">cstype</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">cspar</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">R</span> <span class="o">**</span> <span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">cstype</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">R1</span> <span class="o">=</span> <span class="n">cspar</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">R2</span> <span class="o">=</span> <span class="n">cspar</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">R2</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">-</span> <span class="n">R1</span> <span class="o">**</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">cstype</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">cspar</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="o">.</span><span class="mi">1406</span> <span class="o">*</span> <span class="n">a</span> <span class="o">**</span> <span class="mi">4</span>
+    <span class="k">elif</span> <span class="n">cstype</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cspar</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Not enough parameters for cstype 4&quot;</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">cspar</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">cspar</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">cspar</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">cspar</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">B</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">A</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">B</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">A</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">B</span> <span class="o">-</span> <span class="n">A</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">B</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">g</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The constant gamma is less than or equal to zero.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">ln</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="n">lenth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">npoints</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">lenth</span> <span class="o">*</span> <span class="n">L</span>
+
+    <span class="c1"># Determine natural frequencies and mode shapes depending on the</span>
+    <span class="c1"># boundary condition.</span>
+    <span class="c1"># Mass simplification. The following was arange_(1,length_(n)).reshape(-1)</span>
+    <span class="n">mode_num_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ln</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">ln</span><span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">npoints</span><span class="p">,</span> <span class="n">ln</span><span class="p">])</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">G</span><span class="o">*</span><span class="n">g</span><span class="o">/</span><span class="p">(</span><span class="n">rho</span><span class="o">*</span><span class="n">J</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Free-Free &#39;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="o">/</span> <span class="n">L</span>
+            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="n">L</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Fixed-Free &#39;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">c</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
+            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;Fixed-Fixed &#39;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="o">/</span> <span class="n">L</span>
+            <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="n">L</span><span class="p">)</span>
+
+    <span class="c1"># Mass Normalization of mode shapes</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
+        <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">U</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
+
+    <span class="n">omega_n</span> <span class="o">=</span> <span class="n">w</span>
+    <span class="k">return</span> <span class="n">omega_n</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">U</span>
+
 </pre></div>
 
           </div>
