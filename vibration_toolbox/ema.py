@@ -126,9 +126,10 @@ def plot_fft(t, time_response, ax=None):
 
     Examples
     --------
+    >>> import vibration_toolbox as vt
     >>> t = np.linspace(0, 10, 1000)
     >>> time_response = 2 * np.sin(40*t)
-    >>> plot_fft(t, time_response)
+    >>> vt.plot_fft(t, time_response)
     <matplotlib.axes...
     """
     if ax is None:
@@ -154,13 +155,13 @@ def plot_fft(t, time_response, ax=None):
 def sdof_cf(f,TF,Fmin=None,Fmax=None):
     """
     Curve fit to a single degree of freedom FRF.
-    
+
     Only one peak may exist in the segment of the FRF passed to sdofcf. No
     zeros may exist within this segment. If so, curve fitting becomes
-    unreliable. 
- 
+    unreliable.
+
     If Fmin and Fmax are not entered, the first and last elements of TF are used.
-    
+
     Parameters
     ----------
     f: array
@@ -171,7 +172,7 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
         The minimum frequency to be used for curve fitting in the FRF
     Fmax: int
         The maximum frequency to be used for curve fitting in the FRF
-        
+
     Returns
     -------
     z: double
@@ -180,9 +181,9 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
         Natural frequency (Hz)
     a: double
         The numerator of the identified transfer functions
-    
+
         Plot of the FRF magnitude and phase.
-    
+
     Examples
     --------
     >>> # First we need to load the sampled data which is in a .mat file
@@ -194,41 +195,41 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     >>> TF = data['Hf_chan_2']
     >>> f = data['Freq_domain']
     >>> # Now we are able to call the function
-    >>> z, nf, a = sdof_cf(f,TF,500,1000)
+    >>> z, nf, a = vt.sdof_cf(f,TF,500,1000)
     >>> nf
-    212.092530551...    
+    212.092530551...
     """
-    
+
     #check fmin fmax existance
     if Fmin is None:
         inlow = 0
     else:
         inlow = Fmin
-    
+
     if Fmax is None:
         inhigh = np.size(f)
     else:
         inhigh = Fmax
-    
+
     if f[inlow] == 0:
         inlow = 1
-    
+
     f = f[inlow:inhigh,:]
     TF = TF[inlow:inhigh,:]
-    
+
     R = TF
     y = np.amax(np.abs(TF))
     cin = np.argmax(np.abs(TF))
-    
+
     #works
-    
+
     ll = np.size(f)
-    
+
     w = f*2*np.pi*1j
-    
+
     w2 = w*0
     R3 = R*0
-    
+
     for i in range(1, ll+1):
         R3[i-1] = np.conj(R[ll-i])
         w2[i-1] = np.conj(w[ll-i])
@@ -239,8 +240,8 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
 
     w = np.vstack((w2,w))
     R = np.vstack((R3,R))
-    
-    
+
+
     N = 2
     x, y = np.meshgrid(np.arange(0,N+1),R)
     x, w2d = np.meshgrid(np.arange(0,N+1),w)
@@ -258,10 +259,10 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     aa2 = -w2d[:,np.arange(0,N+1)] \
               **x[:,np.arange(0,N+1)]
     aa = np.hstack((aa1,aa2))
-    
+
     aa = np.reshape(aa,[-1,5])
 #    c = np.mat(c).T
-    
+
     #np.linalg.division()
 #    scalef = np.abs(np.min(aa)-np.max(aa))
     b,_,_,_ = la.lstsq(aa,c)
@@ -269,7 +270,7 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     #temporary
 #    b = np.array([[1.7914*10**6+4.5242*10**-1*1j],[-.1668+.0003*1j],[.0000+.0000*1j],[-1.0038*10**4-8.8731*10**-3*1j],[14.8662-.0000*1j]])
 #    print(b.shape)
-#    input() 
+#    input()
 #    sel = np.arange(N-1,-1,-1)
 #    print(sel)
 #    print(np.vstack((1,b[sel])))
@@ -288,7 +289,7 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
 #    irs = np.argsort(np.abs(np.imag(rs)))
 #    print(irs)
 #    input()
-    
+
 #    rs = rs[irs]
 #    print(rs)
 #    input()
@@ -304,7 +305,7 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
 #    print(XoF3)
 #    input()
     XoF = np.hstack((XoF1, XoF2, XoF3))
-    
+
     #check if extra _ needed
 
     a,_,_,_ = la.lstsq(XoF,R)
@@ -320,23 +321,23 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     phase = np.unwrap(np.angle(TF),np.pi,0)*180/np.pi
     phase2 = np.unwrap(np.angle(XoF),np.pi,0)*180/np.pi
 #    phase3 = np.angle(TF)*180/np.pi
-    
+
 #    print(TF)
 #    print(np.angle(TF))
 #    print(np.unwrap(np.angle(TF)))
 #    print(phase2)
-#    input()    
+#    input()
     while phase2[cin] > 50:
         phase2 = phase2 - 360
     phased = phase2[cin]-phase[cin]
     phase = phase+np.round(phased/360)*360
-   
+
     #plot stuff
     fig = plt.figure()
     ax1 = fig.add_subplot(2,1,1)
     ax2 = fig.add_subplot(2,1,2)
     fig.tight_layout()
-    
+
 #    ax1.set_legend('Identified FRF','Experimental FRF')
     ax1.set_xlabel('Frequency (Hz)')
     ax1.set_ylabel('Magnitude (dB)')
@@ -352,19 +353,19 @@ def sdof_cf(f,TF,Fmin=None,Fmax=None):
     ax2.legend()
 #    ax2.plot(f,phase)
 #    ax2.grid()
-    
+
     _ = plt.show()
-    
+
     a = a[0]**2/(2*np.pi*nf)**2
     return z, nf, a
 
 
 def mdof_cf(f,TF,Fmin=None,Fmax=None):
     """
-    Curve fit to multiple degree of freedom FRF 
-    
+    Curve fit to multiple degree of freedom FRF
+
     If Fmin and Fmax are not entered, the first and last elements of TF are used.
-    
+
     If the first column of TF is a collocated (input and output location are
     the same), then the mode shape returned is the mass normalized mode shape.
     This can then be used to generate an identified mass, damping, and
@@ -379,7 +380,7 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     Fmin: int
         The minimum frequency to be used for curve fitting in the FRF
     Fmax: int
-        The maximum frequency to be used for curve fitting in the FRF        
+        The maximum frequency to be used for curve fitting in the FRF
 
     Returns
     -------
@@ -389,15 +390,15 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
         Natural frequency (Hz)
     u: array
         The mode shape
-        
+
     Notes
     -----
     FRF are columns comprised of the FRFs presuming single input, multiple
     output z and nf are the damping ratio and natural frequency (Hz) u is the
-    mode shape. Only one peak may exist in the segment of the FRF passed to 
+    mode shape. Only one peak may exist in the segment of the FRF passed to
     sdofcf. No zeros may exist within this segment. If so, curve fitting
-    becomes unreliable. 
-    
+    becomes unreliable.
+
     Examples
     --------
     >>> # First we need to load the sampled data which is in a .mat file
@@ -409,22 +410,22 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     >>> TF = data['Hf_chan_2']
     >>> f = data['Freq_domain']
     >>> # Now we are able to call the function
-    >>> z, nf, a = mdof_cf(f,TF,500,1000)
+    >>> z, nf, a = vt.mdof_cf(f,TF,500,1000)
     >>> nf
-    192.59382330...  
+    192.59382330...
     """
-    
+
     #check fmin fmax existance
     if Fmin is None:
         inlow = 0
     else:
         inlow = Fmin
-    
+
     if Fmax is None:
         inhigh = np.size(f)
     else:
         inhigh = Fmax
-        
+
     if f[inlow] == 0:
         inlow = 1
 
@@ -437,10 +438,10 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
     T = U[:,0]
     Hp = np.transpose(T).dot(R)
     R = np.transpose(Hp)
-    
+
     ll = np.size(f)
     w = f*2*np.pi*1j
-    
+
     w2 =w*0
     R3 = R*0
     TF2 = TF*0
@@ -448,30 +449,30 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
         R3[i-1] = np.conj(R[ll-i])
         w2[i-1] = np.conj(w[ll-i])
         TF2[i-1,:] = np.conj(TF[ll-i,:])
-        
-        
+
+
     w = np.vstack((w2,w))
     R = np.hstack((R3,R))
-     
-    
+
+
     N = 2
     x, y = np.meshgrid(np.arange(0,N+1),R)
-    
-    
+
+
     x, w2d = np.meshgrid(np.arange(0,N+1),w)
 
     R = np.ndarray.flatten(R)
     w = np.ndarray.flatten(w)
     c = -1*w**N*R
 
-    
+
     aa1 = w2d[:,np.arange(0,N)] \
               **x[:,np.arange(0,N)] \
               *y[:,np.arange(0,N)]
     aa2 = -w2d[:,np.arange(0,N+1)] \
               **x[:,np.arange(0,N+1)]
     aa = np.hstack((aa1,aa2))
-    
+
 #    b = la.pinv(aa).dot(c)
 #    print(np.shape(b))
 #    print(b)
@@ -483,7 +484,7 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
 #    print(np.ndim(b))
 #    print(b)
 #    input()
-    
+
 #    b = np.array([[1.4653*10**6+5.9440*10**-2*1j],[.3220+.0003*1j],[-.7349+.0000*1j],[-7.2824*10**3-4.7231*10**-3*1j],[46.8541-.0000*1j]])
 #    #rs = np.roots([1,b[]])
 #    print(np.shape(b))
@@ -491,7 +492,7 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
 #    print(np.ndim(b))
 #    print(b)
 #    input()
-    
+
     temp = np.hstack(([1],b[np.arange(N-1,-1,-1)]))
 #    print([1])
 #    print(b[np.arange(N-1,-1,-1)])
@@ -499,59 +500,59 @@ def mdof_cf(f,TF,Fmin=None,Fmax=None):
 #    print(np.ndim(temp))
 #    print(temp)
 #    input()
-    
+
     rs = np.roots(np.ndarray.flatten(np.hstack(([1],b[np.arange(N-1,-1,-1)]))))
     irs = np.argsort(np.abs(np.imag(rs)))
     #rs = rs[irs]
-    
+
     omega = np.abs(rs[1])
     z = -1*np.real(rs[1])/np.abs(rs[1])
     nf = omega/2/np.pi
-    
-    
+
+
 #    print('w')
 #    print(np.shape(w))
-#    print(w)    
+#    print(w)
 #    print('rs')
 #    print(np.shape(rs))
 #    print(rs)
-    
+
     XoF1 = 1/((rs[0]-w)*(rs[1]-w))
-    
+
 #    print('XoF1')
 #    print(np.shape(XoF1))
-#    print(XoF1)    
-    
+#    print(XoF1)
+
     XoF2 = 1/(w**0)
     XoF3 = 1/w**2
-    
+
     XoF = np.vstack((XoF1, XoF2, XoF3)).T
     TF3 = np.vstack((TF2,TF))
-    
+
 #    print('XoF')
 #    print(np.shape(XoF))
-#    print(XoF)    
+#    print(XoF)
 #    print('TF3')
 #    print(np.shape(TF3))
 #    print(TF3)
-    
+
     a,_,_,_ = la.lstsq(XoF,TF3)
     #a = np.array([[-.0038+.0000j],[1.0856*10**2+1.3323j*10**-4],[1.1160*10**3+9.6690j*10**-4]])
 #    print('a')
 #    print(np.shape(a))
-#    print(a)     
-    
+#    print(a)
+
     u = np.transpose(a[0,:])
 #    print('u')
 #    print(np.shape(u))
 #    print(u)
-    
+
     u = u/np.sqrt(np.abs(a[0,0]))
 #    print('u')
 #    print(np.shape(u))
 #    print(u)
 #    input()
-    
+
     #plot stuff?
-    
+
     return z, nf, u
