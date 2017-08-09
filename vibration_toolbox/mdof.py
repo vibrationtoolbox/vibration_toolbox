@@ -114,10 +114,14 @@ def _normalize(X, Y):
 
 
 def modes_system_undamped(M, K):
-    """
-    This function will return the natural frequencies (w),
-    eigenvectors (P), mode shapes (S) abd the modal transformation
-    matrix S^-1(takes x -> r(modal coordinates) for an undamped system.
+    """Natural frequencies, mass-normalized mode shapes and eigenvectors of
+    MDOF system
+
+    Returns the natural frequencies (w),
+    eigenvectors (P), mode shapes (S) and the modal transformation
+    matrix S for an undamped system.
+
+    See Notes for explanation of the underlying math.
 
     Parameters
     ----------
@@ -133,9 +137,40 @@ def modes_system_undamped(M, K):
     P: array
         The eigenvectors of the system are.
     S: array
-        The mode shapes of the system.
+        The mass-normalized mode shapes of the system.
     Sinv: array
         The modal transformation matrix S^-1(takes x -> r(modal coordinates))
+
+    Notes
+    -----
+    Given :math:`M\ddot{x}(t)+Kx(t)=0`, with mode shapes :math:`u`, the matrix
+    of mode shapes :math:`S=[u_1 u_1 \ldots]` can be created. If the modal
+    coordinates are the vector :math:`r(t)`. The modal transformation separates
+    space and time from :math:`x(t)` such that :math:`x(t)=S r(t)`.
+    Substituting into the governing equation:
+
+    :math:`MS\ddot{r}(t)+KSr(t)=0`
+
+    Premultiplying by :math:`S^T`
+
+    :math:`S^TMS\ddot{r}(t)+S^TKSr(t)=0`
+
+    The matrices :math:`S^TMS` and :math:`S^TKS` will be diagonalized by this
+    process (:math:`u_i` are the eigenvectors of :math:`M^{-1}K`).
+
+    If scaled properly (mass normalized so :math:`u_i^TMu_i=1`) then
+    :math:`S^TMS=I` and :math:`S^TKS=\Omega^2` where :math:`\Omega^2` is a
+    diagonal matrix of the natural frequencies squared in radians per second.
+
+    Further, inverses are unstable so the better way to solve linear equations is with
+    Gauss elimination.
+
+    :math:`AB=C` given known :math:`A` and :math:`C`
+    is solved using `la.solve(A,C)`.
+
+    :math:`BA=C` given known :math:`A` and :math:`C` is solved by first
+    transposing the equation to :math:`A^TB^T=C^T`, then solving for
+    :math:`C^T`. The resulting command is `la.solve(A.T,C.T).T`
 
     Examples
     >>> M = np.array([[4, 0, 0],
@@ -147,16 +182,22 @@ def modes_system_undamped(M, K):
     >>> w, P, S, Sinv = modes_system_undamped(M, K)
     >>> w
     array([ 0.45,  1.25,  1.8 ])
-
+    >>> S
+    array([[ 0.16, -0.37, -0.3 ],
+       [ 0.3 , -0.16,  0.37],
+       [ 0.37,  0.3 , -0.16]])
     """
 
     L = la.cholesky(M)
     Linv = la.inv(L)
-    # lam, P = _eigen(Linv @ K @ Linv.T)
+    lam, P = _eigen(Linv @ K @ Linv.T)
     lam, P = _eigen(la.solve(L, K) @ Linv.T)
+    lam, P = _eigen(la.solve(L, la.solve(L, K).T).T)
     w = np.real(np.sqrt(lam))
-    S = la.solve(L, P)# Linv @ P
-    Sinv = P.T @ Linv
+    #S = Linv @ P
+    S = la.solve(L, P)#
+    #Sinv = P.T @ Linv
+    Sinv = la.solve(L.T, P).T
 
     return w, P, S, Sinv
 
@@ -249,7 +290,7 @@ def modes_system(M, K, C=None):
 
     # creates the state space matrix
     A = np.vstack([np.hstack([Z, I]),
-                   np.hstack([-la.pinv(M) @ K, -la.pinv(M) @ C])])
+                   np.hstack([-Minv @ K, -Minv @ C])])
 
     w, X = _eigen(A)
     _, Y = _eigen(A.T)
