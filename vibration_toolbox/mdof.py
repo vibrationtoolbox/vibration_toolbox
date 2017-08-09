@@ -233,10 +233,10 @@ def modes_system(M, K, C=None):
     --------
     >>> M = np.array([[1, 0],
     ...               [0, 1]])
-    >>> K = np.array([[1, -0.4],
-    ...               [0.4, 6]])
-    >>> C = np.array([[0.3, -4],
-    ...               [4, 0.2]])
+    >>> K = np.array([[2, -1],
+    ...               [-1, 6]])
+    >>> C = np.array([[0.3, -0.02],
+    ...               [-0.02, 0.1]])
     >>> wn, wd, zeta, X, Y = modes_system(M, K, C)
     Damping is non-proportional, eigenvectors are complex.
     >>> wn
@@ -297,6 +297,7 @@ def modes_system(M, K, C=None):
     wd = np.imag(w)
     wn = np.absolute(w)
     zeta = (-np.real(w)/np.absolute(w))
+
 
     Y = _normalize(X, Y)
 
