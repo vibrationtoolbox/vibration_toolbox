@@ -166,11 +166,11 @@ def modes_system_undamped(M, K):
     Gauss elimination.
 
     :math:`AB=C` given known :math:`A` and :math:`C`
-    is solved using `la.solve(A,C)`.
+    is solved using `la.solve(A, C, assume_a='pos')`.
 
     :math:`BA=C` given known :math:`A` and :math:`C` is solved by first
     transposing the equation to :math:`A^TB^T=C^T`, then solving for
-    :math:`C^T`. The resulting command is `la.solve(A.T,C.T).T`
+    :math:`C^T`. The resulting command is `la.solve(A.T, C.T, assume_a='pos').T`
 
     Examples
     >>> M = np.array([[4, 0, 0],
@@ -267,11 +267,11 @@ def modes_system(M, K, C=None):
 
     Z = np.zeros((n, n))
     I = np.eye(n)
-    Minv = la.inv(M)
 
     if (C is None or np.all(C == 0) or  # check if C has only zero entries
-            la.norm(Minv @ C @ K - Minv @ K @ C, 2) <
-            1e-8*la.norm(Minv @ K @ C, 2)):
+            la.norm(la.solve(M, C, assume_a='pos') @ K 
+                    - la.solve(M, K, assume_a='pos') @ C, 2) <
+                    1e-8*la.norm(la.solve(M, K, assume_a='pos') @ C, 2)):
         w, P, S, Sinv = modes_system_undamped(M, K)
         wn = w
         wd = w
@@ -286,7 +286,8 @@ def modes_system(M, K, C=None):
 
     # creates the state space matrix
     A = np.vstack([np.hstack([Z, I]),
-                   np.hstack([-Minv @ K, -Minv @ C])])
+                   np.hstack([-la.solve(M, K, assume_a='pos'),
+                              -la.solve(M, C, assume_a='pos')])])
 
     w, X = _eigen(A)
     _, Y = _eigen(A.T)
@@ -356,7 +357,7 @@ def response_system_undamped(M, K, x0, v0, max_time):
 
     # creates the state space matrix
     A = np.vstack([np.hstack([Z,               I]),
-                   np.hstack([-la.pinv(M) @ K, Z])])
+                   np.hstack([-la.solve(M, K, assume_a='pos'), Z])])
 
     # creates the x array and set the first line according to the initial
     # conditions
@@ -453,7 +454,8 @@ def response_system(M, C, K, F, x0, v0, t):
 
     # creates the state space matrix
     A = np.vstack([np.hstack([Z,               I]),
-                   np.hstack([-la.pinv(M) @ K, -la.pinv(M) @ C])])
+                   np.hstack([-la.solve(M, K, assume_a='pos'),
+                              -la.solve(M, C, assume_a='pos')])])
     B = np.vstack([Z,
                    la.inv(M)])
     C = np.eye(2*n)
