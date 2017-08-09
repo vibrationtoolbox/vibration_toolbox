@@ -255,7 +255,7 @@ def modes_system(M, K, C=None):
            [ 0.01+1.26j, -0.06-0.83j,  0.01-1.26j, -0.06+0.83j],
            [-0.00-0.3j ,  0.02-0.58j, -0.00+0.3j ,  0.02+0.58j],
            [ 0.11+0.j  , -0.66-0.01j,  0.11-0.j  , -0.66+0.01j]])
-    >>> C = K*2 # with proportional damping
+    >>> C = 0.2*K # with proportional damping
     >>> wn, wd, zeta, X, Y = modes_system(M, K, C)
     Damping is proportional or zero, eigenvectors are real
     >>> X
@@ -269,13 +269,15 @@ def modes_system(M, K, C=None):
     I = np.eye(n)
 
     if (C is None or np.all(C == 0) or  # check if C has only zero entries
-            la.norm(la.solve(M, C, assume_a='pos') @ K 
+            la.norm(la.solve(M, C, assume_a='pos') @ K
                     - la.solve(M, K, assume_a='pos') @ C, 2) <
                     1e-8*la.norm(la.solve(M, K, assume_a='pos') @ C, 2)):
         w, P, S, Sinv = modes_system_undamped(M, K)
         wn = w
         wd = w
-        zeta = None
+        #zeta = None
+        zeta = np.diag(S.T@C@S)/2/wn
+        wd = wn*np.sqrt(1-zeta**2)
         X = P
         Y = P
         print('Damping is proportional or zero, eigenvectors are real')
