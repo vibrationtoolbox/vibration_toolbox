@@ -189,14 +189,9 @@ def modes_system_undamped(M, K):
     """
 
     L = la.cholesky(M)
-    Linv = la.inv(L)
-    lam, P = _eigen(Linv @ K @ Linv.T)
-    lam, P = _eigen(la.solve(L, K) @ Linv.T)
     lam, P = _eigen(la.solve(L, la.solve(L, K).T).T)
     w = np.real(np.sqrt(lam))
-    #S = Linv @ P
-    S = la.solve(L, P)#
-    #Sinv = P.T @ Linv
+    S = la.solve(L, P)
     Sinv = la.solve(L.T, P).T
 
     return w, P, S, Sinv
