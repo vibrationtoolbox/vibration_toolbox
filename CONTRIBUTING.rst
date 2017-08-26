@@ -9,7 +9,7 @@ To contribute code we recommend you follow these steps:
 
 #. Fork the repository on github
 
-#. Create a new branch and add your code/make your modifications, committing to your branch.
+#. Create a new branch.
 
 #. Set up travis-ci for your branch. This is actually pretty quick and easy:
 
@@ -28,6 +28,8 @@ To contribute code we recommend you follow these steps:
     $ pip install -e .
 
    This will allow you to edit the code while having it pretend to be installed. Keep in mind, if you have actually installed the ``vibration toolbox`` you may have a conflict. You must uninstall it and install your development version with the command above.
+
+#.  Add your code/make your modifications, committing to your branch.
 
 #. If a new function is added
    please provide docstrings following the `Numpy standards for docstrings <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`_.
