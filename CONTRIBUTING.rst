@@ -9,9 +9,7 @@ To contribute code we recommend you follow these steps:
 
 #. Fork the repository on github
 
-#. Create a new branch.
-
-#. Set up travis-ci for your branch. This is actually pretty quick and easy:
+#. Set up travis-ci for your fork. This is actually pretty quick and easy:
 
   #. Go to settings on github for your fork.
 
@@ -29,7 +27,15 @@ To contribute code we recommend you follow these steps:
 
    This will allow you to edit the code while having it pretend to be installed. Keep in mind, if you have actually installed the ``vibration toolbox`` you may have a conflict. You must uninstall it and install your development version with the command above.
 
-#.  Add your code/make your modifications, committing to your branch.
+#. Add your code/make your modifications, committing to your branch.
+
+  #. On some applications you need to stage then commit. 
+   
+  #. After committing, some applications will require you to do a push-pull
+   
+    #. The pull makes sure that what's on your computer is up to date with what's in your fork on GitHub. 
+    
+    #. The push moves your changes to the GitHub repository. 
 
 #. If a new function is added
    please provide docstrings following the `Numpy standards for docstrings <https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt>`_.
@@ -61,16 +67,15 @@ To contribute code we recommend you follow these steps:
 
      $ pytest
 
-
     1. To run the tests from ``pycharm`` you can do: Run -> Edit Configurations -> Add -> python tests -> pytest Then just set the path to the project directory.
 
     2. To run the tests from ``spyder`` see `spyder-unittest <https://github.com/spyder-ide/spyder-unittest`_.
 
 #. Commit and check `travis-ci <https://travis-ci.org/vibrationtoolbox/vibration_toolbox>`_ tests regularly. Having a great number of changes before a commit can make tracing errors very hard. Make sure you are looking at your branch when assessing whether it's working.
 
-#. You may need to `update from the main repository <https://www.sitepoint.com/quick-tip-sync-your-fork-with-the-original-without-the-cli/>`_ before submitting a pull request. This allows you to see the complete results before we look at them.  If it doesn't work, the pull will (should) be denied. This can be a bit daunting for some, so it's recommended but not necessary. 
+#. `Update from the main repository <https://www.sitepoint.com/quick-tip-sync-your-fork-with-the-original-without-the-cli/>`_ regularly, and certainly before submitting a pull request. This allows you to see the complete results before we look at them.  If it doesn't work, the pull will (should) be denied.  
 
-#. If the tests are passing, make a git pull (in your GitHub app) to assure that your code is up to date with the master branch and that your code has no conflicts with the current base. Doing this regularly ensures that your accumulated edits won't be massively in conflict with the existing code base. After that, push your branch to github and then open a pull request.
+#. If the tests are passing, make a git pull (in your GitHub app) to assure that your code is up to date with your master branch and that your code has no conflicts with the current base. Doing this regularly ensures that your accumulated edits won't be massively in conflict with the existing code base. After that, push your branch to GitHub and then open a pull request on GitHub.
 
 Instructions bellow are directed to main developers
 ===================================================
