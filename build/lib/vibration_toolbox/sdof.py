@@ -105,7 +105,7 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 
     Parameters
     ----------
-    m, c, k :  floats, optional
+    m, c, k:  floats, optional
         mass, damping coefficient, stiffness
     x0, v0:  floats, optional
         initial displacement, initial velocity
@@ -127,6 +127,7 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     ax.set_ylabel('Velocity')
     ax.grid('on')
     ax.plot(x, v)
+    plt.show()
 
 
 def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
@@ -138,7 +139,7 @@ def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
 
     Parameters
     ----------
-    m, c, k :  floats, optional
+    m, c, k:  floats, optional
         mass, damping coefficient, stiffness
     x0, v0:  floats, optional
         initial displacement, initial velocity
@@ -149,6 +150,7 @@ def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
     if in_ipynb():
         w = interactive(phase_plot, max_time=max_time, v0=v0, m=m,
                         c=c, x0=x0, k=k)
+        plt.show()
         display(w)
     else:
         print('phase_plot_i can only be used in an iPython notebook.')
@@ -187,6 +189,7 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
                 '$\lambda_2$ = %0.2f' %
                 (zeta * omega + omega * (zeta ** 2 - 1)))
     ax.legend()
+    plt.show()
 
 
 def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
@@ -198,7 +201,7 @@ def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
 
     Parameters
     ----------
-    m, c, k :  floats, optional
+    m, c, k:  floats, optional
         mass, damping coefficient, stiffness
     x0, v0:  floats, optional
         initial displacement, initial velocity
@@ -388,8 +391,8 @@ def frfplot(f, H):
 
 
 def response(xdd, f, t, x0, v0):
-    """
-    returns t, x, v
+    """returns t, x, v
+
     :math:`\ddot{x} = g(x,v) + f(t)`
     given initial conditions :math:`x_0` and :math:`\dot{x}_0 = v_0` for the time `t`
 
@@ -522,8 +525,8 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
     return t, x, y
 
 
-def steady_state_response(zs, rmin, rmax):
-    """Plot steady state response SDOF damped system.
+def steady_state_response(zs=0.1, rmin=0.0, rmax=2.0):
+    """Plot steady state response of SDOF damped system.
 
     Parameters
     ----------
@@ -572,11 +575,12 @@ def steady_state_response(zs, rmin, rmax):
         ax2.plot(r, -np.angle(A)/np.pi*180)
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
-
+    plt.show()
     return r, A
 
 
-def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=0, rmax=2.0):
+def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=(0, 1, .1),
+                            rmax=(1., 2.0, 0.1)):
     """Interactive phase plot of steady state response of
      single degree of freedom system.
     ``steady_state_response`` is only functional in a
@@ -604,7 +608,8 @@ def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=0, rmax=2.0):
                         rmin=rmin, rmax=rmax)
         display(w)
     else:
-        print('steady_state_response_i can only be used in an iPython notebook.')
+        print('steady_state_response_i can only be used in an iPython\
+              notebook.')
 
 
 def transmissibility(zs, rmin, rmax):
@@ -671,8 +676,42 @@ def transmissibility(zs, rmin, rmax):
         ax2.plot(r, F)
 
     ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
-
+    plt.show()
     return r, D, F
+
+
+def transmissibility_i(zs=(0, 1.0, 0.1), rmin=0, rmax=2.0):
+    """Interactive phase plot of transmissibility of
+     single degree of freedom system.
+    ``transmissibility_i`` is only functional in a
+    `Jupyter notebook <http://jupyter.org>`_.
+
+    Parameters
+    ----------
+    zs: array
+        Array with the damping values
+    rmin, rmax: float
+        Minimum and maximum frequency ratio
+
+    Returns
+    -------
+    r: Array
+        Array containing the values for the frequency ratio
+    D: Array
+        Array containing the values for displacement
+    F: Array
+        Array containing the values for force
+
+        Plot with Displacement transmissibility ratio
+        and force transmissibility ratio
+
+    """
+    if in_ipynb():
+        w = interactive(transmissibility, zs=zs,
+                        rmin=rmin, rmax=rmax)
+        display(w)
+    else:
+        print('transmissibility_i can only be used in an iPython notebook.')
 
 
 def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
@@ -722,7 +761,7 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
     ax2 = fig.add_subplot(212, sharex=ax1)
     plt.tight_layout()
 
-    if normalized==False:
+    if normalized is False:
         Xn = Xn * (m0 * e / m)
         ax1.set_ylabel('Displacement Magnitude')
         ax1.set_title('Displacement Magnitude vs Frequency Ratio')
@@ -835,7 +874,8 @@ def step_response(m, c, k, Fo, max_time):
         phi = np.arctan(zeta / np.sqrt(1 - zeta**2))
 
     if 0 < zeta < 1:
-        x = fo / wn**2 * (1 - wn / wd*np.exp(-zeta * wn * t)*np.cos(wd * t - phi))
+        x = fo / wn**2 * (1 - wn / wd * np.exp(-zeta * wn * t) *
+                          np.cos(wd * t - phi))
     elif zeta == 1:
         lam = -wn
         A1 = -fo / wn**2
@@ -988,21 +1028,20 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     Examples
     --------
     >>> # Square wave
-    >>> t, F = fourier_approximation(-1, 0, 0, '-3*(-1+(-1)**n)/n/pi', '-3*(-1+(-1)**n)/n/pi', 20, 2)
+    >>> t, F = fourier_approximation(-1, 0, 0, '-3*(-1+(-1)**n)/n/np.pi', '-3*(-1+(-1)**n)/n/np.pi', 20, 2)
     >>> F[10]
     1.2697210294282535
     >>> # Triangular wave
-    >>> t, F = fourier_approximation(0,'-8/pi**2/n**2',0,0,0,20,10)
+    >>> t, F = fourier_approximation(0,'-8/np.pi**2/n**2',0,0,0,20,10)
     >>> F[10]
     -0.90234928911935097
     """
-    args = [str(arg) for arg in [a0, aodd, aeven, bodd, beven]] # change to str
+    args = [str(arg) for arg in [a0, aodd, aeven, bodd, beven]]  # chng to str
     a0, aodd, aeven, bodd, beven = args
 
     dt = min(T/400, T/10*N)
     t = np.arange(0, T*3, dt)
     F = 0*t + eval(a0)/2
-    pi = np.pi
 
     for n in range(1, N):
         if n % 2 == 0:
@@ -1024,17 +1063,17 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
 
 if __name__ == "__main__":
     import doctest
-    doctest.testmod(optionflags=doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE)
-    #import vibration_toolbox as vtb
-
-
+    doctest.testmod(optionflags=doctest.ELLIPSIS |
+                    doctest.NORMALIZE_WHITESPACE)
+    # import vibration_toolbox as vtb
     # doctest.run_docstring_examples(frfest,globals(),optionflags=doctest.ELLIPSIS)
     # doctest.run_docstring_examples(asd,globals(),optionflags=doctest.ELLIPSIS)
     """ What this does.
     python (name of this file)  -v
     will test all of the examples in the help.
 
-    Leaving off -v will run the tests without any output. Success will return nothing.
+    Leaving off -v will run the tests without any output. Success will return
+    nothing.
 
     See the doctest section of the python manual.
     https://docs.python.org/3.5/library/doctest.html

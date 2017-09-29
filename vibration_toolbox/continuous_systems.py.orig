@@ -438,6 +438,8 @@ def ebf(xin, xout, fmin, fmax, zeta):
     _, _ = uniform_bar_frf(xin, xout, fmin, fmax, zeta)
     return
 """
+<<<<<<< HEAD
+=======
 
 def uniform_bar_modes(n=10, bctype=3, npoints=2001,
                       barparams=np.array([7.31e10, 2747.0, 0.4])):
@@ -647,3 +649,4 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
     omega_n = w
     return omega_n, x, U
 
+>>>>>>> vtb_anusha

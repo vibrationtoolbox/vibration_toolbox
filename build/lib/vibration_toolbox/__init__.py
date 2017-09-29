@@ -15,7 +15,7 @@ all toolbox functions in the name space
 __title__ = 'vibration_toolbox'
 # version may have no more then numerical digits after decimal point.
 # 1.11 is actually a higher release than 1.2 (confusing)
-__version__ = '0.5.3'
+__version__ = '0.6.2'
 __author__ = u'Joseph C. Slater and Raphael Timbó'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 1991-2017 Joseph C. Slater'

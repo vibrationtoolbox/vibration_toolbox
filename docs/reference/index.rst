@@ -1,5 +1,5 @@
 Reference
----------
+_________
 
 .. toctree::
   :maxdepth: 2
@@ -8,3 +8,4 @@ Reference
   mdof
   continuous
   vibe_system
+  ema

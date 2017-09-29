@@ -52,9 +52,11 @@ class VibeSystem(object):
     evectors : array
         System's eigenvectors.
     wn : array
-        System's natural frequencies in Hz.
+        System's natural frequencies in rad/s.
     wd : array
-        System's damped natural frequencies in Hz.
+        System's damped natural frequencies in rad/s.
+    damping_ratio : array
+        System's damping factor for each mode.
     H : scipy.signal.lti
         Continuous-time linear time invariant system
 
@@ -76,9 +78,9 @@ class VibeSystem(object):
     ...               [-k1, k2+k2]])
     >>> sys = VibeSystem(M, C, K)
     >>> sys.wn
-    array([ 5.03,  8.72])
+    array([ 31.62,  54.77])
     >>> sys.wd
-    array([ 5.02,  8.64])
+    array([ 31.52,  54.26])
     """
     def __init__(self, M, C, K, name=''):
         self._M = M
@@ -138,8 +140,10 @@ class VibeSystem(object):
 
     def _calc_system(self):
         self.evalues, self.evectors = self._eigen()
-        self.wn = (np.absolute(self.evalues)/(2*np.pi))[:self.n]
-        self.wd = (np.imag(self.evalues)/(2*np.pi))[:self.n]
+        self.wn = np.absolute(self.evalues)[:self.n]
+        self.wd = np.imag(self.evalues)[:self.n]
+        self.damping_ratio = (-np.real(self.evalues) /
+                              np.absolute(self.evalues))[:self.n]
         self.H = self._H()
 
     def A(self):
@@ -464,7 +468,7 @@ class VibeSystem(object):
                 ax0, _ = ax
             else:
                 ax0, ax1 = ax
-
+        #  TODO add option to select plot units
         omega, magdb, phase = self.freq_response(modes=modes)
 
         ax0.plot(omega, magdb[out, inp, :], **kwargs)

@@ -38,24 +38,14 @@ Table of Contents
 
    installation
    tutorial/index
+   downloads
    reference/index
+   contributors
 
 .. toctree::
    :maxdepth: 1
 
    examples/index
-
-Download Tutorial Notebooks
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-   :download:`Single Degree of Freedom </tutorial/sdof_notebook.ipynb>`
-
-   :download:`Multiple Degree of Freedom </tutorial/mdof_notebook.ipynb>`
-
-   :download:`Continuous Systems </tutorial/continuous_systems_notebook.ipynb>`
-
-   :download:`Vibration System </tutorial/vibesystem_notebook.ipynb>`
-
 
 Indices and tables
 __________________

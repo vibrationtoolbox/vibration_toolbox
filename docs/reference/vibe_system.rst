@@ -1,4 +1,4 @@
-Vibration Systems (:mod:`vibesystem.py`)
+Vibration Systems (:mod:`vibesystem`)
 ----------------------------------------
 
 
@@ -9,5 +9,3 @@ Vibration Systems (:mod:`vibesystem.py`)
 
 .. autoclass:: VibeSystem
    :members:
-
-

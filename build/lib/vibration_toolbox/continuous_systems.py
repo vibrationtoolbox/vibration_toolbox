@@ -3,7 +3,7 @@ import numpy as np
 import scipy as sp
 import matplotlib as mpl
 from scipy.interpolate import UnivariateSpline
-
+from scipy.optimize import newton_krylov
 
 try:
     from IPython.display import clear_output, display, HTML
@@ -75,6 +75,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     <matplotlib.text.Text object at ...>
     >>> plt.title('Mode 1')
     <matplotlib.text.Text object at ...>
+    >>> plt.grid('on')
     """
 
     E = beamparams[0]
@@ -89,8 +90,8 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
         ln = len(n)
 
     # len=[0:(1/(npoints-1)):1]';  %Normalized length of the beam
-    len = np.linspace(0, 1, npoints)
-    x = len * L
+    x_normed = np.linspace(0, 1, npoints, endpoint=True)
+    x = x_normed * L
     # Determine natural frequencies and mode shapes depending on the
     # boundary condition.
     # Mass simplification. The following was arange_(1,length_(n)).reshape(-1)
@@ -111,15 +112,15 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
         for i in mode_num_range:
             if n[i] == 1:
                 w[i] = 0
-                U[:, i] = 1 + len * 0
+                U[:, i] = 1 + x_normed * 0
             elif n[i] == 2:
                 w[i] = 0
-                U[:, i] = len - 0.5
+                U[:, i] = x_normed - 0.5
             else:
                 sig = (np.cosh(Bnl[i]) - np.cos(Bnl[i])) / \
                       (np.sinh(Bnl[i]) - np.sin(Bnl[i]))
                 w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-                b = Bnl[i] * len
+                b = Bnl[i] * x_normed
                 U[:, i] = np.cosh(b) + np.cos(b) - sig * \
                     (np.sinh(b) + np.sin(b))
     elif bctype == 2:
@@ -135,7 +136,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
             sig = (np.sinh(Bnl[i]) - np.sin(Bnl[i])) / \
                   (np.cosh(Bnl[i]) - np.cos(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            b = Bnl[i] * len
+            b = Bnl[i] * x_normed
             # plt.plot(x,(sp.cosh(b) - sp.cos(b) -
             # sig * (sp.sinh(b) - sp.sin(b))))
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
@@ -152,7 +153,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
             sig = (np.cosh(Bnl[i]) - np.cos(Bnl[i])) / \
                   (np.sinh(Bnl[i]) - np.sin(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            b = Bnl[i] * len
+            b = Bnl[i] * x_normed
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
     elif bctype == 4:
         desc = 'Clamped-Sliding '
@@ -166,7 +167,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
             sig = (np.sinh(Bnl[i]) + np.sin(Bnl[i])) / \
                   (np.cosh(Bnl[i]) - np.cos(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            b = Bnl[i] * len
+            b = Bnl[i] * x_normed
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
     elif bctype == 5:
         desc = 'Clamped-Clamped '
@@ -180,14 +181,14 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
             sig = (np.cosh(Bnl[i]) - np.cos(Bnl[i])) / \
                   (np.sinh(Bnl[i]) - np.sin(Bnl[i]))
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            b = Bnl[i] * len
+            b = Bnl[i] * x_normed
             U[:, i] = np.cosh(b) - np.cos(b) - sig * (np.sinh(b) - np.sin(b))
     elif bctype == 6:
         desc = 'Pinned-Pinned '
         for i in mode_num_range:
             Bnl[i] = n[i] * np.pi
             w[i] = (Bnl[i] ** 2) * np.sqrt(E * I / (rho * A * L ** 4))
-            U[:, i] = np.sin(Bnl[i] * len)
+            U[:, i] = np.sin(Bnl[i] * x_normed)
 
     # Mass Normalization of mode shapes
     for i in mode_num_range:
@@ -202,8 +203,6 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
                    beamparams=np.array([7.31e10, 1 / 12 * 0.03 * .015 ** 3,
                                         2747.0, .015 * 0.03, 0.4])):
     """Frequency response function fo Euler-Bernoulli beam.
-
-    See working notebook for working code
 
     Parameters
     ----------
@@ -296,6 +295,7 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     axlim = plt.axis()
     plt.axis(axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
                                0.1 * (axlim[3] - axlim[2])]))
+    plt.show()
 
     fout = w / 2 / sp.pi
     H = a
@@ -315,7 +315,8 @@ def ebf1(xin, xout):
 
 
 def uniform_bar_modes(n=10, bctype=3, npoints=2001,
-                      barparams=np.array([7.31e10, 2747.0, 0.4])):
+                      barparams=np.array([7.31e10, 2747.0, 0.4]),
+                      kl_over_EA = 1000, m_over_rhoAL = 1000):
     """Mode shapes and natural frequencies of Uniform bar/rod.
 
     Parameters
@@ -326,12 +327,18 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
         bctype = 1 free-free
         bctype = 2 fixed-free
         bctype = 3 fixed-fixed
-
+        bctype = 4 fixed-spring
+        bctype = 5 fixed-mass
     barparams: numpy array
         E, rho, L
         Young's modulus, density, length of bar
     npoints: int
         number of points for returned mode shape array
+    kl_over_EA: float
+        spring stiffness times rod length divided by EA. (for clamped-spring
+        condition)
+    m_over_rhoAL: float
+        end mass divided by rho A L of rod. (for end mass condition)
 
     Returns
     -------
@@ -341,6 +348,14 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
         x coordinate
     U: numpy array
         mass normalized mode shape
+
+    Notes
+    -----
+    For most situations the cross sectional area cancels out and has no effect. It only matters in
+    the last two cases: and end spring or and mass, and is included with the parameters special to
+    those cases.
+
+
 
     Examples
     --------
@@ -392,6 +407,25 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
         for i in mode_num_range:
             w[i] = i * np.pi * np.sqrt(E/rho) / L
             U[:, i] = np.sin((i) * np.pi * x_normed)
+    elif bctype == 4:
+        desc = 'Fixed-Spring'
+        def func(lam):
+            return lam + np.tan(lam)* kl_over_EA
+        for i in mode_num_range:
+            lam = newton_krylov(func, (0.25+i/2)*np.pi)
+            w[i] = lam * np.sqrt(E/rho) / L
+            U[:, i] = np.sin(lam * x_normed)
+    elif bctype == 5:
+        desc = 'Fixed-Mass'
+        def func(lam):
+            return np.tan(lam)-1/lam/m_over_rhoAL
+        for i in mode_num_range:
+            lam = newton_krylov(func, 0.25+i*np.pi)
+            w[i] = lam * np.sqrt(E/rho) / L
+            U[:, i] = np.sin(lam * x_normed)
+
+
+
     # Mass Normalization of mode shapes
     for i in mode_num_range:
         U[:, i] = U[:, i] / np.sqrt(np.dot(U[:, i], U[:, i]) * rho * L)
@@ -405,23 +439,211 @@ def ebf(xin, xout, fmin, fmax, zeta):
     return
 """
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod(optionflags=doctest.ELLIPSIS |
-                    doctest.NORMALIZE_WHITESPACE)
-    # import vibration_toolbox as vtb
-    # doctest.run_docstring_examples(frfest,globals(),
-    # optionflags=doctest.ELLIPSIS)
-    # doctest.run_docstring_examples(asd,globals(),
-    # optionflags=doctest.ELLIPSIS)
-    """ What this does.
+def uniform_bar_modes(n=10, bctype=3, npoints=2001,
+                      barparams=np.array([7.31e10, 2747.0, 0.4])):
+    """Mode shapes and natural frequencies of Uniform bar/rod.
 
-    python (name of this file)  -v
-    will test all of the examples in the help.
+    Parameters
+    ----------
+    n: int, numpy array
+        highest mode number or array of mode numbers to return
+    bctype: int
+        bctype = 1 free-free
+        bctype = 2 fixed-free
+        bctype = 3 fixed-fixed
 
-    Leaving off -v will run the tests without any output. Success will return
-    nothing.
+    barparams: numpy array
+        E, rho, L
+        Young's modulus, density, length of bar
+    npoints: int
+        number of points for returned mode shape array
 
-    See the doctest section of the python manual.
-    https://docs.python.org/3.5/library/doctest.html
+
+    Returns
+    -------
+    omega_n: numpy array
+        array of natural frequencies
+    x: numpy array
+        x coordinate
+    U: numpy array
+        mass normalized mode shape
+
+
+    Examples
+    --------
+    >>> import matplotlib.pyplot as plt
+    >>> import vibration_toolbox as vtb
+    >>> omega_n, x, U, *_ = vtb.uniform_bar_modes(n=1)
+    >>>
+    >>> plt.plot(x,U)
+    [<matplotlib.lines.Line2D object at ...>]
+    >>> plt.xlabel('x (m)')
+    <matplotlib.text.Text object at ...>
+    >>> plt.ylabel('Displacement (m)')
+    <matplotlib.text.Text object at ...>
+    >>> plt.title('Mode 1')
+    <matplotlib.text.Text object at ...>
+    >>> plt.show()
     """
+    E = barparams[0]
+    rho = barparams[1]
+    L = barparams[2]
+    if isinstance(n, int):
+        ln = n
+        n = np.arange(n) + 1
+    else:
+        ln = len(n)
+
+    # len=[0:(1/(npoints-1)):1]';  %Normalized length of the bar
+    lenth = np.linspace(0, L, npoints)
+    x = lenth * L
+    # Determine natural frequencies and mode shapes depending on the
+    # boundary condition.
+    # Mass simplification. The following was arange_(1,length_(n)).reshape(-1)
+    mode_num_range = np.arange(0, ln)
+    w = np.empty(ln)
+    U = np.empty([npoints, ln])
+
+    if bctype == 1:
+        desc = 'Free-Free '
+        for i in mode_num_range:
+            w[i] = i * np.pi * np.sqrt(E / rho) / L
+            U[:, i] = np.cos(i * np.pi * lenth / L)
+    elif bctype == 2:
+        desc = 'Fixed-Free '
+        for i in mode_num_range:
+            w[i] = (2 * i - 1) * np.pi * np.sqrt(E / rho) / (2 * L)
+            U[:, i] = np.sin((2 * i - 1) * np.pi * lenth / (2 * L))
+    elif bctype == 3:
+        desc = 'Fixed-Fixed '
+        for i in mode_num_range:
+            w[i] = i * np.pi * np.sqrt(E / rho) / L
+            U[:, i] = np.sin(i * np.pi * lenth / (2 * L))
+            # Mass Normalization of mode shapes
+            # for i in mode_num_range:
+            # U[:, i] = U[:, i] / np.sqrt(np.dot(U[:, i], U[:, i]) * rho * L)
+
+    omega_n = w
+    return omega_n, x, U
+
+def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
+                     tbarparams=np.array([7.8e9, 8.4375e-09,
+                                          2747.0, 0.4]), cspar=np.array([0.7,0.9,.1,.2])):
+    """Mode shapes and natural frequencies of Torsional bar.
+
+    Parameters
+    ----------
+    n: int, numpy array
+        highest mode number or array of mode numbers to return
+    bctype: int
+        bctype = 1 free-free
+        bctype = 2 fixed-free
+        bctype = 3 fixed-fixed
+    tbarparams: numpy array
+        G, J, rho, L
+        Shear modulus, Polar moment of area, density,
+        length of bar
+    npoints: int
+        number of points for returned mode shape array
+    cspar: float
+        Cross-section parameters
+    cstype: numpy array
+        Cross-section type
+        cstype =1 is a circular shaft and cspar = R.
+        cstype = 2 is a hollow circular shaft and cspar = [R1 R2]
+        cstype = 3 is a square shaft and cspar = a
+        cstype = 4 is a hollow rectangular shaft and cspar = [a b A B]
+
+    Returns
+    -------
+    omega_n: numpy array
+        array of natural frequencies
+    x: numpy array
+        x coordinate
+    U: numpy array
+        mass normalized mode shape
+
+    Examples
+    --------
+    >>> import matplotlib.pyplot as plt
+    >>> import vibration_toolbox as vtb
+    >>> omega_n, x, U,*_ = vtb.torsional_bar_modes(n=1)
+    >>>
+    >>> plt.plot(x,U)
+    [<matplotlib.lines.Line2D object at ...>]
+    >>> plt.xlabel('x (m)')
+    <matplotlib.text.Text object at ...>
+    >>> plt.ylabel('Displacement (m)')
+    <matplotlib.text.Text object at ...>
+    >>> plt.title('Mode 1')
+    <matplotlib.text.Text object at ...>
+    >>> plt.grid('on')
+    """
+
+    G = tbarparams[0]
+    J = tbarparams[1]
+    rho = tbarparams[2]
+    L = tbarparams[3]
+
+    if cstype == 1:
+        R = cspar[0]
+        g = (np.pi * R ** 4) / 2
+    elif cstype == 2:
+        R1 = cspar[0]
+        R2 = cspar[1]
+        g = (np.pi / 2) * (R2 ** 4 - R1 ** 4)
+    elif cstype == 3:
+        a = cspar[1]
+        g = .1406 * a ** 4
+    elif cstype == 4:
+        if len(cspar) != 4:
+            print("Not enough parameters for cstype 4")
+        a = cspar[0]
+        b = cspar[1]
+        A = cspar[2]
+        B = cspar[3]
+        g = (2 * A * B * (a - A) ** 2 * (b - B) ** 2) / (a * A + b * B - A ** 2 - B ** 2)
+
+    if g<=0:
+        print("The constant gamma is less than or equal to zero.")
+
+    if isinstance(n, int):
+        ln = n
+        n = np.arange(n) + 1
+    else:
+        ln = len(n)
+
+    lenth = np.linspace(0, 1, npoints)
+    x = lenth * L
+
+    # Determine natural frequencies and mode shapes depending on the
+    # boundary condition.
+    # Mass simplification. The following was arange_(1,length_(n)).reshape(-1)
+    mode_num_range = np.arange(0, ln)
+    w = np.empty(ln)
+    U = np.empty([npoints, ln])
+    c = np.sqrt(G*g/(rho*J))
+
+    if bctype == 1:
+        desc = 'Free-Free '
+        for i in mode_num_range:
+            w[i] = (i * np.pi * c) / L
+            U[:, i] = np.cos(i * np.pi * x / L)
+    elif bctype == 2:
+        desc = 'Fixed-Free '
+        for i in mode_num_range:
+            w[i] = (2 * i - 1) * np.pi * c / (2 * L)
+            U[:, i] = np.sin((2 * i - 1) * np.pi * x / (2 * L))
+    elif bctype == 3:
+        desc = 'Fixed-Fixed '
+        for i in mode_num_range:
+            w[i] = (i * np.pi * c) / L
+            U[:, i] = np.sin(i * np.pi * x / L)
+
+    # Mass Normalization of mode shapes
+    for i in mode_num_range:
+        U[:, i] = U[:, i] / np.sqrt(np.dot(U[:, i], U[:, i]) * rho * L)
+
+    omega_n = w
+    return omega_n, x, U
+

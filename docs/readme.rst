@@ -20,17 +20,27 @@ To serve the pages, move to the `docs/_build/html` folder and type::
 Section Title
 -------------
 
+| ------------
+
 Subsection Title
 ________________
+
+| _______________
 
 Subsubsection Title
 ~~~~~~~~~~~~~~~~~~~
 
+| ~~~~~~~~~~~~~~~~~~~
+
 Subsubsubsection Title
-``````````````````````
+^^^^^^^^^^^^^^^^^^^^^^
+
+| ^^^^^^^^^^^^^^^^^^^^^^
 
 Subsubsubsubection Title
 ''''''''''''''''''''''''
+
+| '''''''''''''''''''''''
 
 We shouldn't ever need this many.
 
