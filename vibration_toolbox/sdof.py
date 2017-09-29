@@ -189,11 +189,11 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
                 '$\lambda_2$ = %0.2f' %
                 (zeta * omega + omega * (zeta ** 2 - 1)))
     ax.legend()
-    plt.show()
+    #plt.show()
 
 
 def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
-                m=(1.0, 100.0), c=(0.0, 100.0), k=(1.0, 100.0)):
+                m=(1.0, 100.0), c=(0.0, 1.0, .02), k=(1.0, 100.0)):
     """Interactive single degree of freedom free reponse plot in iPython
 
     ``time_plot_i`` is only functional in a
