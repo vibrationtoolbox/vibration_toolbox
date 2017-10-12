@@ -32,6 +32,7 @@ def frf(x, f, dt):
 
         Plot with the frf magnitude, phase and
         coherence.
+        
     Examples
     --------
     >>> # First we need to load the sampled data which in a .mat file
