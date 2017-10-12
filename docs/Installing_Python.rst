@@ -5,7 +5,7 @@ _________________
 
 In order to be able to use the Vibration Toolbox you need a working `Scientific Python`_ installation.
 
-The easiest path to this is to install Python via `Anaconda`_ or `Enthought Canopy`_. **You must install** Python 3.5 or later for the Vibration Toolbox to work. I prefer the `Anaconda`_ distribution myself, but many organizations prefer `Enthought Canopy`_. **Do not install Python 2.7.**  The Vibration Toolbox requires a Python 3.5 or later. 
+The easiest path to this is to install Python via `Anaconda`_ or `Enthought Canopy`_. **You must install** Python 3.5 or later for the Vibration Toolbox to work. I prefer the `Anaconda`_ distribution myself, but many organizations prefer `Enthought Canopy`_. **Do not install Python 2.7.**  The Vibration Toolbox requires a Python 3.5 or later.
 
 This proceeds as a normal install on your platform (Mac, Windows, Linux...).
 
@@ -19,7 +19,7 @@ Then update everything else with::
 
   conda update --all
 
-To use `Jupyter`_ (the notebook), launch a terminal on Mac or Linux, or the Anaconda Terminal on Windows (or similar name for the `Enthought Canopy`_ distribution_ of Scientific Python) and type:
+To use the `Jupyter`_ (the notebook), launch a terminal on Mac or Linux, or the Anaconda Terminal on Windows (or similar name for the `Enthought Canopy`_ distribution of Scientific Python) and type:
 
 .. code-block:: bash
 
@@ -38,3 +38,4 @@ It's all in the GUI from here. You just need to play around a bit.
 .. _Jupyter: http://www.jupyter.org
 .. _`Enthought Canopy`: https://store.enthought.com/downloads/
 .. _`Scientific Python`: https://www.scipy.org
+.. _`Matlab`: http://www.mathworks.com
