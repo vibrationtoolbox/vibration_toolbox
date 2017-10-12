@@ -262,7 +262,6 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
     return x
 
-
 def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     """Euler method free response of a SDOF system.
 
