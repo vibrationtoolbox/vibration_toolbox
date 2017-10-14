@@ -71,9 +71,9 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     >>> plt.plot(t,x)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('Time (sec)')
-    <matplotlib.text.Text object at ...>
+    Text(0.5,0,'Time (sec)')
     >>> plt.ylabel('Displacement (m)')
-    <matplotlib.text.Text object at ...>
+    Text(0,0.5,'Displacement (m)')
     >>> plt.title('Displacement versus time')
     <matplotlib.text.Text object at ...>
     >>> plt.grid('on')
