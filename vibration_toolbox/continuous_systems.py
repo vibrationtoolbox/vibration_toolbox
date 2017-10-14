@@ -70,7 +70,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
-    <matplotlib.text.Text object at ...>
+    Text(0.5,0,'x (m)')
     >>> plt.ylabel('Displacement (m)')
     <matplotlib.text.Text object at ...>
     >>> plt.title('Mode 1')
@@ -646,4 +646,3 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
 
     omega_n = w
     return omega_n, x, U
-
