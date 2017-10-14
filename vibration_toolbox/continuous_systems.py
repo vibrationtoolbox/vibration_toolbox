@@ -72,7 +72,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     >>> plt.xlabel('x (m)')
     Text(0.5,0,'x (m)')
     >>> plt.ylabel('Displacement (m)')
-    <matplotlib.text.Text object at ...>
+    Text(0,0.5,'Displacement (m)')
     >>> plt.title('Mode 1')
     <matplotlib.text.Text object at ...>
     >>> plt.grid('on')
