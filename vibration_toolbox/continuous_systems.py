@@ -74,7 +74,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     >>> plt.ylabel('Displacement (m)')
     Text(0,0.5,'Displacement (m)')
     >>> plt.title('Mode 1')
-    <matplotlib.text.Text object at ...>
+    Text(0.5,1,'Mode 1')
     >>> plt.grid('on')
     """
 
@@ -355,8 +355,6 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
     the last two cases: and end spring or and mass, and is included with the parameters special to
     those cases.
 
-
-
     Examples
     --------
     >>> import matplotlib.pyplot as plt
@@ -482,7 +480,7 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
     >>> plt.ylabel('Displacement (m)')
     Text(0,0.5,'Displacement (m)')
     >>> plt.title('Mode 1')
-    <matplotlib.text.Text object at ...>
+    Text(0.5,1,'Mode 1')
     >>> plt.show()
     """
     E = barparams[0]
@@ -576,7 +574,7 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
     >>> plt.ylabel('Displacement (m)')
     Text(0,0.5,'Displacement (m)')
     >>> plt.title('Mode 1')
-    <matplotlib.text.Text object at ...>
+    Text(0.5,1,'Mode 1')
     >>> plt.grid('on')
     """
 

@@ -75,7 +75,7 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     >>> plt.ylabel('Displacement (m)')
     Text(0,0.5,'Displacement (m)')
     >>> plt.title('Displacement versus time')
-    <matplotlib.text.Text object at ...>
+    Text(0.5,1,'Displacement versus time')
     >>> plt.grid('on')
     """
 
