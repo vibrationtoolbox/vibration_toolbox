@@ -71,11 +71,11 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     >>> plt.plot(t,x)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('Time (sec)')
-    <matplotlib.text.Text object at ...>
+    Text(0.5,0,'Time (sec)')
     >>> plt.ylabel('Displacement (m)')
-    <matplotlib.text.Text object at ...>
+    Text(0,0.5,'Displacement (m)')
     >>> plt.title('Displacement versus time')
-    <matplotlib.text.Text object at ...>
+    Text(0.5,1,'Displacement versus time')
     >>> plt.grid('on')
     """
 
@@ -189,11 +189,11 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
                 '$\lambda_2$ = %0.2f' %
                 (zeta * omega + omega * (zeta ** 2 - 1)))
     ax.legend()
-    plt.show()
+    #plt.show()
 
 
 def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
-                m=(1.0, 100.0), c=(0.0, 100.0), k=(1.0, 100.0)):
+                m=(1.0, 100.0), c=(0.0, 1.0, .02), k=(1.0, 100.0)):
     """Interactive single degree of freedom free reponse plot in iPython
 
     ``time_plot_i`` is only functional in a
@@ -261,7 +261,6 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
              a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
 
     return x
-
 
 def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     """Euler method free response of a SDOF system.

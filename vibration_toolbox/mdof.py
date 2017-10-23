@@ -114,7 +114,7 @@ def _normalize(X, Y):
 
 
 def modes_system_undamped(M, K):
-    """Natural frequencies, mass-normalized mode shapes and eigenvectors of
+    '''Natural frequencies, mass-normalized mode shapes and eigenvectors of
     MDOF system
 
     Returns the natural frequencies (w),
@@ -173,6 +173,7 @@ def modes_system_undamped(M, K):
     :math:`C^T`. The resulting command is `la.solve(A.T, C.T, assume_a='pos').T`
 
     Examples
+    --------
     >>> M = np.array([[4, 0, 0],
     ...               [0, 4, 0],
     ...               [0, 0, 4]])
@@ -186,7 +187,7 @@ def modes_system_undamped(M, K):
     array([[ 0.16, -0.37, -0.3 ],
        [ 0.3 , -0.16,  0.37],
        [ 0.37,  0.3 , -0.16]])
-    """
+    '''
 
     L = la.cholesky(M)
     lam, P = _eigen(la.solve(L, la.solve(L, K, assume_a='pos').T,
