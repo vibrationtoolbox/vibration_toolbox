@@ -144,7 +144,7 @@ class VibeSystem(object):
         self.wd = np.imag(self.evalues)[:self.n]
         self.damping_ratio = (-np.real(self.evalues) /
                               np.absolute(self.evalues))[:self.n]
-        self.H = self._H()
+        self.H = self.lti()
 
     def A(self):
         """State space matrix
@@ -220,7 +220,7 @@ class VibeSystem(object):
 
         return evalues[idx], evectors[:, idx]
 
-    def _H(self):
+    def lti(self):
         r"""Continuous-time linear time invariant system.
 
         This method is used to create a Continuous-time linear
@@ -247,9 +247,7 @@ class VibeSystem(object):
                        Cv - Ca @ la.solve(self.M, self.C)))
         D = Ca @ la.solve(self.M, B2)
 
-        sys = signal.lti(A, B, C, D)
-
-        return sys
+        return signal.lti(A, B, C, D)
 
     def time_response(self, F, t, ic=None):
         r"""Time response for a mdof system.
