@@ -92,7 +92,7 @@ class VibeSystem(object):
         self.evectors = None
         self.wn = None
         self.wd = None
-        self.H = None
+        self.lti = None
 
         self.n = len(M)
         self._calc_system()
@@ -144,7 +144,7 @@ class VibeSystem(object):
         self.wd = np.imag(self.evalues)[:self.n]
         self.damping_ratio = (-np.real(self.evalues) /
                               np.absolute(self.evalues))[:self.n]
-        self.H = self.lti()
+        self.lti = self._lti()
 
     def A(self):
         """State space matrix
@@ -220,7 +220,7 @@ class VibeSystem(object):
 
         return evalues[idx], evectors[:, idx]
 
-    def lti(self):
+    def _lti(self):
         r"""Continuous-time linear time invariant system.
 
         This method is used to create a Continuous-time linear
@@ -299,9 +299,9 @@ class VibeSystem(object):
         array([ 0.  ,  0.08,  0.46,  0.79,  0.48])
         """
         if ic is not None:
-            return signal.lsim(self.H, F, t, ic)
+            return signal.lsim(self.lti, F, t, ic)
         else:
-            return signal.lsim(self.H, F, t)
+            return signal.lsim(self.lti, F, t)
 
     def freq_response(self, omega=None, f=None, modes=None):
         r"""Frequency response for a mdof system.
@@ -353,12 +353,12 @@ class VibeSystem(object):
         >>> phase[1, 1, :4] 
         array([...0.  , -0.  , -0.01, -0.01])
         """
-        rows = self.H.inputs   # inputs (mag and phase)
-        cols = self.H.outputs  # outputs
+        rows = self.lti.inputs   # inputs (mag and phase)
+        cols = self.lti.outputs  # outputs
 
-        B = self.H.B
-        C = self.H.C
-        D = self.H.D
+        B = self.lti.B
+        C = self.lti.C
+        D = self.lti.D
 
         evals = self.evalues
         psi = self.evectors
@@ -610,7 +610,7 @@ class VibeSystem(object):
         array([<matplotlib.axes...
         """
         if ax is None:
-            fig, axs = plt.subplots(self.H.outputs, 1, sharex=True)
+            fig, axs = plt.subplots(self.lti.outputs, 1, sharex=True)
 
             fig.suptitle('Time response ' + self.name, fontsize=12)
             plt.subplots_adjust(hspace=0.01)
