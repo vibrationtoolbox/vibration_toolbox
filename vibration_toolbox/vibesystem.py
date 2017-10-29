@@ -298,10 +298,7 @@ class VibeSystem(object):
         >>> yout[:5, 1]
         array([ 0.  ,  0.08,  0.46,  0.79,  0.48])
         """
-        if ic is not None:
-            return signal.lsim(self.lti, F, t, ic)
-        else:
-            return signal.lsim(self.lti, F, t)
+        return signal.lsim(self.lti, F, t, X0=ic)
 
     def freq_response(self, omega=None, f=None, modes=None):
         r"""Frequency response for a mdof system.
