@@ -300,7 +300,7 @@ class VibeSystem(object):
         """
         return signal.lsim(self.lti, F, t, X0=ic)
 
-    def freq_response(self, omega=None, f=None, modes=None):
+    def freq_response(self, F=None, omega=None, modes=None):
         r"""Frequency response for a mdof system.
 
         This method returns the frequency response for a mdof system
