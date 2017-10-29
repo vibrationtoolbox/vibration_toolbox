@@ -309,11 +309,12 @@ class VibeSystem(object):
 
         Parameters
         ----------
+        F : array, optional
+            Force array (needs to have the same length as time array).
+            If not given the impulse response is calculated.
         omega : array, optional
             Array with the desired range of frequencies (the default
              is 0 to 1.5 x highest damped natural frequency.
-        f : array, optional
-            Force vector. If not given the impulse response is calculated.
         modes : list, optional
             Modes that will be used to calculate the frequency response
             (all modes will be used if a list is not given).
@@ -366,39 +367,27 @@ class VibeSystem(object):
             omega = np.linspace(0, max(evals.imag) * 1.5, 1000)
 
         # if modes are selected:
-            if modes is not None:
-                n = self.n  # n dof -> number of modes
-                m = len(modes)  # -> number of desired modes
-                # idx to get each evalue/evector and its conjugate
-                idx = np.zeros((2 * m), int)
-                idx[0:m] = modes  # modes
-                idx[m:] = range(2 * n)[-m:]  # conjugates (see how evalues are ordered)
+        if modes is not None:
+            n = self.n  # n dof -> number of modes
+            m = len(modes)  # -> number of desired modes
+            # idx to get each evalue/evector and its conjugate
+            idx = np.zeros((2 * m), int)
+            idx[0:m] = modes  # modes
+            idx[m:] = range(2 * n)[-m:]  # conjugates (see how evalues are ordered)
 
-                evals_m = evals[np.ix_(idx)]
-                psi_m = psi[np.ix_(range(2 * n), idx)]
-                psi_inv_m = psi_inv[np.ix_(idx, range(2 * n))]
-
-                magdb_m = np.empty((cols, rows, len(omega)))
-                phase_m = np.empty((cols, rows, len(omega)))
-
-                for wi, w in enumerate(omega):
-                    diag = np.diag([1 / (1j * w - lam) for lam in evals_m])
-                    H = C @ psi_m @ diag @ psi_inv_m @ B + D
-
-                    magh = 20.0 * np.log10(abs(H))
-                    angh = np.rad2deg((np.angle(H)))
-
-                    magdb_m[:, :, wi] = magh
-                    phase_m[:, :, wi] = angh
-
-                return omega, magdb_m, phase_m
+            evals = evals[np.ix_(idx)]
+            psi = psi[np.ix_(range(2 * n), idx)]
+            psi_inv = psi_inv[np.ix_(idx, range(2 * n))]
 
         magdb = np.empty((cols, rows, len(omega)))
         phase = np.empty((cols, rows, len(omega)))
 
         for wi, w in enumerate(omega):
             diag = np.diag([1 / (1j * w - lam) for lam in evals])
-            H = C @ psi @ diag @ psi_inv @ B + D
+            if F is None:
+                H = C @ psi @ diag @ psi_inv @ B + D
+            else:
+                H = (C @ psi @ diag @ psi_inv @ B + D) @ F[wi]
 
             magh = 20.0 * np.log10(abs(H))
             angh = np.rad2deg((np.angle(H)))
@@ -633,4 +622,3 @@ class VibeSystem(object):
         axs[-1].set_xlabel('Time (s)')
 
         return axs
-
