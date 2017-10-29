@@ -303,17 +303,20 @@ class VibeSystem(object):
         else:
             return signal.lsim(self.H, F, t)
 
-    def freq_response(self, omega=None, modes=None):
+    def freq_response(self, omega=None, f=None, modes=None):
         r"""Frequency response for a mdof system.
 
         This method returns the frequency response for a mdof system
-        given a range of frequencies and the modes that will be used.
+        given a range of frequencies, the force for each frequency
+        and the modes that will be used.
 
         Parameters
         ----------
         omega : array, optional
             Array with the desired range of frequencies (the default
              is 0 to 1.5 x highest damped natural frequency.
+        f : array, optional
+            Force vector. If not given the impulse response is calculated.
         modes : list, optional
             Modes that will be used to calculate the frequency response
             (all modes will be used if a list is not given).
