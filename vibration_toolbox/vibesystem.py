@@ -92,7 +92,7 @@ class VibeSystem(object):
         self.evectors = None
         self.wn = None
         self.wd = None
-        self.H = None
+        self.lti = None
 
         self.n = len(M)
         self._calc_system()
@@ -144,7 +144,7 @@ class VibeSystem(object):
         self.wd = np.imag(self.evalues)[:self.n]
         self.damping_ratio = (-np.real(self.evalues) /
                               np.absolute(self.evalues))[:self.n]
-        self.H = self._H()
+        self.lti = self._lti()
 
     def A(self):
         """State space matrix
@@ -220,7 +220,7 @@ class VibeSystem(object):
 
         return evalues[idx], evectors[:, idx]
 
-    def _H(self):
+    def _lti(self):
         r"""Continuous-time linear time invariant system.
 
         This method is used to create a Continuous-time linear
@@ -247,9 +247,7 @@ class VibeSystem(object):
                        Cv - Ca @ la.solve(self.M, self.C)))
         D = Ca @ la.solve(self.M, B2)
 
-        sys = signal.lti(A, B, C, D)
-
-        return sys
+        return signal.lti(A, B, C, D)
 
     def time_response(self, F, t, ic=None):
         r"""Time response for a mdof system.
@@ -300,19 +298,20 @@ class VibeSystem(object):
         >>> yout[:5, 1]
         array([ 0.  ,  0.08,  0.46,  0.79,  0.48])
         """
-        if ic is not None:
-            return signal.lsim(self.H, F, t, ic)
-        else:
-            return signal.lsim(self.H, F, t)
+        return signal.lsim(self.lti, F, t, X0=ic)
 
-    def freq_response(self, omega=None, modes=None):
+    def freq_response(self, F=None, omega=None, modes=None):
         r"""Frequency response for a mdof system.
 
         This method returns the frequency response for a mdof system
-        given a range of frequencies and the modes that will be used.
+        given a range of frequencies, the force for each frequency
+        and the modes that will be used.
 
         Parameters
         ----------
+        F : array, optional
+            Force array (needs to have the same length as time array).
+            If not given the impulse response is calculated.
         omega : array, optional
             Array with the desired range of frequencies (the default
              is 0 to 1.5 x highest damped natural frequency.
@@ -352,12 +351,12 @@ class VibeSystem(object):
         >>> phase[1, 1, :4] 
         array([...0.  , -0.  , -0.01, -0.01])
         """
-        rows = self.H.inputs   # inputs (mag and phase)
-        cols = self.H.outputs  # outputs
+        rows = self.lti.inputs   # inputs (mag and phase)
+        cols = self.lti.outputs  # outputs
 
-        B = self.H.B
-        C = self.H.C
-        D = self.H.D
+        B = self.lti.B
+        C = self.lti.C
+        D = self.lti.D
 
         evals = self.evalues
         psi = self.evectors
@@ -368,39 +367,27 @@ class VibeSystem(object):
             omega = np.linspace(0, max(evals.imag) * 1.5, 1000)
 
         # if modes are selected:
-            if modes is not None:
-                n = self.n  # n dof -> number of modes
-                m = len(modes)  # -> number of desired modes
-                # idx to get each evalue/evector and its conjugate
-                idx = np.zeros((2 * m), int)
-                idx[0:m] = modes  # modes
-                idx[m:] = range(2 * n)[-m:]  # conjugates (see how evalues are ordered)
+        if modes is not None:
+            n = self.n  # n dof -> number of modes
+            m = len(modes)  # -> number of desired modes
+            # idx to get each evalue/evector and its conjugate
+            idx = np.zeros((2 * m), int)
+            idx[0:m] = modes  # modes
+            idx[m:] = range(2 * n)[-m:]  # conjugates (see how evalues are ordered)
 
-                evals_m = evals[np.ix_(idx)]
-                psi_m = psi[np.ix_(range(2 * n), idx)]
-                psi_inv_m = psi_inv[np.ix_(idx, range(2 * n))]
-
-                magdb_m = np.empty((cols, rows, len(omega)))
-                phase_m = np.empty((cols, rows, len(omega)))
-
-                for wi, w in enumerate(omega):
-                    diag = np.diag([1 / (1j * w - lam) for lam in evals_m])
-                    H = C @ psi_m @ diag @ psi_inv_m @ B + D
-
-                    magh = 20.0 * np.log10(abs(H))
-                    angh = np.rad2deg((np.angle(H)))
-
-                    magdb_m[:, :, wi] = magh
-                    phase_m[:, :, wi] = angh
-
-                return omega, magdb_m, phase_m
+            evals = evals[np.ix_(idx)]
+            psi = psi[np.ix_(range(2 * n), idx)]
+            psi_inv = psi_inv[np.ix_(idx, range(2 * n))]
 
         magdb = np.empty((cols, rows, len(omega)))
         phase = np.empty((cols, rows, len(omega)))
 
         for wi, w in enumerate(omega):
             diag = np.diag([1 / (1j * w - lam) for lam in evals])
-            H = C @ psi @ diag @ psi_inv @ B + D
+            if F is None:
+                H = C @ psi @ diag @ psi_inv @ B + D
+            else:
+                H = (C @ psi @ diag @ psi_inv @ B + D) @ F[wi]
 
             magh = 20.0 * np.log10(abs(H))
             angh = np.rad2deg((np.angle(H)))
@@ -609,7 +596,7 @@ class VibeSystem(object):
         array([<matplotlib.axes...
         """
         if ax is None:
-            fig, axs = plt.subplots(self.H.outputs, 1, sharex=True)
+            fig, axs = plt.subplots(self.lti.outputs, 1, sharex=True)
 
             fig.suptitle('Time response ' + self.name, fontsize=12)
             plt.subplots_adjust(hspace=0.01)
@@ -635,4 +622,3 @@ class VibeSystem(object):
         axs[-1].set_xlabel('Time (s)')
 
         return axs
-
