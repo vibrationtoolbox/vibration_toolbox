@@ -4,9 +4,9 @@ import scipy.linalg as la
 
 
 def frf(x, f, dt):
-    """
-    This function will return the frequency response
-    function (H(iw)) of the sampled data.
+    """Return the frequency response function
+
+    Calculates :math:`H(i\\omega)`, and coherance of the sampled data.
 
     Parameters
     ----------
@@ -20,7 +20,7 @@ def frf(x, f, dt):
         Number of points in the fft
 
     Returns
-    ----------
+    -------
     freq: array
         Driving frequencies
     mag: array
@@ -32,7 +32,7 @@ def frf(x, f, dt):
 
         Plot with the frf magnitude, phase and
         coherence.
-        
+
     Examples
     --------
     >>> # First we need to load the sampled data which in a .mat file
