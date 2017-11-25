@@ -44,7 +44,7 @@ def _eigen(A, B=None):
 
     """
     if B is None:
-        evalues, evectors = la.eig(A)
+        evalues, evectors = la.eigh(A)
     else:
         evalues, evectors = la.eig(A, B)
 
