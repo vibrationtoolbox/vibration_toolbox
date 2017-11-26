@@ -1,10 +1,5 @@
-"""The Vibration Toolbox, Python Edition."""
-
-"""
+"""The Vibration Toolbox, Python Edition.
 Joseph C. Slater and Raphael Timbó
-
-With this, `import vibration_toolbox as vtb` will import
-all toolbox functions in the name space
 
 `import vibration_toolbox as vtb` will keep them tucked behind `vtb`
 
