@@ -1,7 +1,13 @@
+'''Multiple Degree of Freedom Analysis Tools.
+
+'''
 import numpy as np
 import scipy.linalg as la
 import scipy.signal as signal
 import matplotlib as mpl
+
+
+
 
 mpl.rcParams['lines.linewidth'] = 2
 mpl.rcParams['figure.figsize'] = (10, 6)
@@ -44,7 +50,7 @@ def _eigen(A, B=None):
 
     """
     if B is None:
-        evalues, evectors = la.eigh(A)
+        evalues, evectors = la.eig(A)
     else:
         evalues, evectors = la.eig(A, B)
 
@@ -185,8 +191,8 @@ def modes_system_undamped(M, K):
     array([ 0.45,  1.25,  1.8 ])
     >>> S
     array([[ 0.16, -0.37, -0.3 ],
-       [ 0.3 , -0.16,  0.37],
-       [ 0.37,  0.3 , -0.16]])
+           [ 0.3 , -0.16,  0.37],
+           [ 0.37,  0.3 , -0.16]])
     '''
 
     L = la.cholesky(M)
