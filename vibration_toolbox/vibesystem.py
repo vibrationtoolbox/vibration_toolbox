@@ -1,6 +1,6 @@
 import numpy as np
 import scipy.linalg as la
-from scipy import signal
+import scipy.signal as signal
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
@@ -148,14 +148,14 @@ class VibeSystem(object):
 
     def A(self):
         """State space matrix
-        
+
         This method will return the state space matrix
         of the system.
-        
+
         Returns
         ----------
         A : array
-            System's state space matrix. 
+            System's state space matrix.
 
         Examples
         --------
@@ -169,7 +169,7 @@ class VibeSystem(object):
         ...               [-c1, c2+c2]])
         >>> K = np.array([[k0+k1, -k2],
         ...               [-k1, k2+k2]])
-        >>> sys = VibeSystem(M, C, K) # create the system    
+        >>> sys = VibeSystem(M, C, K) # create the system
         >>> sys.A()
         array([[    0.,     0.,     1.,     0.],
                [    0.,     0.,     0.,     1.],
@@ -292,9 +292,9 @@ class VibeSystem(object):
         >>> F1[:, 1] = 1000*np.sin(40*t) # force applied on m1
         >>> t, yout, xout = sys.time_response(F1, t)
         >>> # response on m0
-        >>> yout[:5, 0] 
+        >>> yout[:5, 0]
         array([ 0.  ,  0.  ,  0.07,  0.32,  0.61])
-        >>> # response on m1 
+        >>> # response on m1
         >>> yout[:5, 1]
         array([ 0.  ,  0.08,  0.46,  0.79,  0.48])
         """
@@ -345,10 +345,10 @@ class VibeSystem(object):
         >>> sys = VibeSystem(M, C, K) # create the system
         >>> omega, magdb, phase = sys.freq_response()
         >>> # magnitude for output on 0 and input on 1.
-        >>> magdb[0, 1, :4] 
+        >>> magdb[0, 1, :4]
         array([-69.54, -69.54, -69.54, -69.54])
         >>> # phase for output on 1 and input on 1.
-        >>> phase[1, 1, :4] 
+        >>> phase[1, 1, :4]
         array([...0.  , -0.  , -0.01, -0.01])
         """
         rows = self.lti.inputs   # inputs (mag and phase)
@@ -399,7 +399,7 @@ class VibeSystem(object):
 
     def plot_freq_response(self, out, inp, modes=None, ax0=None, ax1=None, **kwargs):
         """Plot frequency response.
-        
+
         This method plots the frequency response given
         an output and an input.
 
@@ -412,7 +412,7 @@ class VibeSystem(object):
         modes : list, optional
             Modes that will be used to calculate the frequency response
             (all modes will be used if a list is not given).
-       
+
         ax0 : matplotlib.axes, optional
             Matplotlib axes where the amplitude will be plotted.
             If None creates a new.
@@ -429,7 +429,7 @@ class VibeSystem(object):
             Matplotlib axes with amplitude plot.
         ax1 : matplotlib.axes
             Matplotlib axes with phase plot.
-            
+
         Examples
         --------
         >>> m0, m1 = 1, 1
@@ -482,7 +482,7 @@ class VibeSystem(object):
 
     def plot_freq_response_grid(self, outs, inps, modes=None, ax=None):
         """Plot frequency response.
-        
+
         This method plots the frequency response given
         an output and an input.
 
@@ -491,11 +491,11 @@ class VibeSystem(object):
         outs : list
             List with the desired outputs.
         inps : list
-            List with the desired outputs.        
+            List with the desired outputs.
         modes : list
             List with the modes that will be used to construct
             the frequency response plot.
-        
+
         ax : array with matplotlib.axes, optional
             Matplotlib axes array created with plt.subplots.
             It needs to have a shape of (2*inputs, outputs).
@@ -504,7 +504,7 @@ class VibeSystem(object):
         -------
         ax : array with matplotlib.axes, optional
             Matplotlib axes array created with plt.subplots.
-           
+
         Examples
         --------
         >>> m0, m1 = 1, 1
@@ -519,7 +519,7 @@ class VibeSystem(object):
         ...               [-k1, k2+k2]])
         >>> sys = VibeSystem(M, C, K) # create the system
         >>> # plot frequency response for inputs at [0, 1]
-        >>> # and outputs at [0, 1] 
+        >>> # and outputs at [0, 1]
         >>> sys.plot_freq_response_grid(outs=[0, 1], inps=[0, 1])
         array([[<matplotlib.axes._...
         """
