@@ -30,7 +30,7 @@ import sys
 import matplotlib as mpl
 
 if 'pytest' in sys.argv[0]:
-    print('Setting backend to agg to run tests')
+    # print('Setting backend to agg to run tests')
     mpl.use('agg')
 
 from .sdof import *
