@@ -5,9 +5,12 @@ https://www.codementor.io/python/tutorial/host-your-python-package-using-github-
 http://peterdowns.com/posts/first-time-with-pypi.html
 
 To test release
---------------------
-python setup.py register -r pypitest
-python setup.py sdist upload -r pypitest
+---------------
+
+.. code-block:: python
+
+  python setup.py register -r pypitest
+  python setup.py sdist upload -r pypitest
 
 look at https://testpypi.python.org/pypi
 
