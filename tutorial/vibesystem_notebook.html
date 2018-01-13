@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Vibration System Objects &#8212; Vibration Toolbox 0.5.3 documentation</title>
+    <title>Vibration System Objects &#8212; Vibration Toolbox 0.6.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.5.3',
+        VERSION:     '0.6.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -248,39 +248,11 @@ degree of freedom system:</p>
 VibeSystem object (the name of the system is optional and can be used
 latter to help when we plot results).</p>
 <p>For this system the kinetic energy is:</p>
-<div class="math">
-\begin{equation}
-T = \frac{1}{2}[m_0\dot{q_0}(t)^2 + m_1\dot{q_1}(t)^2 + m_2\dot{q_2}(t)^2] = \frac{1}{2}{\bf \dot{q}}^T(t)\ M \ {\bf \dot{q}}(t)
-\end{equation}</div><p>where <span class="math">\({\bf q(t)} = [q_0(t) \  q_1(t) \ q_2(t)]^T\)</span> is the
+<p>where <span class="math">\({\bf q(t)} = [q_0(t) \  q_1(t) \ q_2(t)]^T\)</span> is the
 configuration vector. The mass matrix for this system is given by:</p>
-<div class="math">
-\begin{equation}
-M =
-\begin{bmatrix}
-        m_0 &amp; 0 &amp; 0\\
-        0 &amp; m_1 &amp; 0 \\
-        0 &amp; 0 &amp; m_2
-\end{bmatrix}
-\end{equation}</div><p>The potential energy is:</p>
-<div class="math">
-\begin{equation}
-V = \frac{1}{2}[k_0 q_0(t)^2 + k_1(q_1(t) - q_0(t))^2 + k_2 q_2(t)^2]
-\end{equation}</div><div class="math">
-\begin{equation}
-= \frac{1}{2}[(k_0+k_1)q_0(t)^2 + (k_1+k_2)q_1(t)^2 + (k_2)q_2(t)^2 -2k_1 q_0(t)q_1(t) - 2k_2 q_2(t) \\
-\end{equation}</div><div class="math">
-\begin{equation}
-= \frac{1}{2}{\bf \dot{q}}^T(t)\ K \ {\bf \dot{q}}(t)
-\end{equation}</div><p>And the stiffness matrix is:</p>
-<div class="math">
-\begin{equation}
-K =
-\begin{bmatrix}
-        k_0 +k_1 &amp; -k_1 &amp; 0\\
-        -k_1 &amp; k_1+k_2 &amp; -k_2 \\
-        0 &amp; -k_2 &amp; k_2
-\end{bmatrix}
-\end{equation}</div><p>In this case we will consider proportional damping:
+<p>The potential energy is:</p>
+<p>And the stiffness matrix is:</p>
+<p>In this case we will consider proportional damping:
 <span class="math">\(C = \alpha M + \beta K\)</span>.</p>
 <p>Let’s consider the following values for our system:</p>
 <div class="nbinput nblast docutils container">
@@ -383,9 +355,9 @@ pairs:</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div id="1db6c098-c910-4348-9e10-065fbc8ceb2c"></div>
+<div id="d43c2276-37be-42d4-8492-9206b300d819"></div>
 <script type="text/javascript">
-var element = document.getElementById('1db6c098-c910-4348-9e10-065fbc8ceb2c');
+var element = document.getElementById('d43c2276-37be-42d4-8492-9206b300d819');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -1197,9 +1169,9 @@ if (IPython.notebook.kernel != null) {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div id="89ef8de4-78d1-48e3-847e-19112370e314"></div>
+<div id="35572b22-ef9b-4ef5-b31c-3372c1366f69"></div>
 <script type="text/javascript">
-var element = document.getElementById('89ef8de4-78d1-48e3-847e-19112370e314');
+var element = document.getElementById('35572b22-ef9b-4ef5-b31c-3372c1366f69');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -1990,9 +1962,9 @@ if (IPython.notebook.kernel != null) {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div id="113774fe-b29a-47eb-b124-ab34f6da16ba"></div>
+<div id="65eca9b5-fe97-4abc-bf17-06f74fbe1612"></div>
 <script type="text/javascript">
-var element = document.getElementById('113774fe-b29a-47eb-b124-ab34f6da16ba');
+var element = document.getElementById('65eca9b5-fe97-4abc-bf17-06f74fbe1612');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -2805,9 +2777,9 @@ to the ‘ax’ name.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div id="de5880ba-0bfc-4994-afe6-d5487b57ac0e"></div>
+<div id="dd958d82-a797-478b-9417-db65077b9e5e"></div>
 <script type="text/javascript">
-var element = document.getElementById('de5880ba-0bfc-4994-afe6-d5487b57ac0e');
+var element = document.getElementById('dd958d82-a797-478b-9417-db65077b9e5e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -3615,9 +3587,9 @@ to a period of time and each column to where the force is being applied.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div id="5afaf366-b9c3-4d9b-b07c-ec2f128cb346"></div>
+<div id="47ad007c-55d9-44da-99e2-980ddf16d75c"></div>
 <script type="text/javascript">
-var element = document.getElementById('5afaf366-b9c3-4d9b-b07c-ec2f128cb346');
+var element = document.getElementById('47ad007c-55d9-44da-99e2-980ddf16d75c');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -4410,9 +4382,9 @@ FFT from the time response.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div id="25410dfe-8c86-40f7-80f0-e59fbc98529f"></div>
+<div id="221e1a85-131a-4e7a-b5cc-86750d23207d"></div>
 <script type="text/javascript">
-var element = document.getElementById('25410dfe-8c86-40f7-80f0-e59fbc98529f');
+var element = document.getElementById('221e1a85-131a-4e7a-b5cc-86750d23207d');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 

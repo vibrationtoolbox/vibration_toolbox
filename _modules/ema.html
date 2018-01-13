@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ema &#8212; Vibration Toolbox 0.5.3 documentation</title>
+    <title>ema &#8212; Vibration Toolbox 0.6.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.5.3',
+        VERSION:     '0.6.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -51,9 +51,9 @@
 
 
 <div class="viewcode-block" id="frf"><a class="viewcode-back" href="../reference/ema.html#ema.frf">[docs]</a><span class="k">def</span> <span class="nf">frf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function will return the frequency response</span>
-<span class="sd">    function (H(iw)) of the sampled data.</span>
+    <span class="sd">&quot;&quot;&quot;Return the frequency response function</span>
+
+<span class="sd">    Calculates :math:`H(i\\omega)`, and coherance of the sampled data.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -67,7 +67,7 @@
 <span class="sd">        Number of points in the fft</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    freq: array</span>
 <span class="sd">        Driving frequencies</span>
 <span class="sd">    mag: array</span>
@@ -79,6 +79,7 @@
 
 <span class="sd">        Plot with the frf magnitude, phase and</span>
 <span class="sd">        coherence.</span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; # First we need to load the sampled data which in a .mat file</span>
@@ -145,7 +146,7 @@
     <span class="k">return</span> <span class="n">freq</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">ang</span><span class="p">,</span> <span class="n">coh</span></div>
 
 
-<div class="viewcode-block" id="plot_fft"><a class="viewcode-back" href="../reference/ema.html#ema.plot_fft">[docs]</a><span class="k">def</span> <span class="nf">plot_fft</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">time_response</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_fft"><a class="viewcode-back" href="../reference/ema.html#ema.plot_fft">[docs]</a><span class="k">def</span> <span class="nf">plot_fft</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">time_response</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function will plot the fft given a time vector</span>
 <span class="sd">    and the system time response.</span>
@@ -175,7 +176,7 @@
 <span class="sd">    &lt;matplotlib.axes...</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 
     <span class="n">Ts</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># sampling interval</span>
     <span class="n">Fs</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">Ts</span>  <span class="c1"># sampling rate</span>
@@ -186,7 +187,7 @@
     <span class="n">freq_range</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="n">T</span><span class="p">)[:(</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>  <span class="c1"># one side frequency range</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">time_response</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">/</span> <span class="n">n</span>  <span class="c1"># * 4 / n to normalize to pk-pk</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:(</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)]</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq_range</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq_range</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">freq_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">freq_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Freq (rad/s)&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude (m - pk-pk)&#39;</span><span class="p">)</span>

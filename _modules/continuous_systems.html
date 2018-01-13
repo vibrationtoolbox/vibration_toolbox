@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>continuous_systems &#8212; Vibration Toolbox 0.5.3 documentation</title>
+    <title>continuous_systems &#8212; Vibration Toolbox 0.6.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.5.3',
+        VERSION:     '0.6.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -117,11 +117,11 @@
 <span class="sd">    &gt;&gt;&gt; plt.plot(x,U)</span>
 <span class="sd">    [&lt;matplotlib.lines.Line2D object at ...&gt;]</span>
 <span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;x (m)&#39;)</span>
-<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    Text(0.5,0,&#39;x (m)&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;Displacement (m)&#39;)</span>
-<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    Text(0,0.5,&#39;Displacement (m)&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.title(&#39;Mode 1&#39;)</span>
-<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    Text(0.5,1,&#39;Mode 1&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.grid(&#39;on&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -402,8 +402,6 @@
 <span class="sd">    the last two cases: and end spring or and mass, and is included with the parameters special to</span>
 <span class="sd">    those cases.</span>
 
-
-
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
@@ -525,11 +523,11 @@
 <span class="sd">    &gt;&gt;&gt; plt.plot(x,U)</span>
 <span class="sd">    [&lt;matplotlib.lines.Line2D object at ...&gt;]</span>
 <span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;x (m)&#39;)</span>
-<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    Text(0.5,0,&#39;x (m)&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;Displacement (m)&#39;)</span>
-<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    Text(0,0.5,&#39;Displacement (m)&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.title(&#39;Mode 1&#39;)</span>
-<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    Text(0.5,1,&#39;Mode 1&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">E</span> <span class="o">=</span> <span class="n">barparams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -619,11 +617,11 @@
 <span class="sd">    &gt;&gt;&gt; plt.plot(x,U)</span>
 <span class="sd">    [&lt;matplotlib.lines.Line2D object at ...&gt;]</span>
 <span class="sd">    &gt;&gt;&gt; plt.xlabel(&#39;x (m)&#39;)</span>
-<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    Text(0.5,0,&#39;x (m)&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.ylabel(&#39;Displacement (m)&#39;)</span>
-<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    Text(0,0.5,&#39;Displacement (m)&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.title(&#39;Mode 1&#39;)</span>
-<span class="sd">    &lt;matplotlib.text.Text object at ...&gt;</span>
+<span class="sd">    Text(0.5,1,&#39;Mode 1&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; plt.grid(&#39;on&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -693,7 +691,6 @@
 
     <span class="n">omega_n</span> <span class="o">=</span> <span class="n">w</span>
     <span class="k">return</span> <span class="n">omega_n</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">U</span>
-
 </pre></div>
 
           </div>

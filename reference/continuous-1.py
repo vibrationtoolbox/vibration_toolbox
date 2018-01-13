@@ -6,9 +6,9 @@ plt.figure()
 plt.plot(x,U)
 # [<matplotlib.lines.Line2D object at ...>]
 plt.xlabel('x (m)')
-# <matplotlib.text.Text object at ...>
+# Text(0.5,0,'x (m)')
 plt.ylabel('Displacement (m)')
-# <matplotlib.text.Text object at ...>
+# Text(0,0.5,'Displacement (m)')
 plt.title('Mode 1')
-# <matplotlib.text.Text object at ...>
+# Text(0.5,1,'Mode 1')
 plt.grid('on')

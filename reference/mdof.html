@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Multiple Degree of Freedom Systems (vibration_toolbox.mdof) &#8212; Vibration Toolbox 0.5.3 documentation</title>
+    <title>Multiple Degree of Freedom Systems (vibration_toolbox.mdof) &#8212; Vibration Toolbox 0.6.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.5.3',
+        VERSION:     '0.6.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -50,7 +50,8 @@
 <h1>Multiple Degree of Freedom Systems (<code class="xref py py-mod docutils literal"><span class="pre">vibration_toolbox.mdof</span></code>)<a class="headerlink" href="#multiple-degree-of-freedom-systems-vibration-toolbox-mdof" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="mdof-multiple-degree-of-freedom-functions">
 <h2><a class="reference internal" href="#module-mdof" title="mdof"><code class="xref py py-mod docutils literal"><span class="pre">mdof</span></code></a> – Multiple Degree of Freedom Functions<a class="headerlink" href="#mdof-multiple-degree-of-freedom-functions" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-mdof"></span><dl class="function">
+<span class="target" id="module-mdof"></span><p>Multiple Degree of Freedom Analysis Tools.</p>
+<dl class="function">
 <dt id="mdof.modes_system">
 <code class="descclassname">mdof.</code><code class="descname">modes_system</code><span class="sig-paren">(</span><em>M</em>, <em>K</em>, <em>C=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#modes_system"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.modes_system" title="Permalink to this definition">¶</a></dt>
 <dd><p>Natural frequencies, damping ratios, and mode shapes of MDOF system.
@@ -105,34 +106,34 @@ wd and zeta will be none and X and Y will be equal.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4</span><span class="p">],</span>
-<span class="gp">... </span>              <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">],</span>
-<span class="gp">... </span>              <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.02</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">modes_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
 <span class="go">Damping is non-proportional, eigenvectors are complex.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wn</span>
-<span class="go">array([ 0.52,  4.77,  0.52,  4.77])</span>
+<span class="go">array([ 1.33,  2.5 ,  1.33,  2.5 ])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wd</span>
-<span class="go">array([ 0.51,  4.77, -0.51, -4.77])</span>
+<span class="go">array([ 1.32,  2.5 ,  1.32,  2.5 ])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zeta</span>
-<span class="go">array([ 0.22,  0.03,  0.22,  0.03])</span>
+<span class="go">array([ 0.11,  0.02,  0.11,  0.02])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
-<span class="go">array([[ 0.84+0.j  ,  0.14-0.j  ,  0.84-0.j  ,  0.14+0.j  ],</span>
-<span class="go">       [ 0.01-0.3j ,  0.00+0.15j,  0.01+0.3j ,  0.00-0.15j],</span>
-<span class="go">       [-0.09+0.42j, -0.01+0.65j, -0.09-0.42j, -0.01-0.65j],</span>
-<span class="go">       [ 0.15+0.04j, -0.74+0.j  ,  0.15-0.04j, -0.74-0.j  ]])</span>
+<span class="go">array([[-0.06-0.58j, -0.01+0.08j, -0.06+0.58j, -0.01-0.08j],</span>
+<span class="go">       [-0.00-0.14j, -0.01-0.36j, -0.00+0.14j, -0.01+0.36j],</span>
+<span class="go">       [ 0.78+0.j  , -0.21-0.03j,  0.78-0.j  , -0.21+0.03j],</span>
+<span class="go">       [ 0.18+0.01j,  0.90+0.j  ,  0.18-0.01j,  0.90-0.j  ]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span>
-<span class="go">array([[ 0.58-0.05j,  0.12-0.06j,  0.58+0.05j,  0.12+0.06j],</span>
-<span class="go">       [ 0.01+1.26j, -0.06-0.83j,  0.01-1.26j, -0.06+0.83j],</span>
-<span class="go">       [-0.00-0.3j ,  0.02-0.58j, -0.00+0.3j ,  0.02+0.58j],</span>
-<span class="go">       [ 0.11+0.j  , -0.66-0.01j,  0.11-0.j  , -0.66+0.01j]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">K</span><span class="o">*</span><span class="mi">2</span> <span class="c1"># with proportional damping</span>
+<span class="go">array([[ 0.02+0.82j,  0.01-0.31j,  0.02-0.82j,  0.01+0.31j],</span>
+<span class="go">       [-0.05+0.18j,  0.01+1.31j, -0.05-0.18j,  0.01-1.31j],</span>
+<span class="go">       [ 0.61+0.06j, -0.12-0.02j,  0.61-0.06j, -0.12+0.02j],</span>
+<span class="go">       [ 0.14+0.03j,  0.53+0.j  ,  0.14-0.03j,  0.53-0.j  ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">K</span> <span class="c1"># with proportional damping</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">modes_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
 <span class="go">Damping is proportional or zero, eigenvectors are real</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
-<span class="go">array([[-1.  ,  0.08],</span>
-<span class="go">       [ 0.08, -1.  ]])</span>
+<span class="go">array([[-0.97,  0.23],</span>
+<span class="go">       [-0.23, -0.97]])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -140,9 +141,12 @@ wd and zeta will be none and X and Y will be equal.</p>
 <dl class="function">
 <dt id="mdof.modes_system_undamped">
 <code class="descclassname">mdof.</code><code class="descname">modes_system_undamped</code><span class="sig-paren">(</span><em>M</em>, <em>K</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#modes_system_undamped"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.modes_system_undamped" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will return the natural frequencies (w),
-eigenvectors (P), mode shapes (S) abd the modal transformation
-matrix S^-1(takes x -&gt; r(modal coordinates) for an undamped system.</p>
+<dd><p>Natural frequencies, mass-normalized mode shapes and eigenvectors of
+MDOF system</p>
+<p>Returns the natural frequencies (w),
+eigenvectors (P), mode shapes (S) and the modal transformation
+matrix S for an undamped system.</p>
+<p>See Notes for explanation of the underlying math.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -167,34 +171,53 @@ matrix S^-1(takes x -&gt; r(modal coordinates) for an undamped system.</p>
 </div></blockquote>
 <p>S: array</p>
 <blockquote>
-<div><p>The mode shapes of the system.</p>
+<div><p>The mass-normalized mode shapes of the system.</p>
 </div></blockquote>
 <p>Sinv: array</p>
-<blockquote>
+<blockquote class="last">
 <div><p>The modal transformation matrix S^-1(takes x -&gt; r(modal coordinates))</p>
 </div></blockquote>
-<p>Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-</pre></div>
-</div>
-<p>…               [0, 4, 0],</p>
-<p>…               [0, 0, 4]])</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-</pre></div>
-</div>
-<p>…               [-4, 8, -4],</p>
-<p>…               [0, -4, 4]])</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">w</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Sinv</span> <span class="o">=</span> <span class="n">modes_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">w</span>
-</pre></div>
-</div>
-<p class="last">array([ 0.45,  1.25,  1.8 ])</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Notes</p>
+<p>Given <span class="math">\(M\ddot{x}(t)+Kx(t)=0\)</span>, with mode shapes <span class="math">\(u\)</span>, the matrix
+of mode shapes <span class="math">\(S=[u_1 u_1 \ldots]\)</span> can be created. If the modal
+coordinates are the vector <span class="math">\(r(t)\)</span>. The modal transformation separates
+space and time from <span class="math">\(x(t)\)</span> such that <span class="math">\(x(t)=S r(t)\)</span>.
+Substituting into the governing equation:</p>
+<p><span class="math">\(MS\ddot{r}(t)+KSr(t)=0\)</span></p>
+<p>Premultiplying by <span class="math">\(S^T\)</span></p>
+<p><span class="math">\(S^TMS\ddot{r}(t)+S^TKSr(t)=0\)</span></p>
+<p>The matrices <span class="math">\(S^TMS\)</span> and <span class="math">\(S^TKS\)</span> will be diagonalized by this
+process (<span class="math">\(u_i\)</span> are the eigenvectors of <span class="math">\(M^{-1}K\)</span>).</p>
+<p>If scaled properly (mass normalized so <span class="math">\(u_i^TMu_i=1\)</span>) then
+<span class="math">\(S^TMS=I\)</span> and <span class="math">\(S^TKS=\Omega^2\)</span> where <span class="math">\(\Omega^2\)</span> is a
+diagonal matrix of the natural frequencies squared in radians per second.</p>
+<p>Further, inverses are unstable so the better way to solve linear equations is with
+Gauss elimination.</p>
+<p><span class="math">\(AB=C\)</span> given known <span class="math">\(A\)</span> and <span class="math">\(C\)</span>
+is solved using <cite>la.solve(A, C, assume_a=’pos’)</cite>.</p>
+<p><span class="math">\(BA=C\)</span> given known <span class="math">\(A\)</span> and <span class="math">\(C\)</span> is solved by first
+transposing the equation to <span class="math">\(A^TB^T=C^T\)</span>, then solving for
+<span class="math">\(C^T\)</span>. The resulting command is <cite>la.solve(A.T, C.T, assume_a=’pos’).T</cite></p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">w</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Sinv</span> <span class="o">=</span> <span class="n">modes_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">w</span>
+<span class="go">array([ 0.45,  1.25,  1.8 ])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S</span>
+<span class="go">array([[ 0.16, -0.37, -0.3 ],</span>
+<span class="go">       [ 0.3 , -0.16,  0.37],</span>
+<span class="go">       [ 0.37,  0.3 , -0.16]])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">

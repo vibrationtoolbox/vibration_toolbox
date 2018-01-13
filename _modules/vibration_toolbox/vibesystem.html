@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>vibration_toolbox.vibesystem &#8212; Vibration Toolbox 0.5.3 documentation</title>
+    <title>vibration_toolbox.vibesystem &#8212; Vibration Toolbox 0.6.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.5.3',
+        VERSION:     '0.6.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -47,7 +47,7 @@
   <h1>Source code for vibration_toolbox.vibesystem</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">signal</span>
+<span class="kn">import</span> <span class="nn">scipy.signal</span> <span class="k">as</span> <span class="nn">signal</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
@@ -139,7 +139,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">evectors</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wn</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wd</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lti</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_calc_system</span><span class="p">()</span>
@@ -191,18 +191,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">wd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evalues</span><span class="p">)[:</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">damping_ratio</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evalues</span><span class="p">)</span> <span class="o">/</span>
                               <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evalues</span><span class="p">))[:</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_H</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lti</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lti</span><span class="p">()</span>
 
 <div class="viewcode-block" id="VibeSystem.A"><a class="viewcode-back" href="../../reference/vibe_system.html#vibration_toolbox.vibesystem.VibeSystem.A">[docs]</a>    <span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;State space matrix</span>
-<span class="sd">        </span>
+
 <span class="sd">        This method will return the state space matrix</span>
 <span class="sd">        of the system.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Returns</span>
 <span class="sd">        ----------</span>
 <span class="sd">        A : array</span>
-<span class="sd">            System&#39;s state space matrix. </span>
+<span class="sd">            System&#39;s state space matrix.</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -216,7 +216,7 @@
 <span class="sd">        ...               [-c1, c2+c2]])</span>
 <span class="sd">        &gt;&gt;&gt; K = np.array([[k0+k1, -k2],</span>
 <span class="sd">        ...               [-k1, k2+k2]])</span>
-<span class="sd">        &gt;&gt;&gt; sys = VibeSystem(M, C, K) # create the system    </span>
+<span class="sd">        &gt;&gt;&gt; sys = VibeSystem(M, C, K) # create the system</span>
 <span class="sd">        &gt;&gt;&gt; sys.A()</span>
 <span class="sd">        array([[    0.,     0.,     1.,     0.],</span>
 <span class="sd">               [    0.,     0.,     0.,     1.],</span>
@@ -267,7 +267,7 @@
 
         <span class="k">return</span> <span class="n">evalues</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">evectors</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">_H</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_lti</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Continuous-time linear time invariant system.</span>
 
 <span class="sd">        This method is used to create a Continuous-time linear</span>
@@ -294,9 +294,7 @@
                        <span class="n">Cv</span> <span class="o">-</span> <span class="n">Ca</span> <span class="o">@</span> <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">)))</span>
         <span class="n">D</span> <span class="o">=</span> <span class="n">Ca</span> <span class="o">@</span> <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">,</span> <span class="n">B2</span><span class="p">)</span>
 
-        <span class="n">sys</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lti</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">sys</span>
+        <span class="k">return</span> <span class="n">signal</span><span class="o">.</span><span class="n">lti</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">time_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ic</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Time response for a mdof system.</span>
@@ -341,25 +339,26 @@
 <span class="sd">        &gt;&gt;&gt; F1[:, 1] = 1000*np.sin(40*t) # force applied on m1</span>
 <span class="sd">        &gt;&gt;&gt; t, yout, xout = sys.time_response(F1, t)</span>
 <span class="sd">        &gt;&gt;&gt; # response on m0</span>
-<span class="sd">        &gt;&gt;&gt; yout[:5, 0] </span>
+<span class="sd">        &gt;&gt;&gt; yout[:5, 0]</span>
 <span class="sd">        array([ 0.  ,  0.  ,  0.07,  0.32,  0.61])</span>
-<span class="sd">        &gt;&gt;&gt; # response on m1 </span>
+<span class="sd">        &gt;&gt;&gt; # response on m1</span>
 <span class="sd">        &gt;&gt;&gt; yout[:5, 1]</span>
 <span class="sd">        array([ 0.  ,  0.08,  0.46,  0.79,  0.48])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">ic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">signal</span><span class="o">.</span><span class="n">lsim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ic</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">signal</span><span class="o">.</span><span class="n">lsim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">signal</span><span class="o">.</span><span class="n">lsim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lti</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">X0</span><span class="o">=</span><span class="n">ic</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="VibeSystem.freq_response"><a class="viewcode-back" href="../../reference/vibe_system.html#vibration_toolbox.vibesystem.VibeSystem.freq_response">[docs]</a>    <span class="k">def</span> <span class="nf">freq_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">modes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="VibeSystem.freq_response"><a class="viewcode-back" href="../../reference/vibe_system.html#vibration_toolbox.vibesystem.VibeSystem.freq_response">[docs]</a>    <span class="k">def</span> <span class="nf">freq_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">F</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">modes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Frequency response for a mdof system.</span>
 
 <span class="sd">        This method returns the frequency response for a mdof system</span>
-<span class="sd">        given a range of frequencies and the modes that will be used.</span>
+<span class="sd">        given a range of frequencies, the force for each frequency</span>
+<span class="sd">        and the modes that will be used.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
+<span class="sd">        F : array, optional</span>
+<span class="sd">            Force array (needs to have the same length as time array).</span>
+<span class="sd">            If not given the impulse response is calculated.</span>
 <span class="sd">        omega : array, optional</span>
 <span class="sd">            Array with the desired range of frequencies (the default</span>
 <span class="sd">             is 0 to 1.5 x highest damped natural frequency.</span>
@@ -393,18 +392,18 @@
 <span class="sd">        &gt;&gt;&gt; sys = VibeSystem(M, C, K) # create the system</span>
 <span class="sd">        &gt;&gt;&gt; omega, magdb, phase = sys.freq_response()</span>
 <span class="sd">        &gt;&gt;&gt; # magnitude for output on 0 and input on 1.</span>
-<span class="sd">        &gt;&gt;&gt; magdb[0, 1, :4] </span>
+<span class="sd">        &gt;&gt;&gt; magdb[0, 1, :4]</span>
 <span class="sd">        array([-69.54, -69.54, -69.54, -69.54])</span>
 <span class="sd">        &gt;&gt;&gt; # phase for output on 1 and input on 1.</span>
-<span class="sd">        &gt;&gt;&gt; phase[1, 1, :4] </span>
+<span class="sd">        &gt;&gt;&gt; phase[1, 1, :4]</span>
 <span class="sd">        array([...0.  , -0.  , -0.01, -0.01])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">inputs</span>   <span class="c1"># inputs (mag and phase)</span>
-        <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">outputs</span>  <span class="c1"># outputs</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lti</span><span class="o">.</span><span class="n">inputs</span>   <span class="c1"># inputs (mag and phase)</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lti</span><span class="o">.</span><span class="n">outputs</span>  <span class="c1"># outputs</span>
 
-        <span class="n">B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">B</span>
-        <span class="n">C</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">C</span>
-        <span class="n">D</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">D</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lti</span><span class="o">.</span><span class="n">B</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lti</span><span class="o">.</span><span class="n">C</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lti</span><span class="o">.</span><span class="n">D</span>
 
         <span class="n">evals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evalues</span>
         <span class="n">psi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evectors</span>
@@ -415,39 +414,27 @@
             <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">evals</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 
         <span class="c1"># if modes are selected:</span>
-            <span class="k">if</span> <span class="n">modes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>  <span class="c1"># n dof -&gt; number of modes</span>
-                <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">modes</span><span class="p">)</span>  <span class="c1"># -&gt; number of desired modes</span>
-                <span class="c1"># idx to get each evalue/evector and its conjugate</span>
-                <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
-                <span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">modes</span>  <span class="c1"># modes</span>
-                <span class="n">idx</span><span class="p">[</span><span class="n">m</span><span class="p">:]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">)[</span><span class="o">-</span><span class="n">m</span><span class="p">:]</span>  <span class="c1"># conjugates (see how evalues are ordered)</span>
+        <span class="k">if</span> <span class="n">modes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>  <span class="c1"># n dof -&gt; number of modes</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">modes</span><span class="p">)</span>  <span class="c1"># -&gt; number of desired modes</span>
+            <span class="c1"># idx to get each evalue/evector and its conjugate</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
+            <span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">modes</span>  <span class="c1"># modes</span>
+            <span class="n">idx</span><span class="p">[</span><span class="n">m</span><span class="p">:]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">)[</span><span class="o">-</span><span class="n">m</span><span class="p">:]</span>  <span class="c1"># conjugates (see how evalues are ordered)</span>
 
-                <span class="n">evals_m</span> <span class="o">=</span> <span class="n">evals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">idx</span><span class="p">)]</span>
-                <span class="n">psi_m</span> <span class="o">=</span> <span class="n">psi</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">),</span> <span class="n">idx</span><span class="p">)]</span>
-                <span class="n">psi_inv_m</span> <span class="o">=</span> <span class="n">psi_inv</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">))]</span>
-
-                <span class="n">magdb_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">cols</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">omega</span><span class="p">)))</span>
-                <span class="n">phase_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">cols</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">omega</span><span class="p">)))</span>
-
-                <span class="k">for</span> <span class="n">wi</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">omega</span><span class="p">):</span>
-                    <span class="n">diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">lam</span><span class="p">)</span> <span class="k">for</span> <span class="n">lam</span> <span class="ow">in</span> <span class="n">evals_m</span><span class="p">])</span>
-<div class="viewcode-block" id="VibeSystem.plot_freq_response"><a class="viewcode-back" href="../../reference/vibe_system.html#vibration_toolbox.vibesystem.VibeSystem.plot_freq_response">[docs]</a>                    <span class="n">H</span> <span class="o">=</span> <span class="n">C</span> <span class="o">@</span> <span class="n">psi_m</span> <span class="o">@</span> <span class="n">diag</span> <span class="o">@</span> <span class="n">psi_inv_m</span> <span class="o">@</span> <span class="n">B</span> <span class="o">+</span> <span class="n">D</span>
-
-                    <span class="n">magh</span> <span class="o">=</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">H</span><span class="p">))</span>
-                    <span class="n">angh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">H</span><span class="p">)))</span>
-
-                    <span class="n">magdb_m</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">wi</span><span class="p">]</span> <span class="o">=</span> <span class="n">magh</span>
-                    <span class="n">phase_m</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">wi</span><span class="p">]</span> <span class="o">=</span> <span class="n">angh</span>
-
-                <span class="k">return</span> <span class="n">omega</span><span class="p">,</span> <span class="n">magdb_m</span><span class="p">,</span> <span class="n">phase_m</span>
+            <span class="n">evals</span> <span class="o">=</span> <span class="n">evals</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">idx</span><span class="p">)]</span>
+            <span class="n">psi</span> <span class="o">=</span> <span class="n">psi</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">),</span> <span class="n">idx</span><span class="p">)]</span>
+            <span class="n">psi_inv</span> <span class="o">=</span> <span class="n">psi_inv</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">))]</span>
 
         <span class="n">magdb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">cols</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">omega</span><span class="p">)))</span>
         <span class="n">phase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">cols</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">omega</span><span class="p">)))</span>
 
         <span class="k">for</span> <span class="n">wi</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">omega</span><span class="p">):</span>
             <span class="n">diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">w</span> <span class="o">-</span> <span class="n">lam</span><span class="p">)</span> <span class="k">for</span> <span class="n">lam</span> <span class="ow">in</span> <span class="n">evals</span><span class="p">])</span>
-            <span class="n">H</span> <span class="o">=</span> <span class="n">C</span> <span class="o">@</span> <span class="n">psi</span> <span class="o">@</span> <span class="n">diag</span> <span class="o">@</span> <span class="n">psi_inv</span> <span class="o">@</span> <span class="n">B</span> <span class="o">+</span> <span class="n">D</span>
+            <span class="k">if</span> <span class="n">F</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="VibeSystem.plot_freq_response"><a class="viewcode-back" href="../../reference/vibe_system.html#vibration_toolbox.vibesystem.VibeSystem.plot_freq_response">[docs]</a>                <span class="n">H</span> <span class="o">=</span> <span class="n">C</span> <span class="o">@</span> <span class="n">psi</span> <span class="o">@</span> <span class="n">diag</span> <span class="o">@</span> <span class="n">psi_inv</span> <span class="o">@</span> <span class="n">B</span> <span class="o">+</span> <span class="n">D</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">H</span> <span class="o">=</span> <span class="p">(</span><span class="n">C</span> <span class="o">@</span> <span class="n">psi</span> <span class="o">@</span> <span class="n">diag</span> <span class="o">@</span> <span class="n">psi_inv</span> <span class="o">@</span> <span class="n">B</span> <span class="o">+</span> <span class="n">D</span><span class="p">)</span> <span class="o">@</span> <span class="n">F</span><span class="p">[</span><span class="n">wi</span><span class="p">]</span>
 
             <span class="n">magh</span> <span class="o">=</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">H</span><span class="p">))</span>
             <span class="n">angh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">H</span><span class="p">)))</span>
@@ -459,7 +446,7 @@
 
     <span class="k">def</span> <span class="nf">plot_freq_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Plot frequency response.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This method plots the frequency response given</span>
 <span class="sd">        an output and an input.</span>
 
@@ -472,7 +459,7 @@
 <span class="sd">        modes : list, optional</span>
 <span class="sd">            Modes that will be used to calculate the frequency response</span>
 <span class="sd">            (all modes will be used if a list is not given).</span>
-<span class="sd">       </span>
+
 <span class="sd">        ax0 : matplotlib.axes, optional</span>
 <span class="sd">            Matplotlib axes where the amplitude will be plotted.</span>
 <span class="sd">            If None creates a new.</span>
@@ -489,7 +476,7 @@
 <span class="sd">            Matplotlib axes with amplitude plot.</span>
 <span class="sd">        ax1 : matplotlib.axes</span>
 <span class="sd">            Matplotlib axes with phase plot.</span>
-<span class="sd">            </span>
+
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
 <span class="sd">        &gt;&gt;&gt; m0, m1 = 1, 1</span>
@@ -542,7 +529,7 @@
 
 <div class="viewcode-block" id="VibeSystem.plot_freq_response_grid"><a class="viewcode-back" href="../../reference/vibe_system.html#vibration_toolbox.vibesystem.VibeSystem.plot_freq_response_grid">[docs]</a>    <span class="k">def</span> <span class="nf">plot_freq_response_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outs</span><span class="p">,</span> <span class="n">inps</span><span class="p">,</span> <span class="n">modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Plot frequency response.</span>
-<span class="sd">        </span>
+
 <span class="sd">        This method plots the frequency response given</span>
 <span class="sd">        an output and an input.</span>
 
@@ -551,11 +538,11 @@
 <span class="sd">        outs : list</span>
 <span class="sd">            List with the desired outputs.</span>
 <span class="sd">        inps : list</span>
-<span class="sd">            List with the desired outputs.        </span>
+<span class="sd">            List with the desired outputs.</span>
 <span class="sd">        modes : list</span>
 <span class="sd">            List with the modes that will be used to construct</span>
 <span class="sd">            the frequency response plot.</span>
-<span class="sd">        </span>
+
 <span class="sd">        ax : array with matplotlib.axes, optional</span>
 <span class="sd">            Matplotlib axes array created with plt.subplots.</span>
 <span class="sd">            It needs to have a shape of (2*inputs, outputs).</span>
@@ -564,7 +551,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        ax : array with matplotlib.axes, optional</span>
 <span class="sd">            Matplotlib axes array created with plt.subplots.</span>
-<span class="sd">           </span>
+
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
 <span class="sd">        &gt;&gt;&gt; m0, m1 = 1, 1</span>
@@ -579,7 +566,7 @@
 <span class="sd">        ...               [-k1, k2+k2]])</span>
 <span class="sd">        &gt;&gt;&gt; sys = VibeSystem(M, C, K) # create the system</span>
 <span class="sd">        &gt;&gt;&gt; # plot frequency response for inputs at [0, 1]</span>
-<span class="sd">        &gt;&gt;&gt; # and outputs at [0, 1] </span>
+<span class="sd">        &gt;&gt;&gt; # and outputs at [0, 1]</span>
 <span class="sd">        &gt;&gt;&gt; sys.plot_freq_response_grid(outs=[0, 1], inps=[0, 1])</span>
 <span class="sd">        array([[&lt;matplotlib.axes._...</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -656,7 +643,7 @@
 <span class="sd">        array([&lt;matplotlib.axes...</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">outputs</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lti</span><span class="o">.</span><span class="n">outputs</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
             <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Time response &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
@@ -682,7 +669,6 @@
         <span class="n">axs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">axs</span></div></div>
-
 </pre></div>
 
           </div>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Vibration Systems (vibesystem) &#8212; Vibration Toolbox 0.5.3 documentation</title>
+    <title>Vibration Systems (vibesystem) &#8212; Vibration Toolbox 0.6.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.5.3',
+        VERSION:     '0.6.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -157,7 +157,7 @@ of the system.</p>
 <span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="o">+</span><span class="n">c2</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">k0</span><span class="o">+</span><span class="n">k1</span><span class="p">,</span> <span class="o">-</span><span class="n">k2</span><span class="p">],</span>
 <span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="n">k1</span><span class="p">,</span> <span class="n">k2</span><span class="o">+</span><span class="n">k2</span><span class="p">]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span> <span class="o">=</span> <span class="n">VibeSystem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># create the system    </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span> <span class="o">=</span> <span class="n">VibeSystem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># create the system</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">A</span><span class="p">()</span>
 <span class="go">array([[    0.,     0.,     1.,     0.],</span>
 <span class="go">       [    0.,     0.,     0.,     1.],</span>
@@ -169,15 +169,21 @@ of the system.</p>
 
 <dl class="method">
 <dt id="vibration_toolbox.vibesystem.VibeSystem.freq_response">
-<code class="descname">freq_response</code><span class="sig-paren">(</span><em>omega=None</em>, <em>modes=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.freq_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.freq_response" title="Permalink to this definition">¶</a></dt>
+<code class="descname">freq_response</code><span class="sig-paren">(</span><em>F=None</em>, <em>omega=None</em>, <em>modes=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.freq_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.freq_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Frequency response for a mdof system.</p>
 <p>This method returns the frequency response for a mdof system
-given a range of frequencies and the modes that will be used.</p>
+given a range of frequencies, the force for each frequency
+and the modes that will be used.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>omega</strong> : array, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>F</strong> : array, optional</p>
+<blockquote>
+<div><p>Force array (needs to have the same length as time array).
+If not given the impulse response is calculated.</p>
+</div></blockquote>
+<p><strong>omega</strong> : array, optional</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>Array with the desired range of frequencies (the default</dt>
@@ -225,10 +231,10 @@ The order of the array is: [output, input, phase]</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span> <span class="o">=</span> <span class="n">VibeSystem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># create the system</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">omega</span><span class="p">,</span> <span class="n">magdb</span><span class="p">,</span> <span class="n">phase</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">freq_response</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># magnitude for output on 0 and input on 1.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">magdb</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">magdb</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span>
 <span class="go">array([-69.54, -69.54, -69.54, -69.54])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># phase for output on 1 and input on 1.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">phase</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">phase</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span>
 <span class="go">array([...0.  , -0.  , -0.01, -0.01])</span>
 </pre></div>
 </div>
@@ -358,7 +364,7 @@ It needs to have a shape of (2*inputs, outputs).</p>
 <span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="n">k1</span><span class="p">,</span> <span class="n">k2</span><span class="o">+</span><span class="n">k2</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span> <span class="o">=</span> <span class="n">VibeSystem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span> <span class="c1"># create the system</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># plot frequency response for inputs at [0, 1]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># and outputs at [0, 1] </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># and outputs at [0, 1]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">plot_freq_response_grid</span><span class="p">(</span><span class="n">outs</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">inps</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="go">array([[&lt;matplotlib.axes._...</span>
 </pre></div>
@@ -498,9 +504,9 @@ given a force, time and initial conditions.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">F1</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">40</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="c1"># force applied on m1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">time_response</span><span class="p">(</span><span class="n">F1</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># response on m0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="go">array([ 0.  ,  0.  ,  0.07,  0.32,  0.61])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># response on m1 </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># response on m1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 <span class="go">array([ 0.  ,  0.08,  0.46,  0.79,  0.48])</span>
 </pre></div>
