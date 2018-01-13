@@ -99,7 +99,7 @@ def frf(x, f, dt):
     return freq, mag, ang, coh
 
 
-def plot_fft(t, time_response, ax=None):
+def plot_fft(t, time_response, ax=None, **kwargs):
     """
     This function will plot the fft given a time vector
     and the system time response.
@@ -140,7 +140,7 @@ def plot_fft(t, time_response, ax=None):
     freq_range = (k / T)[:(n // 2)] * 2 * np.pi  # one side frequency range
     y = np.fft.fft(time_response) * 4 / n  # * 4 / n to normalize to pk-pk
     y = y[:(n // 2)]
-    ax.plot(freq_range, abs(y))
+    ax.plot(freq_range, abs(y), **kwargs)
     ax.set_xlim(freq_range[0], freq_range[-1])
     ax.set_xlabel('Freq (rad/s)')
     ax.set_ylabel('Amplitude (m - pk-pk)')
