@@ -129,7 +129,7 @@ def plot_fft(t, time_response, ax=None):
     <matplotlib.axes...
     """
     if ax is None:
-        _, ax = plt.subplots()
+        ax = plt.gca()
 
     Ts = t[1] - t[0]  # sampling interval
     Fs = 1 / Ts  # sampling rate
