@@ -1,6 +1,7 @@
 import numpy as np
-np.set_printoptions(precision=4, suppress=True)
-import vibrationtesting as vt
+#np.set_printoptions(precision=2, suppress=True)
+print('Running test_vibration_toolbox.py')
+#import vibrationtesting as vt
 import numpy.testing as nt
 
 # Examples for future use
