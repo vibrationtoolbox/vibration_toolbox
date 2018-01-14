@@ -6,7 +6,10 @@ import scipy.linalg as la
 import scipy.signal as signal
 import matplotlib as mpl
 
-
+__all__ = ["modes_system",
+           "modes_system_undamped",
+           "response_system",
+           "response_system_undamped"]
 
 
 mpl.rcParams['lines.linewidth'] = 2
