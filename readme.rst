@@ -8,6 +8,9 @@
 
 .. image:: https://travis-ci.org/vibrationtoolbox/vibration_toolbox.svg?branch=master
     :target: https://travis-ci.org/vibrationtoolbox/vibration_toolbox
+    
+.. image:: https://zenodo.org/badge/39572419.svg
+    :target: https://zenodo.org/badge/latestdoi/39572419
 
 .. .. image:: https://img.shields.io/pypi/v/vibration_toolbox.svg
     :target: https://img.shields.io/pypi/v/vibration_toolbox
