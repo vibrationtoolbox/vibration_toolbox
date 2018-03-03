@@ -17,6 +17,9 @@ The Engineering Vibration Toolbox for Python
 .. image:: https://img.shields.io/pypi/v/vibration_toolbox.svg
    :target: https://img.shields.io/pypi/v/vibration_toolbox
 
+.. image:: https://mybinder.org/badge.svg
+   :target: https://mybinder.org/v2/gh/vibrationtoolbox/vibration_toolbox/binder
+
 .. #image:: https://coveralls.io/repos/vibrationtoolbox/vibration_toolbox/badge.png?branch=master
 ..  #:target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
 
@@ -29,6 +32,13 @@ demonstration of concepts. You may find them useful for application, but that
 isn't the intent. If you have professional-level needs please `contact the authors <mailto:joseph.c.slater@gmail.com>`_.
 
 For more information, please see the `documentation for the Python version <http://vibrationtoolbox.github.io/vibration_toolbox/>`_ but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox so this is taking some time. We don't need feedback at this time, but we will take assistance in improving documentation and code.
+
+
+Try now!
+--------
+
+You won't get everything, but you can try parts of the toolbox immediately on  and `tutorial on mybinder.org <https://mybinder.org/v2/gh/vibrationtoolbox/vibration_toolbox/binder>`_, right in your browser window.
+
 
 Table of Contents
 -----------------
