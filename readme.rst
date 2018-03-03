@@ -8,7 +8,7 @@
 
 .. image:: https://travis-ci.org/vibrationtoolbox/vibration_toolbox.svg?branch=master
     :target: https://travis-ci.org/vibrationtoolbox/vibration_toolbox
-    
+
 .. image:: https://zenodo.org/badge/39572419.svg
     :target: https://zenodo.org/badge/latestdoi/39572419
 
@@ -27,6 +27,12 @@ This `Python <http://python.org>`_ version is a completely new design build for 
 demonstration of vibration analysis and phenomenon. You may find them useful for application, but that isn't the intent of this toolbox. If you have professional-level needs please `contact the authors <mailto:joseph.c.slater@gmail.com>`_.
 
 Full `documentation is available <http://vibrationtoolbox.github.io/vibration_toolbox/>`_, but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox so this is taking some time. We don't need feedback at this time, but we will take assistance in improving documentation and code. *Please* clone the repository and support use by submitting pull requests fixing typos and clarifying documentation.
+
+Try now!
+--------
+
+You won't get everything, but you can try parts of the toolbox immediately on `mybinder.org <>`_, right in your browser window. 
+
 
 Installation
 ------------
