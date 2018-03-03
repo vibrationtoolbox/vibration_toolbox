@@ -12,6 +12,9 @@
 .. image:: https://zenodo.org/badge/39572419.svg
     :target: https://zenodo.org/badge/latestdoi/39572419
 
+.. image:: https://mybinder.org/badge.svg
+    :target: https://mybinder.org/v2/gh/vibrationtoolbox/vibration_toolbox/binder
+
 .. .. image:: https://img.shields.io/pypi/v/vibration_toolbox.svg
     :target: https://img.shields.io/pypi/v/vibration_toolbox
 
@@ -28,10 +31,11 @@ demonstration of vibration analysis and phenomenon. You may find them useful for
 
 Full `documentation is available <http://vibrationtoolbox.github.io/vibration_toolbox/>`_, but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox so this is taking some time. We don't need feedback at this time, but we will take assistance in improving documentation and code. *Please* clone the repository and support use by submitting pull requests fixing typos and clarifying documentation.
 
+
 Try now!
 --------
 
-You won't get everything, but you can try parts of the toolbox immediately on `examples on mybinder.org <https://mybinder.org/v2/gh/vibrationtoolbox/vibration_toolbox/tree/master/docs/examples/master>`_ and `tutorial on mybinder.org <>`_, right in your browser window. 
+You won't get everything, but you can try parts of the toolbox immediately on  and `tutorial on mybinder.org <https://mybinder.org/v2/gh/vibrationtoolbox/vibration_toolbox/binder>`_, right in your browser window.
 
 
 Installation
