@@ -4,29 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Continuous Systems (continuous_systems) &#8212; Vibration Toolbox 0.6.2 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.6.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/jupyter-js-widgets@^2.0.13/dist/embed.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Vibration Systems (vibesystem)" href="vibe_system.html" />
@@ -37,8 +26,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -47,10 +35,10 @@
           <div class="body" role="main">
             
   <div class="section" id="module-continuous_systems">
-<span id="continuous-systems-continuous-systems"></span><h1>Continuous Systems (<a class="reference internal" href="#module-continuous_systems" title="continuous_systems: Continuous Systems"><code class="xref py py-mod docutils literal"><span class="pre">continuous_systems</span></code></a>)<a class="headerlink" href="#module-continuous_systems" title="Permalink to this headline">¶</a></h1>
+<span id="continuous-systems-continuous-systems"></span><h1>Continuous Systems (<a class="reference internal" href="#module-continuous_systems" title="continuous_systems: Continuous Systems"><code class="xref py py-mod docutils literal notranslate"><span class="pre">continuous_systems</span></code></a>)<a class="headerlink" href="#module-continuous_systems" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="continuous_systems.euler_beam_modes">
-<code class="descclassname">continuous_systems.</code><code class="descname">euler_beam_modes</code><span class="sig-paren">(</span><em>n=10</em>, <em>bctype=3</em>, <em>npoints=2001</em>, <em>beamparams=array([  7.31000000e+10</em>, <em>8.43750000e-09</em>, <em>2.74700000e+03</em>, <em>4.50000000e-04</em>, <em>4.00000000e-01])</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/continuous_systems.html#euler_beam_modes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#continuous_systems.euler_beam_modes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">continuous_systems.</code><code class="descname">euler_beam_modes</code><span class="sig-paren">(</span><em>n=10</em>, <em>bctype=3</em>, <em>npoints=2001</em>, <em>beamparams=array([7.3100e+10</em>, <em>8.4375e-09</em>, <em>2.7470e+03</em>, <em>4.5000e-04</em>, <em>4.0000e-01])</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/continuous_systems.html#euler_beam_modes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#continuous_systems.euler_beam_modes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mode shapes and natural frequencies of Euler-Bernoulli beam.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -106,7 +94,7 @@ length of beam</p>
 
 <dl class="function">
 <dt id="continuous_systems.euler_beam_frf">
-<code class="descclassname">continuous_systems.</code><code class="descname">euler_beam_frf</code><span class="sig-paren">(</span><em>xin=0.22</em>, <em>xout=0.32</em>, <em>fmin=0.0</em>, <em>fmax=1000.0</em>, <em>zeta=0.02</em>, <em>bctype=2</em>, <em>npoints=2001</em>, <em>beamparams=array([  7.31000000e+10</em>, <em>8.43750000e-09</em>, <em>2.74700000e+03</em>, <em>4.50000000e-04</em>, <em>4.00000000e-01])</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/continuous_systems.html#euler_beam_frf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#continuous_systems.euler_beam_frf" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">continuous_systems.</code><code class="descname">euler_beam_frf</code><span class="sig-paren">(</span><em>xin=0.22</em>, <em>xout=0.32</em>, <em>fmin=0.0</em>, <em>fmax=1000.0</em>, <em>zeta=0.02</em>, <em>bctype=2</em>, <em>npoints=2001</em>, <em>beamparams=array([7.3100e+10</em>, <em>8.4375e-09</em>, <em>2.7470e+03</em>, <em>4.5000e-04</em>, <em>4.0000e-01])</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/continuous_systems.html#euler_beam_frf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#continuous_systems.euler_beam_frf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Frequency response function fo Euler-Bernoulli beam.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -197,11 +185,11 @@ length of beam</p>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Continuous Systems (<code class="docutils literal"><span class="pre">continuous_systems</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vibe_system.html">Vibration Systems (<code class="docutils literal"><span class="pre">vibesystem</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ema.html">Experimental Modal Analysis (<code class="docutils literal"><span class="pre">vibration_toolbox.ema</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Continuous Systems (<code class="docutils literal notranslate"><span class="pre">continuous_systems</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vibe_system.html">Vibration Systems (<code class="docutils literal notranslate"><span class="pre">vibesystem</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ema.html">Experimental Modal Analysis (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.ema</span></code>)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
@@ -213,12 +201,14 @@ length of beam</p>
 
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
   <div role="note" aria-label="source link">
@@ -236,7 +226,7 @@ length of beam</p>
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

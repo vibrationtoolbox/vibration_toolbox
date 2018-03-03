@@ -4,29 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>&lt;no title&gt; &#8212; Vibration Toolbox 0.6.2 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.6.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/jupyter-js-widgets@^2.0.13/dist/embed.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
@@ -35,8 +24,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -204,14 +192,18 @@ div.nboutput div.output_area.stderr {
 .ansi-white-intense-fg { color: #A1A6B2; }
 .ansi-white-intense-bg { background-color: #A1A6B2; }
 
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
 .ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
 </style>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [1]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>%matplotlib inline
 import matplotlib.pyplot as plt
 # I don&#39;t like importing this way (pollutes the namespace) but haven&#39;t had time to fix it yet.
@@ -221,31 +213,31 @@ import numpy as np
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>w, x, U = vtb.euler_beam_modes(bctype = 3)
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>plt.plot(x,U[:,0],&#39;-&#39;)
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [2]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>fout, H = vtb.euler_beam_frf(xin = .1, xout = .3)
 
 </pre></div>
@@ -259,11 +251,11 @@ import numpy as np
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [3]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>fout, H = vtb.euler_beam_frf(xin = .1, xout = .1)
 </pre></div>
 </div>
@@ -276,11 +268,11 @@ import numpy as np
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [4]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>fout, H11 = vtb.euler_beam_frf(xin = .1, xout = .1)
 #frfplot(fout, H)
 </pre></div>
@@ -294,11 +286,11 @@ import numpy as np
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [5]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>fout, H = vtb.euler_beam_frf(xin = .1, xout = .35)
 
 </pre></div>
@@ -312,21 +304,21 @@ import numpy as np
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [7]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>from ipywidgets import interact, interactive, fixed, interact_manual
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [8]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>def ebi(xin=.4,xout=.4):
     w, v = vtb.euler_beam_frf(  xin = xin, xout = xout)
     print(xin)
@@ -335,11 +327,11 @@ import numpy as np
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [12]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>interact(ebi,  xin = (0.0,.4, 0.0005), xout = (0.0,.4, 0.0005))
 #display(ww)
 </pre></div>
@@ -352,21 +344,21 @@ import numpy as np
 <script type="application/vnd.jupyter.widget-view+json">{"model_id": "7afb85b7af304fbcadfca1df7576f26e", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[12]:
 </pre></div>
 </div>
-<div class="output_area highlight-none"><div class="highlight"><pre>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>&lt;function __main__.ebi&gt;
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [11]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>ebi()
 </pre></div>
 </div>
@@ -375,9 +367,9 @@ import numpy as np
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div id="95c1b494-fdf8-446a-8e0c-7be46d6c4f85"></div>
+<div></div>
 <script type="text/javascript">
-var element = document.getElementById('95c1b494-fdf8-446a-8e0c-7be46d6c4f85');
+var element = document.currentScript.previousSibling.previousSibling;
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -1162,11 +1154,11 @@ if (IPython.notebook.kernel != null) {
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [12]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>w = interactive(vtb.euler_beam_frf,  xin = (0.0,.4, 0.0005), xout = (0.0,.4, 0.0005))
 display(w)
 </pre></div>
@@ -1179,11 +1171,11 @@ display(w)
 <script type="application/vnd.jupyter.widget-view+json">{"model_id": "3164f814721243cc9d61160c05137767", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [13]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>def f(m, b):
     plt.figure(2)
     x = np.linspace(-10, 10, num=1000)
@@ -1205,11 +1197,11 @@ interactive_plot
 <script type="application/vnd.jupyter.widget-view+json">{"model_id": "41c519e45a2046b28946abed8faf4ea1", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [14]:
 </pre></div>
 </div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
+<div class="input_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>z = interactive(ebf,  xin = (0.0,.4, 0.0005), xout = (0.0,.4, 0.0005), fmin = (0, 10000,10), fmax = (1000, 20000, 10), zeta = (0., .2, .001))
 display(z)
 </pre></div>
@@ -1228,16 +1220,6 @@ display(z)
 
 <span class="ansi-red-fg">NameError</span>: name &#39;ebf&#39; is not defined
 </pre></div></div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-none"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
 </div>
 
 
@@ -1272,12 +1254,14 @@ display(z)
 
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
   <div role="note" aria-label="source link">
@@ -1295,7 +1279,7 @@ display(z)
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

@@ -4,29 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Single Degree of Freedom &#8212; Vibration Toolbox 0.6.2 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.6.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/jupyter-js-widgets@^2.0.13/dist/embed.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Multiple Degree of Freedom" href="mdof_notebook.html" />
@@ -37,8 +26,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -206,18 +194,22 @@ div.nboutput div.output_area.stderr {
 .ansi-white-intense-fg { color: #A1A6B2; }
 .ansi-white-intense-bg { background-color: #A1A6B2; }
 
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
 .ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
 </style>
 <div class="section" id="Single-Degree-of-Freedom">
 <h1>Single Degree of Freedom<a class="headerlink" href="#Single-Degree-of-Freedom" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="http://vibrationtoolbox.github.io/vibration_toolbox/_downloads/sdof_notebook.ipynb">Download This
 Notebook</a></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="kn">as</span> <span class="nn">vtb</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -225,15 +217,15 @@ Notebook</a></p>
 </div>
 </div>
 <p>This notebook shows some of the functions for single degree of freedom.</p>
-<p>Some interactive functions are available (see the functions with ‘_i’
-at the end). To see how these interactive functions work we recommend
-you to download the notebook.</p>
+<p>Some interactive functions are available (see the functions with ’_i’ at
+the end). To see how these interactive functions work we recommend you
+to download the notebook.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">vtb</span><span class="o">.</span><span class="n">time_plot</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -246,11 +238,11 @@ you to download the notebook.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">vtb</span><span class="o">.</span><span class="n">time_plot_i</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -269,11 +261,11 @@ you to download the notebook.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">vtb</span><span class="o">.</span><span class="n">phase_plot</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -286,11 +278,11 @@ you to download the notebook.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">vtb</span><span class="o">.</span><span class="n">phase_plot_i</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -302,11 +294,11 @@ you to download the notebook.</p>
 <script type="application/vnd.jupyter.widget-view+json">{"model_id": "d195fa1ac184469b8ccadd09380ff0b5"}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">r</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">steady_state_response</span><span class="p">(</span><span class="n">zs</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">rmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -319,11 +311,11 @@ you to download the notebook.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">vtb</span><span class="o">.</span><span class="n">steady_state_response_i</span><span class="p">(</span><span class="n">zs</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span> <span class="n">rmin</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">rmax</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">4.0</span><span class="p">,</span><span class="mf">0.1</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -335,11 +327,11 @@ you to download the notebook.</p>
 <script type="application/vnd.jupyter.widget-view+json">{"model_id": "93bbf5c36fe244268ebc87badad85c5e"}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">r</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">transmissibility</span><span class="p">(</span><span class="n">zs</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">rmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -352,11 +344,11 @@ you to download the notebook.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">vtb</span><span class="o">.</span><span class="n">transmissibility_i</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -368,11 +360,11 @@ you to download the notebook.</p>
 <script type="application/vnd.jupyter.widget-view+json">{"model_id": "09992ebe31974a23a74e966f15da1bb5"}</script></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">r</span><span class="p">,</span> <span class="n">Xn</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">rotating_unbalance</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">m0</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">zs</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">rmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -382,16 +374,6 @@ you to download the notebook.</p>
 </div>
 <div class="output_area docutils container">
 <img alt="../_images/tutorial_sdof_notebook_12_0.png" src="../_images/tutorial_sdof_notebook_12_0.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span>
-</pre></div>
 </div>
 </div>
 </div>
@@ -434,12 +416,14 @@ you to download the notebook.</p>
 
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
   <div role="note" aria-label="source link">
@@ -457,7 +441,7 @@ you to download the notebook.</p>
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

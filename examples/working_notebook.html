@@ -4,29 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Working Notebook &#8212; Vibration Toolbox 0.6.2 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.6.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/jupyter-js-widgets@^2.0.13/dist/embed.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Vibration Absorber" href="vibesystem_notebook-damper.html" />
@@ -37,8 +26,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -206,16 +194,20 @@ div.nboutput div.output_area.stderr {
 .ansi-white-intense-fg { color: #A1A6B2; }
 .ansi-white-intense-bg { background-color: #A1A6B2; }
 
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
 .ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
 </style>
 <div class="section" id="Working-Notebook">
 <h1>Working Notebook<a class="headerlink" href="#Working-Notebook" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -229,11 +221,11 @@ div.nboutput div.output_area.stderr {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">help</span><span class="p">(</span><span class="n">sio</span><span class="o">.</span><span class="n">savemat</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -284,11 +276,11 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span> <span class="n">E</span><span class="o">=</span><span class="mf">7.31e10</span><span class="p">;</span>
 <span class="o">%</span> <span class="n">I</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="o">*.</span><span class="mo">03</span><span class="o">*.</span><span class="mo">015</span><span class="o">^</span><span class="mi">3</span><span class="p">;</span>
 <span class="o">%</span> <span class="n">rho</span><span class="o">=</span><span class="mi">2747</span><span class="p">;</span>
@@ -298,42 +290,32 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="o">*</span><span class="mf">0.03</span><span class="o">*.</span><span class="mo">015</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2747</span><span class="p">,</span> <span class="o">.</span><span class="mo">015</span><span class="o">*</span><span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[9]:
 </pre></div>
 </div>
-<div class="output_area highlight-none"><div class="highlight"><pre>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>array([  7.31000000e+10,   8.43750000e-09,   2.74700000e+03,
          4.50000000e-04,   4.00000000e-01])
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [61]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="k">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="n">nn</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
@@ -364,11 +346,11 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [197]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">def</span> <span class="nf">euler_beam_modes</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">bctype</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">beamparams</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="o">*</span><span class="mf">0.03</span><span class="o">*.</span><span class="mo">015</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2747</span><span class="p">,</span> <span class="o">.</span><span class="mo">015</span><span class="o">*</span><span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)),</span> <span class="n">npoints</span> <span class="o">=</span> <span class="mi">2001</span><span class="p">):</span>
 
 
@@ -577,31 +559,31 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [198]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">euler_beam_modes</span><span class="p">(</span><span class="n">bctype</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [199]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">sp</span><span class="o">.</span><span class="n">pi</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[199]:
 </pre></div>
 </div>
-<div class="output_area highlight-none"><div class="highlight"><pre>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>array([   343.17468565,   1110.62890305,   2316.22971002,   3959.97710656,
          6044.33457417,   8566.23380692,  11526.7242106 ,  14925.80578518,
         18763.47853068,  23039.7424471 ])
@@ -609,21 +591,21 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [201]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">U</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[201]:
 </pre></div>
 </div>
-<div class="output_area highlight-none"><div class="highlight"><pre>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>[&lt;matplotlib.lines.Line2D at 0x111e272e8&gt;]
 </pre></div>
 </div>
@@ -632,15 +614,15 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_working_notebook_10_1.png" src="../_images/examples_working_notebook_10_1.png" />
+<img alt="../_images/examples_working_notebook_9_1.png" src="../_images/examples_working_notebook_9_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [233]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">UnivariateSpline</span>
 <span class="n">spl</span> <span class="o">=</span> <span class="n">UnivariateSpline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">U</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
 <span class="k">print</span><span class="p">(</span><span class="n">spl</span><span class="p">(</span><span class="mf">0.20000001</span><span class="p">))</span>
@@ -662,11 +644,11 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [369]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="kn">as</span> <span class="nn">sp</span>
@@ -740,11 +722,11 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [374]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">fout</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="n">euler_beam_frf</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -761,26 +743,26 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_working_notebook_13_1.png" src="../_images/examples_working_notebook_13_1.png" />
+<img alt="../_images/examples_working_notebook_12_1.png" src="../_images/examples_working_notebook_12_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [349]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">a</span> <span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">()</span>
 <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[349]:
 </pre></div>
 </div>
-<div class="output_area highlight-none"><div class="highlight"><pre>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>0.0
 </pre></div>
 </div>
@@ -789,15 +771,15 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_working_notebook_14_1.png" src="../_images/examples_working_notebook_14_1.png" />
+<img alt="../_images/examples_working_notebook_13_1.png" src="../_images/examples_working_notebook_13_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [329]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">H</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="mf">1.j</span>
 </pre></div>
 </div>
@@ -816,35 +798,25 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [224]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">sp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">U</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>Out[224]:
 </pre></div>
 </div>
-<div class="output_area highlight-none"><div class="highlight"><pre>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>array([  0.00000000e+00,   3.22778969e-05,   1.28565322e-04,
          2.88042879e-04,   5.09891177e-04,   7.93290832e-04,
          1.13742248e-03,   1.54146679e-03,   2.00460446e-03,
          2.52601625e-03])
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
-<span></span>
 </pre></div>
 </div>
 </div>
@@ -882,12 +854,14 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
   <div role="note" aria-label="source link">
@@ -905,7 +879,7 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |

@@ -4,29 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Experimental Modal Analysis (vibration_toolbox.ema) &#8212; Vibration Toolbox 0.6.2 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.6.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/jupyter-js-widgets@^2.0.13/dist/embed.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Contributors" href="../contributors.html" />
@@ -37,8 +26,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -47,14 +35,14 @@
           <div class="body" role="main">
             
   <div class="section" id="experimental-modal-analysis-vibration-toolbox-ema">
-<h1>Experimental Modal Analysis (<code class="xref py py-mod docutils literal"><span class="pre">vibration_toolbox.ema</span></code>)<a class="headerlink" href="#experimental-modal-analysis-vibration-toolbox-ema" title="Permalink to this headline">¶</a></h1>
+<h1>Experimental Modal Analysis (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.ema</span></code>)<a class="headerlink" href="#experimental-modal-analysis-vibration-toolbox-ema" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="ema-experimental-modal-analysis">
-<h2><a class="reference internal" href="#module-ema" title="ema"><code class="xref py py-mod docutils literal"><span class="pre">ema</span></code></a> – Experimental Modal Analysis<a class="headerlink" href="#ema-experimental-modal-analysis" title="Permalink to this headline">¶</a></h2>
+<h2><a class="reference internal" href="#module-ema" title="ema"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ema</span></code></a> – Experimental Modal Analysis<a class="headerlink" href="#ema-experimental-modal-analysis" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-ema"></span><dl class="function">
 <dt id="ema.frf">
 <code class="descclassname">ema.</code><code class="descname">frf</code><span class="sig-paren">(</span><em>x</em>, <em>f</em>, <em>dt</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ema.html#frf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ema.frf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the frequency response function</p>
-<p>Calculates <span class="math">\(H(i\omega)\)</span>, and coherance of the sampled data.</p>
+<p>Calculates <span class="math notranslate">\(H(i\omega)\)</span>, and coherance of the sampled data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -100,7 +88,7 @@ coherence.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># First we need to load the sampled data which in a .mat file</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># First we need to load the sampled data which in a .mat file</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">vtb</span><span class="o">.</span><span class="n">__path__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/data/frf_data1.mat&#39;</span><span class="p">)</span>
@@ -175,7 +163,7 @@ mode shape. Only one peak may exist in the segment of the FRF passed to
 sdofcf. No zeros may exist within this segment. If so, curve fitting
 becomes unreliable.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># First we need to load the sampled data which is in a .mat file</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># First we need to load the sampled data which is in a .mat file</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">vtb</span><span class="o">.</span><span class="n">__path__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/data/case2.mat&#39;</span><span class="p">)</span>
@@ -225,7 +213,7 @@ Plot has frequency in rad/s and magnitude in meters peak to peak.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">time_response</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">40</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vtb</span><span class="o">.</span><span class="n">plot_fft</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">time_response</span><span class="p">)</span>
@@ -283,7 +271,7 @@ used.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># First we need to load the sampled data which is in a .mat file</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># First we need to load the sampled data which is in a .mat file</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="n">vtb</span><span class="o">.</span><span class="n">__path__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;/data/case1.mat&#39;</span><span class="p">)</span>
@@ -325,12 +313,12 @@ used.</p>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="continuous.html">Continuous Systems (<code class="docutils literal"><span class="pre">continuous_systems</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vibe_system.html">Vibration Systems (<code class="docutils literal"><span class="pre">vibesystem</span></code>)</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Experimental Modal Analysis (<code class="docutils literal"><span class="pre">vibration_toolbox.ema</span></code>)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ema-experimental-modal-analysis"><code class="docutils literal"><span class="pre">ema</span></code> – Experimental Modal Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="continuous.html">Continuous Systems (<code class="docutils literal notranslate"><span class="pre">continuous_systems</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vibe_system.html">Vibration Systems (<code class="docutils literal notranslate"><span class="pre">vibesystem</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Experimental Modal Analysis (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.ema</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ema-experimental-modal-analysis"><code class="docutils literal notranslate"><span class="pre">ema</span></code> – Experimental Modal Analysis</a></li>
 </ul>
 </li>
 </ul>
@@ -344,12 +332,14 @@ used.</p>
 
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
   <div role="note" aria-label="source link">
@@ -367,7 +357,7 @@ used.</p>
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
