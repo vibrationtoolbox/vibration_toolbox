@@ -10,6 +10,7 @@
 export NAME=vibration_toolbox
 
 export GHP_MSG="Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`"
+export BDR_MSG="Generated binder branch"
 export VERSION=`python -c "import $(NAME); print($(NAME).__version__)"`
 
 #all: clean
@@ -84,3 +85,10 @@ gh-pages:
 	git push origin; true
 	make docs
 	ghp-import -n -p -m $(GHP_MSG) docs/_build/html
+
+binder:
+	git checkout master
+	git pull origin master
+	git commit -a -m "Keep examples in sync"; true
+	git push origin; true
+	ghp-import -n -p -b binder -m $(BDR_MSG) docs/tutorial
