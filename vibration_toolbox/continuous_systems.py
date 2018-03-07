@@ -292,6 +292,7 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     plt.grid('on')
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')
+    plt.tight_layout()
     axlim = plt.axis()
     plt.axis(axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
                                0.1 * (axlim[3] - axlim[2])]))
