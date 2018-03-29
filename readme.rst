@@ -14,6 +14,9 @@
 
 .. image:: https://mybinder.org/badge.svg
     :target: https://mybinder.org/v2/gh/vibrationtoolbox/vibration_toolbox/binder
+   
+.. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg 
+    :target: https://saythanks.io/to/josephcslater
 
 .. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg
    :target: https://saythanks.io/to/josephcslater
