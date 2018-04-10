@@ -62,12 +62,16 @@ def _eigen(A, B=None):
             idxp = evalues.real.argsort()  # positive in increasing order
             idxn = np.array([], dtype=int)
         else:
-            idxp = evalues.real.argsort()[int(len(evalues)/2):]  # positive in increasing order
-            idxn = evalues.real.argsort()[int(len(evalues)/2) - 1::-1]  # negative in decreasing order
+            # positive in increasing order
+            idxp = evalues.real.argsort()[int(len(evalues) / 2):]
+            # negative in decreasing order
+            idxn = evalues.real.argsort()[int(len(evalues) / 2) - 1::-1]
 
     else:
-        idxp = evalues.imag.argsort()[int(len(evalues)/2):]  # positive in increasing order
-        idxn = evalues.imag.argsort()[int(len(evalues)/2) - 1::-1]  # negative in decreasing order
+        # positive in increasing order
+        idxp = evalues.imag.argsort()[int(len(evalues) / 2):]
+        # negative in decreasing order
+        idxn = evalues.imag.argsort()[int(len(evalues) / 2) - 1::-1]
 
     idx = np.hstack([idxp, idxn])
 
@@ -113,10 +117,10 @@ def _normalize(X, Y):
 
     Yn = np.zeros_like(X)
     YTX = Y.T @ X  # normalize y so that Y.T @ X will return I
-    factors = [1/a for a in np.diag(YTX)]
+    factors = [1 / a for a in np.diag(YTX)]
     # multiply each column in y by a factor in 'factors'
     for col in enumerate(Y.T):
-        Yn[col[0]] = col[1]*factors[col[0]]
+        Yn[col[0]] = col[1] * factors[col[0]]
     Yn = Yn.T
 
     return Yn
@@ -134,20 +138,20 @@ def modes_system_undamped(M, K):
 
     Parameters
     ----------
-    M: array
+    M: float array
         Mass matrix
-    K: array
+    K: float array
         Stiffness matrix
 
     Returns
     -------
-    w: array
+    w: float array
         The natural frequencies of the system
-    P: array
-        The eigenvectors of the system are.
-    S: array
+    P: float array
+        The eigenvectors of the system.
+    S: float array
         The mass-normalized mode shapes of the system.
-    Sinv: array
+    Sinv: float array
         The modal transformation matrix S^-1(takes x -> r(modal coordinates))
 
     Notes
@@ -281,13 +285,13 @@ def modes_system(M, K, C=None):
     if (C is None or np.all(C == 0) or  # check if C has only zero entries
             la.norm(la.solve(M, C, assume_a='pos') @ K
                     - la.solve(M, K, assume_a='pos') @ C, 2) <
-                    1e-8*la.norm(la.solve(M, K, assume_a='pos') @ C, 2)):
+            1e-8 * la.norm(la.solve(M, K, assume_a='pos') @ C, 2)):
         w, P, S, Sinv = modes_system_undamped(M, K)
         wn = w
         wd = w
         #zeta = None
-        zeta = np.diag(S.T@C@S)/2/wn
-        wd = wn*np.sqrt(1-zeta**2)
+        zeta = np.diag(S.T@C@S) / 2 / wn
+        wd = wn * np.sqrt(1 - zeta**2)
         X = P
         Y = P
         print('Damping is proportional or zero, eigenvectors are real')
@@ -306,8 +310,7 @@ def modes_system(M, K, C=None):
 
     wd = abs(np.imag(w))
     wn = np.absolute(w)
-    zeta = (-np.real(w)/np.absolute(w))
-
+    zeta = (-np.real(w) / np.absolute(w))
 
     Y = _normalize(X, Y)
 
@@ -374,7 +377,7 @@ def response_system_undamped(M, K, x0, v0, max_time):
 
     # creates the x array and set the first line according to the initial
     # conditions
-    X = np.zeros((2*n, len(t)))
+    X = np.zeros((2 * n, len(t)))
     X[:, 0] = np.hstack([x0, v0])
 
     Ad = la.expm(A * dt)
@@ -386,7 +389,7 @@ def response_system_undamped(M, K, x0, v0, max_time):
 
 def response_system(M, C, K, F, x0, v0, t):
     """
-    This function solves the system given the initial
+    Returns system response given the initial
     displacement vector 'X0', initial velocity vector 'V0',
     the mass matrix 'M', the stiffness matrix 'M', and the damping
     matrix 'C' and force 'F'.
@@ -471,8 +474,8 @@ def response_system(M, C, K, F, x0, v0, t):
                               -la.solve(M, C, assume_a='pos')])])
     B = np.vstack([Z,
                    la.inv(M)])
-    C = np.eye(2*n)
-    D = 0*B
+    C = np.eye(2 * n)
+    D = 0 * B
 
     sys = signal.lti(A, B, C, D)
 
