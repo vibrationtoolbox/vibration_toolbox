@@ -1,6 +1,5 @@
-'''Multiple Degree of Freedom Analysis Tools.
+"""Multiple Degree of Freedom Analysis Tools."""
 
-'''
 import numpy as np
 import scipy.linalg as la
 import scipy.signal as signal
