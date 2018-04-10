@@ -35,3 +35,4 @@ __pycache__
 .idea/
 /vibration_toolbox/.cache/
 /.project
+.ropeproject/config.py
