@@ -39,7 +39,8 @@ setup(name='vibration_toolbox',
       keywords=['vibration', 'mechanical engineering', 'civil engineering'],
       install_requires=['numpy', 'scipy', 'matplotlib'],
       setup_requires=['pytest-runner'],
-      tests_require=['pytest']
+      tests_require=['pytest'],
+      include_package_data=True
       )
 
 # https://docs.python.org/3/distutils/setupscript.html#additional-meta-data
