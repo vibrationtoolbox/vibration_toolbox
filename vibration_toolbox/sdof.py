@@ -61,11 +61,11 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
     >>> vtb.free_response()[1][:5] # get the first five values of x
-    array([[ 1.  ],
-           [ 1.  ],
-           [ 0.99],
-           [ 0.99],
-           [ 0.98]])
+    array([[1.  ],
+           [1.  ],
+           [0.99],
+           [0.99],
+           [0.98]])
 
     >>> t, x, *_ = vtb.free_response() # *_ ignores all other returns
     >>> plt.plot(t,x)
@@ -76,7 +76,7 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     Text(0,0.5,'Displacement (m)')
     >>> plt.title('Displacement versus time')
     Text(0.5,1,'Displacement versus time')
-    >>> plt.grid('on')
+    >>> plt.grid(True)
     """
 
     omega = np.sqrt(k / m)
@@ -125,7 +125,7 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     ax = fig.add_subplot(111)
     ax.set_xlabel('Displacement')
     ax.set_ylabel('Velocity')
-    ax.grid('on')
+    ax.grid(True)
     ax.plot(x, v)
     plt.show()
 
@@ -164,7 +164,7 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
     ax = fig.add_subplot(111)
     ax.set_xlabel('Time')
     ax.set_ylabel('Displacement')
-    ax.grid('on')
+    ax.grid(True)
     ax.plot(t, x)
     if zeta < 1:
         ax.plot(t, A * np.exp(-zeta * omega * t), '--g',
@@ -286,7 +286,7 @@ def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     Examples
     --------
     >>> euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
-    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.  ,  0.  ],
+    (array([0.  , 0.05, 0.1 , 0.15, 0.2 , 0.25, 0.3 , 0.35, 0.4 ]), array([[ 1.  ,  0.  ],
            [ 1.  , -0.05],
            [ 1.  , -0.1 ],
            [ 0.99, -0.15],
@@ -335,7 +335,7 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     Examples
     --------
     >>> rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
-    (array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.  ,  0.  ],
+    (array([0.  , 0.05, 0.1 , 0.15, 0.2 , 0.25, 0.3 , 0.35, 0.4 ]), array([[ 1.  ,  0.  ],
            [ 1.  , -0.05],
            [ 1.  , -0.1 ],
            [ 0.99, -0.15],
@@ -372,7 +372,7 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 def frfplot(f, H):
     plt.subplot(211)
     plt.plot(f, 20 * np.log10(np.absolute(np.sum(H, axis=1))), '-')
-    plt.grid('on')
+    plt.grid(True)
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('FRF (dB)')
     axlim = plt.axis()
@@ -381,7 +381,7 @@ def frfplot(f, H):
 
     plt.subplot(212)
     plt.plot(f, np.unwrap(np.angle(np.sum(H, axis=1))) / np.pi * 180, '-')
-    plt.grid('on')
+    plt.grid(True)
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')
     axlim = plt.axis()
@@ -408,11 +408,11 @@ def response(xdd, f, t, x0, v0):
 
     :Example:
     >>> free_response()[1][:5] # get the first five values of x
-    array([[ 1.  ],
-           [ 1.  ],
-           [ 0.99],
-           [ 0.99],
-           [ 0.98]])
+    array([[1.  ],
+           [1.  ],
+           [0.99],
+           [0.99],
+           [0.98]])
     """
 
     omega = np.sqrt(k / m)
@@ -547,7 +547,7 @@ def steady_state_response(zs=0.1, rmin=0.0, rmax=2.0):
     --------
     >>> r, A = steady_state_response([0.1, 0.3, 0.8], 0, 2)
     >>> A[10]
-    (0.98423159842039087-0.15988334018879749j)
+    (0.9842315984203909-0.1598833401887975j)
     """
 
     if not isinstance(zs, list):
@@ -745,7 +745,7 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
     --------
     >>> r, Xn = rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1, 0.25, 0.707, 1], rmin=0, rmax=3.5, normalized=True)
     >>> Xn[1][10]
-    (0.10104614704226758-0.0051182602098315527j)
+    (0.10104614704226758-0.005118260209831553j)
     """
 
     if not isinstance(zs, list):
@@ -809,7 +809,7 @@ def impulse_response(m, c, k, Fo, max_time):
     --------
     >>> t, x = impulse_response(m=100, c=20, k=2000, Fo=10, max_time=100)
     >>> x[10]
-    0.0039629845398805623
+    0.003962984539880562
     """
 
     t = np.linspace(0, max_time, int(250 * max_time))
@@ -859,7 +859,7 @@ def step_response(m, c, k, Fo, max_time):
     --------
     >>> t, x = step_response(m=100, c=20, k=2000, Fo=10, max_time=100)
     >>> x[10]
-    7.9581008173000833e-05
+    7.958100817300083e-05
     """
 
     t = np.linspace(0, max_time, int(250 * max_time))
@@ -1033,7 +1033,7 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     >>> # Triangular wave
     >>> t, F = fourier_approximation(0,'-8/np.pi**2/n**2',0,0,0,20,10)
     >>> F[10]
-    -0.90234928911935097
+    -0.902349289119351
     """
     args = [str(arg) for arg in [a0, aodd, aeven, bodd, beven]]  # chng to str
     a0, aodd, aeven, bodd, beven = args

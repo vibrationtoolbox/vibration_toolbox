@@ -109,7 +109,7 @@ def _normalize(X, Y):
     >>> Yn
     array([[ 0.58-0.05j,  0.12-0.06j,  0.58+0.05j,  0.12+0.06j],
            [ 0.01+1.24j, -0.07-0.82j,  0.01-1.24j, -0.07+0.82j],
-           [-0.00-0.3j ,  0.01-0.57j, -0.00+0.3j ,  0.01+0.57j],
+           [-0.  -0.3j ,  0.01-0.57j, -0.  +0.3j ,  0.01+0.57j],
            [ 0.11-0.j  , -0.66-0.01j,  0.11+0.j  , -0.66+0.01j]])
 
     """
@@ -194,7 +194,7 @@ def modes_system_undamped(M, K):
     ...               [0, -4, 4]])
     >>> w, P, S, Sinv = modes_system_undamped(M, K)
     >>> w
-    array([ 0.45,  1.25,  1.8 ])
+    array([0.45, 1.25, 1.8 ])
     >>> S
     array([[ 0.16, -0.37, -0.3 ],
            [ 0.3 , -0.16,  0.37],
@@ -253,16 +253,16 @@ def modes_system(M, K, C=None):
     >>> wn, wd, zeta, X, Y = modes_system(M, K, C)
     Damping is non-proportional, eigenvectors are complex.
     >>> wn
-    array([ 1.33,  2.5 ,  1.33,  2.5 ])
+    array([1.33, 2.5 , 1.33, 2.5 ])
     >>> wd
-    array([ 1.32,  2.5 ,  1.32,  2.5 ])
+    array([1.32, 2.5 , 1.32, 2.5 ])
     >>> zeta
-    array([ 0.11,  0.02,  0.11,  0.02])
+    array([0.11, 0.02, 0.11, 0.02])
     >>> X
     array([[-0.06-0.58j, -0.01+0.08j, -0.06+0.58j, -0.01-0.08j],
-           [-0.00-0.14j, -0.01-0.36j, -0.00+0.14j, -0.01+0.36j],
+           [-0.  -0.14j, -0.01-0.36j, -0.  +0.14j, -0.01+0.36j],
            [ 0.78+0.j  , -0.21-0.03j,  0.78-0.j  , -0.21+0.03j],
-           [ 0.18+0.01j,  0.90+0.j  ,  0.18-0.01j,  0.90-0.j  ]])
+           [ 0.18+0.01j,  0.9 +0.j  ,  0.18-0.01j,  0.9 -0.j  ]])
     >>> Y
     array([[ 0.02+0.82j,  0.01-0.31j,  0.02-0.82j,  0.01+0.31j],
            [-0.05+0.18j,  0.01+1.31j, -0.05-0.18j,  0.01-1.31j],
@@ -357,7 +357,7 @@ def response_system_undamped(M, K, x0, v0, max_time):
     >>> max_time = 10
     >>> t, X = response_system_undamped(M, K, x0, v0, max_time)
     >>> X[:, 0] # first column is the initial conditions [x1, x2, v1, v2]
-    array([ 1.,  1.,  0.,  0.])
+    array([1., 1., 0., 0.])
     >>> X[:, 1] # displacement and velocities after delta t
     array([ 1.  ,  1.  , -0.04, -0.01])
     """
@@ -435,7 +435,7 @@ def response_system(M, C, K, F, x0, v0, t):
     ...                3*np.cos(2*t)])
     >>> tou, yout, xout = response_system(M, C, K, F, x0, v0, t)
     >>> tou[:10]
-    array([ 0.  ,  0.1 ,  0.2 ,  0.3 ,  0.4 ,  0.51,  0.61,  0.71,  0.81,  0.91])
+    array([0.  , 0.1 , 0.2 , 0.3 , 0.4 , 0.51, 0.61, 0.71, 0.81, 0.91])
 
     >>> yout[:10]
     array([[ 0.  ,  1.  ,  1.  ,  0.  ],

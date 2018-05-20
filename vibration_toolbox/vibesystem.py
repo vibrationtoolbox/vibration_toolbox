@@ -78,9 +78,9 @@ class VibeSystem(object):
     ...               [-k1, k2+k2]])
     >>> sys = VibeSystem(M, C, K)
     >>> sys.wn
-    array([ 31.62,  54.77])
+    array([31.62,  54.77])
     >>> sys.wd
-    array([ 31.52,  54.26])
+    array([31.52,  54.26])
     """
     def __init__(self, M, C, K, name=''):
         self._M = M
@@ -293,10 +293,10 @@ class VibeSystem(object):
         >>> t, yout, xout = sys.time_response(F1, t)
         >>> # response on m0
         >>> yout[:5, 0]
-        array([ 0.  ,  0.  ,  0.07,  0.32,  0.61])
+        array([0.  ,  0.  ,  0.07,  0.32,  0.61])
         >>> # response on m1
         >>> yout[:5, 1]
-        array([ 0.  ,  0.08,  0.46,  0.79,  0.48])
+        array([0.  ,  0.08,  0.46,  0.79,  0.48])
         """
         return signal.lsim(self.lti, F, t, X0=ic)
 

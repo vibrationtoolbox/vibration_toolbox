@@ -66,7 +66,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     >>> import vibration_toolbox as vtb
     >>> omega_n, x, U = vtb.euler_beam_modes(n=1)
     >>> plt.figure()
-    <matplotlib.figure...>
+    <Figure size 1000x600 with 0 Axes>
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
@@ -75,7 +75,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     Text(0,0.5,'Displacement (m)')
     >>> plt.title('Mode 1')
     Text(0.5,1,'Mode 1')
-    >>> plt.grid('on')
+    >>> plt.grid(True)
     """
 
     E = beamparams[0]
@@ -257,8 +257,8 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
         print('One or both locations are not on the beam')
         return
     wn = sp.array((0, 0))
-    # The number 100 is arbitrarily large and unjustified.
-    a = sp.empty([npoints, 100], dtype=complex)
+    # The number 200 is arbitrarily large and unjustified.
+    a = sp.empty([npoints, 200], dtype=complex)
     f = sp.empty(100)
 
     while wn[-1] < 1.3 * (fmax * 2 * sp.pi):
@@ -275,9 +275,9 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     plt.figure()
     plt.subplot(211)
     plt.plot(w / 2 / sp.pi, 20 * sp.log10(sp.absolute(sp.sum(a, axis=1))), '-')
-    # plt.hold('on')
+    # plt.hold(True)
     plt.plot(w / 2 / sp.pi, 20 * sp.log10(sp.absolute(a)), '-')
-    plt.grid('on')
+    plt.grid(True)
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('FRF (dB)')
     axlim = plt.axis()
@@ -289,7 +289,7 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     plt.plot(w / 2 / sp.pi, sp.unwrap(sp.angle(sp.sum(a, axis=1))) /
              sp.pi * 180, '-')
     plt.plot(w / 2 / sp.pi, sp.unwrap(sp.angle(a)) / sp.pi * 180, '-')
-    plt.grid('on')
+    plt.grid(True)
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')
     plt.tight_layout()
@@ -576,7 +576,7 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
     Text(0,0.5,'Displacement (m)')
     >>> plt.title('Mode 1')
     Text(0.5,1,'Mode 1')
-    >>> plt.grid('on')
+    >>> plt.grid(True)
     """
 
     G = tbarparams[0]
