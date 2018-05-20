@@ -36,3 +36,5 @@ __pycache__
 /vibration_toolbox/.cache/
 /.project
 .ropeproject/config.py
+.pytest_cache/v/cache/nodeids
+.pytest_cache/v/cache/lastfailed
