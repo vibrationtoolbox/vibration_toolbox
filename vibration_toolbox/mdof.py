@@ -25,6 +25,7 @@ def _eigen(A, B=None):
     Correspondent eigenvectors will follow the same order.
 
     Note: Works fine for moderately sized models. Does not leverage the
+    full set of constraints to optimize the solution. See the vibrationtesting
     module for a more advanced solver.
 
     Parameters
