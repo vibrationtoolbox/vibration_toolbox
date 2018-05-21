@@ -30,7 +30,7 @@ mpl.rcParams['figure.figsize'] = (10, 6)
 
 
 def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
-    """Free response of a second order linear oscillator.
+    r"""Free response of a second order linear oscillator.
 
     Returns t, x, v, zeta, omega, omega_d and A resulting from the
     free response of a second order linear ordinary differential
@@ -170,23 +170,23 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
         ax.plot(t, A * np.exp(-zeta * omega * t), '--g',
                 linewidth=1)
         ax.plot(t, -A * np.exp(-zeta * omega * t), '--g',
-                linewidth=1, label='$A e^{- \zeta \omega t}$')
+                linewidth=1, label=r'$A e^{- \zeta \omega t}$')
         tmin, tmax, xmin, xmax = ax.axis()
         ax.text(.75 * tmax, .85 * (xmax - xmin) + xmin,
-                '$\omega$ = %0.2f rad/sec' % (omega))
+                r'$\omega$ = %0.2f rad/sec' % (omega))
         ax.text(.75 * tmax, .80 * (xmax - xmin) +
-                xmin, '$\zeta$ = %0.2f' % (zeta))
+                xmin, r'$\zeta$ = %0.2f' % (zeta))
         ax.text(.75 * tmax, .75 * (xmax - xmin) + xmin,
-                '$\omega_d$ = %0.2f rad/sec' % (omega_d))
+                r'$\omega_d$ = %0.2f rad/sec' % (omega_d))
     else:
         tmin, tmax, xmin, xmax = ax.axis()
         ax.text(.75 * tmax, .85 * (xmax - xmin) +
-                xmin, '$\zeta$ = %0.2f' % (zeta))
+                xmin, r'$\zeta$ = %0.2f' % (zeta))
         ax.text(.75 * tmax, .80 * (xmax - xmin) + xmin,
-                '$\lambda_1$ = %0.2f' %
+                r'$\lambda_1$ = %0.2f' %
                 (zeta * omega - omega * (zeta ** 2 - 1)))
         ax.text(.75 * tmax, .75 * (xmax - xmin) + xmin,
-                '$\lambda_2$ = %0.2f' %
+                r'$\lambda_2$ = %0.2f' %
                 (zeta * omega + omega * (zeta ** 2 - 1)))
     ax.legend()
     #plt.show()
@@ -258,7 +258,7 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
         print('a2= ', a2)
         x = (np.exp(-zeta * w * t) *
              (a1 * np.exp(-w * np.sqrt(zeta**2 - 1) * t) +
-             a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
+              a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
 
     return x
 
@@ -370,14 +370,15 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
 
 def frfplot(f, H):
+    """Plot frequency response function."""
     plt.subplot(211)
     plt.plot(f, 20 * np.log10(np.absolute(np.sum(H, axis=1))), '-')
     plt.grid(True)
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('FRF (dB)')
     axlim = plt.axis()
-    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] -
-             axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
+    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
+                               0.1 * (axlim[3] - axlim[2])]))
 
     plt.subplot(212)
     plt.plot(f, np.unwrap(np.angle(np.sum(H, axis=1))) / np.pi * 180, '-')
@@ -385,12 +386,12 @@ def frfplot(f, H):
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')
     axlim = plt.axis()
-    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] -
-             axlim[2]), 0.1 * (axlim[3] - axlim[2])]))
+    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
+                               0.1 * (axlim[3] - axlim[2])]))
 
 
 def response(xdd, f, t, x0, v0):
-    """returns t, x, v
+    r"""returns t, x, v
 
     :math:`\ddot{x} = g(x,v) + f(t)`
     given initial conditions :math:`x_0` and :math:`\dot{x}_0 = v_0` for the time `t`
@@ -480,7 +481,7 @@ def forced_analytical(m=10, k=100, x0=1, v0=0,
 
 def forced_response(m=10, c=0, k=100, x0=1, v0=0,
                     wdr=0.5, F0=10, max_time=100):
-    """Harmonic response of SDOF system.
+    r"""Harmonic response of SDOF system.
 
     Returns the the response of an underdamped single degree of
     freedom system to a sinusoidal input with amplitude F0 and
@@ -573,7 +574,7 @@ def steady_state_response(zs=0.1, rmin=0.0, rmax=2.0):
         ax1.plot(r, (np.absolute(A)))
         ax2.plot(r, -np.angle(A)/np.pi*180)
 
-    ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
+    ax1.legend(([r'$\zeta$ = ' + (str(s)) for s in zs]))
     plt.show()
     return r, A
 
@@ -674,7 +675,7 @@ def transmissibility(zs, rmin, rmax):
     for F in FT:
         ax2.plot(r, F)
 
-    ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
+    ax1.legend(([r'$\zeta$ = ' + (str(s)) for s in zs]))
     plt.show()
     return r, D, F
 
@@ -776,7 +777,7 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
         ax1.plot(r, np.absolute(X_z))
         ax2.plot(r, -np.angle(X_z)/np.pi*180)
 
-    ax1.legend((['$\zeta$ = ' + (str(s)) for s in zs]))
+    ax1.legend(([r'$\zeta$ = ' + (str(s)) for s in zs]))
 
     return r, Xn
 
