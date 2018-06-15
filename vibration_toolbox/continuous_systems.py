@@ -252,11 +252,11 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     L = beamparams[4]
     npoints = 2001
     i = 0
-    w = sp.linspace(fmin, fmax, 2001) * 2 * sp.pi
+    w = np.linspace(fmin, fmax, 2001) * 2 * sp.pi
     if min([xin, xout]) < 0 or max([xin, xout]) > L:
         print('One or both locations are not on the beam')
         return
-    wn = sp.array((0, 0))
+    wn = np.array((0, 0))
     # The number 200 is arbitrarily large and unjustified.
     a = sp.empty([npoints, 200], dtype=complex)
     f = sp.empty(100)
@@ -282,7 +282,7 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     plt.ylabel('FRF (dB)')
     axlim = plt.axis()
 
-    plt.axis(axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
+    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
                                0.1 * (axlim[3] - axlim[2])]))
 
     plt.subplot(212)
@@ -294,7 +294,7 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     plt.ylabel('Phase (deg)')
     plt.tight_layout()
     axlim = plt.axis()
-    plt.axis(axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
+    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
                                0.1 * (axlim[3] - axlim[2])]))
     plt.show()
 

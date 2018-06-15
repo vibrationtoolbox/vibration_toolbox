@@ -365,7 +365,7 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
 
 # def
-# euler_beam_frf(xin=0.22,xout=0.22,fmin=0.0,fmax=1000.0,beamparams=sp.array((7.31e10,
+# euler_beam_frf(xin=0.22,xout=0.22,fmin=0.0,fmax=1000.0,beamparams=np.array((7.31e10,
 # 1/12*0.03*.015**3, 2747, .015*0.03, 0.4)),
 
 

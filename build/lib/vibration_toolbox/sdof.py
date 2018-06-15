@@ -76,7 +76,7 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     <matplotlib.text.Text object at ...>
     >>> plt.title('Displacement versus time')
     <matplotlib.text.Text object at ...>
-    >>> plt.grid('on')
+    >>> plt.grid(True)
     """
 
     omega = np.sqrt(k / m)
@@ -366,14 +366,14 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
 
 # def
-# euler_beam_frf(xin=0.22,xout=0.22,fmin=0.0,fmax=1000.0,beamparams=sp.array((7.31e10,
+# euler_beam_frf(xin=0.22,xout=0.22,fmin=0.0,fmax=1000.0,beamparams=np.array((7.31e10,
 # 1/12*0.03*.015**3, 2747, .015*0.03, 0.4)),
 
 
 def frfplot(f, H):
     plt.subplot(211)
     plt.plot(f, 20 * np.log10(np.absolute(np.sum(H, axis=1))), '-')
-    plt.grid('on')
+    plt.grid(True)
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('FRF (dB)')
     axlim = plt.axis()
@@ -382,7 +382,7 @@ def frfplot(f, H):
 
     plt.subplot(212)
     plt.plot(f, np.unwrap(np.angle(np.sum(H, axis=1))) / np.pi * 180, '-')
-    plt.grid('on')
+    plt.grid(True)
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')
     axlim = plt.axis()

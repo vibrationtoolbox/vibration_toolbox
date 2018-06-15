@@ -75,7 +75,7 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     <matplotlib.text.Text object at ...>
     >>> plt.title('Mode 1')
     <matplotlib.text.Text object at ...>
-    >>> plt.grid('on')
+    >>> plt.grid(True)
     """
 
     E = beamparams[0]
@@ -252,11 +252,11 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     L = beamparams[4]
     npoints = 2001
     i = 0
-    w = sp.linspace(fmin, fmax, 2001) * 2 * sp.pi
+    w = np.linspace(fmin, fmax, 2001) * 2 * sp.pi
     if min([xin, xout]) < 0 or max([xin, xout]) > L:
         print('One or both locations are not on the beam')
         return
-    wn = sp.array((0, 0))
+    wn = np.array((0, 0))
     # The number 100 is arbitrarily large and unjustified.
     a = sp.empty([npoints, 100], dtype=complex)
     f = sp.empty(100)
@@ -277,23 +277,23 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     plt.plot(w / 2 / sp.pi, 20 * sp.log10(sp.absolute(sp.sum(a, axis=1))), '-')
     # plt.hold('on')
     plt.plot(w / 2 / sp.pi, 20 * sp.log10(sp.absolute(a)), '-')
-    plt.grid('on')
+    plt.grid(True)
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('FRF (dB)')
     axlim = plt.axis()
 
-    plt.axis(axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
+    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
                                0.1 * (axlim[3] - axlim[2])]))
 
     plt.subplot(212)
     plt.plot(w / 2 / sp.pi, sp.unwrap(sp.angle(sp.sum(a, axis=1))) /
              sp.pi * 180, '-')
     plt.plot(w / 2 / sp.pi, sp.unwrap(sp.angle(a)) / sp.pi * 180, '-')
-    plt.grid('on')
+    plt.grid(True)
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')
     axlim = plt.axis()
-    plt.axis(axlim + sp.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
+    plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
                                0.1 * (axlim[3] - axlim[2])]))
     plt.show()
 
@@ -577,7 +577,7 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
     <matplotlib.text.Text object at ...>
     >>> plt.title('Mode 1')
     <matplotlib.text.Text object at ...>
-    >>> plt.grid('on')
+    >>> plt.grid(True)
     """
 
     G = tbarparams[0]
