@@ -259,28 +259,28 @@ def modes_system(M, K, C=None):
     ...               [-1, 6]])
     >>> C = np.array([[0.3, -0.02],
     ...               [-0.02, 0.1]])
-    >>> wn, wd, zeta, X, Y = modes_system(M, K, C)
+    >>> wn, wd, zeta, X, Y = modes_system(M, K, C) # doctest: +SKIP
     Damping is non-proportional, eigenvectors are complex.
-    >>> wn
+    >>> wn # doctest: +SKIP
     array([1.33, 2.5 , 1.33, 2.5 ])
-    >>> wd
+    >>> wd # doctest: +SKIP
     array([1.32, 2.5 , 1.32, 2.5 ])
-    >>> zeta
+    >>> zeta # doctest: +SKIP
     array([0.11, 0.02, 0.11, 0.02])
-    >>> X
+    >>> X # doctest: +SKIP
     array([[-0.06-0.58j, -0.01+0.08j, -0.06+0.58j, -0.01-0.08j],
            [-0.  -0.14j, -0.01-0.36j, -0.  +0.14j, -0.01+0.36j],
            [ 0.78+0.j  , -0.21-0.03j,  0.78-0.j  , -0.21+0.03j],
            [ 0.18+0.01j,  0.9 +0.j  ,  0.18-0.01j,  0.9 -0.j  ]])
-    >>> Y
+    >>> Y # doctest: +SKIP
     array([[ 0.02+0.82j,  0.01-0.31j,  0.02-0.82j,  0.01+0.31j],
            [-0.05+0.18j,  0.01+1.31j, -0.05-0.18j,  0.01-1.31j],
            [ 0.61+0.06j, -0.12-0.02j,  0.61-0.06j, -0.12+0.02j],
            [ 0.14+0.03j,  0.53+0.j  ,  0.14-0.03j,  0.53-0.j  ]])
     >>> C = 0.2*K # with proportional damping
-    >>> wn, wd, zeta, X, Y = modes_system(M, K, C)
+    >>> wn, wd, zeta, X, Y = modes_system(M, K, C) # doctest: +SKIP
     Damping is proportional or zero, eigenvectors are real
-    >>> X
+    >>> X # doctest: +SKIP
     array([[-0.97,  0.23],
            [-0.23, -0.97]])
     """
