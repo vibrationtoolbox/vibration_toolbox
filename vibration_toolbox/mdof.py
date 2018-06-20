@@ -19,9 +19,11 @@ def _eigen(A, B=None):
     """Return sorted eigenvector/eigenvalue pairs.
 
     e.g. for a given system linalg.eig will return eingenvalues as:
-    (array([ 0. +89.4j,  0. -89.4j,  0. +89.4j,  0. -89.4j,  0.+983.2j,  0.-983.2j,  0. +40.7j,  0. -40.7j])
+    (array([ 0. +89.4j,  0. -89.4j,  0. +89.4j,  0. -89.4j,  0.+983.2j,
+             0.-983.2j,  0. +40.7j,  0. -40.7j])
     This function will sort this eigenvalues as:
-    (array([ 0. +40.7j,  0. +89.4j,  0. +89.4j,  0.+983.2j,  0. -40.7j,  0. -89.4j,  0. -89.4j,  0.-983.2j])
+    (array([ 0. +40.7j,  0. +89.4j,  0. +89.4j,  0.+983.2j,  0. -40.7j,
+             0. -89.4j,  0. -89.4j,  0.-983.2j])
     Correspondent eigenvectors will follow the same order.
 
     Note: Works fine for moderately sized models. Does not leverage the
