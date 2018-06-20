@@ -252,6 +252,7 @@ def modes_system(M, K, C=None):
 
     Examples
     --------
+    >>> # This test has been moved to tests_mdof
     >>> M = np.array([[1, 0],
     ...               [0, 1]])
     >>> K = np.array([[2, -1],
