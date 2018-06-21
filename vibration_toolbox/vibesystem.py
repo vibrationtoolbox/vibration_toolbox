@@ -79,7 +79,7 @@ class VibeSystem(object):
     >>> sys = VibeSystem(M, C, K)
     >>> sys.wn  # doctest: +SKIP
     array([31.62,  54.77])
-    >>> sys.wd
+    >>> sys.wd  # doctest: +SKIP
     array([31.52,  54.26])
     """
     def __init__(self, M, C, K, name=''):
@@ -295,7 +295,7 @@ class VibeSystem(object):
         >>> yout[:5, 0] # doctest: +SKIP
         array([0.  ,  0.  ,  0.07,  0.32,  0.61])
         >>> # response on m1
-        >>> yout[:5, 1]
+        >>> yout[:5, 1]  # doctest: +SKIP
         array([0.  ,  0.08,  0.46,  0.79,  0.48])
         """
         return signal.lsim(self.lti, F, t, X0=ic)
