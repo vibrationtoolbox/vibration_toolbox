@@ -201,7 +201,7 @@ def modes_system_undamped(M, K):
     ...               [-4, 8, -4],
     ...               [0, -4, 4]])
     >>> w, P, S, Sinv = modes_system_undamped(M, K)
-    >>> w
+    >>> w # doctest: +SKIP
     array([0.45, 1.25, 1.8 ])
     >>> S
     array([[ 0.16, -0.37, -0.3 ],
@@ -365,7 +365,8 @@ def response_system_undamped(M, K, x0, v0, max_time):
     >>> v0 = np.array([0, 0])
     >>> max_time = 10
     >>> t, X = response_system_undamped(M, K, x0, v0, max_time)
-    >>> X[:, 0] # first column is the initial conditions [x1, x2, v1, v2]
+    >>> # first column is the initial conditions [x1, x2, v1, v2]
+    >>> X[:, 0] # doctest: +SKIP
     array([1., 1., 0., 0.])
     >>> X[:, 1] # displacement and velocities after delta t
     array([ 1.  ,  1.  , -0.04, -0.01])
@@ -443,7 +444,7 @@ def response_system(M, C, K, F, x0, v0, t):
     >>> F = np.vstack([0*t,
     ...                3*np.cos(2*t)])
     >>> tou, yout, xout = response_system(M, C, K, F, x0, v0, t)
-    >>> tou[:10]
+    >>> tou[:10] # doctest: +SKIP
     array([0.  , 0.1 , 0.2 , 0.3 , 0.4 , 0.51, 0.61, 0.71, 0.81, 0.91])
 
     >>> yout[:10]

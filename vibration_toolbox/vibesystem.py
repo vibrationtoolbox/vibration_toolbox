@@ -77,7 +77,7 @@ class VibeSystem(object):
     >>> K = np.array([[k0+k1, -k2],
     ...               [-k1, k2+k2]])
     >>> sys = VibeSystem(M, C, K)
-    >>> sys.wn
+    >>> sys.wn  # doctest: +SKIP
     array([31.62,  54.77])
     >>> sys.wd
     array([31.52,  54.26])
@@ -292,7 +292,7 @@ class VibeSystem(object):
         >>> F1[:, 1] = 1000*np.sin(40*t) # force applied on m1
         >>> t, yout, xout = sys.time_response(F1, t)
         >>> # response on m0
-        >>> yout[:5, 0]
+        >>> yout[:5, 0] # doctest: +SKIP
         array([0.  ,  0.  ,  0.07,  0.32,  0.61])
         >>> # response on m1
         >>> yout[:5, 1]

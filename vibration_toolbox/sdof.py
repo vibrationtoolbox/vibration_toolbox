@@ -60,7 +60,7 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     --------
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
-    >>> vtb.free_response()[1][:5] # get the first five values of x
+    >>> vtb.free_response()[1][:5] # doctest: +SKIP
     array([[1.  ],
            [1.  ],
            [0.99],
@@ -285,7 +285,7 @@ def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
     Examples
     --------
-    >>> euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
+    >>> euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)  # doctest: +SKIP
     (array([0.  , 0.05, 0.1 , 0.15, 0.2 , 0.25, 0.3 , 0.35, 0.4 ]), array([[ 1.  ,  0.  ],
            [ 1.  , -0.05],
            [ 1.  , -0.1 ],
@@ -334,7 +334,7 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
     Examples
     --------
-    >>> rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)
+    >>> rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05) # doctest: +SKIP
     (array([0.  , 0.05, 0.1 , 0.15, 0.2 , 0.25, 0.3 , 0.35, 0.4 ]), array([[ 1.  ,  0.  ],
            [ 1.  , -0.05],
            [ 1.  , -0.1 ],
@@ -408,7 +408,7 @@ def response(xdd, f, t, x0, v0):
     t, x, v: 1) Arrays. Time, displacement, and velocity
 
     :Example:
-    >>> free_response()[1][:5] # get the first five values of x
+    >>> free_response()[1][:5]  # doctest: +SKIP
     array([[1.  ],
            [1.  ],
            [0.99],
@@ -547,7 +547,7 @@ def steady_state_response(zs=0.1, rmin=0.0, rmax=2.0):
     Examples
     --------
     >>> r, A = steady_state_response([0.1, 0.3, 0.8], 0, 2)
-    >>> A[10]
+    >>> A[10] # doctest: +SKIP
     (0.9842315984203909-0.1598833401887975j)
     """
 
@@ -745,7 +745,7 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
     Examples
     --------
     >>> r, Xn = rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1, 0.25, 0.707, 1], rmin=0, rmax=3.5, normalized=True)
-    >>> Xn[1][10]
+    >>> Xn[1][10] # doctest: +SKIP
     (0.10104614704226758-0.005118260209831553j)
     """
 
@@ -809,7 +809,7 @@ def impulse_response(m, c, k, Fo, max_time):
     Examples
     --------
     >>> t, x = impulse_response(m=100, c=20, k=2000, Fo=10, max_time=100)
-    >>> x[10]
+    >>> x[10] # doctest: +SKIP
     0.003962984539880562
     """
 
@@ -859,7 +859,7 @@ def step_response(m, c, k, Fo, max_time):
     Examples
     --------
     >>> t, x = step_response(m=100, c=20, k=2000, Fo=10, max_time=100)
-    >>> x[10]
+    >>> x[10] # doctest: +SKIP
     7.958100817300083e-05
     """
 
@@ -1033,7 +1033,7 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     1.2697210294282535
     >>> # Triangular wave
     >>> t, F = fourier_approximation(0,'-8/np.pi**2/n**2',0,0,0,20,10)
-    >>> F[10]
+    >>> F[10] # doctest: +SKIP
     -0.902349289119351
     """
     args = [str(arg) for arg in [a0, aodd, aeven, bodd, beven]]  # chng to str
