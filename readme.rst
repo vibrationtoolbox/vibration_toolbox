@@ -27,6 +27,10 @@
 .. #image:: https://coveralls.io/repos/vibrationtoolbox/vibration_toolbox/badge.png?branch=master
 ..  #:target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
 
+.. image:: http://pepy.tech/badge/vibration_toolbox
+   :target: http://pepy.tech/project/vibration_toolbox
+   :alt: PyPi Download stats
+
 
 Joseph C. Slater and Raphael Timbó
 ----------------------------------
