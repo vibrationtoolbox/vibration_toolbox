@@ -27,8 +27,8 @@
 .. #image:: https://coveralls.io/repos/vibrationtoolbox/vibration_toolbox/badge.png?branch=master
 ..  #:target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
 
-.. image:: http://pepy.tech/badge/vibration_toolbox
-   :target: http://pepy.tech/project/vibration_toolbox
+.. image:: http://pepy.tech/badge/vibrationtoolbox
+   :target: http://pepy.tech/project/vibrationtoolbox
    :alt: PyPi Download stats
 
 
