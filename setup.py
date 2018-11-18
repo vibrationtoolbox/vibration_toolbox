@@ -37,7 +37,7 @@ setup(name='vibration_toolbox',
                     '': ['readme.rst']},
       long_description=read('readme.rst'),
       keywords=['vibration', 'mechanical engineering', 'civil engineering'],
-      install_requires=['numpy', 'scipy', 'matplotlib'],
+      install_requires=['numpy', 'scipy', 'matplotlib', 'jupyter'],
       setup_requires=['pytest-runner'],
       tests_require=['pytest'],
       include_package_data=True
