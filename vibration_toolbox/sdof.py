@@ -73,11 +73,11 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     >>> plt.plot(t,x)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('Time (sec)')
-    Text(0.5,0,'Time (sec)')
+    Text(0.5, 0, 'Time (sec)')
     >>> plt.ylabel('Displacement (m)')
-    Text(0,0.5,'Displacement (m)')
+    Text(0, 0.5, 'Displacement (m)')
     >>> plt.title('Displacement versus time')
-    Text(0.5,1,'Displacement versus time')
+    Text(0.5, 1.0, 'Displacement versus time')
     >>> plt.grid(True)
     """
 

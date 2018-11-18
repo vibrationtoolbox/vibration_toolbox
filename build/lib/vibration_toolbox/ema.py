@@ -4,9 +4,9 @@ import scipy.linalg as la
 
 
 def frf(x, f, dt):
-    """
-    This function will return the frequency response
-    function (H(iw)) of the sampled data.
+    """Return the frequency response function
+
+    Calculates :math:`H(i\\omega)`, and coherance of the sampled data.
 
     Parameters
     ----------
@@ -20,7 +20,7 @@ def frf(x, f, dt):
         Number of points in the fft
 
     Returns
-    ----------
+    -------
     freq: array
         Driving frequencies
     mag: array
@@ -32,6 +32,7 @@ def frf(x, f, dt):
 
         Plot with the frf magnitude, phase and
         coherence.
+
     Examples
     --------
     >>> # First we need to load the sampled data which in a .mat file
@@ -98,7 +99,7 @@ def frf(x, f, dt):
     return freq, mag, ang, coh
 
 
-def plot_fft(t, time_response, ax=None):
+def plot_fft(t, time_response, ax=None, **kwargs):
     """
     This function will plot the fft given a time vector
     and the system time response.
@@ -128,7 +129,7 @@ def plot_fft(t, time_response, ax=None):
     <matplotlib.axes...
     """
     if ax is None:
-        _, ax = plt.subplots()
+        ax = plt.gca()
 
     Ts = t[1] - t[0]  # sampling interval
     Fs = 1 / Ts  # sampling rate
@@ -139,7 +140,7 @@ def plot_fft(t, time_response, ax=None):
     freq_range = (k / T)[:(n // 2)] * 2 * np.pi  # one side frequency range
     y = np.fft.fft(time_response) * 4 / n  # * 4 / n to normalize to pk-pk
     y = y[:(n // 2)]
-    ax.plot(freq_range, abs(y))
+    ax.plot(freq_range, abs(y), **kwargs)
     ax.set_xlim(freq_range[0], freq_range[-1])
     ax.set_xlabel('Freq (rad/s)')
     ax.set_ylabel('Amplitude (m - pk-pk)')

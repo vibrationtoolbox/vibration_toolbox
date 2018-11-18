@@ -66,15 +66,15 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     >>> import vibration_toolbox as vtb
     >>> omega_n, x, U = vtb.euler_beam_modes(n=1)
     >>> plt.figure()
-    <matplotlib.figure...>
+    <Figure size 1000x600 with 0 Axes>
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
-    <matplotlib.text.Text object at ...>
+    Text(0.5, 0, 'x (m)')
     >>> plt.ylabel('Displacement (m)')
-    <matplotlib.text.Text object at ...>
+    Text(0, 0.5, 'Displacement (m)')
     >>> plt.title('Mode 1')
-    <matplotlib.text.Text object at ...>
+    Text(0.5, 1.0, 'Mode 1')
     >>> plt.grid(True)
     """
 
@@ -257,8 +257,8 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
         print('One or both locations are not on the beam')
         return
     wn = np.array((0, 0))
-    # The number 100 is arbitrarily large and unjustified.
-    a = sp.empty([npoints, 100], dtype=complex)
+    # The number 200 is arbitrarily large and unjustified.
+    a = sp.empty([npoints, 200], dtype=complex)
     f = sp.empty(100)
 
     while wn[-1] < 1.3 * (fmax * 2 * sp.pi):
@@ -275,7 +275,7 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     plt.figure()
     plt.subplot(211)
     plt.plot(w / 2 / sp.pi, 20 * sp.log10(sp.absolute(sp.sum(a, axis=1))), '-')
-    # plt.hold('on')
+    # plt.hold(True)
     plt.plot(w / 2 / sp.pi, 20 * sp.log10(sp.absolute(a)), '-')
     plt.grid(True)
     plt.xlabel('Frequency (Hz)')
@@ -292,6 +292,7 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
     plt.grid(True)
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')
+    plt.tight_layout()
     axlim = plt.axis()
     plt.axis(axlim + np.array([0, 0, -0.1 * (axlim[3] - axlim[2]),
                                0.1 * (axlim[3] - axlim[2])]))
@@ -354,8 +355,6 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
     For most situations the cross sectional area cancels out and has no effect. It only matters in
     the last two cases: and end spring or and mass, and is included with the parameters special to
     those cases.
-
-
 
     Examples
     --------
@@ -478,11 +477,11 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
-    <matplotlib.text.Text object at ...>
+    Text(0.5, 0, 'x (m)')
     >>> plt.ylabel('Displacement (m)')
-    <matplotlib.text.Text object at ...>
+    Text(0, 0.5, 'Displacement (m)')
     >>> plt.title('Mode 1')
-    <matplotlib.text.Text object at ...>
+    Text(0.5, 1.0, 'Mode 1')
     >>> plt.show()
     """
     E = barparams[0]
@@ -572,11 +571,11 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
-    <matplotlib.text.Text object at ...>
+    Text(0.5, 0, 'x (m)')
     >>> plt.ylabel('Displacement (m)')
-    <matplotlib.text.Text object at ...>
+    Text(0, 0.5, 'Displacement (m)')
     >>> plt.title('Mode 1')
-    <matplotlib.text.Text object at ...>
+    Text(0.5, 1.0, 'Mode 1')
     >>> plt.grid(True)
     """
 
@@ -646,4 +645,3 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
 
     omega_n = w
     return omega_n, x, U
-

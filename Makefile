@@ -29,6 +29,7 @@ help:
 	@echo "  docs       build docs using sphin"
 	@echo "  html       alias for docs"
 	@echo "  gh-pages   build and release docs"
+	@echo "  binder     make binder branch"
 
 clean:
 	rm -rf build

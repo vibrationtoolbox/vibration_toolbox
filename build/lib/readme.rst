@@ -9,11 +9,27 @@
 .. image:: https://travis-ci.org/vibrationtoolbox/vibration_toolbox.svg?branch=master
     :target: https://travis-ci.org/vibrationtoolbox/vibration_toolbox
 
+.. image:: https://zenodo.org/badge/39572419.svg
+    :target: https://zenodo.org/badge/latestdoi/39572419
+
+.. image:: https://mybinder.org/badge.svg
+    :target: https://mybinder.org/v2/gh/vibrationtoolbox/vibration_toolbox/binder
+   
+.. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg 
+    :target: https://saythanks.io/to/josephcslater
+
+.. image:: https://img.shields.io/badge/patreon-donate-yellow.svg
+   :target: https://www.patreon.com/josephcslater
+
 .. .. image:: https://img.shields.io/pypi/v/vibration_toolbox.svg
     :target: https://img.shields.io/pypi/v/vibration_toolbox
 
 .. #image:: https://coveralls.io/repos/vibrationtoolbox/vibration_toolbox/badge.png?branch=master
 ..  #:target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
+
+.. image:: http://pepy.tech/badge/vibration-toolbox
+   :target: http://pepy.tech/project/vibration-toolbox
+   :alt: PyPi Download stats
 
 
 Joseph C. Slater and Raphael Timbó
@@ -25,6 +41,13 @@ demonstration of vibration analysis and phenomenon. You may find them useful for
 
 Full `documentation is available <http://vibrationtoolbox.github.io/vibration_toolbox/>`_, but please excuse that it is still under development. Such documentation has never existed for the other ports of the toolbox so this is taking some time. We don't need feedback at this time, but we will take assistance in improving documentation and code. *Please* clone the repository and support use by submitting pull requests fixing typos and clarifying documentation.
 
+
+Try now!
+--------
+
+You won't get everything, but you can try parts of the toolbox immediately on  and `tutorial on mybinder.org <https://mybinder.org/v2/gh/vibrationtoolbox/vibration_toolbox/binder>`_, right in your browser window.
+
+
 Installation
 ------------
 
@@ -34,11 +57,11 @@ Installation is made easy with ``pip`` (or ``pip3``), with releases as we have t
 to create a full first release. Much of it works already, but we certainly need
 issue reports (on `github <http://github.com/vibrationtoolbox/vibration_toolbox>`_).
 
-To install::
+To install type::
 
   pip install --user vibration_toolbox
 
-where ``--user`` isn't necessary if you are using a locally installed version of Python such as `Anaconda <https://www.continuum.io/downloads>`_.
+at your command prompt **(not the python prompt)** where ``--user`` isn't necessary if you are using a locally installed version of Python such as `Anaconda <https://www.continuum.io/downloads>`_.
 
 To run, I recommend you open a `Jupyter <https://jupyter.org>`_ notebook by using ``jupyter notebook`` at your command prompt/terminal prompt/Anaconda prompt and then type::
 

@@ -1,24 +1,20 @@
-"""The Vibration Toolbox, Python Edition."""
+"""The Vibration Toolbox, Python Edition.
 
-"""
 Joseph C. Slater and Raphael Timbó
 
-With this, `import vibration_toolbox as vtb` will import
-all toolbox functions in the name space
+`import vibration_toolbox as vtb` will keep them inside the `vtb` namespace
 
-`import vibration_toolbox as vtb` will keep them tucked behind `vtb`
-
-`import vibration_toolbox.sdof as sdof` will tuck the sdof functions in the
- `sdof` name space.
+`import vibration_toolbox.sdof as sdof` will keep the sdof functions in the
+ `sdof` namespace.
 """
 
 __title__ = 'vibration_toolbox'
 # version may have no more then numerical digits after decimal point.
 # 1.11 is actually a higher release than 1.2 (confusing)
-__version__ = '0.6.2'
+__version__ = '0.6.4'
 __author__ = u'Joseph C. Slater and Raphael Timbó'
 __license__ = 'MIT'
-__copyright__ = 'Copyright 1991-2017 Joseph C. Slater'
+__copyright__ = 'Copyright 1991-2018 Joseph C. Slater'
 __all__ = ['sdof', 'mdof', 'ema', 'vibesystem', 'continuous_systems',
            '__version__']
 
@@ -35,7 +31,7 @@ import sys
 import matplotlib as mpl
 
 if 'pytest' in sys.argv[0]:
-    print('Setting backend to agg to run tests')
+    # print('Setting backend to agg to run tests')
     mpl.use('agg')
 
 from .sdof import *

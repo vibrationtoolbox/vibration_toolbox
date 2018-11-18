@@ -70,11 +70,11 @@ def euler_beam_modes(n=10, bctype=3, npoints=2001,
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
-    Text(0.5,0,'x (m)')
+    Text(0.5, 0, 'x (m)')
     >>> plt.ylabel('Displacement (m)')
-    Text(0,0.5,'Displacement (m)')
+    Text(0, 0.5, 'Displacement (m)')
     >>> plt.title('Mode 1')
-    Text(0.5,1,'Mode 1')
+    Text(0.5, 1.0, 'Mode 1')
     >>> plt.grid(True)
     """
 
@@ -477,11 +477,11 @@ def uniform_bar_modes(n=10, bctype=3, npoints=2001,
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
-    Text(0.5,0,'x (m)')
+    Text(0.5, 0, 'x (m)')
     >>> plt.ylabel('Displacement (m)')
-    Text(0,0.5,'Displacement (m)')
+    Text(0, 0.5, 'Displacement (m)')
     >>> plt.title('Mode 1')
-    Text(0.5,1,'Mode 1')
+    Text(0.5, 1.0, 'Mode 1')
     >>> plt.show()
     """
     E = barparams[0]
@@ -571,11 +571,11 @@ def torsional_bar_modes(n=10, bctype=2, cstype=4, npoints=2001,
     >>> plt.plot(x,U)
     [<matplotlib.lines.Line2D object at ...>]
     >>> plt.xlabel('x (m)')
-    Text(0.5,0,'x (m)')
+    Text(0.5, 0, 'x (m)')
     >>> plt.ylabel('Displacement (m)')
-    Text(0,0.5,'Displacement (m)')
+    Text(0, 0.5, 'Displacement (m)')
     >>> plt.title('Mode 1')
-    Text(0.5,1,'Mode 1')
+    Text(0.5, 1.0, 'Mode 1')
     >>> plt.grid(True)
     """
 
