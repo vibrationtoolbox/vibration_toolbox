@@ -14,7 +14,7 @@ except ImportError:
           and ipywidgets installed.')
 
 
-def in_ipynb():
+def _in_ipynb():
     try:
         shell = get_ipython().__class__.__name__
         if shell == 'ZMQInteractiveShell':  # Jupyter notebook or qtconsole?
@@ -135,7 +135,8 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
 def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
                  m=(1.0, 100.0, 1.0),
                  c=(0.0, 1.0, 0.1), x0=(-100, 100, 1), k=(1.0, 100.0, 1.0)):
-    """Interactive phase plot of free response of single degree of freedom system.
+    """Interactive phase plot of free response of SDOF system.
+
     ``phase_plot_i`` is only functional in a
     `Jupyter notebook <http://jupyter.org>`_.
 
@@ -149,7 +150,7 @@ def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
         end time for :math:`x(t)`
 
     """
-    if in_ipynb():
+    if _in_ipynb():
         w = interactive(phase_plot, max_time=max_time, v0=v0, m=m,
                         c=c, x0=x0, k=k)
         plt.show()
@@ -211,7 +212,7 @@ def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
         end time for :math:`x(t)`
 
     """
-    if in_ipynb():
+    if _in_ipynb():
         w = interactive(time_plot, max_time=max_time, v0=v0, m=m,
                         c=c, x0=x0, k=k)
         display(w)
@@ -226,6 +227,7 @@ def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
 
 
 def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
+    """Return x(t) of analytical solution."""
 
     w = np.sqrt(k / m)
     zeta = c / (2 * w * m)  # (1.30)
@@ -264,8 +266,9 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
     return x
 
+
 def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
-    """Euler method free response of a SDOF system.
+    """Euler method free response of a SDOF system (program demo).
 
     Free response using Euler's method to perform numerical integration.
 
@@ -316,7 +319,7 @@ def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
 
 def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
-    """Runge-Kutta solution of underdamped system
+    """Runge-Kutta solution of underdamped system.
 
     Parameters
     ----------
@@ -337,7 +340,7 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     Examples
     --------
     >>> rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05) # doctest: +SKIP
-    (array([0.  , 0.05, 0.1 , 0.15, 0.2 , 0.25, 0.3 , 0.35, 0.4 ]), array([[ 1.  ,  0.  ],
+    (array([0.  , 0.05, 0.1 , 0.15, 0.2 , 0.25, 0.3 , 0.35, 0.4 ]), array([[ 1.,  0.],
            [ 1.  , -0.05],
            [ 1.  , -0.1 ],
            [ 0.99, -0.15],
@@ -346,8 +349,8 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
            [ 0.96, -0.29],
            [ 0.94, -0.34],
            [ 0.92, -0.38]]))
-    """
 
+    """
     t = np.linspace(0, n * dt, n + 1)
     x = np.zeros((n + 1, 2))
     x[0, :] = x0, v0
@@ -393,7 +396,7 @@ def frfplot(f, H):
 
 
 def response(xdd, f, t, x0, v0):
-    r"""returns t, x, v
+    r"""returns t, x, v- incomplete
 
     :math:`\ddot{x} = g(x,v) + f(t)`
     given initial conditions :math:`x_0` and :math:`\dot{x}_0 = v_0` for the time `t`
@@ -416,8 +419,8 @@ def response(xdd, f, t, x0, v0):
            [0.99],
            [0.99],
            [0.98]])
-    """
 
+    """
     omega = np.sqrt(k / m)
     zeta = c / 2 / omega / m
     omega_d = omega * np.sqrt(1 - zeta**2)
@@ -442,9 +445,7 @@ def response(xdd, f, t, x0, v0):
 
 def forced_analytical(m=10, k=100, x0=1, v0=0,
                       wdr=0.5, F0=10, tf=100):
-    """
-    Returns the response of an undamped single degree of freedom system
-    to a sinusoidal input with amplitude F0 and frequency wdr.
+    """Return response of an undamped SDOFS tp sinusiod.
 
     Parameters
     ----------
@@ -604,8 +605,9 @@ def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=(0, 1, .1),
         Array containing the values for anmplitude
 
         Plot with steady state magnitude and phase
+
     """
-    if in_ipynb():
+    if _in_ipynb():
         w = interactive(steady_state_response, zs=zs,
                         rmin=rmin, rmax=rmax)
         display(w)
@@ -615,10 +617,7 @@ def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=(0, 1, .1),
 
 
 def transmissibility(zs, rmin, rmax):
-    """
-    Returns a plot Displacement transmissibility ratio
-    and force transmissibility ratio of a single degree
-    of freedom damped system.
+    """Plot transmissibility ratio for SDOF system.
 
     Parameters
     ----------
@@ -644,8 +643,8 @@ def transmissibility(zs, rmin, rmax):
     >>> r, D, F = transmissibility([0.01, 0.05, 0.1, 0.25, 0.5, 0.7], 0, 2)
     >>> D[10]
     1.0100027508815634
-    """
 
+    """
     if not isinstance(zs, list):
         zs = [zs]
     r = np.linspace(rmin, rmax, 100*(rmax-rmin))
@@ -708,7 +707,7 @@ def transmissibility_i(zs=(0, 1.0, 0.1), rmin=0, rmax=2.0):
         and force transmissibility ratio
 
     """
-    if in_ipynb():
+    if _in_ipynb():
         w = interactive(transmissibility, zs=zs,
                         rmin=rmin, rmax=rmax)
         display(w)
@@ -717,9 +716,7 @@ def transmissibility_i(zs=(0, 1.0, 0.1), rmin=0, rmax=2.0):
 
 
 def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
-    """
-    Returns a plot Displacement of a system with rotating
-    unbalance.
+    """Plot displacement of system responding to rotating unbalance.
 
     Parameters
     ----------
@@ -749,8 +746,8 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
     >>> r, Xn = rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1, 0.25, 0.707, 1], rmin=0, rmax=3.5, normalized=True)
     >>> Xn[1][10] # doctest: +SKIP
     (0.10104614704226758-0.005118260209831553j)
-    """
 
+    """
     if not isinstance(zs, list):
         zs = [zs]
     r = np.linspace(rmin, rmax, 100*(rmax-rmin))
@@ -785,7 +782,8 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
 
 
 def impulse_response(m, c, k, Fo, max_time):
-    """
+    """Plot impulse response.
+
     Returns a plot with the response of the system to an
     impulse of magnitude Fo (N.s).
 
@@ -813,8 +811,8 @@ def impulse_response(m, c, k, Fo, max_time):
     >>> t, x = impulse_response(m=100, c=20, k=2000, Fo=10, max_time=100)
     >>> x[10] # doctest: +SKIP
     0.003962984539880562
-    """
 
+    """
     t = np.linspace(0, max_time, int(250 * max_time))
 
     wn = np.sqrt(k / m)
@@ -835,9 +833,7 @@ def impulse_response(m, c, k, Fo, max_time):
 
 
 def step_response(m, c, k, Fo, max_time):
-    """
-    Returns a plot with the response of the system to an
-    step of magnitude Fo.
+    """Plot of step response.
 
     Parameters
     ----------
@@ -863,8 +859,8 @@ def step_response(m, c, k, Fo, max_time):
     >>> t, x = step_response(m=100, c=20, k=2000, Fo=10, max_time=100)
     >>> x[10] # doctest: +SKIP
     7.958100817300083e-05
-    """
 
+    """
     t = np.linspace(0, max_time, int(250 * max_time))
 
     wn = np.sqrt(k / m)
@@ -876,8 +872,8 @@ def step_response(m, c, k, Fo, max_time):
         phi = np.arctan(zeta / np.sqrt(1 - zeta**2))
 
     if 0 < zeta < 1:
-        x = fo / wn**2 * (1 - wn / wd * np.exp(-zeta * wn * t) *
-                          np.cos(wd * t - phi))
+        x = fo / wn**2 * (1 - wn / wd * np.exp(-zeta * wn * t)
+                          * np.cos(wd * t - phi))
     elif zeta == 1:
         lam = -wn
         A1 = -fo / wn**2
@@ -903,8 +899,8 @@ def step_response(m, c, k, Fo, max_time):
 
 
 def fourier_series(dat, t, n):
-    """
-    Fourier series approximation to a function.
+    """Fourier series approximation to a function.
+
     returns Fourier coefficients of a function.
     The coefficients are numerical approximations of the true
     coefficients.
@@ -933,8 +929,8 @@ def fourier_series(dat, t, n):
     >>> a, b = fourier_series(f, t, 5)
     >>> a[0]
     2.0
-    """
 
+    """
     len_ = len(dat)/2
     fs = (fft(dat))/len_
     a0 = fs[0]
@@ -960,9 +956,9 @@ def fourier_series(dat, t, n):
 
 
 def response_spectrum(f):
-    """
-    Will display the response spectrum to a partial ramp
-    input(see Figure 3.13) for the system with natural frequency
+    """Plot response spectrum of ramp response.
+
+    See Figure 3.13- Inman for the system with natural frequency
     f (in Hz) and no damping.
 
     Parameters
@@ -981,8 +977,8 @@ def response_spectrum(f):
     >>> t, rs = response_spectrum(10)
     >>> rs[10]
     1.6285602401720802
-    """
 
+    """
     t = np.linspace(.001 * 4 / f, 10 / f, 200)
     w = 2 * np.pi * f
 
@@ -1004,9 +1000,7 @@ def response_spectrum(f):
 
 
 def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
-    """
-    Plot the Fourier series defined by:
-    N is the number of terms.
+    """Plot the Fourier series defined by coefficient falues.
 
     Parameters
     ----------
@@ -1037,6 +1031,7 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     >>> t, F = fourier_approximation(0,'-8/np.pi**2/n**2',0,0,0,20,10)
     >>> F[10] # doctest: +SKIP
     -0.902349289119351
+
     """
     args = [str(arg) for arg in [a0, aodd, aeven, bodd, beven]]  # chng to str
     a0, aodd, aeven, bodd, beven = args
@@ -1064,7 +1059,21 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
 
 
 def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
+    """Plot characteristic responses of SDOF system.
 
+    Plot impluse response, step response, frequency response function, and
+    location of poles.
+
+    Parameters
+    ----------
+    m: float
+        Mass
+    c: float
+        Damping
+    k: float
+        Stiffness
+
+    """
     # This only does anything when the user accidentally sends in integers
     # instead of floats.
     if k == 0:
@@ -1082,7 +1091,6 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
 
         # Approximately 4 times the settling time
         tmax = 4 / zeta / omega_n
-        tmin = 0
 
         if tmax < 0:
             tmax = -tmax
@@ -1225,11 +1233,17 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
     ax2.set_title('Step Response')
     ax2.plot(t, step_response)
 
-    ax3 = fig.add_subplot(223)
-    ax3.set_xlabel('$\\omega$')
+    ax3 = fig.add_subplot(425)
+    # ax3.set_xlabel('$\\omega$')
     ax3.set_ylabel('$20*log_{10}(|H(j\\omega)|)$')
-    ax3.set_title('Frequency Response')
+    ax3.set_title('Frequency Response Magnitude')
     ax3.plot(omega, 20*np.log10(np.abs(freq_response)))
+
+    ax5 = fig.add_subplot(427)
+    ax5.set_xlabel('$\\omega$')
+    ax5.set_ylabel('$\\phi$')
+    ax5.set_title('Frequency Response Phase')
+    ax5.plot(omega, np.angle(freq_response)*180/np.pi)
 
     ax4 = fig.add_subplot(224)
     ax4.set_xlabel('Real')
@@ -1245,10 +1259,35 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
     print('zeta = {:.3f}, omega_n = {:.2f}'.format(zeta, omega_n))
 
 
+def sdof_interact():
+    m_slide = widgets.FloatSlider(min=1e-5, max=20, step=.1, value=5,
+                                  continuous_update=False)
+    k_slide = FloatSlider(min=1e-5, max=1000, step=1., value=100,
+                          continuous_update=False)
+    c_slide = FloatSlider(min=-1, max=50, step=.1, value=2,
+                          continuous_update=False)
+
+    m_label = widgets.Label('Mass')
+    c_label = Label('Damping')
+    k_label = Label('Stiffness')
+
+    m_slider = widgets.VBox([m_label, m_slide])
+    c_slider = widgets.VBox([c_label, c_slide])
+    k_slider = widgets.VBox([k_label, k_slide])
+
+    ui = widgets.HBox([m_slider, c_slider, k_slider])
+
+    out = widgets.interactive_output(plot_sdof_resp, {'m': m_slide,
+                                     'c': c_slide, 'k': k_slide})
+
+    sdof_responses = widgets.VBox([ui, out])
+    return sdof_responses
+
+
 if __name__ == "__main__":
     import doctest
-    doctest.testmod(optionflags=doctest.ELLIPSIS |
-                    doctest.NORMALIZE_WHITESPACE)
+    doctest.testmod(optionflags=doctest.ELLIPSIS
+                    | doctest.NORMALIZE_WHITESPACE)
     # import vibration_toolbox as vtb
     # doctest.run_docstring_examples(frfest,globals(),optionflags=doctest.ELLIPSIS)
     # doctest.run_docstring_examples(asd,globals(),optionflags=doctest.ELLIPSIS)
