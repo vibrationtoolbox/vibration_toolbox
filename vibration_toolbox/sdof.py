@@ -79,8 +79,8 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     >>> plt.title('Displacement versus time')
     Text(0.5, 1.0, 'Displacement versus time')
     >>> plt.grid(True)
-    """
 
+    """
     omega = np.sqrt(k / m)
     zeta = c / 2 / omega / m
     omega_d = omega * np.sqrt(1 - zeta ** 2)
@@ -192,7 +192,7 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
                 r'$\lambda_2$ = %0.2f' %
                 (zeta * omega + omega * (zeta ** 2 - 1)))
     ax.legend()
-    #plt.show()
+    # plt.show()
 
 
 def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
@@ -260,9 +260,9 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
             (2 * w * np.sqrt(zeta**2 - 1))  # (1.43)
         print('a1= ', a1)
         print('a2= ', a2)
-        x = (np.exp(-zeta * w * t) *
-             (a1 * np.exp(-w * np.sqrt(zeta**2 - 1) * t) +
-              a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
+        x = (np.exp(-zeta * w * t)
+             * (a1 * np.exp(-w * np.sqrt(zeta**2 - 1) * t)
+             + a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
 
     return x
 
@@ -471,13 +471,13 @@ def forced_analytical(m=10, k=100, x0=1, v0=0,
     (array([   0.,    0.,    0., ...,  100.,  100.,  100.]), array([ 1.  ,  1.  ,  1.  , ..., -0.33, -0.33, -0.33]))
     """
 
-    t = np.linspace(0, tf, tf/0.000125)
+    t = np.linspace(0, tf, tf / 0.000125)
 
     f0 = F0 / m
     w = np.sqrt(k / m)
-    x = (v0 / w * np.sin(w * t) +
-         (x0 - f0 / (w**2 - wdr**2)) * np.cos(w * t) +
-         f0 / (w**2 - wdr**2) * np.cos(wdr * t))   # (2.11)
+    x = (v0 / w * np.sin(w * t)
+         + (x0 - f0 / (w**2 - wdr**2)) * np.cos(w * t)
+         + f0 / (w**2 - wdr**2) * np.cos(wdr * t))   # (2.11)
 
     return t, x
 
@@ -517,7 +517,7 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
 
     def sdofs_deriv(x_xd, t, m=m, c=c, k=k):
         x, xd = x_xd
-        return [xd, (F0*np.cos(wdr*t) / m) - (c / m) * xd - (k / m) * x]
+        return [xd, (F0 * np.cos(wdr * t) / m) - (c / m) * xd - (k / m) * x]
 
     z0 = np.array([x0, v0])
     # Solve for the trajectories
@@ -552,14 +552,14 @@ def steady_state_response(zs=0.1, rmin=0.0, rmax=2.0):
     >>> r, A = steady_state_response([0.1, 0.3, 0.8], 0, 2)
     >>> A[10] # doctest: +SKIP
     (0.9842315984203909-0.1598833401887975j)
-    """
 
+    """
     if not isinstance(zs, list):
         zs = [zs]
-    r = np.linspace(rmin, rmax, 100*(rmax-rmin))
+    r = np.linspace(rmin, rmax, 100 * (rmax - rmin))
     A0 = np.zeros((len(zs), len(r)), complex)
     for z in enumerate(zs):
-        A0[z[0]] = (1/(1 - r**2 + 2*1j*r*z[1]))
+        A0[z[0]] = (1 / (1 - r**2 + 2 * 1j * r * z[1]))
 
     fig = plt.figure()
     ax1 = fig.add_subplot(211)
@@ -575,7 +575,7 @@ def steady_state_response(zs=0.1, rmin=0.0, rmax=2.0):
 
     for A in A0:
         ax1.plot(r, (np.absolute(A)))
-        ax2.plot(r, -np.angle(A)/np.pi*180)
+        ax2.plot(r, -np.angle(A) / np.pi * 180)
 
     ax1.legend(([r'$\zeta$ = ' + (str(s)) for s in zs]))
     plt.show()
@@ -584,8 +584,8 @@ def steady_state_response(zs=0.1, rmin=0.0, rmax=2.0):
 
 def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=(0, 1, .1),
                             rmax=(1., 2.0, 0.1)):
-    """Interactive phase plot of steady state response of
-     single degree of freedom system.
+    """Interactive phase plot of SDOF system.
+
     ``steady_state_response`` is only functional in a
     `Jupyter notebook <http://jupyter.org>`_.
 
@@ -647,14 +647,14 @@ def transmissibility(zs, rmin, rmax):
     """
     if not isinstance(zs, list):
         zs = [zs]
-    r = np.linspace(rmin, rmax, 100*(rmax-rmin))
+    r = np.linspace(rmin, rmax, 100 * (rmax - rmin))
     DT = np.zeros((len(zs), len(r)))
     for z in enumerate(zs):
         # 2.71
-        DT[z[0]] = ((1 + (2 * z[1] * r)**2) /
-                    ((1 - r**2)**2 + (2 * z[1] * r)**2))**0.5
+        DT[z[0]] = ((1 + (2 * z[1] * r)**2)
+                    / ((1 - r**2)**2 + (2 * z[1] * r)**2))**0.5
 
-    FT = (r**2)*DT
+    FT = (r**2) * DT
 
     fig = plt.figure()
     ax1 = fig.add_subplot(211)
@@ -662,12 +662,14 @@ def transmissibility(zs, rmin, rmax):
     plt.tight_layout()
 
     ax1.set_ylabel('Displacement Transmissibility Ratio (dB)')
-    ax1.set_title('Displacement Transmissibility Ratio vs Frequency Ratio (X/Y)')
+    ax1.set_title(
+        'Displacement Transmissibility Ratio vs Frequency Ratio (X/Y)')
     ax1.set_ylim(0, 6)
 
     ax2.set_xlabel('Frequency Ratio')
     ax2.set_ylabel('Force Transmissibility Ratio (dB)')
-    ax2.set_title('Force Transmissibility Ratio versus Frequency Ratio (F_T/kY)')
+    ax2.set_title(
+        'Force Transmissibility Ratio versus Frequency Ratio (F_T/kY)')
     ax2.set_yscale("log")
     ax2.set_ylim(0.01, 50)
 
@@ -682,8 +684,8 @@ def transmissibility(zs, rmin, rmax):
 
 
 def transmissibility_i(zs=(0, 1.0, 0.1), rmin=0, rmax=2.0):
-    """Interactive phase plot of transmissibility of
-     single degree of freedom system.
+    """Interactive transmissibility phase of SDOF system.
+
     ``transmissibility_i`` is only functional in a
     `Jupyter notebook <http://jupyter.org>`_.
 
@@ -750,10 +752,10 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
     """
     if not isinstance(zs, list):
         zs = [zs]
-    r = np.linspace(rmin, rmax, 100*(rmax-rmin))
+    r = np.linspace(rmin, rmax, 100 * (rmax - rmin))
     Xn = np.zeros((len(zs), len(r)), complex)
     for z in enumerate(zs):
-        Xn[z[0]] = (r / (1 - r**2 + 2*1j*r*z[1]))
+        Xn[z[0]] = (r / (1 - r**2 + 2 * 1j * r * z[1]))
 
     fig = plt.figure()
     ax1 = fig.add_subplot(211)
@@ -774,7 +776,7 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
 
     for X_z in Xn:
         ax1.plot(r, np.absolute(X_z))
-        ax2.plot(r, -np.angle(X_z)/np.pi*180)
+        ax2.plot(r, -np.angle(X_z) / np.pi * 180)
 
     ax1.legend(([r'$\zeta$ = ' + (str(s)) for s in zs]))
 
@@ -931,23 +933,23 @@ def fourier_series(dat, t, n):
     2.0
 
     """
-    len_ = len(dat)/2
-    fs = (fft(dat))/len_
+    len_ = len(dat) / 2
+    fs = (fft(dat)) / len_
     a0 = fs[0]
-    a = np.real(np.hstack((a0, fs[1:len(fs/2)])))
-    b = -np.imag(fs[1:len(fs/2)])
+    a = np.real(np.hstack((a0, fs[1:len(fs / 2)])))
+    b = -np.imag(fs[1:len(fs / 2)])
     len_ *= 2
-    dt = 2*np.pi/len_
-    tp = np.arange(0, 2*np.pi, dt)
-    dataapprox = a[0]/2 + np.zeros_like(dat)
+    dt = 2 * np.pi / len_
+    tp = np.arange(0, 2 * np.pi, dt)
+    dataapprox = a[0] / 2 + np.zeros_like(dat)
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
     ax1.plot(t, dat)
 
     for i in range(1, n):
-        newdat = a[i]*np.cos(tp*i) + b[i]*np.sin(tp*i)
+        newdat = a[i] * np.cos(tp * i) + b[i] * np.sin(tp * i)
         dataapprox += newdat
-        if i == n-1:
+        if i == n - 1:
             ax1.plot(t, newdat)
 
     ax1.plot(t, dataapprox)
@@ -1036,9 +1038,9 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     args = [str(arg) for arg in [a0, aodd, aeven, bodd, beven]]  # chng to str
     a0, aodd, aeven, bodd, beven = args
 
-    dt = min(T/400, T/10*N)
-    t = np.arange(0, T*3, dt)
-    F = 0*t + eval(a0)/2
+    dt = min(T / 400, T / 10 * N)
+    t = np.arange(0, T * 3, dt)
+    F = 0 * t + eval(a0) / 2
 
     for n in range(1, N):
         if n % 2 == 0:
@@ -1047,7 +1049,8 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
         else:
             a = aodd
             b = bodd
-        F = F + eval(a)*np.cos(n*2*np.pi*t/T) + eval(b)*np.sin(n*2*np.pi*t/T)
+        F = F + eval(a) * np.cos(n * 2 * np.pi * t / T) + \
+            eval(b) * np.sin(n * 2 * np.pi * t / T)
 
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
@@ -1096,12 +1099,14 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
             tmax = -tmax
 
         # guess reasonable amount of time - lock to first decimal place
-        maxtime = (np.ceil(tmax/10**np.floor(np.log10(tmax)))
+        maxtime = (np.ceil(tmax / 10**np.floor(np.log10(tmax)))
                    * 10**np.floor(np.log10(tmax)))
 
-        num_cycles = maxtime*omega_n / 2 / np.pi
+        maxtime = 20.0
 
-        num_points = np.max([200, int(10*num_cycles)])
+        num_cycles = maxtime * omega_n / 2 / np.pi
+
+        num_points = np.max([200, int(10 * num_cycles)])
 
         if num_points > 1000:
             num_points = 1000
@@ -1110,38 +1115,41 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
 
         t = np.linspace(0, maxtime, num_points)
 
-        decay = np.exp(-zeta*omega_n*t)
+        decay = 1 / np.sqrt(1 - zeta**2) * np.exp(-zeta * omega_n * t)
 
-        impulse_response = 1/m * decay * np.sin(omega_d * t)
+        impulse_response = 1 / m * decay * np.sin(omega_d * t)
 
-        phi = np.arctan(zeta/(np.sqrt(1-zeta**2)))
-        step_response = 1/k * (1 - decay * np.cos(omega_d*t - phi))
+        phi = np.arctan(zeta / (np.sqrt(1 - zeta**2)))
 
-        max_freq = omega_n*4
+        step_response = 1 / k * (1 - decay * np.cos(omega_d * t - phi))
 
-        max_freq = (np.ceil(max_freq/10**np.floor(np.log10(max_freq)))
+        max_freq = omega_n * 4
+
+        max_freq = (np.ceil(max_freq / 10**np.floor(np.log10(max_freq)))
                     * 10**np.floor(np.log10(max_freq)))
 
         omega = np.linspace(0, max_freq, num_points)
-        s = sp.sqrt(-1.0)*omega
-        freq_response = 1/(m*s**2+c*s+k)
+        s = sp.sqrt(-1.0) * omega
+        freq_response = 1 / (m * s**2 + c * s + k)
 
-        roots = np.array([[-zeta*omega_n-omega_d*sp.sqrt(-1.0)],
-                          [-zeta*omega_n+omega_d*sp.sqrt(-1)]])
+        roots = np.array([[-zeta * omega_n - omega_d * sp.sqrt(-1.0)],
+                          [-zeta * omega_n + omega_d * sp.sqrt(-1)]])
 
     elif zeta > 1.0:
 
-        if zeta-1 < 1e-8:
+        if zeta - 1 < 1e-8:
             print('adjusting zeta.')
             zeta = 1 + 1e-8
 
-        roots = np.array([[(-c+np.sqrt(c**2-4*m*k))/2/c],
-                          [(-c-np.sqrt(c**2-4*m*k))/2/c]])
+        roots = np.array([[(-c + np.sqrt(c**2 - 4 * m * k)) / 2 / c],
+                          [(-c - np.sqrt(c**2 - 4 * m * k)) / 2 / c]])
 
         tmax = -4 / ((-c + np.sqrt(c**2 - 4 * m * k)) / 2 / c)
         # guess reasonable amount of time - lock to first decimal place
-        maxtime = (np.ceil(tmax/10**np.floor(np.log10(tmax)))
+        maxtime = (np.ceil(tmax / 10**np.floor(np.log10(tmax)))
                    * 10**np.floor(np.log10(tmax)))
+
+        maxtime = 20.0
 
         num_points = 300
         t = np.linspace(0, maxtime, num_points)
@@ -1149,7 +1157,7 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
         # Impulse response
 
         x0 = 0
-        v0 = 1/m
+        v0 = 1 / m
         C1 = (x0 * omega_n * (zeta + np.sqrt(zeta**2 - 1)) + v0
               ) / 2 / omega_n / np.sqrt(zeta**2 - 1)
         C2 = (-x0 * omega_n * (zeta - np.sqrt(zeta**2 - 1)) - v0
@@ -1160,24 +1168,24 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
 
         # Step response
 
-        x0 = -1/k
-        v0 = 0/m
+        x0 = -1 / k
+        v0 = 0 / m
         C1 = (x0 * omega_n * (zeta + np.sqrt(zeta**2 - 1)) + v0
               ) / 2 / omega_n / np.sqrt(zeta**2 - 1)
         C2 = (-x0 * omega_n * (zeta - np.sqrt(zeta**2 - 1)) - v0
               ) / 2 / omega_n / np.sqrt(zeta**2 - 1)
-        step_response = 1/k + C1 * np.exp(
+        step_response = 1 / k + C1 * np.exp(
             (-zeta + np.sqrt(zeta**2 - 1)) * omega_n * t) + C2 * np.exp(
                 (-zeta - np.sqrt(zeta**2 - 1)) * omega_n * t)
 
-        max_freq = omega_n*4
+        max_freq = omega_n * 4
 
-        max_freq = (np.ceil(max_freq/10**np.floor(np.log10(max_freq)))
+        max_freq = (np.ceil(max_freq / 10**np.floor(np.log10(max_freq)))
                     * 10**np.floor(np.log10(max_freq)))
 
         omega = np.linspace(0, max_freq, num_points)
         s = sp.sqrt(-1.0) * omega
-        freq_response = 1/(m*s**2+c*s+k)
+        freq_response = 1 / (m * s**2 + c * s + k)
 
     elif np.abs(zeta) < 1e-5:
         omega_d = omega_n
@@ -1186,12 +1194,12 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
         tmax = 8 * 2 * np.pi / omega_n
 
         # guess reasonable amount of time - lock to first decimal place
-        maxtime = (np.ceil(tmax/10**np.floor(np.log10(tmax)))
+        maxtime = (np.ceil(tmax / 10**np.floor(np.log10(tmax)))
                    * 10**np.floor(np.log10(tmax)))
 
-        num_cycles = maxtime*omega_n / 2 / np.pi
+        num_cycles = maxtime * omega_n / 2 / np.pi
 
-        num_points = np.max([200, int(10*num_cycles)])
+        num_points = np.max([200, int(10 * num_cycles)])
 
         if num_points > 1000:
             num_points = 1000
@@ -1202,21 +1210,21 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
 
         decay = np.zeros_like(t)
 
-        impulse_response = 1/m * np.sin(omega_d * t)
+        impulse_response = 1 / m * np.sin(omega_d * t)
 
-        step_response = 1/k * (1 - np.cos(omega_d * t))
+        step_response = 1 / k * (1 - np.cos(omega_d * t))
 
-        max_freq = omega_n*4
+        max_freq = omega_n * 4
 
-        max_freq = (np.ceil(max_freq/10**np.floor(np.log10(max_freq)))
+        max_freq = (np.ceil(max_freq / 10**np.floor(np.log10(max_freq)))
                     * 10**np.floor(np.log10(max_freq)))
 
         omega = np.linspace(0, max_freq, num_points)
-        s = sp.sqrt(-1.0)*omega
-        freq_response = 1/(m*s**2+c*s+k)
+        s = sp.sqrt(-1.0) * omega
+        freq_response = 1 / (m * s**2 + c * s + k)
 
-        roots = np.array([[-zeta*omega_n-omega_d*sp.sqrt(-1.0)],
-                          [-zeta*omega_n+omega_d*sp.sqrt(-1)]])
+        roots = np.array([[-zeta * omega_n - omega_d * sp.sqrt(-1.0)],
+                          [-zeta * omega_n + omega_d * sp.sqrt(-1)]])
 
     fig = plt.figure(figsize=(18, 10), dpi=80,
                      facecolor='w', edgecolor='k')
@@ -1226,24 +1234,28 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
     ax1.set_ylabel('$x(t)$')
     ax1.set_title('Impulse Response')
     ax1.plot(t, impulse_response)
+    ax1.axis((0.0, 20.0, -0.3, 0.3))
 
     ax2 = fig.add_subplot(222)
     ax2.set_xlabel('$t$')
     ax2.set_ylabel('$x(t)$')
     ax2.set_title('Step Response')
     ax2.plot(t, step_response)
+    ax2.axis((0.0, 20.0, 0, 0.04))
 
     ax3 = fig.add_subplot(425)
     # ax3.set_xlabel('$\\omega$')
     ax3.set_ylabel('$20*log_{10}(|H(j\\omega)|)$')
     ax3.set_title('Frequency Response Magnitude')
-    ax3.plot(omega, 20*np.log10(np.abs(freq_response)))
+    ax3.plot(omega, 20 * np.log10(np.abs(freq_response)))
+    ax3.axis((0.0, 20.0, -80, -10))
 
     ax5 = fig.add_subplot(427)
     ax5.set_xlabel('$\\omega$')
     ax5.set_ylabel('$\\phi$')
     ax5.set_title('Frequency Response Phase')
-    ax5.plot(omega, np.angle(freq_response)*180/np.pi)
+    ax5.plot(omega, np.angle(freq_response) * 180 / np.pi)
+    ax5.axis((0.0, 20.0, -200, 1))
 
     ax4 = fig.add_subplot(224)
     ax4.set_xlabel('Real')
@@ -1254,17 +1266,19 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
     ax4.axhline(y=0, color='k')
     ax4.axvline(x=0, color='k')
     ax4.plot(np.real(roots), np.imag(roots), '*')
+    ax4.axis((-6.0, 6.0, -20.0, 20.0))
     plt.show()
 
     print('zeta = {:.3f}, omega_n = {:.2f}'.format(zeta, omega_n))
 
 
 def sdof_interact():
+    """Create interactive plots of characteristics of SDOF system."""
     m_slide = widgets.FloatSlider(min=1e-5, max=20, step=.1, value=5,
                                   continuous_update=False)
     k_slide = FloatSlider(min=1e-5, max=1000, step=1., value=100,
                           continuous_update=False)
-    c_slide = FloatSlider(min=-1, max=50, step=.1, value=2,
+    c_slide = FloatSlider(min=-1, max=200, step=.1, value=2,
                           continuous_update=False)
 
     m_label = widgets.Label('Mass')
@@ -1277,8 +1291,9 @@ def sdof_interact():
 
     ui = widgets.HBox([m_slider, c_slider, k_slider])
 
-    out = widgets.interactive_output(plot_sdof_resp, {'m': m_slide,
-                                     'c': c_slide, 'k': k_slide})
+    out = widgets.interactive_output(plot_sdof_resp,
+                                     {'m': m_slide,
+                                      'c': c_slide, 'k': k_slide})
 
     sdof_responses = widgets.VBox([ui, out])
     return sdof_responses
