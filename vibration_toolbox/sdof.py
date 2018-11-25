@@ -261,8 +261,8 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
         print('a1= ', a1)
         print('a2= ', a2)
         x = (np.exp(-zeta * w * t)
-             * (a1 * np.exp(-w * np.sqrt(zeta**2 - 1) * t)
-             + a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
+             * (a1 * np.exp(-w * np.sqrt(zeta**2 - 1) * t) +
+              a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
 
     return x
 
