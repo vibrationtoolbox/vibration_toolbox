@@ -5,14 +5,16 @@ import scipy.linalg as la
 import scipy.signal as signal
 import matplotlib as mpl
 
-__all__ = ["modes_system",
-           "modes_system_undamped",
-           "response_system",
-           "response_system_undamped"]
+__all__ = [
+    "modes_system",
+    "modes_system_undamped",
+    "response_system",
+    "response_system_undamped",
+]
 
 
-mpl.rcParams['lines.linewidth'] = 2
-mpl.rcParams['figure.figsize'] = (10, 6)
+mpl.rcParams["lines.linewidth"] = 2
+mpl.rcParams["figure.figsize"] = (10, 6)
 
 
 def _eigen(A, B=None):
@@ -70,13 +72,13 @@ def _eigen(A, B=None):
             # positive in increasing order
             idxp = evalues.real.argsort()[int(len(evalues) / 2):]
             # negative in decreasing order
-            idxn = evalues.real.argsort()[int(len(evalues) / 2) - 1::-1]
+            idxn = evalues.real.argsort()[int(len(evalues) / 2) - 1:: -1]
 
     else:
         # positive in increasing order
         idxp = evalues.imag.argsort()[int(len(evalues) / 2):]
         # negative in decreasing order
-        idxn = evalues.imag.argsort()[int(len(evalues) / 2) - 1::-1]
+        idxn = evalues.imag.argsort()[int(len(evalues) / 2) - 1:: -1]
 
     idx = np.hstack([idxp, idxn])
 
@@ -213,8 +215,8 @@ def modes_system_undamped(M, K):
     lam, P = _eigen(la.solve(L, la.solve(L, K, assume_a='pos').T,
                              assume_a='pos').T)
     w = np.real(np.sqrt(lam))
-    S = la.solve(L, P, assume_a='pos')
-    Sinv = la.solve(L.T, P, assume_a='pos').T
+    S = la.solve(L, P, assume_a="pos")
+    Sinv = la.solve(L.T, P, assume_a="pos").T
 
     return w, P, S, Sinv
 
@@ -290,39 +292,50 @@ def modes_system(M, K, C=None):
     Z = np.zeros((n, n))
     I = np.eye(n)
 
-    if (C is None or np.all(C == 0) or  # check if C has only zero entries
-            la.norm(la.solve(M, C, assume_a='pos') @ K
-                    - la.solve(M, K, assume_a='pos') @ C, 2) <
-            1e-8 * la.norm(la.solve(M, K, assume_a='pos') @ C, 2)):
+    if (
+        C is None or
+        np.all(C == 0) or
+        la.norm(  # check if C has only zero entries
+            la.solve(M, C, assume_a="pos") @ K - \
+            la.solve(M, K, assume_a="pos") @ C, 2
+        ) <
+        1e-8 * la.norm(la.solve(M, K, assume_a="pos") @ C, 2)
+    ):
         w, P, S, Sinv = modes_system_undamped(M, K)
         wn = w
         wd = w
-        #zeta = None
-        zeta = np.diag(S.T@C@S) / 2 / wn
-        wd = wn * np.sqrt(1 - zeta**2)
+        # zeta = None
+        zeta = np.diag(S.T @ C @ S) / 2 / wn
+        wd = wn * np.sqrt(1 - zeta ** 2)
         X = P
         Y = P
-        print('Damping is proportional or zero, eigenvectors are real')
+        print("Damping is proportional or zero, eigenvectors are real")
         return wn, wd, zeta, X, Y
 
     Z = np.zeros((n, n))
     I = np.eye(n)
 
     # creates the state space matrix
-    A = np.vstack([np.hstack([Z, I]),
-                   np.hstack([-la.solve(M, K, assume_a='pos'),
-                              -la.solve(M, C, assume_a='pos')])])
+    A = np.vstack(
+        [
+            np.hstack([Z, I]),
+            np.hstack(
+                [-la.solve(M, K, assume_a="pos"),
+                 - la.solve(M, C, assume_a="pos")]
+            ),
+        ]
+    )
 
     w, X = _eigen(A)
     _, Y = _eigen(A.T)
 
     wd = abs(np.imag(w))
     wn = np.absolute(w)
-    zeta = (-np.real(w) / np.absolute(w))
+    zeta = -np.real(w) / np.absolute(w)
 
     Y = _normalize(X, Y)
 
-    print('Damping is non-proportional, eigenvectors are complex.')
+    print("Damping is non-proportional, eigenvectors are complex.")
 
     return wn, wd, zeta, X, Y
 
@@ -381,8 +394,8 @@ def response_system_undamped(M, K, x0, v0, max_time):
     I = np.eye(n, n)
 
     # creates the state space matrix
-    A = np.vstack([np.hstack([Z,               I]),
-                   np.hstack([-la.solve(M, K, assume_a='pos'), Z])])
+    A = np.vstack([np.hstack([Z, I]), np.hstack(
+        [-la.solve(M, K, assume_a="pos"), Z])])
 
     # creates the x array and set the first line according to the initial
     # conditions
@@ -478,11 +491,16 @@ def response_system(M, C, K, F, x0, v0, t):
     I = np.eye(n)
 
     # creates the state space matrix
-    A = np.vstack([np.hstack([Z,               I]),
-                   np.hstack([-la.solve(M, K, assume_a='pos'),
-                              -la.solve(M, C, assume_a='pos')])])
-    B = np.vstack([Z,
-                   la.inv(M)])
+    A = np.vstack(
+        [
+            np.hstack([Z, I]),
+            np.hstack(
+                [-la.solve(M, K, assume_a="pos"),
+                 - la.solve(M, C, assume_a="pos")]
+            ),
+        ]
+    )
+    B = np.vstack([Z, la.inv(M)])
     C = np.eye(2 * n)
     D = 0 * B
 
