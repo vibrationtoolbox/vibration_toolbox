@@ -38,3 +38,4 @@ __pycache__
 .ropeproject/config.py
 .pytest_cache/v/cache/nodeids
 .pytest_cache/v/cache/lastfailed
+.vscode/settings.json
