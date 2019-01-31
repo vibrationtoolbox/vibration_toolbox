@@ -11,11 +11,21 @@ To contribute code we recommend you follow these steps:
 
 2. Set up travis-ci for your fork. This is actually pretty quick and easy:
 
-  #. Go to settings on github for your fork.
+  #. Go to travis-ci.org and Sign in with GitHub.
 
-  #. Select ``Integration & Services``
+  #. Account page will show all the repositories attached to GitHub.
 
-  #. Click ``Add service`` and select ``Travis CI``.
+  #. Find the right repository and enable Travis CI.
+
+  #. Once this is done, Travis CI will be turned-on in GitHub fork.
+
+  #. Go back to the fork on GitHub, click    
+
+     ``Settings`` -> ``Webhooks`` -> ``updated travis-ci.org link``.
+
+  #. Default or customize the options based on needs and click 
+
+     ``Update webhook``. 
 
 3. Clone the repository to your favorite location on your drive where you want to work on it.
 
