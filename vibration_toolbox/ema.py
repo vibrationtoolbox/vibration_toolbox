@@ -246,6 +246,7 @@ def sdof_cf(f, TF, Fmin=None, Fmax=None):
 
     b, _, _, _ = la.lstsq(aa, c)
 
+    b = b.flatten()
     rs = np.roots(np.array([1,
                             b[1],
                             b[0]]))
