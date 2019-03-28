@@ -4,7 +4,7 @@ import scipy.linalg as la
 
 
 def frf(x, f, dt):
-    """Return the frequency response function
+    r"""Return the frequency response function.
 
     Calculates :math:`H(i\\omega)`, and coherance of the sampled data.
 
@@ -51,8 +51,8 @@ def frf(x, f, dt):
     >>> freq, mag, ang, coh = vtb.frf(x, f, dt)
     >>> mag[10]
     1.018394853080...
-    """
 
+    """
     w = np.sin(np.pi * np.arange(len(f)) / len(f))**2  # window
     # apply window
     xw = x * w
@@ -84,9 +84,9 @@ def frf(x, f, dt):
     ax3 = fig.add_subplot(313, sharex=ax2)
     fig.tight_layout()
 
-    ax1.set_title('$H(\omega)$ - Magnitude')
-    ax2.set_title('$H(\omega)$ - Phase')
-    ax3.set_title('$H(\omega)$ - Coherence')
+    ax1.set_title(r'$H(\omega)$ - Magnitude')
+    ax2.set_title(r'$H(\omega)$ - Phase')
+    ax3.set_title(r'$H(\omega)$ - Coherence')
     ax3.set_xlabel('Frequency (Hz)')
     ax3.set_ylim(0, 2)
 
@@ -100,9 +100,7 @@ def frf(x, f, dt):
 
 
 def plot_fft(t, time_response, ax=None, **kwargs):
-    """
-    This function will plot the fft given a time vector
-    and the system time response.
+    """Plot fft ot time response.
 
     Parameters
     ----------
@@ -115,7 +113,7 @@ def plot_fft(t, time_response, ax=None, **kwargs):
         If None creates a new.
 
     Returns
-    ----------
+    -------
     ax : array with matplotlib.axes, optional
         Matplotlib axes array created with plt.subplots.
         Plot has frequency in rad/s and magnitude in meters peak to peak.
@@ -127,6 +125,7 @@ def plot_fft(t, time_response, ax=None, **kwargs):
     >>> time_response = 2 * np.sin(40*t)
     >>> vtb.plot_fft(t, time_response)
     <matplotlib.axes...
+
     """
     if ax is None:
         ax = plt.gca()
@@ -149,8 +148,7 @@ def plot_fft(t, time_response, ax=None, **kwargs):
 
 
 def sdof_cf(f, TF, Fmin=None, Fmax=None):
-    """
-    Curve fit to a single degree of freedom FRF.
+    r"""Curve fit to a single degree of freedom FRF.
 
     Only one peak may exist in the segment of the FRF passed to sdofcf. No
     zeros may exist within this segment. If so, curve fitting becomes
@@ -195,8 +193,8 @@ def sdof_cf(f, TF, Fmin=None, Fmax=None):
     >>> z, nf, a = vtb.sdof_cf(f,TF,500,1000)
     >>> nf
     212.092530551...
-    """
 
+    """
     # check fmin fmax existance
     if Fmin is None:
         inlow = 0
@@ -265,8 +263,8 @@ def sdof_cf(f, TF, Fmin=None, Fmax=None):
     a, _, _, _ = la.lstsq(XoF, R)
     XoF = XoF[np.arange(ll, 2 * ll), :].dot(a)
 
-    a = np.sqrt(-2 * np.imag(a[0]) * np.imag(rs[0]) -
-                2 * np.real(a[0]) * np.real(rs[0]))
+    a = np.sqrt(-2 * np.imag(a[0]) * np.imag(rs[0])
+                - 2 * np.real(a[0]) * np.real(rs[0]))
     Fmin = np.min(f)
     Fmax = np.max(f)
     phase = np.unwrap(np.angle(TF), np.pi, 0) * 180 / np.pi
@@ -300,8 +298,7 @@ def sdof_cf(f, TF, Fmin=None, Fmax=None):
 
 
 def mdof_cf(f, TF, Fmin=None, Fmax=None):
-    """
-    Curve fit to multiple degree of freedom FRF
+    """Curve fit to multiple degree of freedom FRF.
 
     If Fmin and Fmax are not entered, the first and last elements of TF are
     used.
@@ -353,8 +350,8 @@ def mdof_cf(f, TF, Fmin=None, Fmax=None):
     >>> z, nf, a = vtb.mdof_cf(f,TF,500,1000)
     >>> nf
     192.59382330...
-    """
 
+    """
     # check fmin fmax existance
     if Fmin is None:
         inlow = 0
