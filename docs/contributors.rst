@@ -8,3 +8,4 @@ Other contributors
 
 | Gabriel Loranger
 | Anusha Anisetti
+| Daniel Wedlund
