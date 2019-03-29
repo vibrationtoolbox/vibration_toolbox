@@ -119,6 +119,7 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
     >>> vtb.phase_plot() # *_ ignores all other returns
+
     """
     t, x, v, zeta, omega, omega_d, A = free_response(
         m, c, k, x0, v0, max_time)
@@ -261,8 +262,8 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
         print('a1= ', a1)
         print('a2= ', a2)
         x = (np.exp(-zeta * w * t)
-             * (a1 * np.exp(-w * np.sqrt(zeta**2 - 1) * t)
-             + a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
+             * (a1 * np.exp(-w * np.sqrt(zeta**2 - 1) * t) +
+              a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
 
     return x
 
@@ -1006,15 +1007,15 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
 
     Parameters
     ----------
-    a0: float or str
+    a0: float or function
         a0 Fourier coefficient.
-    aodd: float or str
+    aodd: float or function
         an Fourier coefficient for n odd.
-    aeven: float or str
+    aeven: float or function
         an Fourier coefficient for n even.
-    bodd: float or str
+    bodd: float or function
         bn Fourier coefficient for n odd
-    beven: float or str
+    beven: float or function
         bn Fourier coefficient for n even
 
     Returns
@@ -1026,38 +1027,46 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     Examples
     --------
     >>> # Square wave
-    >>> t, F = fourier_approximation(-1, 0, 0, '-3*(-1+(-1)**n)/n/np.pi', '-3*(-1+(-1)**n)/n/np.pi', 20, 2)
+    >>> import vibration_toolbox as vtb
+    >>> bodd_square = lambda n: -3*(-1+(-1)**n)/n/np.pi
+    >>> beven_square = lambda n: -3*(-1+(-1)**n)/n/np.pi
+    >>> t, F = vtb.fourier_approximation(-1, 0, 0, bodd_square, beven_square, 20, 2)
     >>> F[10]
     1.2697210294282535
     >>> # Triangular wave
-    >>> t, F = fourier_approximation(0,'-8/np.pi**2/n**2',0,0,0,20,10)
+    >>> aeven_triangle = lambda n: -8/np.pi**2/n**2
+    >>> t, F = vtb.fourier_approximation(0,aeven_triangle,0,0,0,20,10)
     >>> F[10] # doctest: +SKIP
     -0.902349289119351
 
     """
-    args = [str(arg) for arg in [a0, aodd, aeven, bodd, beven]]  # chng to str
-    a0, aodd, aeven, bodd, beven = args
+    def make_const(value):
+        return lambda t: value
+
+    def fourier_contribution(a, b, n):
+        return a(n) * np.cos(n * 2 * np.pi * t / T) + \
+               b(n) * np.sin(n * 2 * np.pi * t / T)
+
+    a0, aodd, aeven, bodd, beven = (arg if callable(arg)
+                                    else make_const(arg)
+                                    for arg in (a0, aodd, aeven, bodd, beven))
 
     dt = min(T / 400, T / 10 * N)
     t = np.arange(0, T * 3, dt)
-    F = 0 * t + eval(a0) / 2
+    F = 0 * t + a0(0) / 2
 
-    for n in range(1, N):
-        if n % 2 == 0:
-            a = aeven
-            b = beven
-        else:
-            a = aodd
-            b = bodd
-        F = F + eval(a) * np.cos(n * 2 * np.pi * t / T) + \
-            eval(b) * np.sin(n * 2 * np.pi * t / T)
+    # n odd
+    for n in range(1, N, 2):
+        F = F + fourier_contribution(aodd, bodd, n)
+    # n even
+    for n in range(2, N, 2):
+        F = F + fourier_contribution(aeven, beven, n)
 
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
     ax1.set_xlabel('Time, t')
     ax1.set_ylabel('F(t)')
     ax1.plot(t, F)
-
     return t, F
 
 

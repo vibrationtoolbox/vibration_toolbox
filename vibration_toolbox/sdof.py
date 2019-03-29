@@ -1027,14 +1027,15 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     Examples
     --------
     >>> # Square wave
+    >>> import vibration_toolbox as vtb
     >>> bodd_square = lambda n: -3*(-1+(-1)**n)/n/np.pi
     >>> beven_square = lambda n: -3*(-1+(-1)**n)/n/np.pi
-    >>> t, F = fourier_approximation(-1, 0, 0, bodd_square, beven_square, 20, 2)
+    >>> t, F = vtb.fourier_approximation(-1, 0, 0, bodd_square, beven_square, 20, 2)
     >>> F[10]
     1.2697210294282535
     >>> # Triangular wave
     >>> aeven_triangle = lambda n: -8/np.pi**2/n**2
-    >>> t, F = fourier_approximation(0,aeven_triangle,0,0,0,20,10)
+    >>> t, F = vtb.fourier_approximation(0,aeven_triangle,0,0,0,20,10)
     >>> F[10] # doctest: +SKIP
     -0.902349289119351
 
@@ -1066,6 +1067,7 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     ax1.set_xlabel('Time, t')
     ax1.set_ylabel('F(t)')
     ax1.plot(t, F)
+    return t, F
 
 
 def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
