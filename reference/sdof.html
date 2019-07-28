@@ -1,22 +1,21 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Single Degree of Freedom Systems (vibration_toolbox.sdof) &#8212; Vibration Toolbox 0.6.2 documentation</title>
+    <meta charset="utf-8" />
+    <title>Single Degree of Freedom Systems (vibration_toolbox.sdof) &#8212; Vibration Toolbox 0.6.6 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed-amd.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Multiple Degree of Freedom Systems (vibration_toolbox.mdof)" href="mdof.html" />
@@ -33,6 +32,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="single-degree-of-freedom-systems-vibration-toolbox-sdof">
@@ -42,231 +43,135 @@
 <span id="sdof-single-degree-of-freedom-functions"></span><h2><a class="reference internal" href="#module-sdof" title="sdof: Single Degree of Freedom Systems"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sdof</span></code></a> – Single Degree of Freedom Functions<a class="headerlink" href="#module-sdof" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="sdof.free_response">
-<code class="descclassname">sdof.</code><code class="descname">free_response</code><span class="sig-paren">(</span><em>m=10</em>, <em>c=1</em>, <em>k=100</em>, <em>x0=1</em>, <em>v0=-1</em>, <em>max_time=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#free_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.free_response" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">free_response</code><span class="sig-paren">(</span><em class="sig-param">m=10</em>, <em class="sig-param">c=1</em>, <em class="sig-param">k=100</em>, <em class="sig-param">x0=1</em>, <em class="sig-param">v0=-1</em>, <em class="sig-param">max_time=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#free_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.free_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Free response of a second order linear oscillator.</p>
 <p>Returns t, x, v, zeta, omega, omega_d and A resulting from the
 free response of a second order linear ordinary differential
 equation defined by
-<span class="math notranslate">\(m\ddot{x} + c \dot{x} + k x = 0\)</span>
-given initial conditions <span class="math notranslate">\(x_0\)</span> and <span class="math notranslate">\(\dot{x}_0 = v_0\)</span> for
-<span class="math notranslate">\(0 &lt; t &lt; t_{max}\)</span></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k</strong> :  floats, optional</p>
-<blockquote>
-<div><p>mass, damping coefficient, stiffness</p>
-</div></blockquote>
-<p><strong>x0, v0:  floats, optional</strong></p>
-<blockquote>
-<div><p>initial displacement, initial velocity</p>
-</div></blockquote>
-<p><strong>max_time: float, optional</strong></p>
-<blockquote>
-<div><p>end time for <span class="math notranslate">\(x(t)\)</span></p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>t, x, v</strong> : ndarrays</p>
-<blockquote>
-<div><p>time, displacement, and velocity</p>
-</div></blockquote>
-<p><strong>zeta, omega, omega_d, A</strong> : floats</p>
-<blockquote class="last">
-<div><p>damping ratio, undamped natural frequency, damped natural frequency,
+<span class="math notranslate nohighlight">\(m\ddot{x} + c \dot{x} + k x = 0\)</span>
+given initial conditions <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(\dot{x}_0 = v_0\)</span> for
+<span class="math notranslate nohighlight">\(0 &lt; t &lt; t_{max}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>m, c, k</strong><span class="classifier">floats, optional</span></dt><dd><p>mass, damping coefficient, stiffness</p>
+</dd>
+<dt><strong>x0, v0:  floats, optional</strong></dt><dd><p>initial displacement, initial velocity</p>
+</dd>
+<dt><strong>max_time: float, optional</strong></dt><dd><p>end time for <span class="math notranslate nohighlight">\(x(t)\)</span></p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>t, x, v</strong><span class="classifier">ndarrays</span></dt><dd><p>time, displacement, and velocity</p>
+</dd>
+<dt><strong>zeta, omega, omega_d, A</strong><span class="classifier">floats</span></dt><dd><p>damping ratio, undamped natural frequency, damped natural frequency,
 Amplitude</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <p>(<a class="reference external" href="../reference/sdof-1.py">Source code</a>, <a class="reference external" href="../reference/sdof-1.png">png</a>, <a class="reference external" href="../reference/sdof-1.hires.png">hires.png</a>, <a class="reference external" href="../reference/sdof-1.pdf">pdf</a>)</p>
-<div class="figure">
+<div class="figure align-default">
 <img alt="../_images/sdof-1.png" src="../_images/sdof-1.png" />
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="sdof.phase_plot">
-<code class="descclassname">sdof.</code><code class="descname">phase_plot</code><span class="sig-paren">(</span><em>m=10</em>, <em>c=1</em>, <em>k=100</em>, <em>x0=1</em>, <em>v0=-1</em>, <em>max_time=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#phase_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.phase_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">phase_plot</code><span class="sig-paren">(</span><em class="sig-param">m=10</em>, <em class="sig-param">c=1</em>, <em class="sig-param">k=100</em>, <em class="sig-param">x0=1</em>, <em class="sig-param">v0=-1</em>, <em class="sig-param">max_time=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#phase_plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.phase_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Phase plot of free response of single degree of freedom system.</p>
 <p>For information on variables see <cite>free_response</cite>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k:  floats, optional</strong></p>
-<blockquote>
-<div><p>mass, damping coefficient, stiffness</p>
-</div></blockquote>
-<p><strong>x0, v0:  floats, optional</strong></p>
-<blockquote>
-<div><p>initial displacement, initial velocity</p>
-</div></blockquote>
-<p><strong>max_time: float, optional</strong></p>
-<blockquote class="last">
-<div><p>end time for <span class="math notranslate">\(x(t)\)</span></p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>m, c, k:  floats, optional</strong></dt><dd><p>mass, damping coefficient, stiffness</p>
+</dd>
+<dt><strong>x0, v0:  floats, optional</strong></dt><dd><p>initial displacement, initial velocity</p>
+</dd>
+<dt><strong>max_time: float, optional</strong></dt><dd><p>end time for <span class="math notranslate nohighlight">\(x(t)\)</span></p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <p>(<a class="reference external" href="../reference/sdof-2.py">Source code</a>, <a class="reference external" href="../reference/sdof-2.png">png</a>, <a class="reference external" href="../reference/sdof-2.hires.png">hires.png</a>, <a class="reference external" href="../reference/sdof-2.pdf">pdf</a>)</p>
-<div class="figure">
+<div class="figure align-default">
 <img alt="../_images/sdof-2.png" src="../_images/sdof-2.png" />
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="sdof.phase_plot_i">
-<code class="descclassname">sdof.</code><code class="descname">phase_plot_i</code><span class="sig-paren">(</span><em>max_time=(1.0</em>, <em>200.0)</em>, <em>v0=(-100</em>, <em>100</em>, <em>1.0)</em>, <em>m=(1.0</em>, <em>100.0</em>, <em>1.0)</em>, <em>c=(0.0</em>, <em>1.0</em>, <em>0.1)</em>, <em>x0=(-100</em>, <em>100</em>, <em>1)</em>, <em>k=(1.0</em>, <em>100.0</em>, <em>1.0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#phase_plot_i"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.phase_plot_i" title="Permalink to this definition">¶</a></dt>
-<dd><p>Interactive phase plot of free response of single degree of freedom system.
-<code class="docutils literal notranslate"><span class="pre">phase_plot_i</span></code> is only functional in a
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">phase_plot_i</code><span class="sig-paren">(</span><em class="sig-param">max_time=(1.0</em>, <em class="sig-param">200.0)</em>, <em class="sig-param">v0=(-100</em>, <em class="sig-param">100</em>, <em class="sig-param">1.0)</em>, <em class="sig-param">m=(1.0</em>, <em class="sig-param">100.0</em>, <em class="sig-param">1.0)</em>, <em class="sig-param">c=(0.0</em>, <em class="sig-param">1.0</em>, <em class="sig-param">0.1)</em>, <em class="sig-param">x0=(-100</em>, <em class="sig-param">100</em>, <em class="sig-param">1)</em>, <em class="sig-param">k=(1.0</em>, <em class="sig-param">100.0</em>, <em class="sig-param">1.0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#phase_plot_i"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.phase_plot_i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interactive phase plot of free response of SDOF system.</p>
+<p><code class="docutils literal notranslate"><span class="pre">phase_plot_i</span></code> is only functional in a
 <a class="reference external" href="http://jupyter.org">Jupyter notebook</a>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k:  floats, optional</strong></p>
-<blockquote>
-<div><p>mass, damping coefficient, stiffness</p>
-</div></blockquote>
-<p><strong>x0, v0:  floats, optional</strong></p>
-<blockquote>
-<div><p>initial displacement, initial velocity</p>
-</div></blockquote>
-<p><strong>max_time: float, optional</strong></p>
-<blockquote class="last">
-<div><p>end time for <span class="math notranslate">\(x(t)\)</span></p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>m, c, k:  floats, optional</strong></dt><dd><p>mass, damping coefficient, stiffness</p>
+</dd>
+<dt><strong>x0, v0:  floats, optional</strong></dt><dd><p>initial displacement, initial velocity</p>
+</dd>
+<dt><strong>max_time: float, optional</strong></dt><dd><p>end time for <span class="math notranslate nohighlight">\(x(t)\)</span></p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="sdof.time_plot_i">
-<code class="descclassname">sdof.</code><code class="descname">time_plot_i</code><span class="sig-paren">(</span><em>max_time=(1.0</em>, <em>100.0)</em>, <em>x0=(-100</em>, <em>100)</em>, <em>v0=(-100</em>, <em>100)</em>, <em>m=(1.0</em>, <em>100.0)</em>, <em>c=(0.0</em>, <em>1.0</em>, <em>0.02)</em>, <em>k=(1.0</em>, <em>100.0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#time_plot_i"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.time_plot_i" title="Permalink to this definition">¶</a></dt>
-<dd><p>Interactive single degree of freedom free reponse plot in iPython</p>
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">time_plot_i</code><span class="sig-paren">(</span><em class="sig-param">max_time=(1.0</em>, <em class="sig-param">100.0)</em>, <em class="sig-param">x0=(-100</em>, <em class="sig-param">100)</em>, <em class="sig-param">v0=(-100</em>, <em class="sig-param">100)</em>, <em class="sig-param">m=(1.0</em>, <em class="sig-param">100.0)</em>, <em class="sig-param">c=(0.0</em>, <em class="sig-param">1.0</em>, <em class="sig-param">0.02)</em>, <em class="sig-param">k=(1.0</em>, <em class="sig-param">100.0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#time_plot_i"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.time_plot_i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interactive single degree of freedom free reponse plot in iPython.</p>
 <p><code class="docutils literal notranslate"><span class="pre">time_plot_i</span></code> is only functional in a
 <a class="reference external" href="http://jupyter.org">Jupyter notebook</a>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k:  floats, optional</strong></p>
-<blockquote>
-<div><p>mass, damping coefficient, stiffness</p>
-</div></blockquote>
-<p><strong>x0, v0:  floats, optional</strong></p>
-<blockquote>
-<div><p>initial displacement, initial velocity</p>
-</div></blockquote>
-<p><strong>max_time: float, optional</strong></p>
-<blockquote class="last">
-<div><p>end time for <span class="math notranslate">\(x(t)\)</span></p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="sdof.euler">
-<code class="descclassname">sdof.</code><code class="descname">euler</code><span class="sig-paren">(</span><em>m=1</em>, <em>c=0.1</em>, <em>k=1</em>, <em>x0=1</em>, <em>v0=0</em>, <em>n=8</em>, <em>dt=0.05</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#euler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.euler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Euler method free response of a SDOF system.</p>
-<p>Free response using Euler’s method to perform numerical integration.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k: float</strong></p>
-<blockquote>
-<div><p>Mass, damping and stiffness.</p>
-</div></blockquote>
-<p><strong>x0, v0: float</strong></p>
-<blockquote>
-<div><p>Initial conditions</p>
-</div></blockquote>
-<p><strong>n: int</strong></p>
-<blockquote>
-<div><p>The number of steps</p>
-</div></blockquote>
-<p><strong>dt: float</strong></p>
-<blockquote>
-<div><p>The step size.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">t, x, v: array</p>
-<blockquote class="last">
-<div><p>Time, displacement, and velocity</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">euler</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-<span class="go">(array([ 0.  ,  0.05,  0.1 ,  0.15,  0.2 ,  0.25,  0.3 ,  0.35,  0.4 ]), array([[ 1.  ,  0.  ],</span>
-<span class="go">       [ 1.  , -0.05],</span>
-<span class="go">       [ 1.  , -0.1 ],</span>
-<span class="go">       [ 0.99, -0.15],</span>
-<span class="go">       [ 0.99, -0.2 ],</span>
-<span class="go">       [ 0.98, -0.25],</span>
-<span class="go">       [ 0.96, -0.29],</span>
-<span class="go">       [ 0.95, -0.34],</span>
-<span class="go">       [ 0.93, -0.39]]))</span>
-</pre></div>
-</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>m, c, k:  floats, optional</strong></dt><dd><p>mass, damping coefficient, stiffness</p>
+</dd>
+<dt><strong>x0, v0:  floats, optional</strong></dt><dd><p>initial displacement, initial velocity</p>
+</dd>
+<dt><strong>max_time: float, optional</strong></dt><dd><p>end time for <span class="math notranslate nohighlight">\(x(t)\)</span></p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="sdof.forced_response">
-<code class="descclassname">sdof.</code><code class="descname">forced_response</code><span class="sig-paren">(</span><em>m=10</em>, <em>c=0</em>, <em>k=100</em>, <em>x0=1</em>, <em>v0=0</em>, <em>wdr=0.5</em>, <em>F0=10</em>, <em>max_time=100</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#forced_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.forced_response" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">forced_response</code><span class="sig-paren">(</span><em class="sig-param">m=10</em>, <em class="sig-param">c=0</em>, <em class="sig-param">k=100</em>, <em class="sig-param">x0=1</em>, <em class="sig-param">v0=0</em>, <em class="sig-param">wdr=0.5</em>, <em class="sig-param">F0=10</em>, <em class="sig-param">max_time=100</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#forced_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.forced_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Harmonic response of SDOF system.</p>
 <p>Returns the the response of an underdamped single degree of
 freedom system to a sinusoidal input with amplitude F0 and
-frequency <span class="math notranslate">\(\omega_{dr}\)</span>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k: float, optional</strong></p>
-<blockquote>
-<div><p>Mass Damping, and stiffness</p>
-</div></blockquote>
-<p><strong>x0, v0: float, optional</strong></p>
-<blockquote>
-<div><p>Initial conditions</p>
-</div></blockquote>
-<p><strong>wdr: float, optional</strong></p>
-<blockquote>
-<div><p>Force frequency</p>
-</div></blockquote>
-<p><strong>F0: float, optional</strong></p>
-<blockquote>
-<div><p>Force magnitude</p>
-</div></blockquote>
-<p><strong>max_time: float, optional</strong></p>
-<blockquote>
-<div><p>End time</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">t, x, y: array</p>
-<blockquote class="last">
-<div><p>Time, displacement and velocity</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+frequency <span class="math notranslate nohighlight">\(\omega_{dr}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>m, c, k: float, optional</strong></dt><dd><p>Mass Damping, and stiffness</p>
+</dd>
+<dt><strong>x0, v0: float, optional</strong></dt><dd><p>Initial conditions</p>
+</dd>
+<dt><strong>wdr: float, optional</strong></dt><dd><p>Force frequency</p>
+</dd>
+<dt><strong>F0: float, optional</strong></dt><dd><p>Force magnitude</p>
+</dd>
+<dt><strong>max_time: float, optional</strong></dt><dd><p>End time</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>t, x, y: array</dt><dd><p>Time, displacement and velocity</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">forced_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">wdr</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">F0</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
@@ -277,42 +182,30 @@ frequency <span class="math notranslate">\(\omega_{dr}\)</span>.</p>
 
 <dl class="function">
 <dt id="sdof.transmissibility">
-<code class="descclassname">sdof.</code><code class="descname">transmissibility</code><span class="sig-paren">(</span><em>zs</em>, <em>rmin</em>, <em>rmax</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#transmissibility"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.transmissibility" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a plot Displacement transmissibility ratio
-and force transmissibility ratio of a single degree
-of freedom damped system.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>zs: array</strong></p>
-<blockquote>
-<div><p>Array with the damping values</p>
-</div></blockquote>
-<p><strong>rmin, rmax: float</strong></p>
-<blockquote>
-<div><p>Minimum and maximum frequency ratio</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">r: Array</p>
-<blockquote>
-<div><p>Array containing the values for the frequency ratio</p>
-</div></blockquote>
-<p>D: Array</p>
-<blockquote>
-<div><p>Array containing the values for displacement</p>
-</div></blockquote>
-<p>F: Array</p>
-<blockquote class="last">
-<div><p>Array containing the values for force</p>
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">transmissibility</code><span class="sig-paren">(</span><em class="sig-param">zs</em>, <em class="sig-param">rmin</em>, <em class="sig-param">rmax</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#transmissibility"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.transmissibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot transmissibility ratio for SDOF system.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>zs: array</strong></dt><dd><p>Array with the damping values</p>
+</dd>
+<dt><strong>rmin, rmax: float</strong></dt><dd><p>Minimum and maximum frequency ratio</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt>r: Array</dt><dd><p>Array containing the values for the frequency ratio</p>
+</dd>
+<dt>D: Array</dt><dd><p>Array containing the values for displacement</p>
+</dd>
+<dt>F: Array</dt><dd><p>Array containing the values for force</p>
 <p>Plot with Displacement transmissibility ratio
 and force transmissibility ratio</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">transmissibility</span><span class="p">([</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">D</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
@@ -323,182 +216,139 @@ and force transmissibility ratio</p>
 
 <dl class="function">
 <dt id="sdof.rotating_unbalance">
-<code class="descclassname">sdof.</code><code class="descname">rotating_unbalance</code><span class="sig-paren">(</span><em>m</em>, <em>m0</em>, <em>e</em>, <em>zs</em>, <em>rmin</em>, <em>rmax</em>, <em>normalized=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#rotating_unbalance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.rotating_unbalance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a plot Displacement of a system with rotating
-unbalance.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m: float</strong></p>
-<blockquote>
-<div><p>Mass of the system</p>
-</div></blockquote>
-<p><strong>m0, e: float</strong></p>
-<blockquote>
-<div><p>Mass and eccentricity of the unbalance.</p>
-</div></blockquote>
-<p><strong>zs: array</strong></p>
-<blockquote>
-<div><p>Array with the damping values</p>
-</div></blockquote>
-<p><strong>rmin, rmax: float</strong></p>
-<blockquote>
-<div><p>Minimum and maximum frequency ratio</p>
-</div></blockquote>
-<p><strong>normalized: bool</strong></p>
-<blockquote>
-<div><p>If true, the displacement is normalized (m*X/(m0*e))</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">r: Array</p>
-<blockquote>
-<div><p>Array containing the values for the frequency ratio</p>
-</div></blockquote>
-<p>Xn: Array</p>
-<blockquote class="last">
-<div><p>Array containing the values for displacement</p>
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">rotating_unbalance</code><span class="sig-paren">(</span><em class="sig-param">m</em>, <em class="sig-param">m0</em>, <em class="sig-param">e</em>, <em class="sig-param">zs</em>, <em class="sig-param">rmin</em>, <em class="sig-param">rmax</em>, <em class="sig-param">normalized=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#rotating_unbalance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.rotating_unbalance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot displacement of system responding to rotating unbalance.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>m: float</strong></dt><dd><p>Mass of the system</p>
+</dd>
+<dt><strong>m0, e: float</strong></dt><dd><p>Mass and eccentricity of the unbalance.</p>
+</dd>
+<dt><strong>zs: array</strong></dt><dd><p>Array with the damping values</p>
+</dd>
+<dt><strong>rmin, rmax: float</strong></dt><dd><p>Minimum and maximum frequency ratio</p>
+</dd>
+<dt><strong>normalized: bool</strong></dt><dd><p>If true, the displacement is normalized (m*X/(m0*e))</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt>r: Array</dt><dd><p>Array containing the values for the frequency ratio</p>
+</dd>
+<dt>Xn: Array</dt><dd><p>Array containing the values for displacement</p>
 <p>Plot with Displacement displacement and phase
 for a system with rotating unbalance.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span> <span class="n">Xn</span> <span class="o">=</span> <span class="n">rotating_unbalance</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">m0</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">zs</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">rmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Xn</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">10</span><span class="p">]</span>
-<span class="go">(0.10104614704226758-0.0051182602098315527j)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Xn</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># doctest: +SKIP</span>
+<span class="go">(0.10104614704226758-0.005118260209831553j)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="sdof.impulse_response">
-<code class="descclassname">sdof.</code><code class="descname">impulse_response</code><span class="sig-paren">(</span><em>m</em>, <em>c</em>, <em>k</em>, <em>Fo</em>, <em>max_time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#impulse_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.impulse_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a plot with the response of the system to an
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">impulse_response</code><span class="sig-paren">(</span><em class="sig-param">m</em>, <em class="sig-param">c</em>, <em class="sig-param">k</em>, <em class="sig-param">Fo</em>, <em class="sig-param">max_time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#impulse_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.impulse_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot impulse response.</p>
+<p>Returns a plot with the response of the system to an
 impulse of magnitude Fo (N.s).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k: float</strong></p>
-<blockquote>
-<div><p>Mass, damping and stiffness.</p>
-</div></blockquote>
-<p><strong>Fo: float</strong></p>
-<blockquote>
-<div><p>Force applied over time (units N.s)</p>
-</div></blockquote>
-<p><strong>max_time: float</strong></p>
-<blockquote>
-<div><p>End time</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">t: Array</p>
-<blockquote>
-<div><p>Array containing the values for the time</p>
-</div></blockquote>
-<p>x: Array</p>
-<blockquote class="last">
-<div><p>Array containing the values for displacement</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>m, c, k: float</strong></dt><dd><p>Mass, damping and stiffness.</p>
+</dd>
+<dt><strong>Fo: float</strong></dt><dd><p>Force applied over time (units N.s)</p>
+</dd>
+<dt><strong>max_time: float</strong></dt><dd><p>End time</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt>t: Array</dt><dd><p>Array containing the values for the time</p>
+</dd>
+<dt>x: Array</dt><dd><p>Array containing the values for displacement</p>
 <p>Plot with the response of the system to an
 impulse of magnitude Fo (N.s).</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">impulse_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">Fo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-<span class="go">0.0039629845398805623</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># doctest: +SKIP</span>
+<span class="go">0.003962984539880562</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="sdof.step_response">
-<code class="descclassname">sdof.</code><code class="descname">step_response</code><span class="sig-paren">(</span><em>m</em>, <em>c</em>, <em>k</em>, <em>Fo</em>, <em>max_time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#step_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.step_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a plot with the response of the system to an
-step of magnitude Fo.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>m, c, k: float</strong></p>
-<blockquote>
-<div><p>Mass, damping and stiffness.</p>
-</div></blockquote>
-<p><strong>Fo: float</strong></p>
-<blockquote>
-<div><p>Force applied</p>
-</div></blockquote>
-<p><strong>max_time: float</strong></p>
-<blockquote>
-<div><p>End time</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">t: Array</p>
-<blockquote>
-<div><p>Array containing the values for the time</p>
-</div></blockquote>
-<p>x: Array</p>
-<blockquote class="last">
-<div><p>Array containing the values for displacement</p>
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">step_response</code><span class="sig-paren">(</span><em class="sig-param">m</em>, <em class="sig-param">c</em>, <em class="sig-param">k</em>, <em class="sig-param">Fo</em>, <em class="sig-param">max_time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#step_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.step_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot of step response.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>m, c, k: float</strong></dt><dd><p>Mass, damping and stiffness.</p>
+</dd>
+<dt><strong>Fo: float</strong></dt><dd><p>Force applied</p>
+</dd>
+<dt><strong>max_time: float</strong></dt><dd><p>End time</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt>t: Array</dt><dd><p>Array containing the values for the time</p>
+</dd>
+<dt>x: Array</dt><dd><p>Array containing the values for displacement</p>
 <p>Plot with the response of the system to an
 step of magnitude Fo.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">step_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">Fo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-<span class="go">7.9581008173000833e-05</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># doctest: +SKIP</span>
+<span class="go">7.958100817300083e-05</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="sdof.fourier_series">
-<code class="descclassname">sdof.</code><code class="descname">fourier_series</code><span class="sig-paren">(</span><em>dat</em>, <em>t</em>, <em>n</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#fourier_series"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.fourier_series" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fourier series approximation to a function.
-returns Fourier coefficients of a function.
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">fourier_series</code><span class="sig-paren">(</span><em class="sig-param">dat</em>, <em class="sig-param">t</em>, <em class="sig-param">n</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#fourier_series"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.fourier_series" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fourier series approximation to a function.</p>
+<p>returns Fourier coefficients of a function.
 The coefficients are numerical approximations of the true
 coefficients.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>dat: array</strong></p>
-<blockquote>
-<div><p>Array of data representing the function.</p>
-</div></blockquote>
-<p><strong>t: array</strong></p>
-<blockquote>
-<div><p>Corresponding time array.</p>
-</div></blockquote>
-<p><strong>n: int</strong></p>
-<blockquote>
-<div><p>The desired number of terms to use in the
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dat: array</strong></dt><dd><p>Array of data representing the function.</p>
+</dd>
+<dt><strong>t: array</strong></dt><dd><p>Corresponding time array.</p>
+</dd>
+<dt><strong>n: int</strong></dt><dd><p>The desired number of terms to use in the
 Fourier series.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a, b: tuple</p>
-<blockquote class="last">
-<div><p>Tuple containing arrays with the Fourier coefficients.
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>a, b: tuple</dt><dd><p>Tuple containing arrays with the Fourier coefficients.
 The function also produces a plot of the approximation.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">04</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-.</span><span class="mi">04</span><span class="p">)))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -512,82 +362,80 @@ The function also produces a plot of the approximation.</p>
 
 <dl class="function">
 <dt id="sdof.fourier_approximation">
-<code class="descclassname">sdof.</code><code class="descname">fourier_approximation</code><span class="sig-paren">(</span><em>a0</em>, <em>aodd</em>, <em>aeven</em>, <em>bodd</em>, <em>beven</em>, <em>N</em>, <em>T</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#fourier_approximation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.fourier_approximation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot the Fourier series defined by:
-N is the number of terms.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>a0: float or str</strong></p>
-<blockquote>
-<div><p>a0 Fourier coefficient.</p>
-</div></blockquote>
-<p><strong>aodd: float or str</strong></p>
-<blockquote>
-<div><p>an Fourier coefficient for n odd.</p>
-</div></blockquote>
-<p><strong>aeven: float or str</strong></p>
-<blockquote>
-<div><p>an Fourier coefficient for n even.</p>
-</div></blockquote>
-<p><strong>bodd: float or str</strong></p>
-<blockquote>
-<div><p>bn Fourier coefficient for n odd</p>
-</div></blockquote>
-<p><strong>beven: float or str</strong></p>
-<blockquote>
-<div><p>bn Fourier coefficient for n even</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">t, F: tuple</p>
-<blockquote class="last">
-<div><p>Tuple with time and F(t). It also returns
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">fourier_approximation</code><span class="sig-paren">(</span><em class="sig-param">a0</em>, <em class="sig-param">aodd</em>, <em class="sig-param">aeven</em>, <em class="sig-param">bodd</em>, <em class="sig-param">beven</em>, <em class="sig-param">N</em>, <em class="sig-param">T</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#fourier_approximation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.fourier_approximation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the Fourier series defined by coefficient falues.</p>
+<p>Coefficients are defined by Inman <a class="reference internal" href="#refa8d4d12f72-1" id="id2">[1]</a>.</p>
+<p><span class="math notranslate nohighlight">\(a_0=\frac{2}{T}\int_0^T F(t)dt\)</span></p>
+<p><span class="math notranslate nohighlight">\(a_n=\frac{2}{T}\int_0^T F(t) \cos(n\omega_T t)dt\)</span></p>
+<p><span class="math notranslate nohighlight">\(b_n=\frac{2}{T}\int_0^T F(t) \sin(n\omega_T t)dt\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>a0: float or function</strong></dt><dd><p><span class="math notranslate nohighlight">\(a_0\)</span>-  Fourier coefficient.</p>
+</dd>
+<dt><strong>aodd: float or function</strong></dt><dd><p><span class="math notranslate nohighlight">\(a_n\)</span>-  Fourier coefficient for n odd.</p>
+</dd>
+<dt><strong>aeven: float or function</strong></dt><dd><p><span class="math notranslate nohighlight">\(a_n\)</span>-  Fourier coefficient for n even.</p>
+</dd>
+<dt><strong>bodd: float or function</strong></dt><dd><p><span class="math notranslate nohighlight">\(b_n\)</span>-  Fourier coefficient for n odd</p>
+</dd>
+<dt><strong>beven: float or function</strong></dt><dd><p><span class="math notranslate nohighlight">\(b_n\)</span>-  Fourier coefficient for n even</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>t, F: tuple</dt><dd><p>Tuple with time and F(t). It also returns
 a plot with the Fourier approximation.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="refa8d4d12f72-1"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p>Daniel J. Inman, “Engineering Vibration”, 4th ed., Prentice Hall,
+2013.</p>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Square wave</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">fourier_approximation</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;-3*(-1+(-1)**n)/n/np.pi&#39;</span><span class="p">,</span> <span class="s1">&#39;-3*(-1+(-1)**n)/n/np.pi&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bodd_square</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beven_square</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">fourier_approximation</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">bodd_square</span><span class="p">,</span> <span class="n">beven_square</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
 <span class="go">1.2697210294282535</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Triangular wave</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">fourier_approximation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;-8/np.pi**2/n**2&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-<span class="go">-0.90234928911935097</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aeven_triangle</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="o">-</span><span class="mi">8</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">fourier_approximation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">aeven_triangle</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># doctest: +SKIP</span>
+<span class="go">-0.902349289119351</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="sdof.response_spectrum">
-<code class="descclassname">sdof.</code><code class="descname">response_spectrum</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#response_spectrum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.response_spectrum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Will display the response spectrum to a partial ramp
-input(see Figure 3.13) for the system with natural frequency
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">response_spectrum</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#response_spectrum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.response_spectrum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot response spectrum of ramp response.</p>
+<p>See Figure 3.13- Inman for the system with natural frequency
 f (in Hz) and no damping.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>f: float</strong></p>
-<blockquote>
-<div><p>Natural frequency.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">t, rs: tuple</p>
-<blockquote class="last">
-<div><p>Tuple with time and response arrays. It also returns
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>f: float</strong></dt><dd><p>Natural frequency.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>t, rs: tuple</dt><dd><p>Tuple with time and response arrays. It also returns
 a plot with the response spectrum.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">response_spectrum</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
@@ -601,6 +449,7 @@ a plot with the response spectrum.</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -622,14 +471,14 @@ a plot with the response spectrum.</p>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Single Degree of Freedom Systems (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.sdof</span></code>)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-sdof"><code class="docutils literal notranslate"><span class="pre">sdof</span></code> – Single Degree of Freedom Functions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Single Degree of Freedom Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.sdof</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-sdof"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sdof</span></code> – Single Degree of Freedom Functions</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="continuous.html">Continuous Systems (<code class="docutils literal notranslate"><span class="pre">continuous_systems</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vibe_system.html">Vibration Systems (<code class="docutils literal notranslate"><span class="pre">vibesystem</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ema.html">Experimental Modal Analysis (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.ema</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="continuous.html">Continuous Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">continuous_systems</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vibe_system.html">Vibration Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibesystem</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ema.html">Experimental Modal Analysis (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.ema</span></code>)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
@@ -640,13 +489,11 @@ a plot with the response spectrum.</p>
 
 
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -666,8 +513,8 @@ a plot with the response spectrum.</p>
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/reference/sdof.rst.txt"

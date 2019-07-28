@@ -1,22 +1,21 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Multiple Degree of Freedom Systems (vibration_toolbox.mdof) &#8212; Vibration Toolbox 0.6.2 documentation</title>
+    <meta charset="utf-8" />
+    <title>Multiple Degree of Freedom Systems (vibration_toolbox.mdof) &#8212; Vibration Toolbox 0.6.6 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed-amd.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Continuous Systems (continuous_systems)" href="continuous.html" />
@@ -33,6 +32,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="multiple-degree-of-freedom-systems-vibration-toolbox-mdof">
@@ -42,7 +43,7 @@
 <span class="target" id="module-mdof"></span><p>Multiple Degree of Freedom Analysis Tools.</p>
 <dl class="function">
 <dt id="mdof.modes_system">
-<code class="descclassname">mdof.</code><code class="descname">modes_system</code><span class="sig-paren">(</span><em>M</em>, <em>K</em>, <em>C=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#modes_system"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.modes_system" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mdof.</code><code class="sig-name descname">modes_system</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">K</em>, <em class="sig-param">C=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#modes_system"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.modes_system" title="Permalink to this definition">¶</a></dt>
 <dd><p>Natural frequencies, damping ratios, and mode shapes of MDOF system.
 This function will return the natural frequencies (wn), the
 damped natural frequencies (wd), the damping ratios (zeta),
@@ -50,77 +51,62 @@ the right eigenvectors (X) and the left eigenvectors (Y) for a
 system defined by M, K and C.
 If the dampind matrix ‘C’ is none or if the damping is proportional,
 wd and zeta will be none and X and Y will be equal.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>M: array</strong></p>
-<blockquote>
-<div><p>Mass matrix</p>
-</div></blockquote>
-<p><strong>K: array</strong></p>
-<blockquote>
-<div><p>Stiffness matrix</p>
-</div></blockquote>
-<p><strong>C: array</strong></p>
-<blockquote>
-<div><p>Damping matrix</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">wn: array</p>
-<blockquote>
-<div><p>The natural frequencies of the system</p>
-</div></blockquote>
-<p>wd: array</p>
-<blockquote>
-<div><p>The damped natural frequencies of the system</p>
-</div></blockquote>
-<p>zeta: array</p>
-<blockquote>
-<div><p>The damping ratios</p>
-</div></blockquote>
-<p>X: array</p>
-<blockquote>
-<div><p>The right eigenvectors</p>
-</div></blockquote>
-<p>Y: array</p>
-<blockquote class="last">
-<div><p>The left eigenvectors</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>M: array</strong></dt><dd><p>Mass matrix</p>
+</dd>
+<dt><strong>K: array</strong></dt><dd><p>Stiffness matrix</p>
+</dd>
+<dt><strong>C: array</strong></dt><dd><p>Damping matrix</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>wn: array</dt><dd><p>The natural frequencies of the system</p>
+</dd>
+<dt>wd: array</dt><dd><p>The damped natural frequencies of the system</p>
+</dd>
+<dt>zeta: array</dt><dd><p>The damping ratios</p>
+</dd>
+<dt>X: array</dt><dd><p>The right eigenvectors</p>
+</dd>
+<dt>Y: array</dt><dd><p>The left eigenvectors</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># This test has been moved to tests_mdof</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
 <span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.02</span><span class="p">],</span>
 <span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">modes_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">modes_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span> <span class="c1"># doctest: +SKIP</span>
 <span class="go">Damping is non-proportional, eigenvectors are complex.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wn</span>
-<span class="go">array([ 1.33,  2.5 ,  1.33,  2.5 ])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wd</span>
-<span class="go">array([ 1.32,  2.5 ,  1.32,  2.5 ])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zeta</span>
-<span class="go">array([ 0.11,  0.02,  0.11,  0.02])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wn</span> <span class="c1"># doctest: +SKIP</span>
+<span class="go">array([1.33, 2.5 , 1.33, 2.5 ])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wd</span> <span class="c1"># doctest: +SKIP</span>
+<span class="go">array([1.32, 2.5 , 1.32, 2.5 ])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zeta</span> <span class="c1"># doctest: +SKIP</span>
+<span class="go">array([0.11, 0.02, 0.11, 0.02])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="c1"># doctest: +SKIP</span>
 <span class="go">array([[-0.06-0.58j, -0.01+0.08j, -0.06+0.58j, -0.01-0.08j],</span>
-<span class="go">       [-0.00-0.14j, -0.01-0.36j, -0.00+0.14j, -0.01+0.36j],</span>
+<span class="go">       [-0.  -0.14j, -0.01-0.36j, -0.  +0.14j, -0.01+0.36j],</span>
 <span class="go">       [ 0.78+0.j  , -0.21-0.03j,  0.78-0.j  , -0.21+0.03j],</span>
-<span class="go">       [ 0.18+0.01j,  0.90+0.j  ,  0.18-0.01j,  0.90-0.j  ]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span>
+<span class="go">       [ 0.18+0.01j,  0.9 +0.j  ,  0.18-0.01j,  0.9 -0.j  ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span> <span class="c1"># doctest: +SKIP</span>
 <span class="go">array([[ 0.02+0.82j,  0.01-0.31j,  0.02-0.82j,  0.01+0.31j],</span>
 <span class="go">       [-0.05+0.18j,  0.01+1.31j, -0.05-0.18j,  0.01-1.31j],</span>
 <span class="go">       [ 0.61+0.06j, -0.12-0.02j,  0.61-0.06j, -0.12+0.02j],</span>
 <span class="go">       [ 0.14+0.03j,  0.53+0.j  ,  0.14-0.03j,  0.53-0.j  ]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">K</span> <span class="c1"># with proportional damping</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">modes_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">modes_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span> <span class="c1"># doctest: +SKIP</span>
 <span class="go">Damping is proportional or zero, eigenvectors are real</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="c1"># doctest: +SKIP</span>
 <span class="go">array([[-0.97,  0.23],</span>
 <span class="go">       [-0.23, -0.97]])</span>
 </pre></div>
@@ -129,68 +115,56 @@ wd and zeta will be none and X and Y will be equal.</p>
 
 <dl class="function">
 <dt id="mdof.modes_system_undamped">
-<code class="descclassname">mdof.</code><code class="descname">modes_system_undamped</code><span class="sig-paren">(</span><em>M</em>, <em>K</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#modes_system_undamped"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.modes_system_undamped" title="Permalink to this definition">¶</a></dt>
-<dd><p>Natural frequencies, mass-normalized mode shapes and eigenvectors of
-MDOF system</p>
+<code class="sig-prename descclassname">mdof.</code><code class="sig-name descname">modes_system_undamped</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">K</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#modes_system_undamped"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.modes_system_undamped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return eigensolution of multiple DOF system.</p>
 <p>Returns the natural frequencies (w),
 eigenvectors (P), mode shapes (S) and the modal transformation
 matrix S for an undamped system.</p>
 <p>See Notes for explanation of the underlying math.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>M: array</strong></p>
-<blockquote>
-<div><p>Mass matrix</p>
-</div></blockquote>
-<p><strong>K: array</strong></p>
-<blockquote>
-<div><p>Stiffness matrix</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">w: array</p>
-<blockquote>
-<div><p>The natural frequencies of the system</p>
-</div></blockquote>
-<p>P: array</p>
-<blockquote>
-<div><p>The eigenvectors of the system are.</p>
-</div></blockquote>
-<p>S: array</p>
-<blockquote>
-<div><p>The mass-normalized mode shapes of the system.</p>
-</div></blockquote>
-<p>Sinv: array</p>
-<blockquote class="last">
-<div><p>The modal transformation matrix S^-1(takes x -&gt; r(modal coordinates))</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>M: float array</strong></dt><dd><p>Mass matrix</p>
+</dd>
+<dt><strong>K: float array</strong></dt><dd><p>Stiffness matrix</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>w: float array</dt><dd><p>The natural frequencies of the system</p>
+</dd>
+<dt>P: float array</dt><dd><p>The eigenvectors of the system.</p>
+</dd>
+<dt>S: float array</dt><dd><p>The mass-normalized mode shapes of the system.</p>
+</dd>
+<dt>Sinv: float array</dt><dd><p>The modal transformation matrix S^-1(takes x -&gt; r(modal coordinates))</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Notes</p>
-<p>Given <span class="math notranslate">\(M\ddot{x}(t)+Kx(t)=0\)</span>, with mode shapes <span class="math notranslate">\(u\)</span>, the matrix
-of mode shapes <span class="math notranslate">\(S=[u_1 u_1 \ldots]\)</span> can be created. If the modal
-coordinates are the vector <span class="math notranslate">\(r(t)\)</span>. The modal transformation separates
-space and time from <span class="math notranslate">\(x(t)\)</span> such that <span class="math notranslate">\(x(t)=S r(t)\)</span>.
+<p>Given <span class="math notranslate nohighlight">\(M\ddot{x}(t)+Kx(t)=0\)</span>, with mode shapes <span class="math notranslate nohighlight">\(u\)</span>, the matrix
+of mode shapes <span class="math notranslate nohighlight">\(S=[u_1 u_1 \ldots]\)</span> can be created. If the modal
+coordinates are the vector <span class="math notranslate nohighlight">\(r(t)\)</span>. The modal transformation separates
+space and time from <span class="math notranslate nohighlight">\(x(t)\)</span> such that <span class="math notranslate nohighlight">\(x(t)=S r(t)\)</span>.
 Substituting into the governing equation:</p>
-<p><span class="math notranslate">\(MS\ddot{r}(t)+KSr(t)=0\)</span></p>
-<p>Premultiplying by <span class="math notranslate">\(S^T\)</span></p>
-<p><span class="math notranslate">\(S^TMS\ddot{r}(t)+S^TKSr(t)=0\)</span></p>
-<p>The matrices <span class="math notranslate">\(S^TMS\)</span> and <span class="math notranslate">\(S^TKS\)</span> will be diagonalized by this
-process (<span class="math notranslate">\(u_i\)</span> are the eigenvectors of <span class="math notranslate">\(M^{-1}K\)</span>).</p>
-<p>If scaled properly (mass normalized so <span class="math notranslate">\(u_i^TMu_i=1\)</span>) then
-<span class="math notranslate">\(S^TMS=I\)</span> and <span class="math notranslate">\(S^TKS=\Omega^2\)</span> where <span class="math notranslate">\(\Omega^2\)</span> is a
+<p><span class="math notranslate nohighlight">\(MS\ddot{r}(t)+KSr(t)=0\)</span></p>
+<p>Premultiplying by <span class="math notranslate nohighlight">\(S^T\)</span></p>
+<p><span class="math notranslate nohighlight">\(S^TMS\ddot{r}(t)+S^TKSr(t)=0\)</span></p>
+<p>The matrices <span class="math notranslate nohighlight">\(S^TMS\)</span> and <span class="math notranslate nohighlight">\(S^TKS\)</span> will be diagonalized by this
+process (<span class="math notranslate nohighlight">\(u_i\)</span> are the eigenvectors of <span class="math notranslate nohighlight">\(M^{-1}K\)</span>).</p>
+<p>If scaled properly (mass normalized so <span class="math notranslate nohighlight">\(u_i^TMu_i=1\)</span>) then
+<span class="math notranslate nohighlight">\(S^TMS=I\)</span> and <span class="math notranslate nohighlight">\(S^TKS=\Omega^2\)</span> where <span class="math notranslate nohighlight">\(\Omega^2\)</span> is a
 diagonal matrix of the natural frequencies squared in radians per second.</p>
 <p>Further, inverses are unstable so the better way to solve linear equations is with
 Gauss elimination.</p>
-<p><span class="math notranslate">\(AB=C\)</span> given known <span class="math notranslate">\(A\)</span> and <span class="math notranslate">\(C\)</span>
+<p><span class="math notranslate nohighlight">\(AB=C\)</span> given known <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(C\)</span>
 is solved using <cite>la.solve(A, C, assume_a=’pos’)</cite>.</p>
-<p><span class="math notranslate">\(BA=C\)</span> given known <span class="math notranslate">\(A\)</span> and <span class="math notranslate">\(C\)</span> is solved by first
-transposing the equation to <span class="math notranslate">\(A^TB^T=C^T\)</span>, then solving for
-<span class="math notranslate">\(C^T\)</span>. The resulting command is <cite>la.solve(A.T, C.T, assume_a=’pos’).T</cite></p>
+<p><span class="math notranslate nohighlight">\(BA=C\)</span> given known <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(C\)</span> is solved by first
+transposing the equation to <span class="math notranslate nohighlight">\(A^TB^T=C^T\)</span>, then solving for
+<span class="math notranslate nohighlight">\(C^T\)</span>. The resulting command is
+<cite>la.solve(A.T, C.T, assume_a=’pos’).T</cite></p>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
@@ -199,8 +173,8 @@ transposing the equation to <span class="math notranslate">\(A^TB^T=C^T\)</span>
 <span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">],</span>
 <span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">w</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Sinv</span> <span class="o">=</span> <span class="n">modes_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">w</span>
-<span class="go">array([ 0.45,  1.25,  1.8 ])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">w</span> <span class="c1"># doctest: +SKIP</span>
+<span class="go">array([0.45, 1.25, 1.8 ])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">S</span>
 <span class="go">array([[ 0.16, -0.37, -0.3 ],</span>
 <span class="go">       [ 0.3 , -0.16,  0.37],</span>
@@ -211,8 +185,8 @@ transposing the equation to <span class="math notranslate">\(A^TB^T=C^T\)</span>
 
 <dl class="function">
 <dt id="mdof.response_system">
-<code class="descclassname">mdof.</code><code class="descname">response_system</code><span class="sig-paren">(</span><em>M</em>, <em>C</em>, <em>K</em>, <em>F</em>, <em>x0</em>, <em>v0</em>, <em>t</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#response_system"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.response_system" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function solves the system given the initial
+<code class="sig-prename descclassname">mdof.</code><code class="sig-name descname">response_system</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">C</em>, <em class="sig-param">K</em>, <em class="sig-param">F</em>, <em class="sig-param">x0</em>, <em class="sig-param">v0</em>, <em class="sig-param">t</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#response_system"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.response_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns system response given the initial
 displacement vector ‘X0’, initial velocity vector ‘V0’,
 the mass matrix ‘M’, the stiffness matrix ‘M’, and the damping
 matrix ‘C’ and force ‘F’.
@@ -220,52 +194,34 @@ T is a row vector of evenly spaced times.
 F is a matrix of forces over time, each column corresponding
 to the corresponding column of T, each row corresponding to
 the same numbered DOF.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>M: array</strong></p>
-<blockquote>
-<div><p>Mass matrix</p>
-</div></blockquote>
-<p><strong>K: array</strong></p>
-<blockquote>
-<div><p>Stiffness matrix</p>
-</div></blockquote>
-<p><strong>C: array</strong></p>
-<blockquote>
-<div><p>Damping matrix</p>
-</div></blockquote>
-<p><strong>x0: array</strong></p>
-<blockquote>
-<div><p>Array with displacement initial conditions</p>
-</div></blockquote>
-<p><strong>v0: array</strong></p>
-<blockquote>
-<div><p>Array with velocity initial conditions</p>
-</div></blockquote>
-<p><strong>t: array</strong></p>
-<blockquote>
-<div><p>Array withe evenly spaced times</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>T</strong> : array</p>
-<blockquote>
-<div><p>Time values for the output.</p>
-</div></blockquote>
-<p><strong>yout</strong> : array</p>
-<blockquote>
-<div><p>System response.</p>
-</div></blockquote>
-<p><strong>xout</strong> : array</p>
-<blockquote class="last">
-<div><p>Time evolution of the state vector.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>M: array</strong></dt><dd><p>Mass matrix</p>
+</dd>
+<dt><strong>K: array</strong></dt><dd><p>Stiffness matrix</p>
+</dd>
+<dt><strong>C: array</strong></dt><dd><p>Damping matrix</p>
+</dd>
+<dt><strong>x0: array</strong></dt><dd><p>Array with displacement initial conditions</p>
+</dd>
+<dt><strong>v0: array</strong></dt><dd><p>Array with velocity initial conditions</p>
+</dd>
+<dt><strong>t: array</strong></dt><dd><p>Array withe evenly spaced times</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>T</strong><span class="classifier">array</span></dt><dd><p>Time values for the output.</p>
+</dd>
+<dt><strong>yout</strong><span class="classifier">array</span></dt><dd><p>System response.</p>
+</dd>
+<dt><strong>xout</strong><span class="classifier">array</span></dt><dd><p>Time evolution of the state vector.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
@@ -278,8 +234,8 @@ the same numbered DOF.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="mi">0</span><span class="o">*</span><span class="n">t</span><span class="p">,</span>
 <span class="gp">... </span>               <span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">t</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tou</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">response_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tou</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-<span class="go">array([ 0.  ,  0.1 ,  0.2 ,  0.3 ,  0.4 ,  0.51,  0.61,  0.71,  0.81,  0.91])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tou</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># doctest: +SKIP</span>
+<span class="go">array([0.  , 0.1 , 0.2 , 0.3 , 0.4 , 0.51, 0.61, 0.71, 0.81, 0.91])</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
@@ -312,50 +268,36 @@ the same numbered DOF.</p>
 
 <dl class="function">
 <dt id="mdof.response_system_undamped">
-<code class="descclassname">mdof.</code><code class="descname">response_system_undamped</code><span class="sig-paren">(</span><em>M</em>, <em>K</em>, <em>x0</em>, <em>v0</em>, <em>max_time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#response_system_undamped"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.response_system_undamped" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mdof.</code><code class="sig-name descname">response_system_undamped</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">K</em>, <em class="sig-param">x0</em>, <em class="sig-param">v0</em>, <em class="sig-param">max_time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdof.html#response_system_undamped"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mdof.response_system_undamped" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function calculates the time response for an undamped system
 and returns the vector (state-space) X. The n first rows contain the
 displacement (x) and the n last rows contain velocity (v) for each
 coordinate. Each column is related to a time-step.
 The time array is also returned.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>M: array</strong></p>
-<blockquote>
-<div><p>Mass matrix</p>
-</div></blockquote>
-<p><strong>K: array</strong></p>
-<blockquote>
-<div><p>Stiffness matrix</p>
-</div></blockquote>
-<p><strong>x0: array</strong></p>
-<blockquote>
-<div><p>Array with displacement initial conditions</p>
-</div></blockquote>
-<p><strong>v0: array</strong></p>
-<blockquote>
-<div><p>Array with velocity initial conditions</p>
-</div></blockquote>
-<p><strong>max_time: float</strong></p>
-<blockquote>
-<div><p>End time</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">t: array</p>
-<blockquote>
-<div><p>Array with the time</p>
-</div></blockquote>
-<p>X: array</p>
-<blockquote class="last">
-<div><p>The state-space vector for each time</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>M: array</strong></dt><dd><p>Mass matrix</p>
+</dd>
+<dt><strong>K: array</strong></dt><dd><p>Stiffness matrix</p>
+</dd>
+<dt><strong>x0: array</strong></dt><dd><p>Array with displacement initial conditions</p>
+</dd>
+<dt><strong>v0: array</strong></dt><dd><p>Array with velocity initial conditions</p>
+</dd>
+<dt><strong>max_time: float</strong></dt><dd><p>End time</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>t: array</dt><dd><p>Array with the time</p>
+</dd>
+<dt>X: array</dt><dd><p>The state-space vector for each time</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
 <span class="gp">... </span>              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
@@ -365,8 +307,9 @@ The time array is also returned.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">max_time</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">response_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">max_time</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># first column is the initial conditions [x1, x2, v1, v2]</span>
-<span class="go">array([ 1.,  1.,  0.,  0.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># first column is the initial conditions [x1, x2, v1, v2]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># doctest: +SKIP</span>
+<span class="go">array([1., 1., 0., 0.])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># displacement and velocities after delta t</span>
 <span class="go">array([ 1.  ,  1.  , -0.04, -0.01])</span>
 </pre></div>
@@ -378,6 +321,7 @@ The time array is also returned.</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -399,14 +343,14 @@ The time array is also returned.</p>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Multiple Degree of Freedom Systems (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.mdof</span></code>)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mdof-multiple-degree-of-freedom-functions"><code class="docutils literal notranslate"><span class="pre">mdof</span></code> – Multiple Degree of Freedom Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Multiple Degree of Freedom Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.mdof</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mdof-multiple-degree-of-freedom-functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mdof</span></code> – Multiple Degree of Freedom Functions</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="continuous.html">Continuous Systems (<code class="docutils literal notranslate"><span class="pre">continuous_systems</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vibe_system.html">Vibration Systems (<code class="docutils literal notranslate"><span class="pre">vibesystem</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ema.html">Experimental Modal Analysis (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.ema</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="continuous.html">Continuous Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">continuous_systems</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vibe_system.html">Vibration Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibesystem</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ema.html">Experimental Modal Analysis (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.ema</span></code>)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
@@ -417,13 +361,11 @@ The time array is also returned.</p>
 
 
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -443,8 +385,8 @@ The time array is also returned.</p>
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/reference/mdof.rst.txt"

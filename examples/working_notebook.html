@@ -1,22 +1,21 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Working Notebook &#8212; Vibration Toolbox 0.6.2 documentation</title>
+    <meta charset="utf-8" />
+    <title>Working Notebook &#8212; Vibration Toolbox 0.6.6 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed-amd.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Vibration Absorber" href="vibesystem_notebook-damper.html" />
@@ -33,6 +32,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   
@@ -296,7 +297,7 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="o">*</span><span class="mf">0.03</span><span class="o">*.</span><span class="mo">015</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2747</span><span class="p">,</span> <span class="o">.</span><span class="mo">015</span><span class="o">*</span><span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))</span>
+<span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="o">*</span><span class="mf">0.03</span><span class="o">*.</span><span class="mo">015</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2747</span><span class="p">,</span> <span class="o">.</span><span class="mo">015</span><span class="o">*</span><span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -311,6 +312,16 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 </pre></div>
 </div>
 </div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [61]:
@@ -319,9 +330,9 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="k">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="n">nn</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+<span class="n">nn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="n">nn</span><span class="p">)</span>
-<span class="n">nnn</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">nn</span><span class="p">))</span>
+<span class="n">nnn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">nn</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="n">nnn</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
@@ -352,7 +363,7 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">def</span> <span class="nf">euler_beam_modes</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">bctype</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">beamparams</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="o">*</span><span class="mf">0.03</span><span class="o">*.</span><span class="mo">015</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2747</span><span class="p">,</span> <span class="o">.</span><span class="mo">015</span><span class="o">*</span><span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)),</span> <span class="n">npoints</span> <span class="o">=</span> <span class="mi">2001</span><span class="p">):</span>
+<span></span><span class="k">def</span> <span class="nf">euler_beam_modes</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">bctype</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">beamparams</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="o">*</span><span class="mf">0.03</span><span class="o">*.</span><span class="mo">015</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2747</span><span class="p">,</span> <span class="o">.</span><span class="mo">015</span><span class="o">*</span><span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)),</span> <span class="n">npoints</span> <span class="o">=</span> <span class="mi">2001</span><span class="p">):</span>
 
 
     <span class="sd">&quot;&quot;&quot;</span>
@@ -399,24 +410,24 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
     <span class="n">L</span><span class="o">=</span><span class="n">beamparams</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">n</span><span class="p">,</span> <span class="nb">int</span> <span class="p">):</span>
         <span class="n">ln</span> <span class="o">=</span> <span class="n">n</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">ln</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
     <span class="c1">#len=[0:(1/(npoints-1)):1]&#39;;  %Normalized length of the beam</span>
-    <span class="nb">len</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">npoints</span><span class="p">)</span>
+    <span class="nb">len</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">npoints</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="nb">len</span> <span class="o">*</span> <span class="n">L</span>
     <span class="c1">#Determine natural frequencies and mode shapes depending on the</span>
     <span class="c1">#boundary condition.</span>
     <span class="c1"># Mass simplification. The following was arange_(1,length_(n)).reshape(-1)</span>
-    <span class="n">mode_num_range</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ln</span><span class="p">)</span>
+    <span class="n">mode_num_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ln</span><span class="p">)</span>
     <span class="n">Bnl</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">ln</span><span class="p">)</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">ln</span><span class="p">)</span>
     <span class="n">U</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">npoints</span><span class="p">,</span> <span class="n">ln</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Free-Free &#39;</span>
-        <span class="n">Bnllow</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">4.73004074486</span><span class="p">,</span><span class="mf">7.8532046241</span><span class="p">,</span><span class="mf">10.995607838</span><span class="p">,</span><span class="mf">14.1371654913</span><span class="p">,</span><span class="mf">17.2787596574</span><span class="p">))</span>
+        <span class="n">Bnllow</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">4.73004074486</span><span class="p">,</span><span class="mf">7.8532046241</span><span class="p">,</span><span class="mf">10.995607838</span><span class="p">,</span><span class="mf">14.1371654913</span><span class="p">,</span><span class="mf">17.2787596574</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">7</span><span class="p">:</span>
                 <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span>
@@ -436,7 +447,7 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
                 <span class="n">U</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> <span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
     <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
         <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Clamped-Free &#39;</span>
-        <span class="n">Bnllow</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">1.88</span><span class="p">,</span><span class="mf">4.69</span><span class="p">,</span><span class="mf">7.85</span><span class="p">,</span><span class="mf">10.99</span><span class="p">,</span><span class="mf">14.14</span><span class="p">))</span>
+        <span class="n">Bnllow</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">1.88</span><span class="p">,</span><span class="mf">4.69</span><span class="p">,</span><span class="mf">7.85</span><span class="p">,</span><span class="mf">10.99</span><span class="p">,</span><span class="mf">14.14</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
                 <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span>
@@ -452,7 +463,7 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 
     <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
         <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Clamped-Pinned &#39;</span>
-        <span class="n">Bnllow</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">3.93</span><span class="p">,</span><span class="mf">7.07</span><span class="p">,</span><span class="mf">10.21</span><span class="p">,</span><span class="mf">13.35</span><span class="p">,</span><span class="mf">16.49</span><span class="p">))</span>
+        <span class="n">Bnllow</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">3.93</span><span class="p">,</span><span class="mf">7.07</span><span class="p">,</span><span class="mf">10.21</span><span class="p">,</span><span class="mf">13.35</span><span class="p">,</span><span class="mf">16.49</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
                 <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span>
@@ -465,7 +476,7 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
             <span class="n">U</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> <span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
     <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
         <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Clamped-Sliding &#39;</span>
-        <span class="n">Bnllow</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">2.37</span><span class="p">,</span><span class="mf">5.5</span><span class="p">,</span><span class="mf">8.64</span><span class="p">,</span><span class="mf">11.78</span><span class="p">,</span><span class="mf">14.92</span><span class="p">))</span>
+        <span class="n">Bnllow</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">2.37</span><span class="p">,</span><span class="mf">5.5</span><span class="p">,</span><span class="mf">8.64</span><span class="p">,</span><span class="mf">11.78</span><span class="p">,</span><span class="mf">14.92</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
                 <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span>
@@ -478,7 +489,7 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
             <span class="n">U</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sp</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sig</span> <span class="o">*</span> <span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">sp</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
     <span class="k">elif</span> <span class="n">bctype</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
         <span class="n">desc</span><span class="o">=</span><span class="s1">&#39;Clamped-Clamped &#39;</span>
-        <span class="n">Bnllow</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">4.73</span><span class="p">,</span><span class="mf">7.85</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mf">14.14</span><span class="p">,</span><span class="mf">17.28</span><span class="p">))</span>
+        <span class="n">Bnllow</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">4.73</span><span class="p">,</span><span class="mf">7.85</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mf">14.14</span><span class="p">,</span><span class="mf">17.28</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">mode_num_range</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
                 <span class="n">Bnl</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span>
@@ -615,7 +626,7 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_working_notebook_9_1.png" src="../_images/examples_working_notebook_9_1.png" />
+<img alt="../_images/examples_working_notebook_10_1.png" src="../_images/examples_working_notebook_10_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -655,7 +666,7 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="kn">as</span> <span class="nn">sp</span>
 <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">UnivariateSpline</span>
 
-<span class="k">def</span> <span class="nf">euler_beam_frf</span><span class="p">(</span><span class="n">xin</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span><span class="n">xout</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span><span class="n">fmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span><span class="n">fmax</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span><span class="n">beamparams</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="o">*</span><span class="mf">0.03</span><span class="o">*.</span><span class="mo">015</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2747</span><span class="p">,</span> <span class="o">.</span><span class="mo">015</span><span class="o">*</span><span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)),</span> <span class="n">bctype</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">zeta</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">euler_beam_frf</span><span class="p">(</span><span class="n">xin</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span><span class="n">xout</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span><span class="n">fmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span><span class="n">fmax</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span><span class="n">beamparams</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">7.31e10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">12</span><span class="o">*</span><span class="mf">0.03</span><span class="o">*.</span><span class="mo">015</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2747</span><span class="p">,</span> <span class="o">.</span><span class="mo">015</span><span class="o">*</span><span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)),</span> <span class="n">bctype</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">zeta</span> <span class="o">=</span> <span class="mf">0.02</span><span class="p">):</span>
 
     <span class="n">E</span><span class="o">=</span><span class="n">beamparams</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
     <span class="n">I</span><span class="o">=</span><span class="n">beamparams</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
@@ -664,11 +675,11 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
     <span class="n">L</span><span class="o">=</span><span class="n">beamparams</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
     <span class="n">np</span><span class="o">=</span><span class="mi">2001</span>
     <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
-    <span class="n">w</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">,</span> <span class="mi">2001</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">w</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">,</span> <span class="mi">2001</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span>
     <span class="k">if</span> <span class="nb">min</span><span class="p">([</span><span class="n">xin</span><span class="p">,</span><span class="n">xout</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">max</span><span class="p">([</span><span class="n">xin</span><span class="p">,</span><span class="n">xout</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">:</span>
         <span class="n">disp_</span><span class="p">(</span><span class="n">char</span><span class="p">(</span><span class="s1">&#39;One or both locations are not on the beam&#39;</span><span class="p">))</span>
         <span class="k">return</span>
-    <span class="n">wn</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">wn</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
     <span class="c1"># The number 100 is arbitrarily large and unjustified.</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">np</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
     <span class="n">f</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
@@ -696,23 +707,23 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">20</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))),</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">20</span> <span class="o">*</span> <span class="n">sp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">a</span><span class="p">)),</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;FRF (dB)&#39;</span><span class="p">)</span>
     <span class="n">axlim</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">()</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">axlim</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">])]))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">axlim</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">])]))</span>
 
 
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">sp</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)))</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">180</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">sp</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">180</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Phase (deg)&#39;</span><span class="p">)</span>
     <span class="n">axlim</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">axlim</span> <span class="o">+</span> <span class="n">sp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">])]))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">axlim</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">axlim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">axlim</span><span class="p">[</span><span class="mi">2</span><span class="p">])]))</span>
 
 
     <span class="n">fout</span><span class="o">=</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">pi</span>
@@ -744,7 +755,7 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_working_notebook_12_1.png" src="../_images/examples_working_notebook_12_1.png" />
+<img alt="../_images/examples_working_notebook_13_1.png" src="../_images/examples_working_notebook_13_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -772,7 +783,7 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_working_notebook_13_1.png" src="../_images/examples_working_notebook_13_1.png" />
+<img alt="../_images/examples_working_notebook_14_1.png" src="../_images/examples_working_notebook_14_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -821,10 +832,21 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 </pre></div>
 </div>
 </div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -854,13 +876,11 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
 
 
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -880,8 +900,8 @@ savemat(file_name, mdict, appendmat=True, format=&#39;5&#39;, long_field_names=F
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/examples/working_notebook.ipynb.txt"

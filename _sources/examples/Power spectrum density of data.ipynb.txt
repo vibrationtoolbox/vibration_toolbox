@@ -36,7 +36,7 @@
    },
    "outputs": [],
    "source": [
-    "t = sp.arange(0, 100.1, 0.1)"
+    "t = np.arange(0, 100.1, 0.1)"
    ]
   },
   {
@@ -83,7 +83,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "f = 10*sp.arange(256)/512"
+    "f = 10*np.arange(256)/512"
    ]
   },
   {

@@ -1,22 +1,21 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>ema &#8212; Vibration Toolbox 0.6.2 documentation</title>
+    <meta charset="utf-8" />
+    <title>ema &#8212; Vibration Toolbox 0.6.6 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed-amd.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
@@ -31,6 +30,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for ema</h1><div class="highlight"><pre>
@@ -40,7 +41,7 @@
 
 
 <div class="viewcode-block" id="frf"><a class="viewcode-back" href="../reference/ema.html#ema.frf">[docs]</a><span class="k">def</span> <span class="nf">frf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return the frequency response function</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the frequency response function.</span>
 
 <span class="sd">    Calculates :math:`H(i\\omega)`, and coherance of the sampled data.</span>
 
@@ -87,8 +88,8 @@
 <span class="sd">    &gt;&gt;&gt; freq, mag, ang, coh = vtb.frf(x, f, dt)</span>
 <span class="sd">    &gt;&gt;&gt; mag[10]</span>
 <span class="sd">    1.018394853080...</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>  <span class="c1"># window</span>
     <span class="c1"># apply window</span>
     <span class="n">xw</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">w</span>
@@ -120,9 +121,9 @@
     <span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
-    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$H(\omega)$ - Magnitude&#39;</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$H(\omega)$ - Phase&#39;</span><span class="p">)</span>
-    <span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$H(\omega)$ - Coherence&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$H(\omega)$ - Magnitude&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$H(\omega)$ - Phase&#39;</span><span class="p">)</span>
+    <span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$H(\omega)$ - Coherence&#39;</span><span class="p">)</span>
     <span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
     <span class="n">ax3</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
@@ -131,14 +132,12 @@
     <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq</span><span class="p">,</span> <span class="n">coh</span><span class="p">[:</span><span class="n">lt</span><span class="p">])</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</div>
-    <span class="k">return</span> <span class="n">freq</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">ang</span><span class="p">,</span> <span class="n">coh</span>
+
+    <span class="k">return</span> <span class="n">freq</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">ang</span><span class="p">,</span> <span class="n">coh</span></div>
 
 
 <div class="viewcode-block" id="plot_fft"><a class="viewcode-back" href="../reference/ema.html#ema.plot_fft">[docs]</a><span class="k">def</span> <span class="nf">plot_fft</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">time_response</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function will plot the fft given a time vector</span>
-<span class="sd">    and the system time response.</span>
+    <span class="sd">&quot;&quot;&quot;Plot fft ot time response.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -151,7 +150,7 @@
 <span class="sd">        If None creates a new.</span>
 
 <span class="sd">    Returns</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------</span>
 <span class="sd">    ax : array with matplotlib.axes, optional</span>
 <span class="sd">        Matplotlib axes array created with plt.subplots.</span>
 <span class="sd">        Plot has frequency in rad/s and magnitude in meters peak to peak.</span>
@@ -163,6 +162,7 @@
 <span class="sd">    &gt;&gt;&gt; time_response = 2 * np.sin(40*t)</span>
 <span class="sd">    &gt;&gt;&gt; vtb.plot_fft(t, time_response)</span>
 <span class="sd">    &lt;matplotlib.axes...</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
@@ -180,13 +180,12 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">freq_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">freq_range</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Freq (rad/s)&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude (m - pk-pk)&#39;</span><span class="p">)</span>
-</div>
-    <span class="k">return</span> <span class="n">ax</span>
+
+    <span class="k">return</span> <span class="n">ax</span></div>
 
 
 <div class="viewcode-block" id="sdof_cf"><a class="viewcode-back" href="../reference/ema.html#ema.sdof_cf">[docs]</a><span class="k">def</span> <span class="nf">sdof_cf</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">TF</span><span class="p">,</span> <span class="n">Fmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Fmax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Curve fit to a single degree of freedom FRF.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Curve fit to a single degree of freedom FRF.</span>
 
 <span class="sd">    Only one peak may exist in the segment of the FRF passed to sdofcf. No</span>
 <span class="sd">    zeros may exist within this segment. If so, curve fitting becomes</span>
@@ -231,8 +230,8 @@
 <span class="sd">    &gt;&gt;&gt; z, nf, a = vtb.sdof_cf(f,TF,500,1000)</span>
 <span class="sd">    &gt;&gt;&gt; nf</span>
 <span class="sd">    212.092530551...</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># check fmin fmax existance</span>
     <span class="k">if</span> <span class="n">Fmin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">inlow</span> <span class="o">=</span> <span class="mi">0</span>
@@ -284,6 +283,7 @@
 
     <span class="n">b</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
 
+    <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
     <span class="n">rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span>
                             <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                             <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span>
@@ -301,8 +301,8 @@
     <span class="n">a</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">XoF</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
     <span class="n">XoF</span> <span class="o">=</span> <span class="n">XoF</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">ll</span><span class="p">),</span> <span class="p">:]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
-    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span>
-                <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
     <span class="n">Fmin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
     <span class="n">Fmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
     <span class="n">phase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">TF</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
@@ -331,13 +331,12 @@
 
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">nf</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span></div>
-    <span class="k">return</span> <span class="n">z</span><span class="p">,</span> <span class="n">nf</span><span class="p">,</span> <span class="n">a</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">nf</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">z</span><span class="p">,</span> <span class="n">nf</span><span class="p">,</span> <span class="n">a</span></div>
 
 
 <div class="viewcode-block" id="mdof_cf"><a class="viewcode-back" href="../reference/ema.html#ema.mdof_cf">[docs]</a><span class="k">def</span> <span class="nf">mdof_cf</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">TF</span><span class="p">,</span> <span class="n">Fmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Fmax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Curve fit to multiple degree of freedom FRF</span>
+    <span class="sd">&quot;&quot;&quot;Curve fit to multiple degree of freedom FRF.</span>
 
 <span class="sd">    If Fmin and Fmax are not entered, the first and last elements of TF are</span>
 <span class="sd">    used.</span>
@@ -389,8 +388,8 @@
 <span class="sd">    &gt;&gt;&gt; z, nf, a = vtb.mdof_cf(f,TF,500,1000)</span>
 <span class="sd">    &gt;&gt;&gt; nf</span>
 <span class="sd">    192.59382330...</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># check fmin fmax existance</span>
     <span class="k">if</span> <span class="n">Fmin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">inlow</span> <span class="o">=</span> <span class="mi">0</span>
@@ -470,11 +469,12 @@
     <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
 
     <span class="n">u</span> <span class="o">=</span> <span class="n">u</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
-</div>
-    <span class="k">return</span> <span class="n">z</span><span class="p">,</span> <span class="n">nf</span><span class="p">,</span> <span class="n">u</span>
+
+    <span class="k">return</span> <span class="n">z</span><span class="p">,</span> <span class="n">nf</span><span class="p">,</span> <span class="n">u</span></div>
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -504,13 +504,11 @@
 
 
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -523,8 +521,8 @@
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
 

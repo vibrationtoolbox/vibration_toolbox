@@ -1,22 +1,21 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Continuous Systems &#8212; Vibration Toolbox 0.6.2 documentation</title>
+    <meta charset="utf-8" />
+    <title>Continuous Systems &#8212; Vibration Toolbox 0.6.6 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed-amd.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Vibration System Objects" href="vibesystem_notebook.html" />
@@ -33,6 +32,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   
@@ -224,8 +225,8 @@ Notebook</a></p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">euler_beam_modes</span><span class="p">(</span><span class="n">bctype</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">U</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span></span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">euler_beam_modes</span><span class="p">(</span><span class="n">bctype</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">U</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -235,7 +236,7 @@ Notebook</a></p>
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>[&lt;matplotlib.lines.Line2D at 0x10e7a9b70&gt;]
+<span></span>[&lt;matplotlib.lines.Line2D at 0x116060278&gt;]
 </pre></div>
 </div>
 </div>
@@ -252,7 +253,7 @@ Notebook</a></p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fout</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">euler_beam_frf</span><span class="p">(</span><span class="n">xin</span> <span class="o">=</span> <span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="n">fmax</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">zeta</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">)</span>
+<span></span><span class="n">fout</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">euler_beam_frf</span><span class="p">(</span><span class="n">xin</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="n">xout</span><span class="o">=.</span><span class="mi">3</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">zeta</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -272,9 +273,10 @@ Notebook</a></p>
 <span></span><span class="c1"># This interactivity doesn&#39;t work on my Mac as of Oct 12, 2017, but works on linux</span>
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">fixed</span><span class="p">,</span> <span class="n">interact_manual</span>
 <span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="kn">as</span> <span class="nn">widgets</span>
-<span class="k">def</span> <span class="nf">ebi</span><span class="p">(</span><span class="n">xin</span><span class="o">=.</span><span class="mi">4</span><span class="p">,</span><span class="n">xout</span><span class="o">=.</span><span class="mi">4</span><span class="p">):</span>
-    <span class="n">w</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">euler_beam_frf</span><span class="p">(</span>  <span class="n">xin</span> <span class="o">=</span> <span class="n">xin</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">xout</span><span class="p">,</span> <span class="n">fmax</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">zeta</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">xin</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">ebi</span><span class="p">(</span><span class="n">xin</span><span class="o">=.</span><span class="mi">4</span><span class="p">,</span> <span class="n">xout</span><span class="o">=.</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">w</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">euler_beam_frf</span><span class="p">(</span><span class="n">xin</span><span class="o">=</span><span class="n">xin</span><span class="p">,</span> <span class="n">xout</span><span class="o">=</span><span class="n">xout</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">zeta</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -285,7 +287,7 @@ Notebook</a></p>
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">w</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">ebi</span><span class="p">,</span>  <span class="n">xin</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="o">.</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.0005</span><span class="p">),</span> <span class="n">xout</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="o">.</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.0005</span><span class="p">))</span>
+<span></span><span class="n">w</span> <span class="o">=</span> <span class="n">interactive</span><span class="p">(</span><span class="n">ebi</span><span class="p">,</span> <span class="n">xin</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.0005</span><span class="p">),</span> <span class="n">xout</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">.</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.0005</span><span class="p">))</span>
 <span class="n">display</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -294,49 +296,24 @@ Notebook</a></p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c65e2d7d87724e6cac2bdd3f7decdf00", "version_major": 2, "version_minor": 0}</script></div>
+<img alt="../_images/tutorial_continuous_systems_notebook_6_0.png" src="../_images/tutorial_continuous_systems_notebook_6_0.png" />
 </div>
-<div class="nbinput docutils container">
+</div>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [6]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">w</span>
+<span></span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c65e2d7d87724e6cac2bdd3f7decdf00", "version_major": 2, "version_minor": 0}</script></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [7]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-
-<span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">x</span>
-
-<span class="n">interact</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "face9ba8b1454c44869fbee35fb51500", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </div>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -372,13 +349,11 @@ Notebook</a></p>
 
 
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -398,8 +373,8 @@ Notebook</a></p>
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/tutorial/continuous_systems_notebook.ipynb.txt"

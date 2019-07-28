@@ -1,22 +1,21 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>mdof &#8212; Vibration Toolbox 0.6.2 documentation</title>
+    <meta charset="utf-8" />
+    <title>mdof &#8212; Vibration Toolbox 0.6.6 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed-amd.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
    
@@ -31,35 +30,44 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for mdof</h1><div class="highlight"><pre>
-<span></span><span class="sd">&#39;&#39;&#39;Multiple Degree of Freedom Analysis Tools.</span>
+<span></span><span class="sd">&quot;&quot;&quot;Multiple Degree of Freedom Analysis Tools.&quot;&quot;&quot;</span>
 
-<span class="sd">&#39;&#39;&#39;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
 <span class="kn">import</span> <span class="nn">scipy.signal</span> <span class="k">as</span> <span class="nn">signal</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;modes_system&quot;</span><span class="p">,</span>
-           <span class="s2">&quot;modes_system_undamped&quot;</span><span class="p">,</span>
-           <span class="s2">&quot;response_system&quot;</span><span class="p">,</span>
-           <span class="s2">&quot;response_system_undamped&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;modes_system&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;modes_system_undamped&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;response_system&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;response_system_undamped&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
 
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;lines.linewidth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;lines.linewidth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_eigen</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Sorted eigenvector/eigenvalue pairs in order of increasing eigenvalues.</span>
+    <span class="sd">&quot;&quot;&quot;Return sorted eigenvector/eigenvalue pairs.</span>
 
 <span class="sd">    e.g. for a given system linalg.eig will return eingenvalues as:</span>
-<span class="sd">    (array([ 0. +89.4j,  0. -89.4j,  0. +89.4j,  0. -89.4j,  0.+983.2j,  0.-983.2j,  0. +40.7j,  0. -40.7j])</span>
+<span class="sd">    (array([ 0. +89.4j,  0. -89.4j,  0. +89.4j,  0. -89.4j,  0.+983.2j,</span>
+<span class="sd">             0.-983.2j,  0. +40.7j,  0. -40.7j])</span>
 <span class="sd">    This function will sort this eigenvalues as:</span>
-<span class="sd">    (array([ 0. +40.7j,  0. +89.4j,  0. +89.4j,  0.+983.2j,  0. -40.7j,  0. -89.4j,  0. -89.4j,  0.-983.2j])</span>
+<span class="sd">    (array([ 0. +40.7j,  0. +89.4j,  0. +89.4j,  0.+983.2j,  0. -40.7j,</span>
+<span class="sd">             0. -89.4j,  0. -89.4j,  0.-983.2j])</span>
 <span class="sd">    Correspondent eigenvectors will follow the same order.</span>
+
+<span class="sd">    Note: Works fine for moderately sized models. Does not leverage the</span>
+<span class="sd">    full set of constraints to optimize the solution. See the vibrationtesting</span>
+<span class="sd">    module for a more advanced solver.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -98,12 +106,16 @@
             <span class="n">idxp</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>  <span class="c1"># positive in increasing order</span>
             <span class="n">idxn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">idxp</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evalues</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">):]</span>  <span class="c1"># positive in increasing order</span>
-            <span class="n">idxn</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evalues</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># negative in decreasing order</span>
+            <span class="c1"># positive in increasing order</span>
+            <span class="n">idxp</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evalues</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">):]</span>
+            <span class="c1"># negative in decreasing order</span>
+            <span class="n">idxn</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evalues</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">::</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">idxp</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evalues</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">):]</span>  <span class="c1"># positive in increasing order</span>
-        <span class="n">idxn</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evalues</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># negative in decreasing order</span>
+        <span class="c1"># positive in increasing order</span>
+        <span class="n">idxp</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evalues</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">):]</span>
+        <span class="c1"># negative in decreasing order</span>
+        <span class="n">idxn</span> <span class="o">=</span> <span class="n">evalues</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">evalues</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">::</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">idxp</span><span class="p">,</span> <span class="n">idxn</span><span class="p">])</span>
 
@@ -112,6 +124,8 @@
 
 <span class="k">def</span> <span class="nf">_normalize</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return normalized left eigenvectors.</span>
+
 <span class="sd">    This function is used to normalize vectors of the matrix</span>
 <span class="sd">    Y with respect to X so that Y.T @ X = I (identity).</span>
 <span class="sd">    This is used to normalize the matrix with the left eigenvectors.</span>
@@ -130,6 +144,7 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; # This test has been moved to tests_mdof</span>
 <span class="sd">    &gt;&gt;&gt; X = np.array([[ 0.84+0.j  ,  0.14-0.j  ,  0.84-0.j  ,  0.14+0.j  ],</span>
 <span class="sd">    ...               [ 0.01-0.3j ,  0.00+0.15j,  0.01+0.3j ,  0.00-0.15j],</span>
 <span class="sd">    ...               [-0.09+0.42j, -0.01+0.65j, -0.09-0.42j, -0.01-0.65j],</span>
@@ -139,28 +154,26 @@
 <span class="sd">    ...            [-0.21-0.j  ,  0.47+0.05j, -0.21+0.j  ,  0.47-0.05j],</span>
 <span class="sd">    ...            [ 0.00-0.08j,  0.05-0.54j,  0.00+0.08j,  0.05+0.54j]])</span>
 <span class="sd">    &gt;&gt;&gt; Yn = _normalize(X, Y)</span>
-<span class="sd">    &gt;&gt;&gt; Yn</span>
+<span class="sd">    &gt;&gt;&gt; Yn # doctest: +SKIP</span>
 <span class="sd">    array([[ 0.58-0.05j,  0.12-0.06j,  0.58+0.05j,  0.12+0.06j],</span>
 <span class="sd">           [ 0.01+1.24j, -0.07-0.82j,  0.01-1.24j, -0.07+0.82j],</span>
-<span class="sd">           [-0.00-0.3j ,  0.01-0.57j, -0.00+0.3j ,  0.01+0.57j],</span>
+<span class="sd">           [-0.  -0.3j ,  0.01-0.57j, -0.  +0.3j ,  0.01+0.57j],</span>
 <span class="sd">           [ 0.11-0.j  , -0.66-0.01j,  0.11+0.j  , -0.66+0.01j]])</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">Yn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="n">YTX</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span>  <span class="c1"># normalize y so that Y.T @ X will return I</span>
-    <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">YTX</span><span class="p">)]</span>
+    <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">YTX</span><span class="p">)]</span>
     <span class="c1"># multiply each column in y by a factor in &#39;factors&#39;</span>
     <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Y</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
-        <span class="n">Yn</span><span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">factors</span><span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">Yn</span><span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">factors</span><span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
     <span class="n">Yn</span> <span class="o">=</span> <span class="n">Yn</span><span class="o">.</span><span class="n">T</span>
 
     <span class="k">return</span> <span class="n">Yn</span>
 
 
 <div class="viewcode-block" id="modes_system_undamped"><a class="viewcode-back" href="../reference/mdof.html#mdof.modes_system_undamped">[docs]</a><span class="k">def</span> <span class="nf">modes_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Natural frequencies, mass-normalized mode shapes and eigenvectors of</span>
-<span class="sd">    MDOF system</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return eigensolution of multiple DOF system.</span>
 
 <span class="sd">    Returns the natural frequencies (w),</span>
 <span class="sd">    eigenvectors (P), mode shapes (S) and the modal transformation</span>
@@ -170,20 +183,20 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    M: array</span>
+<span class="sd">    M: float array</span>
 <span class="sd">        Mass matrix</span>
-<span class="sd">    K: array</span>
+<span class="sd">    K: float array</span>
 <span class="sd">        Stiffness matrix</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    w: array</span>
+<span class="sd">    w: float array</span>
 <span class="sd">        The natural frequencies of the system</span>
-<span class="sd">    P: array</span>
-<span class="sd">        The eigenvectors of the system are.</span>
-<span class="sd">    S: array</span>
+<span class="sd">    P: float array</span>
+<span class="sd">        The eigenvectors of the system.</span>
+<span class="sd">    S: float array</span>
 <span class="sd">        The mass-normalized mode shapes of the system.</span>
-<span class="sd">    Sinv: array</span>
+<span class="sd">    Sinv: float array</span>
 <span class="sd">        The modal transformation matrix S^-1(takes x -&gt; r(modal coordinates))</span>
 
 <span class="sd">    Notes</span>
@@ -215,7 +228,8 @@
 
 <span class="sd">    :math:`BA=C` given known :math:`A` and :math:`C` is solved by first</span>
 <span class="sd">    transposing the equation to :math:`A^TB^T=C^T`, then solving for</span>
-<span class="sd">    :math:`C^T`. The resulting command is `la.solve(A.T, C.T, assume_a=&#39;pos&#39;).T`</span>
+<span class="sd">    :math:`C^T`. The resulting command is</span>
+<span class="sd">    `la.solve(A.T, C.T, assume_a=&#39;pos&#39;).T`</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -226,22 +240,22 @@
 <span class="sd">    ...               [-4, 8, -4],</span>
 <span class="sd">    ...               [0, -4, 4]])</span>
 <span class="sd">    &gt;&gt;&gt; w, P, S, Sinv = modes_system_undamped(M, K)</span>
-<span class="sd">    &gt;&gt;&gt; w</span>
-<span class="sd">    array([ 0.45,  1.25,  1.8 ])</span>
+<span class="sd">    &gt;&gt;&gt; w # doctest: +SKIP</span>
+<span class="sd">    array([0.45, 1.25, 1.8 ])</span>
 <span class="sd">    &gt;&gt;&gt; S</span>
 <span class="sd">    array([[ 0.16, -0.37, -0.3 ],</span>
 <span class="sd">           [ 0.3 , -0.16,  0.37],</span>
 <span class="sd">           [ 0.37,  0.3 , -0.16]])</span>
-<span class="sd">    &#39;&#39;&#39;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">L</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
     <span class="n">lam</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">_eigen</span><span class="p">(</span><span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
                              <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lam</span><span class="p">))</span>
-    <span class="n">S</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span>
-    <span class="n">Sinv</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-</div>
-    <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Sinv</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span>
+    <span class="n">Sinv</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Sinv</span></div>
 
 
 <div class="viewcode-block" id="modes_system"><a class="viewcode-back" href="../reference/mdof.html#mdof.modes_system">[docs]</a><span class="k">def</span> <span class="nf">modes_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -277,34 +291,35 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; # This test has been moved to tests_mdof</span>
 <span class="sd">    &gt;&gt;&gt; M = np.array([[1, 0],</span>
 <span class="sd">    ...               [0, 1]])</span>
 <span class="sd">    &gt;&gt;&gt; K = np.array([[2, -1],</span>
 <span class="sd">    ...               [-1, 6]])</span>
 <span class="sd">    &gt;&gt;&gt; C = np.array([[0.3, -0.02],</span>
 <span class="sd">    ...               [-0.02, 0.1]])</span>
-<span class="sd">    &gt;&gt;&gt; wn, wd, zeta, X, Y = modes_system(M, K, C)</span>
+<span class="sd">    &gt;&gt;&gt; wn, wd, zeta, X, Y = modes_system(M, K, C) # doctest: +SKIP</span>
 <span class="sd">    Damping is non-proportional, eigenvectors are complex.</span>
-<span class="sd">    &gt;&gt;&gt; wn</span>
-<span class="sd">    array([ 1.33,  2.5 ,  1.33,  2.5 ])</span>
-<span class="sd">    &gt;&gt;&gt; wd</span>
-<span class="sd">    array([ 1.32,  2.5 ,  1.32,  2.5 ])</span>
-<span class="sd">    &gt;&gt;&gt; zeta</span>
-<span class="sd">    array([ 0.11,  0.02,  0.11,  0.02])</span>
-<span class="sd">    &gt;&gt;&gt; X</span>
+<span class="sd">    &gt;&gt;&gt; wn # doctest: +SKIP</span>
+<span class="sd">    array([1.33, 2.5 , 1.33, 2.5 ])</span>
+<span class="sd">    &gt;&gt;&gt; wd # doctest: +SKIP</span>
+<span class="sd">    array([1.32, 2.5 , 1.32, 2.5 ])</span>
+<span class="sd">    &gt;&gt;&gt; zeta # doctest: +SKIP</span>
+<span class="sd">    array([0.11, 0.02, 0.11, 0.02])</span>
+<span class="sd">    &gt;&gt;&gt; X # doctest: +SKIP</span>
 <span class="sd">    array([[-0.06-0.58j, -0.01+0.08j, -0.06+0.58j, -0.01-0.08j],</span>
-<span class="sd">           [-0.00-0.14j, -0.01-0.36j, -0.00+0.14j, -0.01+0.36j],</span>
+<span class="sd">           [-0.  -0.14j, -0.01-0.36j, -0.  +0.14j, -0.01+0.36j],</span>
 <span class="sd">           [ 0.78+0.j  , -0.21-0.03j,  0.78-0.j  , -0.21+0.03j],</span>
-<span class="sd">           [ 0.18+0.01j,  0.90+0.j  ,  0.18-0.01j,  0.90-0.j  ]])</span>
-<span class="sd">    &gt;&gt;&gt; Y</span>
+<span class="sd">           [ 0.18+0.01j,  0.9 +0.j  ,  0.18-0.01j,  0.9 -0.j  ]])</span>
+<span class="sd">    &gt;&gt;&gt; Y # doctest: +SKIP</span>
 <span class="sd">    array([[ 0.02+0.82j,  0.01-0.31j,  0.02-0.82j,  0.01+0.31j],</span>
 <span class="sd">           [-0.05+0.18j,  0.01+1.31j, -0.05-0.18j,  0.01-1.31j],</span>
 <span class="sd">           [ 0.61+0.06j, -0.12-0.02j,  0.61-0.06j, -0.12+0.02j],</span>
 <span class="sd">           [ 0.14+0.03j,  0.53+0.j  ,  0.14-0.03j,  0.53-0.j  ]])</span>
 <span class="sd">    &gt;&gt;&gt; C = 0.2*K # with proportional damping</span>
-<span class="sd">    &gt;&gt;&gt; wn, wd, zeta, X, Y = modes_system(M, K, C)</span>
+<span class="sd">    &gt;&gt;&gt; wn, wd, zeta, X, Y = modes_system(M, K, C) # doctest: +SKIP</span>
 <span class="sd">    Damping is proportional or zero, eigenvectors are real</span>
-<span class="sd">    &gt;&gt;&gt; X</span>
+<span class="sd">    &gt;&gt;&gt; X # doctest: +SKIP</span>
 <span class="sd">    array([[-0.97,  0.23],</span>
 <span class="sd">           [-0.23, -0.97]])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -314,42 +329,52 @@
     <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
     <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">C</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">C</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span>  <span class="c1"># check if C has only zero entries</span>
-            <span class="n">la</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span> <span class="o">@</span> <span class="n">K</span>
-                    <span class="o">-</span> <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span> <span class="o">@</span> <span class="n">C</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span>
-                    <span class="mf">1e-8</span><span class="o">*</span><span class="n">la</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span> <span class="o">@</span> <span class="n">C</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">C</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">C</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span>
+        <span class="n">la</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>  <span class="c1"># check if C has only zero entries</span>
+            <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span> <span class="o">@</span> <span class="n">K</span> <span class="o">-</span> \
+            <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span> <span class="o">@</span> <span class="n">C</span><span class="p">,</span> <span class="mi">2</span>
+        <span class="p">)</span> <span class="o">&lt;</span>
+        <span class="mf">1e-8</span> <span class="o">*</span> <span class="n">la</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)</span> <span class="o">@</span> <span class="n">C</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">):</span>
         <span class="n">w</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Sinv</span> <span class="o">=</span> <span class="n">modes_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
         <span class="n">wn</span> <span class="o">=</span> <span class="n">w</span>
         <span class="n">wd</span> <span class="o">=</span> <span class="n">w</span>
-        <span class="c1">#zeta = None</span>
-        <span class="n">zeta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="nd">@C@S</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">wn</span>
-        <span class="n">wd</span> <span class="o">=</span> <span class="n">wn</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">zeta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># zeta = None</span>
+        <span class="n">zeta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">C</span> <span class="o">@</span> <span class="n">S</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">wn</span>
+        <span class="n">wd</span> <span class="o">=</span> <span class="n">wn</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">zeta</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">P</span>
         <span class="n">Y</span> <span class="o">=</span> <span class="n">P</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Damping is proportional or zero, eigenvectors are real&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Damping is proportional or zero, eigenvectors are real&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span>
 
     <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
     <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
     <span class="c1"># creates the state space matrix</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span> <span class="n">I</span><span class="p">]),</span>
-                   <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">),</span>
-                              <span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">)])])</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span> <span class="n">I</span><span class="p">]),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+                <span class="p">[</span><span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">),</span>
+                 <span class="o">-</span> <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)]</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
 
     <span class="n">w</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">_eigen</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">_eigen</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 
     <span class="n">wd</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
     <span class="n">wn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-    <span class="n">zeta</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
-
+    <span class="n">zeta</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 
     <span class="n">Y</span> <span class="o">=</span> <span class="n">_normalize</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Damping is non-proportional, eigenvectors are complex.&#39;</span><span class="p">)</span>
-</div>
-    <span class="k">return</span> <span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Damping is non-proportional, eigenvectors are complex.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wn</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">zeta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span></div>
 
 
 <div class="viewcode-block" id="response_system_undamped"><a class="viewcode-back" href="../reference/mdof.html#mdof.response_system_undamped">[docs]</a><span class="k">def</span> <span class="nf">response_system_undamped</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">max_time</span><span class="p">):</span>
@@ -390,8 +415,9 @@
 <span class="sd">    &gt;&gt;&gt; v0 = np.array([0, 0])</span>
 <span class="sd">    &gt;&gt;&gt; max_time = 10</span>
 <span class="sd">    &gt;&gt;&gt; t, X = response_system_undamped(M, K, x0, v0, max_time)</span>
-<span class="sd">    &gt;&gt;&gt; X[:, 0] # first column is the initial conditions [x1, x2, v1, v2]</span>
-<span class="sd">    array([ 1.,  1.,  0.,  0.])</span>
+<span class="sd">    &gt;&gt;&gt; # first column is the initial conditions [x1, x2, v1, v2]</span>
+<span class="sd">    &gt;&gt;&gt; X[:, 0] # doctest: +SKIP</span>
+<span class="sd">    array([1., 1., 0., 0.])</span>
 <span class="sd">    &gt;&gt;&gt; X[:, 1] # displacement and velocities after delta t</span>
 <span class="sd">    array([ 1.  ,  1.  , -0.04, -0.01])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -405,24 +431,24 @@
     <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 
     <span class="c1"># creates the state space matrix</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span>               <span class="n">I</span><span class="p">]),</span>
-                   <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">),</span> <span class="n">Z</span><span class="p">])])</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span> <span class="n">I</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+        <span class="p">[</span><span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">),</span> <span class="n">Z</span><span class="p">])])</span>
 
     <span class="c1"># creates the x array and set the first line according to the initial</span>
     <span class="c1"># conditions</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
     <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">])</span>
 
     <span class="n">Ad</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="n">A</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">X</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Ad</span> <span class="o">@</span> <span class="n">X</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
-</div>
-    <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">X</span>
+
+    <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">X</span></div>
 
 
 <div class="viewcode-block" id="response_system"><a class="viewcode-back" href="../reference/mdof.html#mdof.response_system">[docs]</a><span class="k">def</span> <span class="nf">response_system</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function solves the system given the initial</span>
+<span class="sd">    Returns system response given the initial</span>
 <span class="sd">    displacement vector &#39;X0&#39;, initial velocity vector &#39;V0&#39;,</span>
 <span class="sd">    the mass matrix &#39;M&#39;, the stiffness matrix &#39;M&#39;, and the damping</span>
 <span class="sd">    matrix &#39;C&#39; and force &#39;F&#39;.</span>
@@ -468,8 +494,8 @@
 <span class="sd">    &gt;&gt;&gt; F = np.vstack([0*t,</span>
 <span class="sd">    ...                3*np.cos(2*t)])</span>
 <span class="sd">    &gt;&gt;&gt; tou, yout, xout = response_system(M, C, K, F, x0, v0, t)</span>
-<span class="sd">    &gt;&gt;&gt; tou[:10]</span>
-<span class="sd">    array([ 0.  ,  0.1 ,  0.2 ,  0.3 ,  0.4 ,  0.51,  0.61,  0.71,  0.81,  0.91])</span>
+<span class="sd">    &gt;&gt;&gt; tou[:10] # doctest: +SKIP</span>
+<span class="sd">    array([0.  , 0.1 , 0.2 , 0.3 , 0.4 , 0.51, 0.61, 0.71, 0.81, 0.91])</span>
 
 <span class="sd">    &gt;&gt;&gt; yout[:10]</span>
 <span class="sd">    array([[ 0.  ,  1.  ,  1.  ,  0.  ],</span>
@@ -502,24 +528,30 @@
     <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
     <span class="c1"># creates the state space matrix</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span>               <span class="n">I</span><span class="p">]),</span>
-                   <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">),</span>
-                              <span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s1">&#39;pos&#39;</span><span class="p">)])])</span>
-    <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span>
-                   <span class="n">la</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">M</span><span class="p">)])</span>
-    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
-    <span class="n">D</span> <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">B</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span> <span class="n">I</span><span class="p">]),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+                <span class="p">[</span><span class="o">-</span><span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">),</span>
+                 <span class="o">-</span> <span class="n">la</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">assume_a</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)]</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">Z</span><span class="p">,</span> <span class="n">la</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">M</span><span class="p">)])</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">*</span> <span class="n">B</span>
 
     <span class="n">sys</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lti</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
 
     <span class="n">IC</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">x0</span><span class="p">,</span> <span class="n">v0</span><span class="p">])</span>
     <span class="n">F</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">T</span>
     <span class="n">T</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lsim</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">IC</span><span class="p">)</span>
-</div>
-    <span class="k">return</span> <span class="n">T</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">xout</span>
+
+    <span class="k">return</span> <span class="n">T</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">xout</span></div>
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -549,13 +581,11 @@
 
 
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -568,8 +598,8 @@
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
 

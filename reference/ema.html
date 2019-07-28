@@ -1,22 +1,21 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Experimental Modal Analysis (vibration_toolbox.ema) &#8212; Vibration Toolbox 0.6.2 documentation</title>
+    <meta charset="utf-8" />
+    <title>Experimental Modal Analysis (vibration_toolbox.ema) &#8212; Vibration Toolbox 0.6.6 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed-amd.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Contributors" href="../contributors.html" />
@@ -33,6 +32,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="experimental-modal-analysis-vibration-toolbox-ema">
@@ -41,53 +42,37 @@
 <h2><a class="reference internal" href="#module-ema" title="ema"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ema</span></code></a> – Experimental Modal Analysis<a class="headerlink" href="#ema-experimental-modal-analysis" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-ema"></span><dl class="function">
 <dt id="ema.frf">
-<code class="descclassname">ema.</code><code class="descname">frf</code><span class="sig-paren">(</span><em>x</em>, <em>f</em>, <em>dt</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ema.html#frf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ema.frf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the frequency response function</p>
-<p>Calculates <span class="math notranslate">\(H(i\omega)\)</span>, and coherance of the sampled data.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x: array</strong></p>
-<blockquote>
-<div><p>Array with the displacement data</p>
-</div></blockquote>
-<p><strong>f: array</strong></p>
-<blockquote>
-<div><p>Array with the force data</p>
-</div></blockquote>
-<p><strong>dt: float</strong></p>
-<blockquote>
-<div><p>Time step of the sampled data</p>
-</div></blockquote>
-<p><strong>n: int</strong></p>
-<blockquote>
-<div><p>Number of points in the fft</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">freq: array</p>
-<blockquote>
-<div><p>Driving frequencies</p>
-</div></blockquote>
-<p>mag: array</p>
-<blockquote>
-<div><p>Magnitude of the frequency response function</p>
-</div></blockquote>
-<p>ang: array</p>
-<blockquote>
-<div><p>Phase of the frequency response function</p>
-</div></blockquote>
-<p>coh: array</p>
-<blockquote class="last">
-<div><p>Coherence function</p>
+<code class="sig-prename descclassname">ema.</code><code class="sig-name descname">frf</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">f</em>, <em class="sig-param">dt</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ema.html#frf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ema.frf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the frequency response function.</p>
+<p>Calculates <span class="math notranslate nohighlight">\(H(i\\omega)\)</span>, and coherance of the sampled data.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>x: array</strong></dt><dd><p>Array with the displacement data</p>
+</dd>
+<dt><strong>f: array</strong></dt><dd><p>Array with the force data</p>
+</dd>
+<dt><strong>dt: float</strong></dt><dd><p>Time step of the sampled data</p>
+</dd>
+<dt><strong>n: int</strong></dt><dd><p>Number of points in the fft</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt>freq: array</dt><dd><p>Driving frequencies</p>
+</dd>
+<dt>mag: array</dt><dd><p>Magnitude of the frequency response function</p>
+</dd>
+<dt>ang: array</dt><dd><p>Phase of the frequency response function</p>
+</dd>
+<dt>coh: array</dt><dd><p>Coherence function</p>
 <p>Plot with the frf magnitude, phase and
 coherence.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># First we need to load the sampled data which in a .mat file</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
@@ -111,52 +96,38 @@ coherence.</p>
 
 <dl class="function">
 <dt id="ema.mdof_cf">
-<code class="descclassname">ema.</code><code class="descname">mdof_cf</code><span class="sig-paren">(</span><em>f</em>, <em>TF</em>, <em>Fmin=None</em>, <em>Fmax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ema.html#mdof_cf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ema.mdof_cf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Curve fit to multiple degree of freedom FRF</p>
+<code class="sig-prename descclassname">ema.</code><code class="sig-name descname">mdof_cf</code><span class="sig-paren">(</span><em class="sig-param">f</em>, <em class="sig-param">TF</em>, <em class="sig-param">Fmin=None</em>, <em class="sig-param">Fmax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ema.html#mdof_cf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ema.mdof_cf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Curve fit to multiple degree of freedom FRF.</p>
 <p>If Fmin and Fmax are not entered, the first and last elements of TF are
 used.</p>
 <p>If the first column of TF is a collocated (input and output location are
 the same), then the mode shape returned is the mass normalized mode shape.
 This can then be used to generate an identified mass, damping, and
 stiffness matrix as shown in the following example.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>f: array</strong></p>
-<blockquote>
-<div><p>The frequency vector in Hz. Does not have to start at 0 Hz.</p>
-</div></blockquote>
-<p><strong>TF: array</strong></p>
-<blockquote>
-<div><p>The complex transfer function</p>
-</div></blockquote>
-<p><strong>Fmin: int</strong></p>
-<blockquote>
-<div><p>The minimum frequency to be used for curve fitting in the FRF</p>
-</div></blockquote>
-<p><strong>Fmax: int</strong></p>
-<blockquote>
-<div><p>The maximum frequency to be used for curve fitting in the FRF</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">z: double</p>
-<blockquote>
-<div><p>The damping ratio</p>
-</div></blockquote>
-<p>nf: double</p>
-<blockquote>
-<div><p>Natural frequency (Hz)</p>
-</div></blockquote>
-<p>u: array</p>
-<blockquote class="last">
-<div><p>The mode shape</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>f: array</strong></dt><dd><p>The frequency vector in Hz. Does not have to start at 0 Hz.</p>
+</dd>
+<dt><strong>TF: array</strong></dt><dd><p>The complex transfer function</p>
+</dd>
+<dt><strong>Fmin: int</strong></dt><dd><p>The minimum frequency to be used for curve fitting in the FRF</p>
+</dd>
+<dt><strong>Fmax: int</strong></dt><dd><p>The maximum frequency to be used for curve fitting in the FRF</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>z: double</dt><dd><p>The damping ratio</p>
+</dd>
+<dt>nf: double</dt><dd><p>Natural frequency (Hz)</p>
+</dd>
+<dt>u: array</dt><dd><p>The mode shape</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Notes</p>
 <p>FRF are columns comprised of the FRFs presuming single input, multiple
 output z and nf are the damping ratio and natural frequency (Hz) u is the
@@ -182,37 +153,28 @@ becomes unreliable.</p>
 
 <dl class="function">
 <dt id="ema.plot_fft">
-<code class="descclassname">ema.</code><code class="descname">plot_fft</code><span class="sig-paren">(</span><em>t</em>, <em>time_response</em>, <em>ax=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ema.html#plot_fft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ema.plot_fft" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function will plot the fft given a time vector
-and the system time response.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>t</strong> : array</p>
-<blockquote>
-<div><p>Time array.</p>
-</div></blockquote>
-<p><strong>time_response</strong> : array</p>
-<blockquote>
-<div><p>Array with the system’s time response.</p>
-</div></blockquote>
-<p><strong>ax</strong> : matplotlib.axes, optional</p>
-<blockquote>
-<div><p>Matplotlib axes where the amplitude will be plotted.
+<code class="sig-prename descclassname">ema.</code><code class="sig-name descname">plot_fft</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">time_response</em>, <em class="sig-param">ax=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ema.html#plot_fft"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ema.plot_fft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot fft ot time response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>t</strong><span class="classifier">array</span></dt><dd><p>Time array.</p>
+</dd>
+<dt><strong>time_response</strong><span class="classifier">array</span></dt><dd><p>Array with the system’s time response.</p>
+</dd>
+<dt><strong>ax</strong><span class="classifier">matplotlib.axes, optional</span></dt><dd><p>Matplotlib axes where the amplitude will be plotted.
 If None creates a new.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ax</strong> : array with matplotlib.axes, optional</p>
-<blockquote class="last">
-<div><p>Matplotlib axes array created with plt.subplots.
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ax</strong><span class="classifier">array with matplotlib.axes, optional</span></dt><dd><p>Matplotlib axes array created with plt.subplots.
 Plot has frequency in rad/s and magnitude in meters peak to peak.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
@@ -225,52 +187,38 @@ Plot has frequency in rad/s and magnitude in meters peak to peak.</p>
 
 <dl class="function">
 <dt id="ema.sdof_cf">
-<code class="descclassname">ema.</code><code class="descname">sdof_cf</code><span class="sig-paren">(</span><em>f</em>, <em>TF</em>, <em>Fmin=None</em>, <em>Fmax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ema.html#sdof_cf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ema.sdof_cf" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ema.</code><code class="sig-name descname">sdof_cf</code><span class="sig-paren">(</span><em class="sig-param">f</em>, <em class="sig-param">TF</em>, <em class="sig-param">Fmin=None</em>, <em class="sig-param">Fmax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ema.html#sdof_cf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ema.sdof_cf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Curve fit to a single degree of freedom FRF.</p>
 <p>Only one peak may exist in the segment of the FRF passed to sdofcf. No
 zeros may exist within this segment. If so, curve fitting becomes
 unreliable.</p>
 <p>If Fmin and Fmax are not entered, the first and last elements of TF are
 used.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>f: array</strong></p>
-<blockquote>
-<div><p>The frequency vector in Hz. Does not have to start at 0 Hz.</p>
-</div></blockquote>
-<p><strong>TF: array</strong></p>
-<blockquote>
-<div><p>The complex transfer function</p>
-</div></blockquote>
-<p><strong>Fmin: int</strong></p>
-<blockquote>
-<div><p>The minimum frequency to be used for curve fitting in the FRF</p>
-</div></blockquote>
-<p><strong>Fmax: int</strong></p>
-<blockquote>
-<div><p>The maximum frequency to be used for curve fitting in the FRF</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">z: double</p>
-<blockquote>
-<div><p>The damping ratio</p>
-</div></blockquote>
-<p>nf: double</p>
-<blockquote>
-<div><p>Natural frequency (Hz)</p>
-</div></blockquote>
-<p>a: double</p>
-<blockquote class="last">
-<div><p>The numerator of the identified transfer functions</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>f: array</strong></dt><dd><p>The frequency vector in Hz. Does not have to start at 0 Hz.</p>
+</dd>
+<dt><strong>TF: array</strong></dt><dd><p>The complex transfer function</p>
+</dd>
+<dt><strong>Fmin: int</strong></dt><dd><p>The minimum frequency to be used for curve fitting in the FRF</p>
+</dd>
+<dt><strong>Fmax: int</strong></dt><dd><p>The maximum frequency to be used for curve fitting in the FRF</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt>z: double</dt><dd><p>The damping ratio</p>
+</dd>
+<dt>nf: double</dt><dd><p>Natural frequency (Hz)</p>
+</dd>
+<dt>a: double</dt><dd><p>The numerator of the identified transfer functions</p>
 <p>Plot of the FRF magnitude and phase.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># First we need to load the sampled data which is in a .mat file</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
@@ -293,6 +241,7 @@ used.</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -314,12 +263,12 @@ used.</p>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="continuous.html">Continuous Systems (<code class="docutils literal notranslate"><span class="pre">continuous_systems</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vibe_system.html">Vibration Systems (<code class="docutils literal notranslate"><span class="pre">vibesystem</span></code>)</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Experimental Modal Analysis (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.ema</span></code>)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ema-experimental-modal-analysis"><code class="docutils literal notranslate"><span class="pre">ema</span></code> – Experimental Modal Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="continuous.html">Continuous Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">continuous_systems</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vibe_system.html">Vibration Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibesystem</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Experimental Modal Analysis (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.ema</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ema-experimental-modal-analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ema</span></code> – Experimental Modal Analysis</a></li>
 </ul>
 </li>
 </ul>
@@ -332,13 +281,11 @@ used.</p>
 
 
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -358,8 +305,8 @@ used.</p>
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/reference/ema.rst.txt"

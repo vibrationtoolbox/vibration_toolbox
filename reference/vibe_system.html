@@ -1,22 +1,21 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Vibration Systems (vibesystem) &#8212; Vibration Toolbox 0.6.2 documentation</title>
+    <meta charset="utf-8" />
+    <title>Vibration Systems (vibesystem) &#8212; Vibration Toolbox 0.6.6 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.11.0/dist/embed-amd.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Experimental Modal Analysis (vibration_toolbox.ema)" href="ema.html" />
@@ -33,40 +32,32 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="vibration-systems-vibesystem">
 <h1>Vibration Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibesystem</span></code>)<a class="headerlink" href="#vibration-systems-vibesystem" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="vibration_toolbox.vibesystem.VibeSystem">
-<em class="property">class </em><code class="descclassname">vibration_toolbox.vibesystem.</code><code class="descname">VibeSystem</code><span class="sig-paren">(</span><em>M</em>, <em>C</em>, <em>K</em>, <em>name=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">vibration_toolbox.vibesystem.</code><code class="sig-name descname">VibeSystem</code><span class="sig-paren">(</span><em class="sig-param">M</em>, <em class="sig-param">C</em>, <em class="sig-param">K</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>A multiple degrees of freedom system.</p>
 <p>This class will create a multiple degree of
 freedom system given M, C and K matrices.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>M</strong> : array</p>
-<blockquote>
-<div><p>Mass matrix.</p>
-</div></blockquote>
-<p><strong>C</strong> : array</p>
-<blockquote>
-<div><p>Damping matrix.</p>
-</div></blockquote>
-<p><strong>K</strong> : array</p>
-<blockquote>
-<div><p>Stiffness matrix.</p>
-</div></blockquote>
-<p><strong>name</strong> : str, optional</p>
-<blockquote class="last">
-<div><p>Name of the system.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>M</strong><span class="classifier">array</span></dt><dd><p>Mass matrix.</p>
+</dd>
+<dt><strong>C</strong><span class="classifier">array</span></dt><dd><p>Damping matrix.</p>
+</dd>
+<dt><strong>K</strong><span class="classifier">array</span></dt><dd><p>Stiffness matrix.</p>
+</dd>
+<dt><strong>name</strong><span class="classifier">str, optional</span></dt><dd><p>Name of the system.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <p>For a system consisting of two masses connected
 to each other and both connected to a wall we have
@@ -83,57 +74,44 @@ the following matrices:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">k0</span><span class="o">+</span><span class="n">k1</span><span class="p">,</span> <span class="o">-</span><span class="n">k2</span><span class="p">],</span>
 <span class="gp">... </span>              <span class="p">[</span><span class="o">-</span><span class="n">k1</span><span class="p">,</span> <span class="n">k2</span><span class="o">+</span><span class="n">k2</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span> <span class="o">=</span> <span class="n">VibeSystem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">wn</span>
-<span class="go">array([ 31.62,  54.77])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">wd</span>
-<span class="go">array([ 31.52,  54.26])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">wn</span>  <span class="c1"># doctest: +SKIP</span>
+<span class="go">array([31.62,  54.77])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">wd</span>  <span class="c1"># doctest: +SKIP</span>
+<span class="go">array([31.52,  54.26])</span>
 </pre></div>
 </div>
-<p class="rubric">Attributes</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="21%" />
-<col width="79%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><strong>evalues</strong></td>
-<td>(array) System’s eigenvalues.</td>
-</tr>
-<tr class="row-even"><td><strong>evectors</strong></td>
-<td>(array) System’s eigenvectors.</td>
-</tr>
-<tr class="row-odd"><td><strong>wn</strong></td>
-<td>(array) System’s natural frequencies in rad/s.</td>
-</tr>
-<tr class="row-even"><td><strong>wd</strong></td>
-<td>(array) System’s damped natural frequencies in rad/s.</td>
-</tr>
-<tr class="row-odd"><td><strong>damping_ratio</strong></td>
-<td>(array) System’s damping factor for each mode.</td>
-</tr>
-<tr class="row-even"><td><strong>H</strong></td>
-<td>(scipy.signal.lti) Continuous-time linear time invariant system</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>evalues</strong><span class="classifier">array</span></dt><dd><p>System’s eigenvalues.</p>
+</dd>
+<dt><strong>evectors</strong><span class="classifier">array</span></dt><dd><p>System’s eigenvectors.</p>
+</dd>
+<dt><strong>wn</strong><span class="classifier">array</span></dt><dd><p>System’s natural frequencies in rad/s.</p>
+</dd>
+<dt><strong>wd</strong><span class="classifier">array</span></dt><dd><p>System’s damped natural frequencies in rad/s.</p>
+</dd>
+<dt><strong>damping_ratio</strong><span class="classifier">array</span></dt><dd><p>System’s damping factor for each mode.</p>
+</dd>
+<dt><strong>H</strong><span class="classifier">scipy.signal.lti</span></dt><dd><p>Continuous-time linear time invariant system</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <dl class="method">
 <dt id="vibration_toolbox.vibesystem.VibeSystem.A">
-<code class="descname">A</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.A"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.A" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">A</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.A"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.A" title="Permalink to this definition">¶</a></dt>
 <dd><p>State space matrix</p>
 <p>This method will return the state space matrix
 of the system.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>A</strong> : array</p>
-<blockquote class="last">
-<div><p>System’s state space matrix.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>A</strong><span class="classifier">array</span></dt><dd><p>System’s state space matrix.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m0</span><span class="p">,</span> <span class="n">m1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c0</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
@@ -158,53 +136,40 @@ of the system.</p>
 
 <dl class="method">
 <dt id="vibration_toolbox.vibesystem.VibeSystem.freq_response">
-<code class="descname">freq_response</code><span class="sig-paren">(</span><em>F=None</em>, <em>omega=None</em>, <em>modes=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.freq_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.freq_response" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">freq_response</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">F=None</em>, <em class="sig-param">omega=None</em>, <em class="sig-param">modes=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.freq_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.freq_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Frequency response for a mdof system.</p>
 <p>This method returns the frequency response for a mdof system
 given a range of frequencies, the force for each frequency
 and the modes that will be used.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>F</strong> : array, optional</p>
-<blockquote>
-<div><p>Force array (needs to have the same length as time array).
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>F</strong><span class="classifier">array, optional</span></dt><dd><p>Force array (needs to have the same length as time array).
 If not given the impulse response is calculated.</p>
-</div></blockquote>
-<p><strong>omega</strong> : array, optional</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>Array with the desired range of frequencies (the default</dt>
-<dd><p class="first last">is 0 to 1.5 x highest damped natural frequency.</p>
+</dd>
+<dt><strong>omega</strong><span class="classifier">array, optional</span></dt><dd><dl class="simple">
+<dt>Array with the desired range of frequencies (the default</dt><dd><p>is 0 to 1.5 x highest damped natural frequency.</p>
 </dd>
 </dl>
-</div></blockquote>
-<p><strong>modes</strong> : list, optional</p>
-<blockquote>
-<div><p>Modes that will be used to calculate the frequency response
+</dd>
+<dt><strong>modes</strong><span class="classifier">list, optional</span></dt><dd><p>Modes that will be used to calculate the frequency response
 (all modes will be used if a list is not given).</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>omega</strong> : array</p>
-<blockquote>
-<div><p>Array with the frequencies</p>
-</div></blockquote>
-<p><strong>magdb</strong> : array</p>
-<blockquote>
-<div><p>Magnitude (dB) of the frequency response for each pair input/output.
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>omega</strong><span class="classifier">array</span></dt><dd><p>Array with the frequencies</p>
+</dd>
+<dt><strong>magdb</strong><span class="classifier">array</span></dt><dd><p>Magnitude (dB) of the frequency response for each pair input/output.
 The order of the array is: [output, input, magnitude]</p>
-</div></blockquote>
-<p><strong>phase</strong> : array</p>
-<blockquote class="last">
-<div><p>Phase of the frequency response for each pair input/output.
+</dd>
+<dt><strong>phase</strong><span class="classifier">array</span></dt><dd><p>Phase of the frequency response for each pair input/output.
 The order of the array is: [output, input, phase]</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m0</span><span class="p">,</span> <span class="n">m1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c0</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
@@ -231,56 +196,40 @@ The order of the array is: [output, input, phase]</p>
 
 <dl class="method">
 <dt id="vibration_toolbox.vibesystem.VibeSystem.plot_freq_response">
-<code class="descname">plot_freq_response</code><span class="sig-paren">(</span><em>out</em>, <em>inp</em>, <em>modes=None</em>, <em>ax0=None</em>, <em>ax1=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.plot_freq_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.plot_freq_response" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot_freq_response</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">out</em>, <em class="sig-param">inp</em>, <em class="sig-param">modes=None</em>, <em class="sig-param">ax0=None</em>, <em class="sig-param">ax1=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.plot_freq_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.plot_freq_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot frequency response.</p>
 <p>This method plots the frequency response given
 an output and an input.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>out</strong> : int</p>
-<blockquote>
-<div><p>Output.</p>
-</div></blockquote>
-<p><strong>input</strong> : int</p>
-<blockquote>
-<div><p>Input.</p>
-</div></blockquote>
-<p><strong>modes</strong> : list, optional</p>
-<blockquote>
-<div><p>Modes that will be used to calculate the frequency response
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>out</strong><span class="classifier">int</span></dt><dd><p>Output.</p>
+</dd>
+<dt><strong>input</strong><span class="classifier">int</span></dt><dd><p>Input.</p>
+</dd>
+<dt><strong>modes</strong><span class="classifier">list, optional</span></dt><dd><p>Modes that will be used to calculate the frequency response
 (all modes will be used if a list is not given).</p>
-</div></blockquote>
-<p><strong>ax0</strong> : matplotlib.axes, optional</p>
-<blockquote>
-<div><p>Matplotlib axes where the amplitude will be plotted.
+</dd>
+<dt><strong>ax0</strong><span class="classifier">matplotlib.axes, optional</span></dt><dd><p>Matplotlib axes where the amplitude will be plotted.
 If None creates a new.</p>
-</div></blockquote>
-<p><strong>ax1</strong> : matplotlib.axes, optional</p>
-<blockquote>
-<div><p>Matplotlib axes where the phase will be plotted.
+</dd>
+<dt><strong>ax1</strong><span class="classifier">matplotlib.axes, optional</span></dt><dd><p>Matplotlib axes where the phase will be plotted.
 If None creates a new.</p>
-</div></blockquote>
-<p><strong>kwargs</strong> : optional</p>
-<blockquote>
-<div><p>Additional key word arguments can be passed to change
+</dd>
+<dt><strong>kwargs</strong><span class="classifier">optional</span></dt><dd><p>Additional key word arguments can be passed to change
 the plot (e.g. linestyle=’–’)</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ax0</strong> : matplotlib.axes</p>
-<blockquote>
-<div><p>Matplotlib axes with amplitude plot.</p>
-</div></blockquote>
-<p><strong>ax1</strong> : matplotlib.axes</p>
-<blockquote class="last">
-<div><p>Matplotlib axes with phase plot.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ax0</strong><span class="classifier">matplotlib.axes</span></dt><dd><p>Matplotlib axes with amplitude plot.</p>
+</dd>
+<dt><strong>ax1</strong><span class="classifier">matplotlib.axes</span></dt><dd><p>Matplotlib axes with phase plot.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m0</span><span class="p">,</span> <span class="n">m1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c0</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
@@ -303,42 +252,32 @@ the plot (e.g. linestyle=’–’)</p>
 
 <dl class="method">
 <dt id="vibration_toolbox.vibesystem.VibeSystem.plot_freq_response_grid">
-<code class="descname">plot_freq_response_grid</code><span class="sig-paren">(</span><em>outs</em>, <em>inps</em>, <em>modes=None</em>, <em>ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.plot_freq_response_grid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.plot_freq_response_grid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot_freq_response_grid</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">outs</em>, <em class="sig-param">inps</em>, <em class="sig-param">modes=None</em>, <em class="sig-param">ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.plot_freq_response_grid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.plot_freq_response_grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot frequency response.</p>
 <p>This method plots the frequency response given
 an output and an input.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>outs</strong> : list</p>
-<blockquote>
-<div><p>List with the desired outputs.</p>
-</div></blockquote>
-<p><strong>inps</strong> : list</p>
-<blockquote>
-<div><p>List with the desired outputs.</p>
-</div></blockquote>
-<p><strong>modes</strong> : list</p>
-<blockquote>
-<div><p>List with the modes that will be used to construct
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>outs</strong><span class="classifier">list</span></dt><dd><p>List with the desired outputs.</p>
+</dd>
+<dt><strong>inps</strong><span class="classifier">list</span></dt><dd><p>List with the desired outputs.</p>
+</dd>
+<dt><strong>modes</strong><span class="classifier">list</span></dt><dd><p>List with the modes that will be used to construct
 the frequency response plot.</p>
-</div></blockquote>
-<p><strong>ax</strong> : array with matplotlib.axes, optional</p>
-<blockquote>
-<div><p>Matplotlib axes array created with plt.subplots.
+</dd>
+<dt><strong>ax</strong><span class="classifier">array with matplotlib.axes, optional</span></dt><dd><p>Matplotlib axes array created with plt.subplots.
 It needs to have a shape of (2*inputs, outputs).</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ax</strong> : array with matplotlib.axes, optional</p>
-<blockquote class="last">
-<div><p>Matplotlib axes array created with plt.subplots.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ax</strong><span class="classifier">array with matplotlib.axes, optional</span></dt><dd><p>Matplotlib axes array created with plt.subplots.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m0</span><span class="p">,</span> <span class="n">m1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c0</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
@@ -362,57 +301,39 @@ It needs to have a shape of (2*inputs, outputs).</p>
 
 <dl class="method">
 <dt id="vibration_toolbox.vibesystem.VibeSystem.plot_time_response">
-<code class="descname">plot_time_response</code><span class="sig-paren">(</span><em>F</em>, <em>t</em>, <em>ic=None</em>, <em>out=None</em>, <em>ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.plot_time_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.plot_time_response" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot_time_response</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">F</em>, <em class="sig-param">t</em>, <em class="sig-param">ic=None</em>, <em class="sig-param">out=None</em>, <em class="sig-param">ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.plot_time_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.plot_time_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the time response for a mdof system.</p>
 <p>This method returns the time response for a mdof system
 given a force, time and initial conditions.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>F</strong> : array</p>
-<blockquote>
-<div><p>Force array (needs to have the same length as time array).</p>
-</div></blockquote>
-<p><strong>t</strong> : array</p>
-<blockquote>
-<div><p>Time array.</p>
-</div></blockquote>
-<p><strong>ic</strong> : array, optional</p>
-<blockquote>
-<div><p>The initial conditions on the state vector (zero by default).</p>
-</div></blockquote>
-<p><strong>out</strong> : list</p>
-<blockquote>
-<div><p>Desired output for which the time response will be plotted.</p>
-</div></blockquote>
-<p><strong>ax</strong> : array with matplotlib.axes, optional</p>
-<blockquote>
-<div><p>Matplotlib axes array created with plt.subplots.
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>F</strong><span class="classifier">array</span></dt><dd><p>Force array (needs to have the same length as time array).</p>
+</dd>
+<dt><strong>t</strong><span class="classifier">array</span></dt><dd><p>Time array.</p>
+</dd>
+<dt><strong>ic</strong><span class="classifier">array, optional</span></dt><dd><p>The initial conditions on the state vector (zero by default).</p>
+</dd>
+<dt><strong>out</strong><span class="classifier">list</span></dt><dd><p>Desired output for which the time response will be plotted.</p>
+</dd>
+<dt><strong>ax</strong><span class="classifier">array with matplotlib.axes, optional</span></dt><dd><p>Matplotlib axes array created with plt.subplots.
 It needs to have a shape of (2*inputs, outputs).</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ax</strong> : array with matplotlib.axes, optional</p>
-<blockquote>
-<div><p>Matplotlib axes array created with plt.subplots.</p>
-</div></blockquote>
-<p><strong>t</strong> : array</p>
-<blockquote>
-<div><p>Time values for the output.</p>
-</div></blockquote>
-<p><strong>yout</strong> : array</p>
-<blockquote>
-<div><p>System response.</p>
-</div></blockquote>
-<p><strong>xout</strong> : array</p>
-<blockquote class="last">
-<div><p>Time evolution of the state vector.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ax</strong><span class="classifier">array with matplotlib.axes, optional</span></dt><dd><p>Matplotlib axes array created with plt.subplots.</p>
+</dd>
+<dt><strong>t</strong><span class="classifier">array</span></dt><dd><p>Time values for the output.</p>
+</dd>
+<dt><strong>yout</strong><span class="classifier">array</span></dt><dd><p>System response.</p>
+</dd>
+<dt><strong>xout</strong><span class="classifier">array</span></dt><dd><p>Time evolution of the state vector.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m0</span><span class="p">,</span> <span class="n">m1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c0</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
@@ -437,44 +358,32 @@ It needs to have a shape of (2*inputs, outputs).</p>
 
 <dl class="method">
 <dt id="vibration_toolbox.vibesystem.VibeSystem.time_response">
-<code class="descname">time_response</code><span class="sig-paren">(</span><em>F</em>, <em>t</em>, <em>ic=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.time_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.time_response" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">time_response</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">F</em>, <em class="sig-param">t</em>, <em class="sig-param">ic=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/vibration_toolbox/vibesystem.html#VibeSystem.time_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#vibration_toolbox.vibesystem.VibeSystem.time_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time response for a mdof system.</p>
 <p>This method returns the time response for a mdof system
 given a force, time and initial conditions.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>F</strong> : array</p>
-<blockquote>
-<div><p>Force array (needs to have the same length as time array).</p>
-</div></blockquote>
-<p><strong>t</strong> : array</p>
-<blockquote>
-<div><p>Time array.</p>
-</div></blockquote>
-<p><strong>ic</strong> : array, optional</p>
-<blockquote>
-<div><p>The initial conditions on the state vector (zero by default).</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>t</strong> : array</p>
-<blockquote>
-<div><p>Time values for the output.</p>
-</div></blockquote>
-<p><strong>yout</strong> : array</p>
-<blockquote>
-<div><p>System response.</p>
-</div></blockquote>
-<p><strong>xout</strong> : array</p>
-<blockquote class="last">
-<div><p>Time evolution of the state vector.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>F</strong><span class="classifier">array</span></dt><dd><p>Force array (needs to have the same length as time array).</p>
+</dd>
+<dt><strong>t</strong><span class="classifier">array</span></dt><dd><p>Time array.</p>
+</dd>
+<dt><strong>ic</strong><span class="classifier">array, optional</span></dt><dd><p>The initial conditions on the state vector (zero by default).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>t</strong><span class="classifier">array</span></dt><dd><p>Time values for the output.</p>
+</dd>
+<dt><strong>yout</strong><span class="classifier">array</span></dt><dd><p>System response.</p>
+</dd>
+<dt><strong>xout</strong><span class="classifier">array</span></dt><dd><p>Time evolution of the state vector.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m0</span><span class="p">,</span> <span class="n">m1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c0</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
@@ -493,11 +402,11 @@ given a force, time and initial conditions.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">F1</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">40</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="c1"># force applied on m1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">xout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">time_response</span><span class="p">(</span><span class="n">F1</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># response on m0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="go">array([ 0.  ,  0.  ,  0.07,  0.32,  0.61])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># doctest: +SKIP</span>
+<span class="go">array([0.  ,  0.  ,  0.07,  0.32,  0.61])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># response on m1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="go">array([ 0.  ,  0.08,  0.46,  0.79,  0.48])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yout</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># doctest: +SKIP</span>
+<span class="go">array([0.  ,  0.08,  0.46,  0.79,  0.48])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -508,6 +417,7 @@ given a force, time and initial conditions.</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -529,11 +439,11 @@ given a force, time and initial conditions.</p>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../downloads.html">Download Notebooks</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="continuous.html">Continuous Systems (<code class="docutils literal notranslate"><span class="pre">continuous_systems</span></code>)</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Vibration Systems (<code class="docutils literal notranslate"><span class="pre">vibesystem</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ema.html">Experimental Modal Analysis (<code class="docutils literal notranslate"><span class="pre">vibration_toolbox.ema</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sdof.html">Single Degree of Freedom Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.sdof</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mdof.html">Multiple Degree of Freedom Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.mdof</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="continuous.html">Continuous Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">continuous_systems</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Vibration Systems (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibesystem</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ema.html">Experimental Modal Analysis (<code class="xref py py-mod docutils literal notranslate"><span class="pre">vibration_toolbox.ema</span></code>)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
@@ -544,13 +454,11 @@ given a force, time and initial conditions.</p>
 
 
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -570,8 +478,8 @@ given a force, time and initial conditions.</p>
       &copy;2017, Joseph C. Slater and Raphael Timbó.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/reference/vibe_system.rst.txt"
