@@ -7,21 +7,27 @@
 The Engineering Vibration Toolbox for Python
 =============================================
 
-.. .. include:: <isonum.txt>
-.. image:: https://badge.fury.io/py/vibration_toolbox.png/
-   :target: http://badge.fury.io/py/vibration_toolbox
+.. image:: https://badge.fury.io/py/vibration-toolbox.png/
+    :target: http://badge.fury.io/py/vibration-toolbox
 
 .. image:: https://travis-ci.org/vibrationtoolbox/vibration_toolbox.svg?branch=master
-   :target: https://travis-ci.org/vibrationtoolbox/vibration_toolbox
+    :target: https://travis-ci.org/vibrationtoolbox/vibration_toolbox
 
-.. image:: https://img.shields.io/pypi/v/vibration_toolbox.svg
-   :target: https://img.shields.io/pypi/v/vibration_toolbox
+.. image:: https://zenodo.org/badge/39572419.svg
+    :target: https://zenodo.org/badge/latestdoi/39572419
 
 .. image:: https://mybinder.org/badge.svg
-   :target: https://mybinder.org/v2/gh/vibrationtoolbox/vibration_toolbox/binder
+    :target: https://mybinder.org/v2/gh/vibrationtoolbox/vibration_toolbox/binder
 
-.. #image:: https://coveralls.io/repos/vibrationtoolbox/vibration_toolbox/badge.png?branch=master
-..  #:target: https://coveralls.io/r/vibrationtoolbox/vibration_toolbox
+.. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg
+    :target: https://saythanks.io/to/josephcslater
+
+.. image:: https://img.shields.io/badge/patreon-donate-yellow.svg
+   :target: https://www.patreon.com/josephcslater
+
+.. image:: http://pepy.tech/badge/vibration-toolbox
+   :target: http://pepy.tech/project/vibration-toolbox
+   :alt: PyPi Download stats
 
 
 Joseph C. Slater and Raphael Timbó
