@@ -474,14 +474,10 @@ def _forced_analytical(m=10, k=100, x0=1, v0=0,
     t, x: array
         Time and displacement
 
-    Examples
-    --------
-
-    Notes
-    -----
-    >>> _forced_analytical(m=10, k=100, x0=1, v0=0, wdr=0.5, F0=10, tf=100)
 
     """
+    # >>> _forced_analytical(m=10, k=100, x0=1, v0=0, wdr=0.5, F0=10, tf=100)
+
     t = np.linspace(0, tf, tf / 0.000125)
 
     f0 = F0 / m
@@ -627,7 +623,7 @@ def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=(0, 1, .1),
               notebook.')
 
 
-def transmissibility(zs=[0.05, 0.1, 0.25, 0.5, 0-.75], rmin=0, rmax=2):
+def transmissibility(zs=[0.05, 0.1, 0.25, 0.5, -0.75], rmin=0., rmax=2.):
     """Plot transmissibility ratio for SDOF system.
 
     Parameters

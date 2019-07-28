@@ -35,7 +35,9 @@ def test_fourier_series():
 
 
 def test_transmissibility():
-    r, D, F = vtb.transmissibility([0.05, 0.1, 0.25, 0.5, 0.7], rmin=0, rmax=2)
+    _, D, _ = vtb.transmissibility(zs=[0.05, 0.1, 0.25, 0.5, 0.7],
+                                   rmin=0,
+                                   rmax=2)
     assert_allclose(D[:10],
                     np.array([1.,
                               1.00001115,
@@ -52,7 +54,7 @@ def test_transmissibility():
 
 
 def test_rotating_unbalance():
-    r, Xn = vtb.rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1], rmin=0,
+    _, Xn = vtb.rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1], rmin=0,
                                    rmax=3.5, normalized=True)
     assert_allclose(Xn[0, :5],
                     np.array([0. + 0.00000000e+00j,
