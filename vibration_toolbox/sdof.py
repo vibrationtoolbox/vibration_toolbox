@@ -178,14 +178,14 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
         tmin, tmax, xmin, xmax = ax.axis()
         ax.text(.75 * tmax, .85 * (xmax - xmin) + xmin,
                 r'$\omega$ = %0.2f rad/sec' % (omega))
-        ax.text(.75 * tmax, .80 * (xmax - xmin) +
-                xmin, r'$\zeta$ = %0.2f' % (zeta))
+        ax.text(.75 * tmax, .80 * (xmax - xmin)
+                + xmin, r'$\zeta$ = %0.2f' % (zeta))
         ax.text(.75 * tmax, .75 * (xmax - xmin) + xmin,
                 r'$\omega_d$ = %0.2f rad/sec' % (omega_d))
     else:
         tmin, tmax, xmin, xmax = ax.axis()
-        ax.text(.75 * tmax, .85 * (xmax - xmin) +
-                xmin, r'$\zeta$ = %0.2f' % (zeta))
+        ax.text(.75 * tmax, .85 * (xmax - xmin)
+                + xmin, r'$\zeta$ = %0.2f' % (zeta))
         ax.text(.75 * tmax, .80 * (xmax - xmin) + xmin,
                 r'$\lambda_1$ = %0.2f' %
                 (zeta * omega - omega * (zeta ** 2 - 1)))
@@ -198,7 +198,7 @@ def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
 
 def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
                 m=(1.0, 100.0), c=(0.0, 1.0, .02), k=(1.0, 100.0)):
-    """Interactive single degree of freedom free reponse plot in iPython
+    """Interactive single degree of freedom free reponse plot in iPython.
 
     ``time_plot_i`` is only functional in a
     `Jupyter notebook <http://jupyter.org>`_.
@@ -229,7 +229,6 @@ def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
 
 def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     """Return x(t) of analytical solution."""
-
     w = np.sqrt(k / m)
     zeta = c / (2 * w * m)  # (1.30)
 
@@ -262,14 +261,14 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
         print('a1= ', a1)
         print('a2= ', a2)
         x = (np.exp(-zeta * w * t)
-             * (a1 * np.exp(-w * np.sqrt(zeta**2 - 1) * t) +
-              a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
+             * (a1 * np.exp(-w * np.sqrt(zeta**2 - 1) * t)
+             + a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
 
     return x
 
 
-def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
-    """Euler method free response of a SDOF system (program demo).
+def _euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
+    """Deprecated Euler method free response of a SDOF system (program demo).
 
     Free response using Euler's method to perform numerical integration.
 
@@ -291,8 +290,10 @@ def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
     Examples
     --------
-    >>> euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)  # doctest: +SKIP
-    (array([0.  , 0.05, 0.1 , 0.15, 0.2 , 0.25, 0.3 , 0.35, 0.4 ]), array([[ 1.  ,  0.  ],
+    >>> import vibration_toolbox as vtb
+    >>> vtb._euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05)  # doctest: +SKIP
+    (array([0.  , 0.05, 0.1 , 0.15, 0.2 , 0.25, 0.3 , 0.35, 0.4 ]),
+    array([[ 1.  ,  0.  ],
            [ 1.  , -0.05],
            [ 1.  , -0.1 ],
            [ 0.99, -0.15],
@@ -302,7 +303,6 @@ def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
            [ 0.95, -0.34],
            [ 0.93, -0.39]]))
     """
-
     # creates the state space matrix
     A = np.array([[0, 1],
                   [-k / m, -c / m]])
@@ -319,7 +319,7 @@ def euler(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     return t, x
 
 
-def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
+def _rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
     """Runge-Kutta solution of underdamped system.
 
     Parameters
@@ -340,8 +340,10 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
     Examples
     --------
-    >>> rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05) # doctest: +SKIP
-    (array([0.  , 0.05, 0.1 , 0.15, 0.2 , 0.25, 0.3 , 0.35, 0.4 ]), array([[ 1.,  0.],
+    >>> import vibration_toolbox as vtb
+    >>> vtb._rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05) # doctest: +SKIP
+    (array([0.  , 0.05, 0.1 , 0.15, 0.2 , 0.25, 0.3 , 0.35, 0.4 ]),
+    array([[ 1.,  0.],
            [ 1.  , -0.05],
            [ 1.  , -0.1 ],
            [ 0.99, -0.15],
@@ -376,7 +378,21 @@ def rk4(m=1, c=.1, k=1, x0=1, v0=0, n=8, dt=0.05):
 
 
 def frfplot(f, H):
-    """Plot frequency response function."""
+    """Simply plot frequency response function from FRF data.
+
+    Plots, scales, and labels Frequency Response Function plots.
+    This simply saves a few common tasks when plotting data.
+
+    Parameters
+    ----------
+    f: float array
+    H: complex float array
+
+    See also
+    --------
+    vibrationtesting.frfplot : Plots FRF in a variety of formats
+
+    """
     plt.subplot(211)
     plt.plot(f, 20 * np.log10(np.absolute(np.sum(H, axis=1))), '-')
     plt.grid(True)
@@ -514,8 +530,8 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
     >>> f = forced_response(m=10, c=0, k=100, x0=1, v0=0, wdr=0.5, F0=10, max_time=100)
     >>> f[0][0]
     0.0
-    """
 
+    """
     def sdofs_deriv(x_xd, t, m=m, c=c, k=k):
         x, xd = x_xd
         return [xd, (F0 * np.cos(wdr * t) / m) - (c / m) * xd - (k / m) * x]
@@ -1003,26 +1019,39 @@ def response_spectrum(f):
 
 
 def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
-    """Plot the Fourier series defined by coefficient falues.
+    r"""Plot the Fourier series defined by coefficient falues.
+
+    Coefficients are defined by Inman [1]_.
+
+    :math:`a_0=\frac{2}{T}\int_0^T F(t)dt`
+
+    :math:`a_n=\frac{2}{T}\int_0^T F(t) \cos(n\omega_T t)dt`
+
+    :math:`b_n=\frac{2}{T}\int_0^T F(t) \sin(n\omega_T t)dt`
 
     Parameters
     ----------
     a0: float or function
-        a0 Fourier coefficient.
+        :math:`a_0`-  Fourier coefficient.
     aodd: float or function
-        an Fourier coefficient for n odd.
+        :math:`a_n`-  Fourier coefficient for n odd.
     aeven: float or function
-        an Fourier coefficient for n even.
+        :math:`a_n`-  Fourier coefficient for n even.
     bodd: float or function
-        bn Fourier coefficient for n odd
+        :math:`b_n`-  Fourier coefficient for n odd
     beven: float or function
-        bn Fourier coefficient for n even
+        :math:`b_n`-  Fourier coefficient for n even
 
     Returns
     -------
     t, F: tuple
         Tuple with time and F(t). It also returns
         a plot with the Fourier approximation.
+
+    References
+    ----------
+    .. [1] Daniel J. Inman, "Engineering Vibration", 4th ed., Prentice Hall,
+           2013.
 
     Examples
     --------
@@ -1038,6 +1067,7 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     >>> t, F = vtb.fourier_approximation(0,aeven_triangle,0,0,0,20,10)
     >>> F[10] # doctest: +SKIP
     -0.902349289119351
+
 
     """
     def make_const(value):

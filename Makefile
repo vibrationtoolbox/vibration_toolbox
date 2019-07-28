@@ -26,7 +26,7 @@ help:
 	@echo "  release    to edit version, build docs and release"
 	@echo "  wheel      build wheel file (for local use)"
 	@echo "  wheel-dist build wheel and push to github"
-	@echo "  docs       build docs using sphin"
+	@echo "  docs       build docs using sphinx"
 	@echo "  html       alias for docs"
 	@echo "  gh-pages   build and release docs"
 	@echo "  binder     make binder branch"
