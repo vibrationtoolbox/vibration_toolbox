@@ -45,7 +45,7 @@ cover: clean
 	nosetests $(TEST_ARGS) --with-cov --cov $(NAME) $(NAME)
 	coverage annotate
 
-release: clean
+release: clean, gh-pages
 	pip install --user readme_renderer
 	#python setup.py check -r -s
 	pytest
