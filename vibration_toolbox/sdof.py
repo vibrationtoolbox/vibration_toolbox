@@ -1,3 +1,5 @@
+"""Single degree of freedom responses and plots."""
+
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy as sp
@@ -62,12 +64,6 @@ def free_response(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     --------
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
-    >>> vtb.free_response()[1][:5] # doctest: +SKIP
-    array([[1.  ],
-           [1.  ],
-           [0.99],
-           [0.99],
-           [0.98]])
 
     >>> t, x, *_ = vtb.free_response() # *_ ignores all other returns
     >>> plt.plot(t,x)
@@ -118,7 +114,7 @@ def phase_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=10):
     --------
     >>> import matplotlib.pyplot as plt
     >>> import vibration_toolbox as vtb
-    >>> vtb.phase_plot() # *_ ignores all other returns
+    >>> vtb.phase_plot()
 
     """
     t, x, v, zeta, omega, omega_d, A = free_response(
@@ -160,7 +156,7 @@ def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
         print('phase_plot_i can only be used in an iPython notebook.')
 
 
-def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
+def _time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
     t, x, v, zeta, omega, omega_d, A = free_response(
         m, c, k, x0, v0, max_time)
     fig = plt.figure()
@@ -214,7 +210,7 @@ def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
 
     """
     if _in_ipynb():
-        w = interactive(time_plot, max_time=max_time, v0=v0, m=m,
+        w = interactive(_time_plot, max_time=max_time, v0=v0, m=m,
                         c=c, x0=x0, k=k)
         display(w)
     else:
@@ -263,7 +259,6 @@ def analytical(m=1, c=0.1, k=1, x0=1, v0=0, n=8, dt=0.05):
         x = (np.exp(-zeta * w * t)
              * (a1 * np.exp(-w * np.sqrt(zeta**2 - 1) * t)
              + a2 * np.exp(w * np.sqrt(zeta**2 - 1) * t)))  # (1.41)
-
     return x
 
 
@@ -388,7 +383,7 @@ def frfplot(f, H):
     f: float array
     H: complex float array
 
-    See also
+    See Also
     --------
     vibrationtesting.frfplot : Plots FRF in a variety of formats
 
@@ -413,24 +408,26 @@ def frfplot(f, H):
 
 
 def response(xdd, f, t, x0, v0):
-    r"""returns t, x, v- incomplete
+    r"""returns t, x, v- incomplete.
 
     :math:`\ddot{x} = g(x,v) + f(t)`
     given initial conditions :math:`x_0` and :math:`\dot{x}_0 = v_0` for the time `t`
 
 *** Function hasn't been written yet... work in progress. Mimics vtb1_3
     Parameters
-
+    ----------
     m, c, k:           1) Floats. Mass, damping and stiffness.
     x0, v0:            2) Floats. Initial conditions
     max_time:          3) Float. end time or response to be returned
 
     Returns
-
+    -------
     t, x, v: 1) Arrays. Time, displacement, and velocity
 
-    :Example:
-    >>> free_response()[1][:5]  # doctest: +SKIP
+    Examples
+    --------
+    >>> import vibration_toolbox as vtb
+    >>> vtb.free_response()[1][:5]
     array([[1.  ],
            [1.  ],
            [0.99],
@@ -460,9 +457,9 @@ def response(xdd, f, t, x0, v0):
     return t, x, y, zeta, omega, omega_d, A
 
 
-def forced_analytical(m=10, k=100, x0=1, v0=0,
-                      wdr=0.5, F0=10, tf=100):
-    """Return response of an undamped SDOFS tp sinusiod.
+def _forced_analytical(m=10, k=100, x0=1, v0=0,
+                       wdr=0.5, F0=10, tf=100):
+    """Deprecated Return response of an undamped SDOFS to sinusiod.
 
     Parameters
     ----------
@@ -484,10 +481,9 @@ def forced_analytical(m=10, k=100, x0=1, v0=0,
 
     Examples
     --------
-    >>> forced_analytical(m=10, k=100, x0=1, v0=0, wdr=0.5, F0=10, tf=100)
-    (array([   0.,    0.,    0., ...,  100.,  100.,  100.]), array([ 1.  ,  1.  ,  1.  , ..., -0.33, -0.33, -0.33]))
-    """
+    >>> _forced_analytical(m=10, k=100, x0=1, v0=0, wdr=0.5, F0=10, tf=100)
 
+    """
     t = np.linspace(0, tf, tf / 0.000125)
 
     f0 = F0 / m
@@ -567,9 +563,8 @@ def steady_state_response(zs=0.1, rmin=0.0, rmax=2.0):
 
     Examples
     --------
-    >>> r, A = steady_state_response([0.1, 0.3, 0.8], 0, 2)
-    >>> A[10] # doctest: +SKIP
-    (0.9842315984203909-0.1598833401887975j)
+    >>> import vibration_toolbox as vtb
+    >>> r, A = vtb.steady_state_response([0.1, 0.3, 0.8], 0, 2)
 
     """
     if not isinstance(zs, list):
@@ -634,23 +629,23 @@ def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=(0, 1, .1),
               notebook.')
 
 
-def transmissibility(zs, rmin, rmax):
+def transmissibility(zs=[0.05, 0.1, 0.25, 0.5, 0-.75], rmin=0, rmax=2):
     """Plot transmissibility ratio for SDOF system.
 
     Parameters
     ----------
     zs: array
         Array with the damping values
-    rmin, rmax: float
-        Minimum and maximum frequency ratio
+    rmin, rmax: floats
+        Minimum and maximum frequency ratios
 
     Returns
     -------
-    r: Array
+    r: float array
         Array containing the values for the frequency ratio
-    D: Array
+    D: float array
         Array containing the values for displacement
-    F: Array
+    F: float array
         Array containing the values for force
 
         Plot with Displacement transmissibility ratio
@@ -658,14 +653,13 @@ def transmissibility(zs, rmin, rmax):
 
     Examples
     --------
-    >>> r, D, F = transmissibility([0.01, 0.05, 0.1, 0.25, 0.5, 0.7], 0, 2)
-    >>> D[10]
-    1.0100027508815634
+    >>> import vibration_toolbox as vtb
+    >>> r, D, F = vtb.transmissibility(zs=[0.1, 0.2], rmin=0, rmax=2)
 
     """
     if not isinstance(zs, list):
         zs = [zs]
-    r = np.linspace(rmin, rmax, 100 * (rmax - rmin))
+    r = np.linspace(rmin, rmax, 300 * (rmax - rmin))
     DT = np.zeros((len(zs), len(r)))
     for z in enumerate(zs):
         # 2.71
@@ -682,14 +676,14 @@ def transmissibility(zs, rmin, rmax):
     ax1.set_ylabel('Displacement Transmissibility Ratio (dB)')
     ax1.set_title(
         'Displacement Transmissibility Ratio vs Frequency Ratio (X/Y)')
-    ax1.set_ylim(0, 6)
+    # ax1.set_ylim(0, 6)
 
     ax2.set_xlabel('Frequency Ratio')
     ax2.set_ylabel('Force Transmissibility Ratio (dB)')
     ax2.set_title(
         'Force Transmissibility Ratio versus Frequency Ratio (F_T/kY)')
     ax2.set_yscale("log")
-    ax2.set_ylim(0.01, 50)
+    # ax2.set_ylim(0.01, 50)
 
     for D in DT:
         ax1.plot(r, D)
@@ -763,9 +757,8 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
 
     Examples
     --------
-    >>> r, Xn = rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1, 0.25, 0.707, 1], rmin=0, rmax=3.5, normalized=True)
-    >>> Xn[1][10] # doctest: +SKIP
-    (0.10104614704226758-0.005118260209831553j)
+    >>> import vibration_toolbox as vtb
+    >>> r, Xn = vtb.rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1, 0.25, 0.707, 1], rmin=0, rmax=3.5, normalized=True)
 
     """
     if not isinstance(zs, list):
@@ -802,10 +795,12 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
 
 
 def impulse_response(m, c, k, Fo, max_time):
-    """Plot impulse response.
+    r"""Plot SDOF system impulse response.
 
-    Returns a plot with the response of the system to an
-    impulse of magnitude Fo (N.s).
+    Returns a plot with the response of a SDOF system to an
+    impulse of magnitude Fo (Newton seconds).
+
+    :math:`x(t)=\frac{F_o}{m\omega_d}e^{-\zeta\omega_n_t}\sin(\omega_d t-\phi)`
 
     Parameters
     ----------
@@ -828,9 +823,8 @@ def impulse_response(m, c, k, Fo, max_time):
 
     Examples
     --------
-    >>> t, x = impulse_response(m=100, c=20, k=2000, Fo=10, max_time=100)
-    >>> x[10] # doctest: +SKIP
-    0.003962984539880562
+    >>> import vibration_toolbox as vtb
+    >>> t, x = vtb.impulse_response(m=100, c=20, k=2000, Fo=10, max_time=50)
 
     """
     t = np.linspace(0, max_time, int(250 * max_time))
@@ -853,7 +847,11 @@ def impulse_response(m, c, k, Fo, max_time):
 
 
 def step_response(m, c, k, Fo, max_time):
-    """Plot of step response.
+    r"""Plot of step response of SDOF system.
+
+    :math:`x(t)=\frac{F_0}{k}(1-\frac{1}{\sqrt{1-\zeta^2}}e^{-\zeta\omega_nt}\cos(\omega_d t -\theta))`
+
+    where :math:`\theta = atan\frac{\zeta}{1-\zeta^2}`
 
     Parameters
     ----------
@@ -876,9 +874,8 @@ def step_response(m, c, k, Fo, max_time):
 
     Examples
     --------
-    >>> t, x = step_response(m=100, c=20, k=2000, Fo=10, max_time=100)
-    >>> x[10] # doctest: +SKIP
-    7.958100817300083e-05
+    >>> import vibration_toolbox as vtb
+    >>> t, x = vtb.step_response(m=100, c=20, k=2000, Fo=10, max_time=100)
 
     """
     t = np.linspace(0, max_time, int(250 * max_time))
@@ -938,17 +935,17 @@ def fourier_series(dat, t, n):
     Returns
     -------
     a, b: tuple
-        Tuple containing arrays with the Fourier coefficients.
+        Tuple containing arrays with the Fourier coefficients
+        as float arrays.
         The function also produces a plot of the approximation.
 
     Examples
     --------
+    >>> import vibration_toolbox as vtb
     >>> f = np.hstack((np.arange(-1, 1, .04), np.arange(1, -1, -.04)))
     >>> f += 1
     >>> t = np.arange(0, len(f))/len(f)
-    >>> a, b = fourier_series(f, t, 5)
-    >>> a[0]
-    2.0
+    >>> a, b = vtb.fourier_series(f, t, 5)
 
     """
     len_ = len(dat) / 2
@@ -994,9 +991,8 @@ def response_spectrum(f):
 
     Examples
     --------
-    >>> t, rs = response_spectrum(10)
-    >>> rs[10]
-    1.6285602401720802
+    >>> import vibration_toolbox as vtb
+    >>> t, rs = vtb.response_spectrum(10)
 
     """
     t = np.linspace(.001 * 4 / f, 10 / f, 200)
@@ -1061,13 +1057,10 @@ def fourier_approximation(a0, aodd, aeven, bodd, beven, N, T):
     >>> bodd_square = lambda n: -3*(-1+(-1)**n)/n/np.pi
     >>> beven_square = lambda n: -3*(-1+(-1)**n)/n/np.pi
     >>> t, F = vtb.fourier_approximation(-1, 0, 0, bodd_square, beven_square, 20, 2)
-    >>> F[10]
-    1.2697210294282535
     >>> # Triangular wave
     >>> aeven_triangle = lambda n: -8/np.pi**2/n**2
     >>> t, F = vtb.fourier_approximation(0,aeven_triangle,0,0,0,20,10)
-    >>> F[10] # doctest: +SKIP
-    -0.902349289119351
+
 
 
     """
@@ -1337,22 +1330,3 @@ def sdof_interact():
 
     sdof_responses = widgets.VBox([ui, out])
     return sdof_responses
-
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod(optionflags=doctest.ELLIPSIS
-                    | doctest.NORMALIZE_WHITESPACE)
-    # import vibration_toolbox as vtb
-    # doctest.run_docstring_examples(frfest,globals(),optionflags=doctest.ELLIPSIS)
-    # doctest.run_docstring_examples(asd,globals(),optionflags=doctest.ELLIPSIS)
-    """ What this does.
-    python (name of this file)  -v
-    will test all of the examples in the help.
-
-    Leaving off -v will run the tests without any output. Success will return
-    nothing.
-
-    See the doctest section of the python manual.
-    https://docs.python.org/3.5/library/doctest.html
-    """
