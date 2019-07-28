@@ -1,11 +1,5 @@
 import matplotlib.pyplot as plt
 import vibration_toolbox as vtb
-vtb.free_response()[1][:5] # doctest: +SKIP
-# array([[1.  ],
-# [1.  ],
-# [0.99],
-# [0.99],
-# [0.98]])
 
 t, x, *_ = vtb.free_response() # *_ ignores all other returns
 plt.plot(t,x)

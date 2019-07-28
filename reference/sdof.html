@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Single Degree of Freedom Systems (vibration_toolbox.sdof) &#8212; Vibration Toolbox 0.6.6 documentation</title>
+    <title>Single Degree of Freedom Systems (vibration_toolbox.sdof) &#8212; Vibration Toolbox 0.6.7 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" />
@@ -167,39 +167,40 @@ frequency <span class="math notranslate nohighlight">\(\omega_{dr}\)</span>.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt>t, x, y: array</dt><dd><p>Time, displacement and velocity</p>
+<dt>t, x, v: array</dt><dd><p>Time, displacement and velocity</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">forced_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">wdr</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">F0</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">0.0</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">forced_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">v0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">wdr</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">F0</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+<span class="go">[&lt;matplotlib.lines.Line2D ...</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="sdof.transmissibility">
-<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">transmissibility</code><span class="sig-paren">(</span><em class="sig-param">zs</em>, <em class="sig-param">rmin</em>, <em class="sig-param">rmax</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#transmissibility"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.transmissibility" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">transmissibility</code><span class="sig-paren">(</span><em class="sig-param">zs=array([ 0.05</em>, <em class="sig-param">0.1</em>, <em class="sig-param">0.25</em>, <em class="sig-param">0.5</em>, <em class="sig-param">-0.75])</em>, <em class="sig-param">rmin=0.0</em>, <em class="sig-param">rmax=2.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#transmissibility"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.transmissibility" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot transmissibility ratio for SDOF system.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>zs: array</strong></dt><dd><p>Array with the damping values</p>
 </dd>
-<dt><strong>rmin, rmax: float</strong></dt><dd><p>Minimum and maximum frequency ratio</p>
+<dt><strong>rmin, rmax: floats</strong></dt><dd><p>Minimum and maximum frequency ratios</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl>
-<dt>r: Array</dt><dd><p>Array containing the values for the frequency ratio</p>
+<dt>r: float array</dt><dd><p>Array containing the values for the frequency ratio</p>
 </dd>
-<dt>D: Array</dt><dd><p>Array containing the values for displacement</p>
+<dt>D: float array</dt><dd><p>Array containing the values for displacement</p>
 </dd>
-<dt>F: Array</dt><dd><p>Array containing the values for force</p>
+<dt>F: float array</dt><dd><p>Array containing the values for force</p>
 <p>Plot with Displacement transmissibility ratio
 and force transmissibility ratio</p>
 </dd>
@@ -207,9 +208,8 @@ and force transmissibility ratio</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">transmissibility</span><span class="p">([</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">D</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-<span class="go">1.0100027508815634</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">transmissibility</span><span class="p">(</span><span class="n">zs</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="n">rmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -245,9 +245,8 @@ for a system with rotating unbalance.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span> <span class="n">Xn</span> <span class="o">=</span> <span class="n">rotating_unbalance</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">m0</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">zs</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">rmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Xn</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># doctest: +SKIP</span>
-<span class="go">(0.10104614704226758-0.005118260209831553j)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span> <span class="n">Xn</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">rotating_unbalance</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">m0</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">zs</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">rmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rmax</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -255,9 +254,10 @@ for a system with rotating unbalance.</p>
 <dl class="function">
 <dt id="sdof.impulse_response">
 <code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">impulse_response</code><span class="sig-paren">(</span><em class="sig-param">m</em>, <em class="sig-param">c</em>, <em class="sig-param">k</em>, <em class="sig-param">Fo</em>, <em class="sig-param">max_time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#impulse_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.impulse_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot impulse response.</p>
-<p>Returns a plot with the response of the system to an
-impulse of magnitude Fo (N.s).</p>
+<dd><p>Plot SDOF system impulse response.</p>
+<p>Returns a plot with the response of a SDOF system to an
+impulse of magnitude Fo (Newton seconds).</p>
+<p><span class="math notranslate nohighlight">\(x(t)=\frac{F_o}{m\omega_d}e^{-\zeta\omega_n_t}\sin(\omega_d t-\phi)\)</span></p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -281,9 +281,8 @@ impulse of magnitude Fo (N.s).</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">impulse_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">Fo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># doctest: +SKIP</span>
-<span class="go">0.003962984539880562</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">impulse_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">Fo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -291,7 +290,9 @@ impulse of magnitude Fo (N.s).</p>
 <dl class="function">
 <dt id="sdof.step_response">
 <code class="sig-prename descclassname">sdof.</code><code class="sig-name descname">step_response</code><span class="sig-paren">(</span><em class="sig-param">m</em>, <em class="sig-param">c</em>, <em class="sig-param">k</em>, <em class="sig-param">Fo</em>, <em class="sig-param">max_time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdof.html#step_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sdof.step_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot of step response.</p>
+<dd><p>Plot of step response of SDOF system.</p>
+<p><span class="math notranslate nohighlight">\(x(t)=\frac{F_0}{k}(1-\frac{1}{\sqrt{1-\zeta^2}}e^{-\zeta\omega_nt}\cos(\omega_d t -\theta))\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\theta = atan\frac{\zeta}{1-\zeta^2}\)</span></p>
 <dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -315,9 +316,8 @@ step of magnitude Fo.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">step_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">Fo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># doctest: +SKIP</span>
-<span class="go">7.958100817300083e-05</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">step_response</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">Fo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -343,19 +343,19 @@ Fourier series.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt>a, b: tuple</dt><dd><p>Tuple containing arrays with the Fourier coefficients.
+<dt>a, b: tuple</dt><dd><p>Tuple containing arrays with the Fourier coefficients
+as float arrays.
 The function also produces a plot of the approximation.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">04</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-.</span><span class="mi">04</span><span class="p">)))</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">04</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-.</span><span class="mi">04</span><span class="p">)))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">fourier_series</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">fourier_series</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -404,13 +404,9 @@ a plot with the Fourier approximation.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">bodd_square</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">beven_square</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">n</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">fourier_approximation</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">bodd_square</span><span class="p">,</span> <span class="n">beven_square</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-<span class="go">1.2697210294282535</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Triangular wave</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">aeven_triangle</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="o">-</span><span class="mi">8</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">fourier_approximation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">aeven_triangle</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">F</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># doctest: +SKIP</span>
-<span class="go">-0.902349289119351</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -437,9 +433,8 @@ a plot with the response spectrum.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">response_spectrum</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
-<span class="go">1.6285602401720802</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vibration_toolbox</span> <span class="k">as</span> <span class="nn">vtb</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="p">,</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">vtb</span><span class="o">.</span><span class="n">response_spectrum</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
