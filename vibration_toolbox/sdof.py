@@ -623,7 +623,9 @@ def steady_state_response_i(zs=(0, 1.0, 0.1), rmin=(0, 1, .1),
               notebook.')
 
 
-def transmissibility(zs=[0.05, 0.1, 0.25, 0.5, -0.75], rmin=0., rmax=2.):
+def transmissibility(zs=np.array([0.05, 0.1, 0.25, 0.5, -0.75]),
+                     rmin=0.,
+                     rmax=2.):
     """Plot transmissibility ratio for SDOF system.
 
     Parameters
