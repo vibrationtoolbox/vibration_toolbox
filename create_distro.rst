@@ -17,7 +17,7 @@ look at `https://testpypi.python.org/pypi`
 To release
 ----------------
 
-Edit `__init__.py` to update the version number. 
+Edit `__init__.py` to update the version number.
 
 .. code-block:: python
 

@@ -22,12 +22,16 @@ def test_fourier_series():
                     np.array([2.00000000e+00,
                               -8.10836188e-01,
                               7.01998169e-17,
-                              -9.03304154e-02]))
+                              -9.03304154e-02]),
+                    atol=1e-7,
+                    rtol=1e-7)
     assert_allclose(b[:4],
                     np.array([1.13686838e-15,
                               4.45501585e-17,
                               3.37507799e-16,
-                              6.09825913e-17]))
+                              6.09825913e-17]),
+                    atol=1e-7,
+                    rtol=1e-7)
 
 
 def test_transmissibility():

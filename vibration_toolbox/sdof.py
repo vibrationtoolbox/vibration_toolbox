@@ -427,12 +427,7 @@ def response(xdd, f, t, x0, v0):
     Examples
     --------
     >>> import vibration_toolbox as vtb
-    >>> vtb.free_response()[1][:5]
-    array([[1.  ],
-           [1.  ],
-           [0.99],
-           [0.99],
-           [0.98]])
+
 
     """
     omega = np.sqrt(k / m)
@@ -481,6 +476,9 @@ def _forced_analytical(m=10, k=100, x0=1, v0=0,
 
     Examples
     --------
+
+    Notes
+    -----
     >>> _forced_analytical(m=10, k=100, x0=1, v0=0, wdr=0.5, F0=10, tf=100)
 
     """
