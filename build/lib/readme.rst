@@ -3,8 +3,8 @@
 =============================================
 
 .. .. include:: <isonum.txt>
-.. image:: https://badge.fury.io/py/vibration_toolbox.png/
-    :target: http://badge.fury.io/py/vibration_toolbox
+.. image:: https://badge.fury.io/py/vibration-toolbox.png/
+    :target: http://badge.fury.io/py/vibration-toolbox
 
 .. image:: https://travis-ci.org/vibrationtoolbox/vibration_toolbox.svg?branch=master
     :target: https://travis-ci.org/vibrationtoolbox/vibration_toolbox
