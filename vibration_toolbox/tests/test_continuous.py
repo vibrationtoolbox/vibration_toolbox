@@ -88,6 +88,6 @@ def modes_sys_prop():
 
 
 def test_modes_sys_prop():
-    wn, wd, zeta, X, _ = modes_sys_prop()
+    wn, wd, zeta, X, Y = modes_sys_prop()
     assert_allclose(X, np.array([[-0.973249,  0.229753],
                                  [-0.229753, -0.973249]]), rtol=1e-05)

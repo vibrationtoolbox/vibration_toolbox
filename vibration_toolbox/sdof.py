@@ -522,14 +522,15 @@ def forced_response(m=10, c=0, k=100, x0=1, v0=0,
 
     Returns
     -------
-    t, x, y: array
+    t, x, v: array
         Time, displacement and velocity
 
     Examples
     --------
-    >>> f = forced_response(m=10, c=0, k=100, x0=1, v0=0, wdr=0.5, F0=10, max_time=100)
-    >>> f[0][0]
-    0.0
+    >>> import vibration_toolbox as vtb
+    >>> t, x, v = vtb.forced_response(m=10, c=0, k=100, x0=1, v0=0, wdr=0.5, F0=10, max_time=100)
+    >>> plt.plot(t,x,t,v)
+    [<matplotlib.lines.Line2D ...
 
     """
     def sdofs_deriv(x_xd, t, m=m, c=c, k=k):
