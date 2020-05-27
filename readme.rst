@@ -45,7 +45,7 @@ Full `documentation is available <http://vibrationtoolbox.github.io/vibration_to
 Try now!
 --------
 
-You won't get everything, but you can try parts of the toolbox immediately on  and `tutorial on mybinder.org <https://mybinder.org/v2/gh/vibrationtoolbox/vibration_toolbox/binder>`_, right in your browser window.
+You won't get everything, but you can try parts of the toolbox immediately by riunning the `tutorial on mybinder.org <https://mybinder.org/v2/gh/vibrationtoolbox/vibration_toolbox/binder>`_, right in your browser window!
 
 
 Installation
