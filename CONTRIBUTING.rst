@@ -85,20 +85,15 @@ To contribute code we recommend you follow these steps:
 
 10. `Update from the main repository <https://www.sitepoint.com/quick-tip-sync-your-fork-with-the-original-without-the-cli/>`_ regularly, and certainly before submitting a pull request. This allows you to see the complete results before we look at them.  If it doesn't work, the pull will (should) be denied.
 
-Alternatively, from the command line at the top directory:
+Alternatively, from the command line at the top directory within the repository:
 
 .. code-block:: bash
 
-  git checkout master
-  git pull https://github.com/vibrationtoolbox/vibration_toolbox.git master
+  git pull origin master
 
 `Reconcile any merge conflicts`_. Basically, you will edit the files that it complains about to choose which edits win and which edits lose.
 
-After this:
-
-.. code-block:: bash
-
-  git push origin master
+After this push commits to your repository (most likely using GitHub Desktop) and **then** submit a pull request if it passes the TravisCI tests. 
 
 11. If the tests are passing, make a git pull (in your GitHub app) to assure that your code is up to date with your master branch and that your code has no conflicts with the current base. Doing this regularly ensures that your accumulated edits won't be massively in conflict with the existing code base. After that, push your branch to GitHub and then open a pull request on GitHub.
 
