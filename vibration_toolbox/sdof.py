@@ -156,7 +156,7 @@ def phase_plot_i(max_time=(1.0, 200.0), v0=(-100, 100, 1.0),
         print('phase_plot_i can only be used in an iPython notebook.')
 
 
-def _time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
+def time_plot(m=10, c=1, k=100, x0=1, v0=-1, max_time=100):
     t, x, v, zeta, omega, omega_d, A = free_response(
         m, c, k, x0, v0, max_time)
     fig = plt.figure()
@@ -210,7 +210,7 @@ def time_plot_i(max_time=(1.0, 100.0), x0=(-100, 100), v0=(-100, 100),
 
     """
     if _in_ipynb():
-        w = interactive(_time_plot, max_time=max_time, v0=v0, m=m,
+        w = interactive(time_plot, max_time=max_time, v0=v0, m=m,
                         c=c, x0=x0, k=k)
         display(w)
     else:
