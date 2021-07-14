@@ -948,7 +948,7 @@ def fourier_series(dat, t, n):
 
     """
     len_ = len(dat) / 2
-    fs = (fft(dat)) / len_
+    fs = (np.fft.fft(dat)) / len_
     a0 = fs[0]
     a = np.real(np.hstack((a0, fs[1:len(fs / 2)])))
     b = -np.imag(fs[1:len(fs / 2)])
