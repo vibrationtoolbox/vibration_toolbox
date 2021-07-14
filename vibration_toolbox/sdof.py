@@ -1161,11 +1161,11 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
                     * 10**np.floor(np.log10(max_freq)))
 
         omega = np.linspace(0, max_freq, num_points)
-        s = sp.sqrt(-1.0) * omega
+        s = np.lib.scimath.sqrt(-1.0) * omega
         freq_response = 1 / (m * s**2 + c * s + k)
 
-        roots = np.array([[-zeta * omega_n - omega_d * sp.sqrt(-1.0)],
-                          [-zeta * omega_n + omega_d * sp.sqrt(-1)]])
+        roots = np.array([[-zeta * omega_n - omega_d * np.lib.scimath.sqrt(-1.0)],
+                          [-zeta * omega_n + omega_d * np.lib.scimath.sqrt(-1)]])
 
     elif zeta > 1.0:
 
@@ -1216,7 +1216,7 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
                     * 10**np.floor(np.log10(max_freq)))
 
         omega = np.linspace(0, max_freq, num_points)
-        s = sp.sqrt(-1.0) * omega
+        s = np.lib.scimath.sqrt(-1.0) * omega
         freq_response = 1 / (m * s**2 + c * s + k)
 
     elif np.abs(zeta) < 1e-5:
@@ -1252,11 +1252,11 @@ def plot_sdof_resp(m=1.0, c=0.2, k=100.0):
                     * 10**np.floor(np.log10(max_freq)))
 
         omega = np.linspace(0, max_freq, num_points)
-        s = sp.sqrt(-1.0) * omega
+        s = np.lib.scimath.sqrt(-1.0) * omega
         freq_response = 1 / (m * s**2 + c * s + k)
 
-        roots = np.array([[-zeta * omega_n - omega_d * sp.sqrt(-1.0)],
-                          [-zeta * omega_n + omega_d * sp.sqrt(-1)]])
+        roots = np.array([[-zeta * omega_n - omega_d * np.lib.scimath.sqrt(-1.0)],
+                          [-zeta * omega_n + omega_d * np.lib.scimath.sqrt(-1)]])
 
     fig = plt.figure(figsize=(18, 10), dpi=80,
                      facecolor='w', edgecolor='k')
