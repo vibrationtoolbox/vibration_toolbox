@@ -754,15 +754,18 @@ def rotating_unbalance(m, m0, e, zs, rmin, rmax, normalized=True):
     Examples
     --------
     >>> import vibration_toolbox as vtb
-    >>> r, Xn = vtb.rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1, 0.25, 0.707, 1], rmin=0, rmax=3.5, normalized=True)
+    >>> r, Xn = vtb.rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1, 0.25, 0.707, 1.], rmin=0.0, rmax=3.5, normalized=True)
 
     """
     if not isinstance(zs, list):
         zs = [zs]
-    r = np.linspace(rmin, rmax, 100 * (rmax - rmin))
+
+    r = np.linspace(rmin, rmax, num=100)
+
     Xn = np.zeros((len(zs), len(r)), complex)
+
     for z in enumerate(zs):
-        Xn[z[0]] = (r / (1 - r**2 + 2 * 1j * r * z[1]))
+        Xn[z[0]] = (r / (1.0 - r**2.0 + 2.0 * 1j * r * z[1]))
 
     fig = plt.figure()
     ax1 = fig.add_subplot(211)
@@ -945,7 +948,7 @@ def fourier_series(dat, t, n):
 
     """
     len_ = len(dat) / 2
-    fs = (fft(dat)) / len_
+    fs = (np.fft.fft(dat)) / len_
     a0 = fs[0]
     a = np.real(np.hstack((a0, fs[1:len(fs / 2)])))
     b = -np.imag(fs[1:len(fs / 2)])
