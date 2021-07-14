@@ -57,9 +57,9 @@ def test_rotating_unbalance():
     _, Xn = vtb.rotating_unbalance(m=1, m0=0.5, e=0.1, zs=[0.1], rmin=0,
                                    rmax=3.5, normalized=True)
     assert_allclose(Xn[0, :5],
-                    np.array([0. + 0.00000000e+00j,
-                              0.01002962 - 2.01187431e-05j,
-                              0.02006506 - 8.05225885e-05j,
-                              0.03011213 - 1.81354593e-04j,
-                              0.04017667 - 3.22853882e-04j]),
-                    atol=1e-7)
+                    np.array([0.      +0.j      ,
+                              0.035396-0.000251j,
+                              0.071048-0.00101j,
+                              0.107218-0.0023j,
+                              0.14418 -0.004161j]),
+                    atol=1e-4)
