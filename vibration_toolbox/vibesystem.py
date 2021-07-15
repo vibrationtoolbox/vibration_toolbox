@@ -522,8 +522,14 @@ class VibeSystem(object):
         >>> # plot frequency response for inputs at [0, 1]
         >>> # and outputs at [0, 1]
         >>> sys.plot_freq_response_grid(outs=[0, 1], inps=[0, 1])
+<<<<<<< Updated upstream
         array([[<AxesSubplot:ylabel=...
 
+=======
+        array([[<AxesSubplot:ylabel='Magnitude $(dB)$'...
+
+        """
+>>>>>>> Stashed changes
         if ax is None:
             fig, ax = plt.subplots(len(inps) * 2, len(outs),
                                    sharex=True,
