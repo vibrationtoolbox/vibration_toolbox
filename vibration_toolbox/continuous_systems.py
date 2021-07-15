@@ -258,8 +258,8 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
         return
     wn = np.array((0, 0))
     # The number 200 is arbitrarily large and unjustified.
-    a = sp.empty([npoints, 200], dtype=complex)
-    f = sp.empty(100)
+    a = np.empty([npoints, 200], dtype=complex)
+    f = np.empty(100)
 
     while wn[-1] < 1.3 * (fmax * 2 * sp.pi):
         i = i + 1
@@ -269,14 +269,14 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
         Uin = spl(xin)
         Uout = spl(xout)
         a[:, i - 1] = rho * A * Uin * Uout / \
-            (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * sp.sqrt(-1))
+            (wn[-1] ** 2 - w ** 2 + 2 * zeta * wn[-1] * w * np.lib.scimath.sqrt(-1))
         f[i] = wn[-1] / 2 / sp.pi
     a = a[:, 0:i]
     plt.figure()
     plt.subplot(211)
-    plt.plot(w / 2 / sp.pi, 20 * sp.log10(sp.absolute(sp.sum(a, axis=1))), '-')
+    plt.plot(w / 2 / sp.pi, 20 * np.lib.scimath.log10(np.absolute(np.sum(a, axis=1))), '-')
     # plt.hold(True)
-    plt.plot(w / 2 / sp.pi, 20 * sp.log10(sp.absolute(a)), '-')
+    plt.plot(w / 2 / sp.pi, 20 * np.lib.scimath.log10(np.absolute(a)), '-')
     plt.grid(True)
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('FRF (dB)')
@@ -286,9 +286,9 @@ def euler_beam_frf(xin=0.22, xout=0.32, fmin=0.0, fmax=1000.0, zeta=0.02,
                                0.1 * (axlim[3] - axlim[2])]))
 
     plt.subplot(212)
-    plt.plot(w / 2 / sp.pi, sp.unwrap(sp.angle(sp.sum(a, axis=1))) /
+    plt.plot(w / 2 / sp.pi, np.unwrap(np.angle(np.sum(a, axis=1))) /
              sp.pi * 180, '-')
-    plt.plot(w / 2 / sp.pi, sp.unwrap(sp.angle(a)) / sp.pi * 180, '-')
+    plt.plot(w / 2 / sp.pi, np.unwrap(np.angle(a)) / sp.pi * 180, '-')
     plt.grid(True)
     plt.xlabel('Frequency (Hz)')
     plt.ylabel('Phase (deg)')

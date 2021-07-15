@@ -446,6 +446,7 @@ class VibeSystem(object):
         >>> # plot frequency response for input and output at m0
         >>> sys.plot_freq_response(0, 0)
         (<AxesSubplot:ylabel=...
+
         """
         if ax0 is None or ax1 is None:
             fig, ax = plt.subplots(2)
@@ -522,7 +523,7 @@ class VibeSystem(object):
         >>> # and outputs at [0, 1]
         >>> sys.plot_freq_response_grid(outs=[0, 1], inps=[0, 1])
         array([[<AxesSubplot:ylabel=...
-        """
+
         if ax is None:
             fig, ax = plt.subplots(len(inps) * 2, len(outs),
                                    sharex=True,
@@ -594,6 +595,7 @@ class VibeSystem(object):
         >>> F1[:, 1] = 1000*np.sin(40*t) # force applied on m1
         >>> sys.plot_time_response(F1, t)
         array([<AxesSubplot:ylabel=...
+
         """
         if ax is None:
             fig, axs = plt.subplots(self.lti.outputs, 1, sharex=True)
